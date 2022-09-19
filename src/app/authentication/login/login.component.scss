@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  height: 400px;
+
+  .mat-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    mat-card-title,
+    mat-card-content {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      min-width: 300px;
+
+      .login-form {
+        margin-bottom: 30px;
+
+        .mat-form-field {
+          width: 300px;
+        }
+      }
+
+      .additional-sign-in-methods {
+        font-size: 10px;
+        align-self: flex-start;
+      }
+    }
+
+    mat-card-title {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .register-text {
+        //TODO: use angular material fonts, or variables
+        font-size: 10px;
+        margin-top: 10px;
+
+        .register-link {
+          cursor: pointer;
+          //TODO: use angular material fonts, or variables
+          color: black;
+        }
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

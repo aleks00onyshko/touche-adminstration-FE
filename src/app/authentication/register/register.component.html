@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-title>
+    <span>Register</span>
+    <div class="register-text">
+      Already have an account?
+      <a class="register-link" [routerLink]="['/authentication', 'login']"
+        >Sign in</a
+      >
+    </div>
+  </mat-card-title>
+
+  <mat-card-content>
+    <form
+      class="register-form"
+      autocomplete="off"
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+    >
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Username"
+            [formControl]="registerForm.controls.email"
+          />
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            [formControl]="registerForm.controls.password"
+          />
+        </mat-form-field>
+      </p>
+
+      <div class="button">
+        <button
+          type="submit"
+          mat-button
+          mat-raised-button
+          color="primary"
+          [disabled]="registerForm.invalid"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+
+    <app-additional-login-methods
+      class="additional-sign-in-methods"
+    ></app-additional-login-methods>
+  </mat-card-content>
+</mat-card>
