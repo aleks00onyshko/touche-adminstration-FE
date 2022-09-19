@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bot-administration": {
+      "hosting": {
+        "bot-administration-FE": [
+          "bot-administration"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bot-administration"
+  }
+}
