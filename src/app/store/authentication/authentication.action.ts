@@ -10,7 +10,7 @@ export const AuthenticationActions = createActionGroup({
     'Email Register': props<{ email: string, password: string }>(),
     'Email Login': props<{ email: string, password: string }>(),
     'Google Login': emptyProps(),
-    'Logout': props<any>(),
+    'Logout': emptyProps(),
     'Error': props<{ error: string }>(),
   },
 });

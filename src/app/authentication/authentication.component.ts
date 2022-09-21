@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth, onAuthStateChanged, user } from '@angular/fire/auth';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -6,7 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss'],
+  styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent implements OnInit {
   constructor() {}

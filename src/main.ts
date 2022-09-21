@@ -1,7 +1,7 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { APP_INITIALIZER, enableProdMode, importProvidersFrom, InjectionToken } from '@angular/core';
+import { MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth, Auth, user } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
@@ -19,6 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { authenticationReducer, AUTHENTICATION_FEATURE_NAME } from './app/store/authentication/authentication.reducer';
 import { AuthenticationEffects } from './app/store/authentication/authentication.effects';
+import { catchError, of, take } from 'rxjs';
 
 if (environment.production) {
   enableProdMode();
@@ -44,6 +45,19 @@ bootstrapApplication(AppComponent, {
       }),
       MatSnackBarModule
     ),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [Auth, MatSnackBar],
+      useFactory: (auth: Auth, matSnackBar: MatSnackBar) => () =>
+        user(auth).pipe(
+          take(1),
+          catchError((err: Error) => {
+            matSnackBar.open(err.message);
+            return of(null);
+          })
+        )
+    },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {

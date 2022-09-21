@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, User, user } from '@angular/fire/auth';
+import {
+  Auth,
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  User,
+  user
+} from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 import { catchError, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
 
 @Injectable()
-export class AuthenticationEffects {
+export class AuthenticationEffects implements OnInitEffects {
   public getUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthenticationActions.getUser),
@@ -57,7 +68,9 @@ export class AuthenticationEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthenticationActions.authenticated),
-        tap(() => this.router.navigate(['dashboard']))
+        tap(() => {
+          this.router.navigate(['dashboard']);
+        })
       ),
     { dispatch: false }
   );
@@ -81,4 +94,8 @@ export class AuthenticationEffects {
   );
 
   constructor(private actions$: Actions, private auth: Auth, private router: Router, private snackbar: MatSnackBar) {}
+
+  public ngrxOnInitEffects(): Action {
+    return AuthenticationActions.getUser();
+  }
 }
