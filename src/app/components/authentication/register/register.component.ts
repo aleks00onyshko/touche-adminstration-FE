@@ -7,8 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { AdditionalLoginMethodsComponent } from '../additional-login-methods/additional-login-methods.component';
 import { Store } from '@ngrx/store';
-import { AuthenticationState } from '../../store/authentication/authentication.reducer';
-import { AuthenticationActions } from '../../store/authentication/authentication.action';
+import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
+import { AuthenticationActions } from '../../../store/authentication/authentication.action';
 
 @Component({
   selector: 'app-register',

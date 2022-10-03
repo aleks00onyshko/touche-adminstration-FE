@@ -68,9 +68,7 @@ export class AuthenticationEffects implements OnInitEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthenticationActions.authenticated),
-        tap(() => {
-          this.router.navigate(['dashboard']);
-        })
+        tap(() => this.router.navigate(['dashboard']))
       ),
     { dispatch: false }
   );

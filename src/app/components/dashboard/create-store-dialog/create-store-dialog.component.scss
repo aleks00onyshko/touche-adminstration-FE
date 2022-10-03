@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .mat-dialog-content {
+    height: 100%;
+
+    .create-bot-form-card {
+      margin-top: 20px;
+      // TODO: use angular/material theming instead
+      background-color: #303030;
+
+      .mat-form-field {
+        width: 100%;
+      }
+
+      .mat-form-field:last-child {
+        ::ng-deep .mat-form-field-wrapper {
+          margin-bottom: -1.25em;
+        }
+      }
+    }
+  }
+}
