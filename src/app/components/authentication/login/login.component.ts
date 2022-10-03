@@ -9,9 +9,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterModule } from '@angular/router';
 
 import { AdditionalLoginMethodsComponent } from '../additional-login-methods/additional-login-methods.component';
-import { AuthenticationState } from '../../store/authentication/authentication.reducer';
+import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
 import { Store } from '@ngrx/store';
-import { AuthenticationActions } from '../../store/authentication/authentication.action';
+import { AuthenticationActions } from '../../../store/authentication/authentication.action';
 
 @Component({
   selector: 'app-login',

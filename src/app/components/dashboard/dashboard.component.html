@@ -1,0 +1,20 @@
+<app-spinner *ngIf="(dashboardStore.loading$ | async) === true; else content"></app-spinner>
+
+<ng-template #content>
+  <mat-drawer-container class="dashboard-container">
+    <mat-drawer class="sidenav" mode="side" opened>
+      <button mat-button mat-raised-button color="primary" (click)="openCreateBotDialog()">Create</button>
+
+      <div class="shops-list">
+        <span class="shops-list-title">Your Shops</span>
+
+        <mat-card class="shop-card" *ngFor="let shop of dashboardStore.shops$ | async" [routerLink]="['../shop', shop.id]">
+          {{ shop.name }}
+        </mat-card>
+      </div>
+
+      <button class="logout-button" mat-button mat-raised-button color="primary" (click)="logout()">Log out</button>
+    </mat-drawer>
+    <mat-drawer-content> Here some analytics will be displayed </mat-drawer-content>
+  </mat-drawer-container>
+</ng-template>

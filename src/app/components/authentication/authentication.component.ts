@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, onAuthStateChanged, user } from '@angular/fire/auth';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -12,5 +11,5 @@ import { RouterModule } from '@angular/router';
 export class AuthenticationComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {} 
 }
