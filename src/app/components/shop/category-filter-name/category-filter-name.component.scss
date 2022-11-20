@@ -1,0 +1,17 @@
+:host {
+  display: block;
+
+  .category-filter-container {
+    display: block;
+    color: black;
+    width: 8rem;
+    // TODO: angular material variable here
+    background-color: #69f0ae;
+    border-radius: 3rem;
+
+    &.selected {
+      background-color: #9c27b0;
+      color: white;
+    }
+  }
+}

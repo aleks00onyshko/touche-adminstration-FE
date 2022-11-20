@@ -1,0 +1,58 @@
+:host {
+  position: relative;
+  height: 100%;
+  display: block;
+
+  .shop-container {
+    height: 100%;
+
+    .sidenav {
+      width: 20%;
+      padding: 20px;
+
+      mat-card {
+        // TODO: use angular/material theming instead
+        background-color: #303030;
+        cursor: pointer;
+      }
+    }
+
+    .content {
+      padding: 1rem 2rem;
+
+      .category-filter {
+        width: 100%;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.5rem;
+
+        app-category-filter-name:not(:last-child) {
+          margin-right: 1rem;
+        }
+
+        mat-icon {
+          // TODO: angular material variable here
+          color: #69f0ae;
+          cursor: pointer;
+        }
+      }
+
+      .products {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        .create-fallback {
+          display: block;
+          margin-right: 2rem;
+        }
+
+        .product:not(:last-child) {
+          margin-right: 2rem;
+        }
+      }
+    }
+  }
+}

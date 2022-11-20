@@ -1,0 +1,86 @@
+:host {
+  display: block;
+
+  .product {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 0 0 0;
+    width: 17rem;
+    height: 26rem;
+    position: relative;
+
+    .amount {
+      position: absolute;
+      left: 0.5rem;
+      top: 0.5rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      padding: 0.3rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // TODO: angular material variable here
+      background-color: #69f0ae;
+      color: black;
+    }
+
+    .add-button {
+      width: 100%;
+    }
+
+    .edit-amount {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 47%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+
+    &-image {
+      width: 11rem;
+      margin-bottom: 1rem;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+
+      .title {
+        font-size: 18px;
+      }
+
+      .description {
+        font-size: 11px;
+      }
+
+      .footer {
+        margin-top: auto;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        app-editable-input {
+          display: block;
+          width: 5rem;
+        }
+      }
+    }
+  }
+}

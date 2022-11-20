@@ -1,0 +1,64 @@
+.fallback-inner-container {
+  display: block;
+  width: 15rem;
+  height: 26rem;
+  padding: 1rem 0 0 0;
+  border-radius: 4px;
+  position: relative;
+
+  .add {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    font-size: 40px;
+    height: 4rem;
+    width: 4rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .create-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    &-image {
+      width: 11rem;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 18px;
+    }
+
+    .description {
+      font-size: 11px;
+    }
+
+    .footer {
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      app-editable-input {
+        display: block;
+        width: 5rem;
+      }
+    }
+  }
+
+  .add-button {
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+}

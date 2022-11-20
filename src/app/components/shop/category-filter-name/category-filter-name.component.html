@@ -1,0 +1,10 @@
+<div class="category-filter-container" [class.selected]="selected">
+  <span>
+    <app-editable-input
+      [control]="nameControl"
+      [autofocus]="autofocus"
+      [align]="'center'"
+      (onFocusLost)="changeName()"
+    ></app-editable-input>
+  </span>
+</div>

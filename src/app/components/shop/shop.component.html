@@ -1,1 +1,43 @@
-<p>shop works!</p>
+<app-spinner *ngIf="shopStore.loading$ | async; else content"></app-spinner>
+
+<ng-template #content>
+  <mat-drawer-container class="shop-container">
+    <mat-drawer class="sidenav" mode="side" opened>
+      <mat-card>Integration</mat-card>
+    </mat-drawer>
+
+    <mat-drawer-content class="content">
+      <div class="category-filter">
+        <app-category-filter-name
+          *ngFor="let category of shopStore.categories$ | async"
+          [name]="category.name"
+          [id]="category.id"
+          [autofocus]="category.id === TEMP_CATEGORY_ID"
+          [selected]="(shopStore.selectedCategory$ | async)?.id === category.id"
+          (click)="shopStore.categorySelected$(category)"
+          (nameChanged)="categoryNameChanged($event)"
+        ></app-category-filter-name>
+
+        <mat-icon (click)="createTempCategory()">add</mat-icon>
+      </div>
+
+      <p *ngIf="(shopStore.categories$ | async)!.length === 0; else content">You don't have any categories!</p>
+
+      <ng-template #content>
+        <div class="products">
+          <app-product-fallback
+            class="create-fallback"
+            (onCreateProduct)="createProduct($event)"
+          ></app-product-fallback>
+
+          <ng-container *ngIf="(shopStore.selectedCategory$ | async) !== null">
+            <div class="product" *ngFor="let product of (shopStore.selectedCategory$ | async)!.products">
+              <app-product [product]="product" (delete)="shopStore.deleteProduct$($event)"></app-product>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</ng-template>
+s

@@ -6,12 +6,12 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/components/root/app.component';
+import { AppComponent } from './app/components/app.component';
 
 import { environment } from './environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { appRoutes } from './app/components/root/app.routes';
+import { appRoutes } from './app/components/app.routes';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';

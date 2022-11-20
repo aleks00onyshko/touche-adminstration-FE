@@ -1,0 +1,41 @@
+<mat-card
+  class="fallback-inner-container"
+  [@collapseExpand]="collapsed ? 'collapsed' : 'expanded'"
+  (@collapseExpand.start)="animationStarted($event)"
+  (@collapseExpand.done)="animationEnded($event)"
+>
+  <mat-icon class="add" *ngIf="showPlusButton" (click)="open($event)">add</mat-icon>
+
+  <div class="create-part" *ngIf="showContent">
+    <img class="create-part-image" src="./assets/pizza-final3.svg" alt="" srcset="" />
+
+    <div class="title">
+      <app-editable-input [control]="$any(createProductForm.controls['name'])"></app-editable-input>
+    </div>
+    <div class="description">
+      <app-editable-textarea [control]="$any(createProductForm.controls['description'])"></app-editable-textarea>
+    </div>
+    <div class="footer">
+      <app-editable-input
+        class="price"
+        [control]="$any(createProductForm.controls['price'])"
+        align="center"
+      ></app-editable-input>
+      <span>$</span>
+    </div>
+
+    <button
+      class="add-button"
+      mat-button
+      mat-raised-button
+      color="accent"
+      *ngIf="!collapsed"
+      [disabled]="createProductForm.invalid"
+      (click)="createProduct()"
+    >
+      Create
+    </button>
+
+    <mat-icon class="close-button" color="warn" (click)="discardChanges()">close</mat-icon>
+  </div>
+</mat-card>
