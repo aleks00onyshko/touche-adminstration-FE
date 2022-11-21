@@ -4,17 +4,7 @@ import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } f
 import { MatDialog } from '@angular/material/dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import {
-  EMPTY,
-  from,
-  mergeMap,
-  Observable,
-  pipe,
-  switchMap,
-  take,
-  tap,
-  withLatestFrom
-} from 'rxjs';
+import { EMPTY, from, mergeMap, Observable, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { Category } from '../../core/model/entities/category.entity';
 import { Product } from '../../core/model/entities/product.entity';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
@@ -79,6 +69,18 @@ export class ShopStore extends ComponentStore<ShopState> {
         ...state.categories[categoryIndex],
         products: [product, ...state.categories[categoryIndex].products]
       };
+
+      return { ...state, categories: [...state.categories] };
+    }
+  );
+  public readonly updateProductInCategory = this.updater(
+    (state, { product, categoryId }: { product: Product; categoryId: string }) => {
+      const categoryIndex = state.categories.findIndex(el => el.id === categoryId);
+      const productIndex = state.categories[categoryIndex].products.findIndex(el => el.id === product.id);
+
+      if (state.categories[categoryIndex]) {
+        state.categories[categoryIndex].products[productIndex] = { ...product };
+      }
 
       return { ...state, categories: [...state.categories] };
     }
@@ -253,6 +255,24 @@ export class ShopStore extends ComponentStore<ShopState> {
                 : EMPTY
             )
           )
+      )
+    )
+  );
+
+  public readonly updateProduct$ = this.effect((product$: Observable<Product>) =>
+    product$.pipe(
+      withLatestFrom(this.shopId$, this.selectedCategory$),
+      switchMap(([product, shopId, category]) =>
+        from(
+          updateDoc(doc(this.firestore, `shops/${shopId}/categories/${category!.id}/products/${product.id}`), {
+            ...product
+          })
+        ).pipe(
+          tapResponse(
+            () => this.updateProductInCategory({ product, categoryId: category!.id }),
+            (err: HttpErrorResponse) => console.error(err.message)
+          )
+        )
       )
     )
   );

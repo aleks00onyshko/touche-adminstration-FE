@@ -32,7 +32,11 @@
 
           <ng-container *ngIf="(shopStore.selectedCategory$ | async) !== null">
             <div class="product" *ngFor="let product of (shopStore.selectedCategory$ | async)!.products">
-              <app-product [product]="product" (delete)="shopStore.deleteProduct$($event)"></app-product>
+              <app-product
+                [product]="product"
+                (update)="shopStore.updateProduct$($event)"
+                (delete)="shopStore.deleteProduct$($event)"
+              ></app-product>
             </div>
           </ng-container>
         </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Product } from '../../../core/model/entities/product.entity';
 import { MatCardModule } from '@angular/material/card';
 import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditableTextareaComponent } from '../../../shared/components/editable-textarea/editable-textarea.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,19 +26,30 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProductComponent implements OnInit {
   @Input() product!: Product;
 
+  @Output() update = new EventEmitter<Product>();
   @Output() delete = new EventEmitter<string>();
 
   public productFormGroup!: FormGroup;
+  public controls!: { [key: string]: AbstractControl };
   public amount: number = 0;
 
   public ngOnInit(): void {
     const { name, description, price } = this.product;
 
     this.productFormGroup = new FormGroup({
-      name: new FormControl<string>(name ?? 'Sample Name'),
-      description: new FormControl<string>(description ?? 'Sample Description'),
-      price: new FormControl<number>(price ?? 10)
+      name: new FormControl<string>(name, [Validators.required]),
+      description: new FormControl<string>(description, [Validators.required]),
+      price: new FormControl<number>(price, [Validators.required])
     });
+    this.controls = {
+      name: this.productFormGroup.controls['name'],
+      description: this.productFormGroup.controls['description'],
+      price: this.productFormGroup.controls['price']
+    };
+  }
+
+  public onFocusLost(changedProperties: Partial<Product>): void {
+    this.update.emit({ ...this.product, ...changedProperties });
   }
 
   public deleteProduct(): void {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,4 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class EditableTextareaComponent {
   @Input() control!: FormControl;
+
+  @Output() onFocusLost = new EventEmitter<void>();
 }

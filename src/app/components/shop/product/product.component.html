@@ -2,22 +2,44 @@
   <img class="product-image" src="{{ product.image }}" alt="" srcset="" />
   <div class="product-content" [formGroup]="productFormGroup" autocomplete="off">
     <div class="title">
-      <app-editable-input [control]="$any(productFormGroup.controls['name'])"></app-editable-input>
+      <app-editable-input
+        [control]="$any(controls['name'])"
+        (onFocusLost)="controls['name'].valid && onFocusLost({ name: controls['name'].value })"
+      ></app-editable-input>
     </div>
     <div class="description">
-      <app-editable-textarea [control]="$any(productFormGroup.controls['description'])"></app-editable-textarea>
+      <app-editable-textarea
+        [control]="$any(controls['description'])"
+        (onFocusLost)="controls['description'].valid && onFocusLost({ description: controls['description'].value })"
+      ></app-editable-textarea>
     </div>
     <div class="footer">
-      <app-editable-input class="price" [control]="$any(productFormGroup.controls['price'])" align="center"></app-editable-input>
+      <app-editable-input
+        class="price"
+        align="center"
+        [control]="$any(controls['price'])"
+        (onFocusLost)="controls['price'].valid && onFocusLost({ price: controls['price'].value })"
+      ></app-editable-input>
       <span>$</span>
     </div>
   </div>
 
-  <button class="add-button" *ngIf="amount === 0; else editAmount" (click)="add()" mat-button mat-raised-button color="accent">Add</button>
+  <button
+    class="add-button"
+    *ngIf="amount === 0; else editAmount"
+    (click)="add()"
+    mat-button
+    mat-raised-button
+    color="accent"
+  >
+    Add
+  </button>
 
   <ng-template #editAmount>
     <div class="edit-amount">
-      <button class="minus" (click)="remove()" mat-button mat-raised-button color="warn"><mat-icon>remove</mat-icon></button>
+      <button class="minus" (click)="remove()" mat-button mat-raised-button color="warn">
+        <mat-icon>remove</mat-icon>
+      </button>
       <button class="plus" (click)="add()" mat-button mat-raised-button color="accent"><mat-icon>add</mat-icon></button>
     </div>
   </ng-template>
