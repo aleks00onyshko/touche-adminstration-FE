@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, enableProdMode, importProvidersFrom, InjectionToken } from '@angular/core';
-import { MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarModule as MatSnackBarModule, MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/legacy-snack-bar';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth, Auth, user } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';

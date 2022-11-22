@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { EMPTY, from, mergeMap, Observable, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatCardModule } from '@angular/material/card';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { EditableInputComponent } from '../../shared/components/editable-input/editable-input.component';
 import { Category } from '../../core/model/entities/category.entity';
 import { CategoryFilterNameComponent } from './category-filter-name/category-filter-name.component';
@@ -16,7 +16,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductComponent } from './product/product.component';
 import { ProductFallbackComponent } from './product-fallback/product-fallback.component';
 import { Product } from '../../core/model/entities/product.entity';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-shop',

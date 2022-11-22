@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
 import { AuthenticationActions } from '../../../store/authentication/authentication.action';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-additional-login-methods',
