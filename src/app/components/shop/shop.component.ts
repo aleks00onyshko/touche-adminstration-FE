@@ -12,7 +12,7 @@ import { Category } from '../../core/model/entities/category.entity';
 import { CategoryFilterNameComponent } from './category-filter-name/category-filter-name.component';
 import { MatIconModule } from '@angular/material/icon';
 import { initialState, ShopStore, TEMP_CATEGORY_ID } from './shop.store';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductComponent } from './product/product.component';
 import { ProductFallbackComponent } from './product-fallback/product-fallback.component';
 import { Product } from '../../core/model/entities/product.entity';
