@@ -13,6 +13,11 @@
       mat-card {
         // TODO: use angular/material theming instead
         background-color: #303030;
+        height: 4rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 1rem;
         cursor: pointer;
       }
     }
@@ -39,14 +44,26 @@
         }
       }
 
-      .products {
-        margin-top: 1rem;
+      .products-with-fallback {
         display: flex;
-        flex-wrap: wrap;
+        justify-content: flex-start;
 
         .create-fallback {
           display: block;
-          margin-right: 2rem;
+          margin-right: 1rem;
+          margin-top: 1rem;
+          height: 100%;
+        }
+
+        .products {
+          display: flex;
+          flex-wrap: wrap;
+          padding-bottom: 2rem;
+
+          .product {
+            margin-right: 2rem;
+            margin-top: 2rem;
+          }
         }
 
         .product:not(:last-child) {
@@ -54,5 +71,14 @@
         }
       }
     }
+  }
+  .product-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    width: 17rem;
+    height: 28.3rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
 }

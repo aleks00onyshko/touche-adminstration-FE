@@ -1,0 +1,31 @@
+<div class="lists-container" #listsContainer cdkDropListGroup>
+  <ng-container *ngIf="draggableDataSource">
+    <div
+      *ngFor="let list of draggableDataSource"
+      cdkDropList
+      class="drag-and-drop-container"
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="list"
+      #list
+    >
+      <div
+        class="item"
+        *ngFor="let item of list; index as i"
+        [cdkDragData]="item"
+        [style.margin.rem]="gap"
+        cdkDrag
+        #item
+      >
+        <ng-container
+          [ngTemplateOutlet]="itemTemplateRef"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- I need this to evaluate width of the item -->
+<div style="display: inline-block; visibility: hidden" #item>
+  <ng-container [ngTemplateOutlet]="itemTemplateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+</div>

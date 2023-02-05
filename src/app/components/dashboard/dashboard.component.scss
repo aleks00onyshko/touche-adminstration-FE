@@ -29,6 +29,11 @@
         .shop-card {
           // TODO: use angular/material theming instead
           background-color: #303030;
+          height: 4rem;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          padding: 1rem;
           cursor: pointer;
         }
 

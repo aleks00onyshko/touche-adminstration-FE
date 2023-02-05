@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -6,10 +6,11 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss']
+  styleUrls: ['./authentication.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthenticationComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {} 
+  ngOnInit(): void {}
 }

@@ -12,7 +12,7 @@ export class LoginGuard implements CanActivate {
   public canActivate(): Observable<boolean> {
     return this.store.select(selectUser).pipe(
       tap(user => {
-        if (!!user) this.router.navigate(['dashboard']);
+        if (user) void this.router.navigate(['dashboard']);
       }),
       map(user => !user)
     );

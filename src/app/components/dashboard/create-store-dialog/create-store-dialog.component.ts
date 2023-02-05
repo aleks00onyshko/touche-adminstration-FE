@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+
 import { CreateBotInstructionsComponent } from './create-bot-instructions/create-bot-instructions.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-store-dialog',
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   templateUrl: './create-store-dialog.component.html',
-  styleUrls: ['./create-store-dialog.component.scss']
+  styleUrls: ['./create-store-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateStoreDialogComponent {
   public createStoreForm = new FormGroup({

@@ -1,13 +1,28 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { EMPTY, from, mergeMap, Observable, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
+import {
+  concatMap,
+  EMPTY,
+  filter,
+  from,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  pipe,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs';
 import { Category } from '../../core/model/entities/category.entity';
 import { Product } from '../../core/model/entities/product.entity';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
+import { UploadService } from '../../core/services/upload.service';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 export interface ShopState {
@@ -113,6 +128,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   constructor(
     private firestore: Firestore,
     private UUIDGeneratorService: UUIDGeneratorService,
+    private uploadService: UploadService,
     private matDialog: MatDialog
   ) {
     super();
@@ -142,6 +158,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly getProductsForCategory$ = this.effect((categoryId$: Observable<string>) =>
     categoryId$.pipe(
       withLatestFrom(this.shopId$),
+      tap(() => this.setLoading(true)),
       switchMap(([categoryId, shopId]) =>
         (
           collectionData(collection(this.firestore, `shops/${shopId}/categories/${categoryId}/products`)) as Observable<
@@ -149,7 +166,6 @@ export class ShopStore extends ComponentStore<ShopState> {
           >
         ).pipe(
           take(1),
-          tap(() => this.setLoading(true)),
           tapResponse(
             products => {
               this.setProductsToCategory({ products, categoryId });
@@ -212,25 +228,29 @@ export class ShopStore extends ComponentStore<ShopState> {
     )
   );
 
-  public readonly createProduct$ = this.effect((product$: Observable<Omit<Product, 'id'>>) =>
-    product$.pipe(
-      withLatestFrom(this.selectedCategory$, this.shopId$),
-      switchMap(([product, selectedCategory, shopId]) => {
-        const id = this.UUIDGeneratorService.generateId();
+  public readonly createProduct$ = this.effect(
+    (productAndImage$: Observable<{ product: Omit<Product, 'id'>; image: File }>) =>
+      productAndImage$.pipe(
+        withLatestFrom(this.selectedCategory$, this.shopId$),
+        switchMap(([{ product, image }, selectedCategory, shopId]) => {
+          const id = this.UUIDGeneratorService.generateId();
 
-        return from(
-          setDoc(doc(this.firestore, `shops/${shopId}/categories/${selectedCategory!.id}/products/${id}`), {
-            id,
-            ...product
-          })
-        ).pipe(
-          tapResponse(
-            () => this.addProductToCategory({ product: { ...product, id }, categoryId: selectedCategory!.id }),
-            (err: HttpErrorResponse) => console.error(err.message)
-          )
-        );
-      })
-    )
+          this.addProductToCategory({ product: { ...product, id }, categoryId: selectedCategory!.id });
+          this.uploadFileToStorageAndUpdateProduct$({ product: { ...product, id }, image });
+
+          return from(
+            setDoc(doc(this.firestore, `shops/${shopId}/categories/${selectedCategory!.id}/products/${id}`), {
+              id,
+              ...product
+            })
+          ).pipe(
+            tapResponse(
+              () => EMPTY,
+              (err: HttpErrorResponse) => console.error(err.message)
+            )
+          );
+        })
+      )
   );
 
   public readonly deleteProduct$ = this.effect((id$: Observable<string>) =>
@@ -262,6 +282,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly updateProduct$ = this.effect((product$: Observable<Product>) =>
     product$.pipe(
       withLatestFrom(this.shopId$, this.selectedCategory$),
+      tap(([product, _, category]) => this.updateProductInCategory({ product, categoryId: category!.id })),
       switchMap(([product, shopId, category]) =>
         from(
           updateDoc(doc(this.firestore, `shops/${shopId}/categories/${category!.id}/products/${product.id}`), {
@@ -269,11 +290,38 @@ export class ShopStore extends ComponentStore<ShopState> {
           })
         ).pipe(
           tapResponse(
-            () => this.updateProductInCategory({ product, categoryId: category!.id }),
+            () => EMPTY,
             (err: HttpErrorResponse) => console.error(err.message)
           )
         )
       )
     )
+  );
+
+  public readonly uploadImageForProduct$ = this.effect((product$: Observable<Product>) =>
+    product$.pipe(
+      switchMap(product =>
+        this.uploadService.getFiles(true, ['.png', '.jpeg', '.svg']).pipe(
+          filter(images => images.length > 0),
+          withLatestFrom(this.shopId$),
+          tap(([images]) => {
+            this.updateProduct$({ ...product, image: URL.createObjectURL(images[0]) });
+            this.uploadFileToStorageAndUpdateProduct$({ image: images[0], product });
+          })
+        )
+      )
+    )
+  );
+
+  public uploadFileToStorageAndUpdateProduct$ = this.effect(
+    (fileAndProductToUpdate$: Observable<{ image: File; product: Product }>) =>
+      fileAndProductToUpdate$.pipe(
+        withLatestFrom(this.shopId$),
+        switchMap(([{ image, product }, shopId]) =>
+          this.uploadService
+            .uploadFileToStorage(image, shopId)
+            .pipe(map(downloadUrl => downloadUrl && this.updateProduct$({ ...product, image: downloadUrl })))
+        )
+      )
   );
 }

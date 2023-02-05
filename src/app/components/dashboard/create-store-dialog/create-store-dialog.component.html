@@ -4,7 +4,7 @@
   <app-create-bot-instructions></app-create-bot-instructions>
 
   <mat-card class="create-bot-form-card">
-    <form autocomplete="off" [formGroup]="createStoreForm" (ngSubmit)="createStore()">
+    <form class="form" autocomplete="off" [formGroup]="createStoreForm" (ngSubmit)="createStore()">
       <mat-form-field appearance="fill">
         <mat-label>Bot token</mat-label>
         <input type="text" matInput placeholder="Bot token" [formControl]="createStoreForm.controls.botToken" />
@@ -20,5 +20,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" [disabled]="createStoreForm.invalid" (click)="createStore()">Save</button>
+  <button mat-button [mat-dialog-close]="true" [disabled]="createStoreForm.invalid" (click)="createStore()">
+    Save
+  </button>
 </mat-dialog-actions>

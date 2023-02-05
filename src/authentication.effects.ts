@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   Auth,
-  browserLocalPersistence,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
   User,
@@ -15,7 +13,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { catchError, from, map, of, switchMap, tap } from 'rxjs';
-import { AuthenticationActions } from './authentication.action';
+import { AuthenticationActions } from './app/store/authentication/authentication.action';
 
 @Injectable()
 export class AuthenticationEffects implements OnInitEffects {
@@ -23,7 +21,11 @@ export class AuthenticationEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(AuthenticationActions.getUser),
       switchMap(() => user(this.auth)),
-      map((user: User | null) => (user ? AuthenticationActions.authenticated({ user: user.toJSON() as User }) : AuthenticationActions.notAuthenticated())),
+      map((user: User | null) =>
+        user
+          ? AuthenticationActions.authenticated({ user: user.toJSON() as User })
+          : AuthenticationActions.notAuthenticated()
+      ),
       catchError((error: Error) => of(AuthenticationActions.error({ error: error.message })))
     )
   );

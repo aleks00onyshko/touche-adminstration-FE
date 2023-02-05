@@ -1,28 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthenticationState } from '../../store/authentication/authentication.reducer';
 import { AuthenticationActions } from '../../store/authentication/authentication.action';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialogModule as MatDialogModule, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { CreateShopDialogResult, CreateStoreDialogComponent } from './create-store-dialog/create-store-dialog.component';
-import { map, take } from 'rxjs';
+import {
+  CreateShopDialogResult,
+  CreateStoreDialogComponent
+} from './create-store-dialog/create-store-dialog.component';
+import { take } from 'rxjs';
 import { DashboardStore } from './dashboard.store';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatButtonModule, MatCardModule, MatDialogModule, SpinnerComponent, RouterModule],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    SpinnerComponent,
+    RouterModule
+  ],
   providers: [DashboardStore],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-  constructor(private store: Store<AuthenticationState>, private dialog: MatDialog, public dashboardStore: DashboardStore) {}
+  constructor(
+    private store: Store<AuthenticationState>,
+    private dialog: MatDialog,
+    public dashboardStore: DashboardStore
+  ) {}
 
   public ngOnInit(): void {
     this.dashboardStore.getShops();

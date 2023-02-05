@@ -1,3 +1,11 @@
 <mat-form-field class="input" floatLabel="never" appearance="outline" [ngClass]="['align-' + align]">
-  <input type="text" #input matInput autocomplete="off" [formControl]="control" (blur)="onFocusLost.emit()" />
+  <input
+    type="text"
+    #input
+    matInput
+    autocomplete="off"
+    [formControl]="control"
+    (blur)="onFocusLost.emit()"
+    (keyup.enter)="onEnterPressed.emit()"
+  />
 </mat-form-field>

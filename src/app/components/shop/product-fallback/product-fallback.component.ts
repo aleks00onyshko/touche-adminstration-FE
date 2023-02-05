@@ -1,13 +1,26 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
 import { EditableTextareaComponent } from '../../../shared/components/editable-textarea/editable-textarea.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { Product } from '../../../core/model/entities/product.entity';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { UploadService } from '../../../core/services/upload.service';
+import { take } from 'rxjs';
+import { SanitizePipe } from '../../../shared/pipes/sanitize.pipe';
+import { ConvertImageToUrlPipe } from '../../../shared/pipes/convert-image-to-url.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-product-fallback',
@@ -19,7 +32,10 @@ import { Product } from '../../../core/model/entities/product.entity';
     EditableTextareaComponent,
     ReactiveFormsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    SanitizePipe,
+    ConvertImageToUrlPipe,
+    MatTooltipModule
   ],
   templateUrl: './product-fallback.component.html',
   styleUrls: ['./product-fallback.component.scss'],
@@ -39,11 +55,14 @@ import { Product } from '../../../core/model/entities/product.entity';
       ),
       transition('expanded <=> collapsed', animate(200))
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductFallbackComponent {
-  @Output() onCreateProduct = new EventEmitter<Omit<Product, 'id'>>();
+  @Output() onCreateProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File }>();
 
+  public image: File | null = null;
+  public defaultImagePath = './assets/no-product-image-fallback.png';
   public collapsed = true;
   public showPlusButton = true;
   public showContent = false;
@@ -57,12 +76,16 @@ export class ProductFallbackComponent {
 
   @HostListener('document:click', ['$event'])
   clickedOutside(event: PointerEvent) {
-    if (!this.eRef.nativeElement.contains(event.target) && !this.collapsed) {
+    if (
+      !this.eRef.nativeElement.contains(event.target) &&
+      !this.collapsed &&
+      (event.target as any).localName !== 'input'
+    ) {
       this.discardChanges();
     }
   }
 
-  constructor(private eRef: ElementRef) {}
+  constructor(private eRef: ElementRef, private cdr: ChangeDetectorRef, private uploadService: UploadService) {}
 
   public animationEnded(event: AnimationEvent): void {
     if (event.fromState === 'expanded') {
@@ -73,6 +96,7 @@ export class ProductFallbackComponent {
       this.showContent = true;
     }
   }
+
   public animationStarted(event: AnimationEvent): void {
     if (event.fromState === 'collapsed') {
       this.showPlusButton = false;
@@ -88,17 +112,32 @@ export class ProductFallbackComponent {
     this.collapsed = false;
   }
 
+  public uploadImage(): void {
+    this.uploadService
+      .getFiles(true, ['.png', '.jpeg', '.svg'])
+      .pipe(take(1))
+      .subscribe(images => {
+        this.image = images[0];
+        this.cdr.detectChanges();
+      });
+  }
+
   public discardChanges(): void {
     this.createProductForm.reset(this.initialFormValue);
     this.collapsed = true;
+    this.image = null;
   }
 
   public createProduct(): void {
+    console.log(this.createProductForm.invalid, this.image);
     this.onCreateProduct.emit({
-      name: this.createProductForm.value.name!,
-      description: this.createProductForm.value.description!,
-      price: this.createProductForm.value.price!,
-      image: './assets/pizza-final3.svg'
+      product: {
+        name: this.createProductForm.value.name!,
+        description: this.createProductForm.value.description!,
+        price: this.createProductForm.value.price!,
+        image: URL.createObjectURL(this.image as File)
+      },
+      image: this.image as File
     });
 
     this.discardChanges();

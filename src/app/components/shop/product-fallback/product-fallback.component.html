@@ -7,7 +7,14 @@
   <mat-icon class="add" *ngIf="showPlusButton" (click)="open($event)">add</mat-icon>
 
   <div class="create-part" *ngIf="showContent">
-    <img class="create-part-image" src="./assets/pizza-final3.svg" alt="" srcset="" />
+    <div
+      class="product-image"
+      [style.background-image]="
+        image ? 'url(' + (image | convertImageToUrl | sanitize) + ')' : 'url(' + defaultImagePath + ')'
+      "
+    >
+      <mat-icon class="upload-icon" (click)="uploadImage()">upload</mat-icon>
+    </div>
 
     <div class="title">
       <app-editable-input [control]="$any(createProductForm.controls['name'])"></app-editable-input>
@@ -24,17 +31,23 @@
       <span>$</span>
     </div>
 
-    <button
-      class="add-button"
-      mat-button
-      mat-raised-button
-      color="accent"
-      *ngIf="!collapsed"
-      [disabled]="createProductForm.invalid"
-      (click)="createProduct()"
+    <div
+      class="add-button-container"
+      [matTooltipDisabled]="!!image"
+      [matTooltip]="'Please upload product image first.'"
     >
-      Create
-    </button>
+      <button
+        class="add-button"
+        mat-button
+        mat-raised-button
+        color="accent"
+        *ngIf="!collapsed"
+        [disabled]="createProductForm.invalid || !image"
+        (click)="createProduct()"
+      >
+        Create
+      </button>
+    </div>
 
     <mat-icon class="close-button" color="warn" (click)="discardChanges()">close</mat-icon>
   </div>

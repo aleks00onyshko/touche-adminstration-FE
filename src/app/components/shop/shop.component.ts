@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { EditableInputComponent } from '../../shared/components/editable-input/editable-input.component';
 import { Category } from '../../core/model/entities/category.entity';
 import { CategoryFilterNameComponent } from './category-filter-name/category-filter-name.component';
@@ -15,8 +11,14 @@ import { initialState, ShopStore, TEMP_CATEGORY_ID } from './shop.store';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductComponent } from './product/product.component';
 import { ProductFallbackComponent } from './product-fallback/product-fallback.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Product } from '../../core/model/entities/product.entity';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { CdkDragDrop, DragDropModule, DragRef, moveItemInArray, Point } from '@angular/cdk/drag-drop';
+import { DragAndDropContainerComponent } from '../../shared/components/drag-and-drop-container/drag-and-drop-container.component';
 
 @Component({
   selector: 'app-shop',
@@ -36,20 +38,22 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     RouterModule,
     ProductComponent,
     ProductFallbackComponent,
-    MatDialogModule
+    MatDialogModule,
+    DragDropModule,
+    DragAndDropContainerComponent
   ],
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss'],
-  providers: [ShopStore]
+  providers: [ShopStore],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopComponent implements OnInit {
   public TEMP_CATEGORY_ID = TEMP_CATEGORY_ID;
 
-  constructor(private route: ActivatedRoute, public shopStore: ShopStore) {
-    this.shopStore.setState({ ...initialState, id: route.snapshot.paramMap.get('id') ?? '' });
-  }
+  constructor(private route: ActivatedRoute, public shopStore: ShopStore) {}
 
   public ngOnInit(): void {
+    this.shopStore.setState({ ...initialState, id: this.route.snapshot.paramMap.get('id') ?? '' });
     this.shopStore.state$.subscribe(state => console.log(state));
 
     this.shopStore.getCategories$();
@@ -59,13 +63,5 @@ export class ShopComponent implements OnInit {
     id === this.TEMP_CATEGORY_ID
       ? this.shopStore.createCategory$(name)
       : this.shopStore.updateCategoryName$({ name, id });
-  }
-
-  public createTempCategory(): void {
-    this.shopStore.createTempCategory$();
-  }
-
-  public createProduct(product: Omit<Product, 'id'>): void {
-    this.shopStore.createProduct$(product);
   }
 }

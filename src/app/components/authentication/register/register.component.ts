@@ -13,7 +13,16 @@ import { AuthenticationActions } from '../../../store/authentication/authenticat
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, AdditionalLoginMethodsComponent, CommonModule, ReactiveFormsModule, MatCardModule, MatInputModule, MatButtonModule, RouterModule],
+  imports: [
+    CommonModule,
+    AdditionalLoginMethodsComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterModule
+  ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

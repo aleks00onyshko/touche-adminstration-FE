@@ -1,12 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../core/model/entities/product.entity';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditableTextareaComponent } from '../../../shared/components/editable-textarea/editable-textarea.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { UploadService } from '../../../core/services/upload.service';
+import { take } from 'rxjs';
+import { SanitizePipe } from '../../../shared/pipes/sanitize.pipe';
 
 @Component({
   selector: 'app-product',
@@ -18,16 +21,19 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
     EditableTextareaComponent,
     ReactiveFormsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    SanitizePipe
   ],
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
   @Input() product!: Product;
 
   @Output() update = new EventEmitter<Product>();
   @Output() delete = new EventEmitter<string>();
+  @Output() uploadImage = new EventEmitter<void>();
 
   public productFormGroup!: FormGroup;
   public controls!: { [key: string]: AbstractControl };

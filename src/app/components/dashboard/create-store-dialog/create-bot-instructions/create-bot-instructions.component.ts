@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
@@ -7,6 +7,7 @@ import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-c
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './create-bot-instructions.component.html',
-  styleUrls: ['./create-bot-instructions.component.scss']
+  styleUrls: ['./create-bot-instructions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateBotInstructionsComponent {}

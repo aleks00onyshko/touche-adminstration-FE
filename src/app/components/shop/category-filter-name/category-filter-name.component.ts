@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
@@ -8,7 +8,8 @@ import { EditableInputComponent } from '../../../shared/components/editable-inpu
   standalone: true,
   imports: [CommonModule, EditableInputComponent, ReactiveFormsModule],
   templateUrl: './category-filter-name.component.html',
-  styleUrls: ['./category-filter-name.component.scss']
+  styleUrls: ['./category-filter-name.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryFilterNameComponent implements OnChanges {
   @Input() public name!: string;
