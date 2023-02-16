@@ -21,7 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { authenticationReducer, AUTHENTICATION_FEATURE_NAME } from './app/store/authentication/authentication.reducer';
-import { AuthenticationEffects } from './authentication.effects';
+import { AuthenticationEffects } from './app/store/authentication/authentication.effects';
 import { catchError, of, take } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 

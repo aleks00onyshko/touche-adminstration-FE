@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { catchError, from, map, of, switchMap, tap } from 'rxjs';
-import { AuthenticationActions } from './app/store/authentication/authentication.action';
+import { AuthenticationActions } from './authentication.action';
 
 @Injectable()
 export class AuthenticationEffects implements OnInitEffects {
