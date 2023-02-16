@@ -21,7 +21,7 @@
 
       <ng-template #content>
         <app-products
-          [products]="(shopStore.selectedCategory$ | async)!.products"
+          [products]="(shopStore.productsOfSelectedCategory$ | async)!"
           [compareMode]="(shopStore.compareMode$ | async)!"
           (uploadImageForProduct)="shopStore.uploadImageForProduct$($event)"
           (createProduct)="shopStore.createProduct$($event)"
@@ -31,7 +31,7 @@
 
         <app-compare-button
           [compareMode]="(shopStore.compareMode$ | async)!"
-          (compareModeToggled)="shopStore.setcompareMode($event)"
+          (compareModeToggled)="shopStore.setCompareMode($event)"
         ></app-compare-button>
       </ng-template>
     </ng-template>

@@ -129,7 +129,6 @@ export class ProductFallbackComponent {
   }
 
   public createProduct(): void {
-    console.log(this.createProductForm.invalid, this.image);
     this.onCreateProduct.emit({
       product: {
         name: this.createProductForm.value.name!,

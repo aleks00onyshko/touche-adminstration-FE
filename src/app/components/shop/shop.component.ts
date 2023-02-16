@@ -47,7 +47,5 @@ export class ShopComponent implements OnInit {
   public ngOnInit(): void {
     this.shopStore.setState({ ...initialState, id: this.route.snapshot.paramMap.get('id') ?? '' });
     this.shopStore.getCategories$();
-
-    this.shopStore.state$.subscribe(state => console.log(state));
   }
 }

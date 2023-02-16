@@ -27,6 +27,7 @@
     "@ngrx/entity": "^15.3.0",
     "@ngrx/store": "^15.3.0",
     "@ngrx/store-devtools": "^15.3.0",
+    "immutable": "^4.2.4",
     "npm": "^8.19.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

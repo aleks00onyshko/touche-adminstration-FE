@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragAndDropContainerComponent } from '../../../shared/components/drag-and-drop-container/drag-and-drop-container.component';
@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnChanges {
+export class ProductsComponent {
   @Input() products!: Product[];
   @Input() compareMode!: boolean;
 
@@ -29,8 +29,4 @@ export class ProductsComponent implements OnChanges {
   @Output() uploadImageForProduct = new EventEmitter<Product>();
   @Output() updateProduct = new EventEmitter<Product>();
   @Output() deleteProduct = new EventEmitter<string>();
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.products);
-  }
 }

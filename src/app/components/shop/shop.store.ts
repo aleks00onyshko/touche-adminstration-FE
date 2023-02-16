@@ -4,20 +4,36 @@ import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } f
 import { MatDialog } from '@angular/material/dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { EMPTY, filter, from, map, mergeMap, Observable, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
+import { List, Map } from 'immutable';
+import {
+  EMPTY,
+  filter,
+  from,
+  map,
+  mergeMap,
+  Observable,
+  pipe,
+  retry,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs';
 import { Category } from '../../core/model/entities/category.entity';
 import { Product } from '../../core/model/entities/product.entity';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
 import { UploadService } from '../../core/services/upload.service';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
+export type CategoryWithoutProducts = Omit<Category, 'products'>;
 export interface ShopState {
   id: string;
   name: string | null;
   selectedCategoryId: string | null;
   loading: boolean;
   compareMode: boolean;
-  categories: Category[];
+  categories: List<CategoryWithoutProducts>;
+  products: Map<string, List<Product>>;
 }
 
 export const initialState: ShopState = {
@@ -26,7 +42,8 @@ export const initialState: ShopState = {
   selectedCategoryId: null,
   loading: true,
   compareMode: false,
-  categories: []
+  categories: List(),
+  products: Map({})
 };
 
 export const TEMP_CATEGORY_ID = 'TEMP_CATEGORY_ID';
@@ -35,18 +52,28 @@ export const TEMP_CATEGORY_ID = 'TEMP_CATEGORY_ID';
 export class ShopStore extends ComponentStore<ShopState> {
   public readonly loading$: Observable<boolean> = this.select(state => state.loading);
   public readonly shopId$: Observable<string> = this.select(state => state.id);
-  public readonly categories$: Observable<Category[]> = this.select(state => state.categories);
-  public readonly selectedCategory$: Observable<Category | undefined> = this.select(state =>
+  public readonly categories$: Observable<CategoryWithoutProducts[]> = this.select(state => state.categories.toArray());
+  public readonly products$: Observable<Map<string, List<Product>>> = this.select(state => state.products);
+  public readonly selectedCategory$: Observable<CategoryWithoutProducts | undefined> = this.select(state =>
     state.categories.find(el => el.id === state.selectedCategoryId)
+  );
+  public readonly productsOfSelectedCategory$: Observable<Product[]> = this.select(
+    state => state.products.get(state.selectedCategoryId ?? '')?.toArray() ?? []
   );
   public readonly compareMode$: Observable<boolean> = this.select(state => state.compareMode);
 
   public readonly addCategory = this.updater((state, category: Category) => ({
     ...state,
-    categories: [...state.categories, category]
+    categories: state.categories.push(category)
   }));
   public readonly setLoading = this.updater((state, loading: boolean) => ({ ...state, loading }));
-  public readonly setCategories = this.updater((state, categories: Category[]) => ({ ...state, categories }));
+  public readonly setCategories = this.updater((state, categories: Category[]) => ({
+    ...state,
+    categories: List(categories),
+    products: categories.reduce((acc, category) => {
+      return acc.set(category.id, List());
+    }, Map<string, List<Product>>({}))
+  }));
   public readonly setSelectedCategoryId = this.updater((state, id: string) => ({
     ...state,
     selectedCategoryId: id
@@ -54,69 +81,80 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly updateCategoryName = this.updater((state, { name, id }: Pick<Category, 'id' | 'name'>) => {
     const categoryIndex = state.categories.findIndex(el => el.id === id);
 
-    state.categories[categoryIndex] = { ...state.categories[categoryIndex], name };
+    if (state.categories.has(categoryIndex)) {
+      return {
+        ...state,
+        categories: state.categories.update(
+          categoryIndex,
+          category => ({ ...category, name } as CategoryWithoutProducts)
+        )
+      };
+    }
 
-    return { ...state, categories: [...state.categories] };
+    return { ...state };
   });
-  public readonly replaceTempCategory = this.updater((state, newCategory: Category) => {
+  public readonly replaceTempCategory = this.updater((state, newCategory: CategoryWithoutProducts) => {
     const categoryIndex = state.categories.findIndex(el => el.id === TEMP_CATEGORY_ID);
 
-    state.categories[categoryIndex] = { ...state.categories[categoryIndex], ...newCategory };
+    if (state.categories.has(categoryIndex)) {
+      return {
+        ...state,
+        categories: state.categories.delete(categoryIndex).push(newCategory)
+      };
+    }
 
-    return { ...state, categories: [...state.categories] };
+    return { ...state };
   });
   public readonly addProductToCategory = this.updater(
     (state, { product, categoryId }: { product: Product; categoryId: string }) => {
-      const categoryIndex = state.categories.findIndex(el => el.id === categoryId);
+      if (state.products.has(categoryId)) {
+        return {
+          ...state,
+          products: state.products.update(categoryId, products => products!.push(product))
+        };
+      }
 
-      state.categories[categoryIndex] = {
-        ...state.categories[categoryIndex],
-        products: [product, ...state.categories[categoryIndex].products]
-      };
-
-      return { ...state, categories: [...state.categories] };
+      return { ...state };
     }
   );
   public readonly updateProductInCategory = this.updater(
     (state, { product, categoryId }: { product: Product; categoryId: string }) => {
-      const categoryIndex = state.categories.findIndex(el => el.id === categoryId);
-      const productIndex = state.categories[categoryIndex].products.findIndex(el => el.id === product.id);
-
-      if (state.categories[categoryIndex]) {
-        state.categories[categoryIndex].products[productIndex] = { ...product };
+      if (state.products.has(categoryId)) {
+        return {
+          ...state,
+          products: state.products.update(categoryId, products =>
+            products!.update(
+              products!.findIndex(el => el.id === product.id),
+              () => product
+            )
+          )
+        };
       }
 
-      return { ...state, categories: [...state.categories] };
+      return { ...state };
     }
   );
   public readonly deleteProductFromCategory = this.updater(
     (state, { productId, categoryId }: { productId: string; categoryId: string }) => {
-      const categoryIndex = state.categories.findIndex(el => el.id === categoryId);
+      if (state.products.has(categoryId)) {
+        return {
+          ...state,
+          products: state.products.update(categoryId, products =>
+            products!.delete(products!.findIndex(el => el.id === productId))
+          )
+        };
+      }
 
-      state.categories[categoryIndex] = {
-        ...state.categories[categoryIndex],
-        products: state.categories[categoryIndex].products.filter(el => el.id !== productId)
-      };
-
-      return { ...state, categories: [...state.categories] };
+      return { ...state };
     }
   );
-  public readonly setProductsToCategory = this.updater(
-    (state, { products, categoryId }: { products: Product[]; categoryId: string }) => {
-      const categoryIndex = state.categories.findIndex(el => el.id === categoryId);
-
-      state.categories[categoryIndex] = {
-        ...state.categories[categoryIndex],
-        products: [...products]
-      };
-
-      return { ...state, categories: [...state.categories] };
-    }
+  public readonly setCategoryProducts = this.updater(
+    (state, { products, categoryId }: { products: Product[]; categoryId: string }) => ({
+      ...state,
+      products: state.products.set(categoryId, List(products))
+    })
   );
-  public readonly setcompareMode = this.updater((state, compareMode: boolean) => ({
-    ...state,
-    compareMode
-  }));
+  public readonly setCompareMode = this.updater((state, mode: boolean) => ({ ...state, compareMode: mode }));
 
   constructor(
     private firestore: Firestore,
@@ -164,7 +202,7 @@ export class ShopStore extends ComponentStore<ShopState> {
           take(1),
           tapResponse(
             products => {
-              this.setProductsToCategory({ products, categoryId });
+              this.setCategoryProducts({ products, categoryId });
               this.setLoading(false);
             },
             (err: HttpErrorResponse) => console.error(err.message)
@@ -207,7 +245,7 @@ export class ShopStore extends ComponentStore<ShopState> {
         return from(setDoc(doc(this.firestore, `shops/${shopId}/categories/${id}`), { id, name, products: [] })).pipe(
           tapResponse(
             () => {
-              this.replaceTempCategory({ id, name, products: [] });
+              this.replaceTempCategory({ id, name });
               this.setSelectedCategoryId(id);
             },
             (err: HttpErrorResponse) => console.error(err.message)
@@ -217,12 +255,13 @@ export class ShopStore extends ComponentStore<ShopState> {
     )
   );
 
-  public readonly categorySelected$ = this.effect((category$: Observable<Category>) =>
+  public readonly categorySelected$ = this.effect((category$: Observable<CategoryWithoutProducts>) =>
     category$.pipe(
-      tap(category => {
+      withLatestFrom(this.products$),
+      tap(([category, products]) => {
         this.setSelectedCategoryId(category.id);
 
-        if (category.products.length === 0) {
+        if (products.get(category.id)?.size === 0) {
           this.getProductsForCategory$(category.id);
         }
       })
