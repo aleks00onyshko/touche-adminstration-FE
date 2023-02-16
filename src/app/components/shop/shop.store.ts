@@ -4,21 +4,7 @@ import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } f
 import { MatDialog } from '@angular/material/dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import {
-  concatMap,
-  EMPTY,
-  filter,
-  from,
-  map,
-  mergeMap,
-  Observable,
-  of,
-  pipe,
-  switchMap,
-  take,
-  tap,
-  withLatestFrom
-} from 'rxjs';
+import { EMPTY, filter, from, map, mergeMap, Observable, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { Category } from '../../core/model/entities/category.entity';
 import { Product } from '../../core/model/entities/product.entity';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
@@ -26,18 +12,20 @@ import { UploadService } from '../../core/services/upload.service';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 export interface ShopState {
-  name: string | null;
   id: string;
+  name: string | null;
   selectedCategoryId: string | null;
   loading: boolean;
+  compareMode: boolean;
   categories: Category[];
 }
 
 export const initialState: ShopState = {
-  name: null,
   id: '',
+  name: null,
   selectedCategoryId: null,
   loading: true,
+  compareMode: false,
   categories: []
 };
 
@@ -51,6 +39,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly selectedCategory$: Observable<Category | undefined> = this.select(state =>
     state.categories.find(el => el.id === state.selectedCategoryId)
   );
+  public readonly compareMode$: Observable<boolean> = this.select(state => state.compareMode);
 
   public readonly addCategory = this.updater((state, category: Category) => ({
     ...state,
@@ -124,6 +113,10 @@ export class ShopStore extends ComponentStore<ShopState> {
       return { ...state, categories: [...state.categories] };
     }
   );
+  public readonly setcompareMode = this.updater((state, compareMode: boolean) => ({
+    ...state,
+    compareMode
+  }));
 
   constructor(
     private firestore: Firestore,
@@ -143,10 +136,13 @@ export class ShopStore extends ComponentStore<ShopState> {
           tap(() => this.setLoading(true)),
           tapResponse(
             categories => {
-              this.setCategories(categories);
-              this.setSelectedCategoryId(categories[0].id);
+              if (categories.length > 0) {
+                this.setCategories(categories);
+                this.setSelectedCategoryId(categories[0].id);
+                this.getProductsForCategory$(categories[0].id);
+              }
+
               this.setLoading(false);
-              this.getProductsForCategory$(categories[0].id);
             },
             (err: HttpErrorResponse) => console.error(err.message)
           )
@@ -194,13 +190,18 @@ export class ShopStore extends ComponentStore<ShopState> {
   );
 
   public readonly createTempCategory$ = this.effect<void>(
-    pipe(tap(() => this.addCategory({ name: '', id: TEMP_CATEGORY_ID, products: [] })))
+    pipe(
+      tap(() => {
+        this.addCategory({ name: '', id: TEMP_CATEGORY_ID, products: [] });
+        this.setSelectedCategoryId(TEMP_CATEGORY_ID);
+      })
+    )
   );
 
   public readonly createCategory$ = this.effect((name$: Observable<string>) =>
     name$.pipe(
-      withLatestFrom(this.shopId$, this.categories$),
-      switchMap(([name, shopId, categories]) => {
+      withLatestFrom(this.shopId$),
+      switchMap(([name, shopId]) => {
         const id = this.UUIDGeneratorService.generateId();
 
         return from(setDoc(doc(this.firestore, `shops/${shopId}/categories/${id}`), { id, name, products: [] })).pipe(

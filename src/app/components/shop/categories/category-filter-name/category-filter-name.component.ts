@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
+import { EditableInputComponent } from '../../../../shared/components/editable-input/editable-input.component';
 
 @Component({
   selector: 'app-category-filter-name',
@@ -16,6 +16,7 @@ export class CategoryFilterNameComponent implements OnChanges {
   @Input() public id!: string;
   @Input() public autofocus: boolean = false;
   @Input() public selected: boolean = false;
+  @Input() public editable: boolean = true;
 
   @Output() private nameChanged = new EventEmitter<{ name: string; id: string }>();
 

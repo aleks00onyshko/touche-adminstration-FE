@@ -1,16 +1,15 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
+  OnChanges,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { OnChange, SimpleChange } from 'property-watch-decorator';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-drag-and-drop-container',
@@ -20,35 +19,20 @@ import { OnChange, SimpleChange } from 'property-watch-decorator';
   styleUrls: ['./drag-and-drop-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DragAndDropContainerComponent<T> implements AfterViewInit {
-  @OnChange<T[]>(function (this: DragAndDropContainerComponent<T>, newDataSource: T[], change?: SimpleChange<T[]>) {
-    if (!change?.firstChange) {
-      this.draggableDataSource = this.generateDraggableDataSource(
-        newDataSource,
-        this.calculateListCapacity(this.listsContainer, this.item)
-      );
-
-      this.cdr.detectChanges();
-    }
-  })
+export class DragAndDropContainerComponent<T> implements OnChanges {
   @Input()
   public dataSource!: T[];
   @Input() public itemTemplateRef!: TemplateRef<T>;
-  @Input() public placeholder!: TemplateRef<HTMLElement>;
   @Input() public gap: number = 1;
 
   @ViewChild('listsContainer') listsContainer!: ElementRef<HTMLElement>;
-  @ViewChild('item') item!: ElementRef<HTMLElement>;
 
   public draggableDataSource!: T[][];
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  public ngAfterViewInit(): void {
-    this.draggableDataSource = this.generateDraggableDataSource(
-      this.dataSource,
-      this.calculateListCapacity(this.listsContainer, this.item)
-    );
+  public ngOnChanges(): void {
+    this.draggableDataSource = this.generateDraggableDataSource(this.dataSource, 5);
 
     this.cdr.detectChanges();
   }
@@ -65,9 +49,5 @@ export class DragAndDropContainerComponent<T> implements AfterViewInit {
     }
 
     return matrix;
-  }
-
-  private calculateListCapacity(list: ElementRef<HTMLElement>, item: ElementRef<HTMLElement>): number {
-    return Math.floor(list.nativeElement.offsetWidth / item.nativeElement.offsetWidth);
   }
 }

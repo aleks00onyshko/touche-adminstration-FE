@@ -10,16 +10,16 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
-import { EditableTextareaComponent } from '../../../shared/components/editable-textarea/editable-textarea.component';
+import { EditableInputComponent } from '../../../../shared/components/editable-input/editable-input.component';
+import { EditableTextareaComponent } from '../../../../shared/components/editable-textarea/editable-textarea.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Product } from '../../../core/model/entities/product.entity';
+import { Product } from '../../../../core/model/entities/product.entity';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { UploadService } from '../../../core/services/upload.service';
+import { UploadService } from '../../../../core/services/upload.service';
 import { take } from 'rxjs';
-import { SanitizePipe } from '../../../shared/pipes/sanitize.pipe';
-import { ConvertImageToUrlPipe } from '../../../shared/pipes/convert-image-to-url.pipe';
+import { SanitizePipe } from '../../../../shared/pipes/sanitize.pipe';
+import { ConvertImageToUrlPipe } from '../../../../shared/pipes/convert-image-to-url.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({

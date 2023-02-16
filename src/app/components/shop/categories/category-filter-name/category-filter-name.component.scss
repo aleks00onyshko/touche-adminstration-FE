@@ -2,16 +2,27 @@
   display: block;
 
   .category-filter-container {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: black;
     width: 8rem;
+    height: 2.8rem;
     // TODO: angular material variable here
     background-color: #69f0ae;
     border-radius: 3rem;
 
+    app-editable-input {
+      width: 100%;
+    }
+
     &.selected {
       background-color: #9c27b0;
       color: white;
+    }
+
+    .preview {
+      cursor: pointer;
     }
   }
 }

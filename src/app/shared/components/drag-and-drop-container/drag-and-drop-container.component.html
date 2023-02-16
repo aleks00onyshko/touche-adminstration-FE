@@ -24,8 +24,3 @@
     </div>
   </ng-container>
 </div>
-
-<!-- I need this to evaluate width of the item -->
-<div style="display: inline-block; visibility: hidden" #item>
-  <ng-container [ngTemplateOutlet]="itemTemplateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
-</div>

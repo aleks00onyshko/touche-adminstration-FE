@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../../core/model/entities/product.entity';
-import { EditableInputComponent } from '../../../shared/components/editable-input/editable-input.component';
+import { Product } from '../../../../core/model/entities/product.entity';
+import { EditableInputComponent } from '../../../../shared/components/editable-input/editable-input.component';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EditableTextareaComponent } from '../../../shared/components/editable-textarea/editable-textarea.component';
+import { EditableTextareaComponent } from '../../../../shared/components/editable-textarea/editable-textarea.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { UploadService } from '../../../core/services/upload.service';
+import { UploadService } from '../../../../core/services/upload.service';
 import { take } from 'rxjs';
-import { SanitizePipe } from '../../../shared/pipes/sanitize.pipe';
+import { SanitizePipe } from '../../../../shared/pipes/sanitize.pipe';
 
 @Component({
   selector: 'app-product',
@@ -30,10 +30,11 @@ import { SanitizePipe } from '../../../shared/pipes/sanitize.pipe';
 })
 export class ProductComponent implements OnInit {
   @Input() product!: Product;
+  @Input() compareMode!: boolean;
 
   @Output() update = new EventEmitter<Product>();
   @Output() delete = new EventEmitter<string>();
-  @Output() uploadImage = new EventEmitter<void>();
+  @Output() uploadImage = new EventEmitter<Product>();
 
   public productFormGroup!: FormGroup;
   public controls!: { [key: string]: AbstractControl };

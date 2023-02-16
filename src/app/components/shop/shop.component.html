@@ -4,19 +4,15 @@
   </mat-drawer>
 
   <mat-drawer-content class="content">
-    <div class="category-filter">
-      <app-category-filter-name
-        *ngFor="let category of shopStore.categories$ | async"
-        [name]="category.name"
-        [id]="category.id"
-        [autofocus]="category.id === TEMP_CATEGORY_ID"
-        [selected]="(shopStore.selectedCategory$ | async)?.id === category.id"
-        (click)="shopStore.categorySelected$(category)"
-        (nameChanged)="categoryNameChanged($event)"
-      ></app-category-filter-name>
-
-      <mat-icon (click)="shopStore.createTempCategory$()">add</mat-icon>
-    </div>
+    <app-categories
+      [categories]="(shopStore.categories$ | async)!"
+      [selectedCategory]="(shopStore.selectedCategory$ | async)!"
+      [compareMode]="(shopStore.compareMode$ | async)!"
+      (selectCategory)="shopStore.categorySelected$($event)"
+      (changeCategoryName)="shopStore.updateCategoryName$($event)"
+      (createCategory)="shopStore.createCategory$($event)"
+      (createTempCategory)="shopStore.createTempCategory$()"
+    ></app-categories>
 
     <app-spinner *ngIf="shopStore.loading$ | async; else content"></app-spinner>
 
@@ -24,33 +20,19 @@
       <p *ngIf="(shopStore.categories$ | async)!.length === 0; else content">You don't have any categories!</p>
 
       <ng-template #content>
-        <div class="products-with-fallback">
-          <app-product-fallback
-            class="create-fallback"
-            (onCreateProduct)="shopStore.createProduct$($event)"
-          ></app-product-fallback>
+        <app-products
+          [products]="(shopStore.selectedCategory$ | async)!.products"
+          [compareMode]="(shopStore.compareMode$ | async)!"
+          (uploadImageForProduct)="shopStore.uploadImageForProduct$($event)"
+          (createProduct)="shopStore.createProduct$($event)"
+          (updateProduct)="shopStore.updateProduct$($event)"
+          (deleteProduct)="shopStore.deleteProduct$($event)"
+        ></app-products>
 
-          <app-drag-and-drop-container
-            [dataSource]="(shopStore.selectedCategory$ | async)!.products"
-            [itemTemplateRef]="productTemplate"
-            [placeholder]="productPlaceholder"
-          >
-            <ng-template #productTemplate let-item>
-              <app-product
-                [product]="item"
-                (uploadImage)="shopStore.uploadImageForProduct$(item)"
-                (update)="shopStore.updateProduct$($event)"
-                (delete)="shopStore.deleteProduct$($event)"
-              >
-                <mat-icon dragAndDrop cdkDragHandle>drag_indicator</mat-icon>
-              </app-product>
-            </ng-template>
-
-            <ng-template #productPlaceholder>
-              <div placeholder class="product-placeholder"></div>
-            </ng-template>
-          </app-drag-and-drop-container>
-        </div>
+        <app-compare-button
+          [compareMode]="(shopStore.compareMode$ | async)!"
+          (compareModeToggled)="shopStore.setcompareMode($event)"
+        ></app-compare-button>
       </ng-template>
     </ng-template>
   </mat-drawer-content>

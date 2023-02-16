@@ -1,0 +1,23 @@
+<app-product-fallback
+  class="create-fallback"
+  *ngIf="!compareMode"
+  (onCreateProduct)="createProduct.emit($event)"
+></app-product-fallback>
+
+<app-drag-and-drop-container [dataSource]="products" [itemTemplateRef]="productTemplate">
+  <ng-template #productTemplate let-item>
+    <app-product
+      [product]="item"
+      [compareMode]="compareMode"
+      (uploadImage)="uploadImageForProduct.emit($event)"
+      (update)="updateProduct.emit($event)"
+      (delete)="deleteProduct.emit($event)"
+    >
+      <mat-icon dragAndDrop cdkDragHandle>drag_indicator</mat-icon>
+    </app-product>
+  </ng-template>
+
+  <ng-template #productPlaceholder>
+    <div placeholder class="product-placeholder"></div>
+  </ng-template>
+</app-drag-and-drop-container>

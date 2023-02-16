@@ -1,13 +1,18 @@
 <mat-card class="product">
-  <div class="drag-and-drop">
+  <div class="drag-and-drop" *ngIf="!compareMode">
     <ng-content class="drag-and-drop" select="[dragAndDrop]"></ng-content>
   </div>
 
   <div class="product-image" [style.background-image]="'url(' + (product.image | sanitize) + ')'">
-    <mat-icon class="upload-icon" (click)="uploadImage.emit()">upload</mat-icon>
+    <mat-icon class="upload-icon" *ngIf="!compareMode" (click)="uploadImage.emit(product)">upload</mat-icon>
   </div>
 
-  <div class="product-content" [formGroup]="productFormGroup" autocomplete="off">
+  <div
+    class="product-content"
+    *ngIf="!compareMode; else previewContent"
+    [formGroup]="productFormGroup"
+    autocomplete="off"
+  >
     <div class="title">
       <app-editable-input
         [control]="$any(controls['name'])"
@@ -33,6 +38,20 @@
     </div>
   </div>
 
+  <ng-template #previewContent>
+    <div class="content--preview">
+      <div class="content--preview_title">
+        <span>{{ controls['name'].value }}</span>
+      </div>
+
+      <div class="content--preview_description">
+        <span>{{ controls['description'].value }}</span>
+      </div>
+
+      <div class="content--preview_price">{{ controls['price'].value }}$</div>
+    </div>
+  </ng-template>
+
   <button
     class="add-button"
     *ngIf="amount === 0; else editAmount"
@@ -53,7 +72,7 @@
     </div>
   </ng-template>
 
-  <mat-icon class="close-button" color="warn" (click)="deleteProduct()">close</mat-icon>
+  <mat-icon class="close-button" *ngIf="!compareMode" color="warn" (click)="deleteProduct()">close</mat-icon>
 
   <div class="amount" *ngIf="amount > 0">{{ amount }}</div>
 </mat-card>
