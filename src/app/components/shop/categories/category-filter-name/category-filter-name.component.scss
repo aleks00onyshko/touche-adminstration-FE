@@ -4,6 +4,7 @@
   .category-filter-container {
     display: flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     color: black;
     width: 8rem;
@@ -14,6 +15,46 @@
 
     app-editable-input {
       width: 100%;
+    }
+
+    &:hover {
+      .delete-block {
+        bottom: 93%;
+
+        mat-icon {
+          display: block;
+        }
+      }
+    }
+
+    .delete-block {
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      background-color: #69f0ae;
+      height: 1.8rem;
+      width: 1.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition-property: bottom;
+      transition-duration: 500ms;
+      cursor: pointer;
+
+      &.selected {
+        background-color: #9c27b0;
+        color: white;
+      }
+
+      mat-icon {
+        font-size: 18px;
+        height: 1.5rem;
+        width: 1.5rem;
+        display: none;
+      }
     }
 
     &.selected {

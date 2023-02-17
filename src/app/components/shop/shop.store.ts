@@ -59,9 +59,15 @@ export class ShopStore extends ComponentStore<ShopState> {
     state => state.products.get(state.selectedCategoryId ?? '')?.toArray() ?? []
   );
 
-  public readonly addCategory = this.updater((state, category: Category) => ({
+  public readonly addCategory = this.updater((state, category: CategoryWithoutProducts) => ({
     ...state,
-    categories: state.categories.push(category)
+    categories: state.categories.push(category),
+    products: state.products.set(category.id, List())
+  }));
+  public readonly deleteCategory = this.updater((state, id: string) => ({
+    ...state,
+    categories: state.categories.delete(state.categories.findIndex(el => el.id === id)),
+    products: state.products.delete(id)
   }));
   public readonly setLoading = this.updater((state, loading: boolean) => ({ ...state, loading }));
   public readonly setCategories = this.updater((state, categories: Category[]) => ({
@@ -69,7 +75,7 @@ export class ShopStore extends ComponentStore<ShopState> {
     categories: List(categories),
     products: categories.reduce((acc, category) => acc.set(category.id, List()), Map<string, List<Product>>({}))
   }));
-  public readonly setSelectedCategoryId = this.updater((state, id: string) => ({
+  public readonly setSelectedCategoryId = this.updater((state, id: string | null) => ({
     ...state,
     selectedCategoryId: id
   }));
@@ -224,7 +230,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly createTempCategory$ = this.effect<void>(
     pipe(
       tap(() => {
-        this.addCategory({ name: '', id: TEMP_CATEGORY_ID, products: [] });
+        this.addCategory({ name: '', id: TEMP_CATEGORY_ID });
         this.setSelectedCategoryId(TEMP_CATEGORY_ID);
       })
     )
@@ -249,14 +255,44 @@ export class ShopStore extends ComponentStore<ShopState> {
     )
   );
 
-  public readonly categorySelected$ = this.effect((category$: Observable<CategoryWithoutProducts>) =>
-    category$.pipe(
-      withLatestFrom(this.products$),
-      tap(([category, products]) => {
-        this.setSelectedCategoryId(category.id);
+  public readonly deleteCategory$ = this.effect((categoryId$: Observable<string>) =>
+    categoryId$.pipe(
+      switchMap(categoryId =>
+        this.matDialog
+          .open(ConfirmDialogComponent, { data: 'Do you want to delete this category?' })
+          .afterClosed()
+          .pipe(
+            withLatestFrom(this.shopId$, this.categories$),
+            mergeMap(([confirmed, shopId, categories]) =>
+              confirmed
+                ? from(deleteDoc(doc(this.firestore, `shops/${shopId}/categories/${categoryId}`))).pipe(
+                    tap(() => {
+                      this.deleteCategory(categoryId);
 
-        if (products.get(category.id)?.size === 0) {
-          this.getProductsForCategory$(category.id);
+                      if (categories.length > 1) {
+                        this.categorySelected$(categories[0].id);
+                      }
+                    }),
+                    tapResponse(
+                      () => EMPTY,
+                      (err: HttpErrorResponse) => console.error(err.message)
+                    )
+                  )
+                : EMPTY
+            )
+          )
+      )
+    )
+  );
+
+  public readonly categorySelected$ = this.effect((categoryId$: Observable<string>) =>
+    categoryId$.pipe(
+      withLatestFrom(this.products$),
+      tap(([categoryId, products]) => {
+        this.setSelectedCategoryId(categoryId);
+
+        if (products.get(categoryId)?.size === 0) {
+          this.getProductsForCategory$(categoryId);
         }
       })
     )

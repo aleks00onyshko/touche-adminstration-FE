@@ -5,8 +5,9 @@
     [id]="category.id"
     [autofocus]="category.id === TEMP_CATEGORY_ID"
     [selected]="selectedCategory?.id === category.id"
-    (click)="selectCategory.emit(category)"
+    (categorySelected)="selectCategory.emit($event)"
     (nameChanged)="categoryNameWasChanged($event)"
+    (categoryDeleted)="deleteCategory.emit($event)"
   ></app-category-filter-name>
 
   <mat-icon (click)="createTempCategory.emit()">add</mat-icon>

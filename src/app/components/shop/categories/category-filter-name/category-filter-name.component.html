@@ -1,8 +1,13 @@
 <div class="category-filter-container" [class.selected]="selected">
+  <div class="delete-block" [class.selected]="selected" (click)="categoryDeleted.emit(id)">
+    <mat-icon>close</mat-icon>
+  </div>
+
   <app-editable-input
     [control]="nameControl"
     [autofocus]="autofocus"
     [align]="'center'"
+    (click)="categorySelected.emit(id)"
     (onFocusLost)="changeName()"
     (onEnterPressed)="changeName()"
   ></app-editable-input>

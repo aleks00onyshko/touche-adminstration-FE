@@ -28,7 +28,7 @@ import { ProductsComponent } from './products/products.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopComponent implements OnInit {
-  constructor(private route: ActivatedRoute, public shopStore: ShopStore) {}
+  constructor(private route: ActivatedRoute, protected shopStore: ShopStore) {}
 
   public ngOnInit(): void {
     this.shopStore.setState({ ...initialState, id: this.route.snapshot.paramMap.get('id') ?? '' });

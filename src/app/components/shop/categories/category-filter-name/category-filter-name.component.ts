@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditableInputComponent } from '../../../../shared/components/editable-input/editable-input.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-category-filter-name',
   standalone: true,
-  imports: [CommonModule, EditableInputComponent, ReactiveFormsModule],
+  imports: [CommonModule, EditableInputComponent, ReactiveFormsModule, MatIconModule],
   templateUrl: './category-filter-name.component.html',
   styleUrls: ['./category-filter-name.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -17,7 +18,9 @@ export class CategoryFilterNameComponent implements OnChanges {
   @Input() public autofocus: boolean = false;
   @Input() public selected: boolean = false;
 
-  @Output() private nameChanged = new EventEmitter<{ name: string; id: string }>();
+  @Output() protected nameChanged = new EventEmitter<{ name: string; id: string }>();
+  @Output() protected categoryDeleted = new EventEmitter<string>();
+  @Output() protected categorySelected = new EventEmitter<string>();
 
   public nameControl = new FormControl(this.name, [Validators.required]);
 

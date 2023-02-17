@@ -15,10 +15,11 @@ export class CategoriesComponent {
   @Input() categories!: CategoryWithoutProducts[];
   @Input() selectedCategory!: CategoryWithoutProducts | null;
 
-  @Output() selectCategory = new EventEmitter<CategoryWithoutProducts>();
+  @Output() selectCategory = new EventEmitter<string>();
   @Output() changeCategoryName = new EventEmitter<{ name: string; id: string }>();
   @Output() createCategory = new EventEmitter<string>();
   @Output() createTempCategory = new EventEmitter<void>();
+  @Output() deleteCategory = new EventEmitter<string>();
 
   public TEMP_CATEGORY_ID = TEMP_CATEGORY_ID;
 
