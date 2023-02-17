@@ -4,7 +4,7 @@
 
   .create-fallback {
     display: block;
-    margin-right: 1rem;
+    margin-right: 2rem;
     margin-top: 1rem;
     height: 100%;
   }
@@ -13,10 +13,11 @@
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 2rem;
+    padding-top: 1rem;
 
-    .product {
+    app-product {
       margin-right: 2rem;
-      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
   }
 

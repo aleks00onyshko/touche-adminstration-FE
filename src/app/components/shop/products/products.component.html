@@ -1,18 +1,11 @@
 <app-product-fallback class="create-fallback" (onCreateProduct)="createProduct.emit($event)"></app-product-fallback>
 
-<app-drag-and-drop-container [dataSource]="products" [itemTemplateRef]="productTemplate">
-  <ng-template #productTemplate let-item>
-    <app-product
-      [product]="item"
-      (uploadImage)="uploadImageForProduct.emit($event)"
-      (update)="updateProduct.emit($event)"
-      (delete)="deleteProduct.emit($event)"
-    >
-      <mat-icon dragAndDrop cdkDragHandle>drag_indicator</mat-icon>
-    </app-product>
-  </ng-template>
-
-  <ng-template #productPlaceholder>
-    <div placeholder class="product-placeholder"></div>
-  </ng-template>
-</app-drag-and-drop-container>
+<div class="products">
+  <app-product
+    *ngFor="let product of products"
+    [product]="product"
+    (uploadImage)="uploadImageForProduct.emit($event)"
+    (update)="updateProduct.emit($event)"
+    (delete)="deleteProduct.emit($event)"
+  ></app-product>
+</div>
