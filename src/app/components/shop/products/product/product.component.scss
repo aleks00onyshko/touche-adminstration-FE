@@ -7,8 +7,8 @@
     align-items: center;
     flex-direction: column;
     padding: 2rem 0 0 0;
-    width: 17rem;
-    height: 28.3rem;
+    width: 16.5rem;
+    height: 26.3rem;
     position: relative;
 
     .amount {
@@ -25,24 +25,6 @@
       // TODO: angular material variable here
       background-color: #69f0ae;
       color: black;
-    }
-
-    .add-button {
-      width: 100%;
-      padding: 1rem;
-    }
-
-    .edit-amount {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-
-      button {
-        width: 47%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
     }
 
     .close-button {

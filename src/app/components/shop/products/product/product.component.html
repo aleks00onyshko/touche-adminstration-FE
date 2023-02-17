@@ -33,27 +33,5 @@
     </div>
   </div>
 
-  <button
-    class="add-button"
-    *ngIf="amount === 0; else editAmount"
-    (click)="add()"
-    mat-button
-    mat-raised-button
-    color="accent"
-  >
-    Add
-  </button>
-
-  <ng-template #editAmount>
-    <div class="edit-amount">
-      <button class="minus" (click)="remove()" mat-button mat-raised-button color="warn">
-        <mat-icon>remove</mat-icon>
-      </button>
-      <button class="plus" (click)="add()" mat-button mat-raised-button color="accent"><mat-icon>add</mat-icon></button>
-    </div>
-  </ng-template>
-
   <mat-icon class="close-button" color="warn" (click)="deleteProduct()">close</mat-icon>
-
-  <div class="amount" *ngIf="amount > 0">{{ amount }}</div>
 </mat-card>

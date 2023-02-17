@@ -35,7 +35,6 @@ export class ProductComponent implements OnInit {
 
   public productFormGroup!: FormGroup;
   public controls!: { [key: string]: AbstractControl };
-  public amount: number = 0;
 
   public ngOnInit(): void {
     const { name, description, price } = this.product;
@@ -58,13 +57,5 @@ export class ProductComponent implements OnInit {
 
   public deleteProduct(): void {
     this.delete.emit(this.product.id);
-  }
-
-  public add(): void {
-    this.amount += 1;
-  }
-
-  public remove(): void {
-    this.amount -= 1;
   }
 }
