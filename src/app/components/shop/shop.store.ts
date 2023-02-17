@@ -31,7 +31,6 @@ export interface ShopState {
   name: string | null;
   selectedCategoryId: string | null;
   loading: boolean;
-  compareMode: boolean;
   categories: List<CategoryWithoutProducts>;
   products: Map<string, List<Product>>;
 }
@@ -41,7 +40,6 @@ export const initialState: ShopState = {
   name: null,
   selectedCategoryId: null,
   loading: true,
-  compareMode: false,
   categories: List(),
   products: Map({})
 };
@@ -60,7 +58,6 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly productsOfSelectedCategory$: Observable<Product[]> = this.select(
     state => state.products.get(state.selectedCategoryId ?? '')?.toArray() ?? []
   );
-  public readonly compareMode$: Observable<boolean> = this.select(state => state.compareMode);
 
   public readonly addCategory = this.updater((state, category: Category) => ({
     ...state,
@@ -70,9 +67,7 @@ export class ShopStore extends ComponentStore<ShopState> {
   public readonly setCategories = this.updater((state, categories: Category[]) => ({
     ...state,
     categories: List(categories),
-    products: categories.reduce((acc, category) => {
-      return acc.set(category.id, List());
-    }, Map<string, List<Product>>({}))
+    products: categories.reduce((acc, category) => acc.set(category.id, List()), Map<string, List<Product>>({}))
   }));
   public readonly setSelectedCategoryId = this.updater((state, id: string) => ({
     ...state,
@@ -154,7 +149,6 @@ export class ShopStore extends ComponentStore<ShopState> {
       products: state.products.set(categoryId, List(products))
     })
   );
-  public readonly setCompareMode = this.updater((state, mode: boolean) => ({ ...state, compareMode: mode }));
 
   constructor(
     private firestore: Firestore,

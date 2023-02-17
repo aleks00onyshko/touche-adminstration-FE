@@ -119,39 +119,5 @@
         }
       }
     }
-
-    .content--preview {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      width: 90%;
-      padding: 0 1rem;
-
-      &_title {
-        width: 100%;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        font-size: 18px;
-      }
-
-      &_description {
-        font-size: 11px;
-        width: 100%;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        margin-top: 1.5rem;
-      }
-
-      &_price {
-        margin-top: auto;
-        font-size: 22px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-      }
-    }
   }
 }

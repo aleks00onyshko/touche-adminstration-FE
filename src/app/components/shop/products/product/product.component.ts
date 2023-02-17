@@ -7,8 +7,6 @@ import { EditableTextareaComponent } from '../../../../shared/components/editabl
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { UploadService } from '../../../../core/services/upload.service';
-import { take } from 'rxjs';
 import { SanitizePipe } from '../../../../shared/pipes/sanitize.pipe';
 
 @Component({
@@ -30,7 +28,6 @@ import { SanitizePipe } from '../../../../shared/pipes/sanitize.pipe';
 })
 export class ProductComponent implements OnInit {
   @Input() product!: Product;
-  @Input() compareMode!: boolean;
 
   @Output() update = new EventEmitter<Product>();
   @Output() delete = new EventEmitter<string>();

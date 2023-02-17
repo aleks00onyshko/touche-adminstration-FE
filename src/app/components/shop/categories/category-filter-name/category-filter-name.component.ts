@@ -16,7 +16,6 @@ export class CategoryFilterNameComponent implements OnChanges {
   @Input() public id!: string;
   @Input() public autofocus: boolean = false;
   @Input() public selected: boolean = false;
-  @Input() public editable: boolean = true;
 
   @Output() private nameChanged = new EventEmitter<{ name: string; id: string }>();
 

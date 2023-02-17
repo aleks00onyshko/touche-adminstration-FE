@@ -5,10 +5,9 @@
     [id]="category.id"
     [autofocus]="category.id === TEMP_CATEGORY_ID"
     [selected]="selectedCategory?.id === category.id"
-    [editable]="!compareMode"
     (click)="selectCategory.emit(category)"
     (nameChanged)="categoryNameWasChanged($event)"
   ></app-category-filter-name>
 
-  <mat-icon *ngIf="!compareMode" (click)="createTempCategory.emit()">add</mat-icon>
+  <mat-icon (click)="createTempCategory.emit()">add</mat-icon>
 </div>

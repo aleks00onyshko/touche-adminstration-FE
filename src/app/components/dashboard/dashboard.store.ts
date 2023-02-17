@@ -1,13 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, DocumentReference, Firestore, setDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { catchError, from, Observable, of, pipe, switchMap, take, tap } from 'rxjs';
 import { Shop } from '../../core/model/entities/shop.entity';
 import { BotFunctionsService } from '../../core/services/firebase/functions/bot-functions.service';
 import { CreateShopDialogResult } from './create-store-dialog/create-store-dialog.component';
-import { v4 as uuid } from 'uuid';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
 
 export interface DashboardState {

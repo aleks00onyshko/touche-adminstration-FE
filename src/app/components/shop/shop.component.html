@@ -7,7 +7,6 @@
     <app-categories
       [categories]="(shopStore.categories$ | async)!"
       [selectedCategory]="(shopStore.selectedCategory$ | async)!"
-      [compareMode]="(shopStore.compareMode$ | async)!"
       (selectCategory)="shopStore.categorySelected$($event)"
       (changeCategoryName)="shopStore.updateCategoryName$($event)"
       (createCategory)="shopStore.createCategory$($event)"
@@ -22,17 +21,11 @@
       <ng-template #content>
         <app-products
           [products]="(shopStore.productsOfSelectedCategory$ | async)!"
-          [compareMode]="(shopStore.compareMode$ | async)!"
           (uploadImageForProduct)="shopStore.uploadImageForProduct$($event)"
           (createProduct)="shopStore.createProduct$($event)"
           (updateProduct)="shopStore.updateProduct$($event)"
           (deleteProduct)="shopStore.deleteProduct$($event)"
         ></app-products>
-
-        <app-compare-button
-          [compareMode]="(shopStore.compareMode$ | async)!"
-          (compareModeToggled)="shopStore.setCompareMode($event)"
-        ></app-compare-button>
       </ng-template>
     </ng-template>
   </mat-drawer-content>

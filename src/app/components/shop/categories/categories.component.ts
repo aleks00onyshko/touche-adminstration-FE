@@ -14,7 +14,6 @@ import { CategoryWithoutProducts, TEMP_CATEGORY_ID } from '../shop.store';
 export class CategoriesComponent {
   @Input() categories!: CategoryWithoutProducts[];
   @Input() selectedCategory!: CategoryWithoutProducts | null;
-  @Input() compareMode!: boolean;
 
   @Output() selectCategory = new EventEmitter<CategoryWithoutProducts>();
   @Output() changeCategoryName = new EventEmitter<{ name: string; id: string }>();

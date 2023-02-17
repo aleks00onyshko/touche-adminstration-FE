@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DragAndDropContainerComponent } from '../../../shared/components/drag-and-drop-container/drag-and-drop-container.component';
@@ -23,7 +23,6 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ProductsComponent {
   @Input() products!: Product[];
-  @Input() compareMode!: boolean;
 
   @Output() createProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File }>();
   @Output() uploadImageForProduct = new EventEmitter<Product>();
