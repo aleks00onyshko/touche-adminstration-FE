@@ -29,6 +29,8 @@
     "@ngrx/entity": "^15.3.0",
     "@ngrx/store": "^15.3.0",
     "@ngrx/store-devtools": "^15.3.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "immutable": "^4.2.4",
     "npm": "^8.19.2",
     "rxjs": "~7.5.0",

@@ -23,7 +23,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { authenticationReducer, AUTHENTICATION_FEATURE_NAME } from './app/store/authentication/authentication.reducer';
 import { AuthenticationEffects } from './app/store/authentication/authentication.effects';
 import { catchError, of, take } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 if (environment.production) {
   enableProdMode();
@@ -39,6 +45,13 @@ bootstrapApplication(AppComponent, {
       provideStorage(() => getStorage()),
       RouterModule.forRoot(appRoutes),
       BrowserAnimationsModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }),
       HttpClientModule,
       StoreModule.forRoot({ [AUTHENTICATION_FEATURE_NAME]: authenticationReducer }),
       EffectsModule.forRoot([AuthenticationEffects]),
@@ -48,15 +61,20 @@ bootstrapApplication(AppComponent, {
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [Auth, MatSnackBar],
-      useFactory: (auth: Auth, matSnackBar: MatSnackBar) => () =>
-        user(auth).pipe(
+      deps: [Auth, MatSnackBar, TranslateService],
+      useFactory: (auth: Auth, matSnackBar: MatSnackBar, translateService: TranslateService) => () => {
+        translateService.addLangs(['en', 'uk']);
+        translateService.setDefaultLang('uk');
+        translateService.use('uk');
+
+        return user(auth).pipe(
           take(1),
           catchError((err: Error) => {
             matSnackBar.open(err.message);
             return of(null);
           })
-        )
+        );
+      }
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

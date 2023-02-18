@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shop',
@@ -20,7 +21,8 @@ import { ProductsComponent } from './products/products.component';
     MatDialogModule,
     RouterModule,
     CategoriesComponent,
-    ProductsComponent
+    ProductsComponent,
+    TranslateModule
   ],
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss'],

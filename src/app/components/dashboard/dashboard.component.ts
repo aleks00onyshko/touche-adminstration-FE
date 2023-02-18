@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
     MatCardModule,
     MatDialogModule,
     SpinnerComponent,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   providers: [DashboardStore],
   templateUrl: './dashboard.component.html',

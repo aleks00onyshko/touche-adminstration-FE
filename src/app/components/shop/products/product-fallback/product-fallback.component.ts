@@ -21,6 +21,7 @@ import { take } from 'rxjs';
 import { SanitizePipe } from '../../../../shared/pipes/sanitize.pipe';
 import { ConvertImageToUrlPipe } from '../../../../shared/pipes/convert-image-to-url.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-fallback',
@@ -35,7 +36,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     SanitizePipe,
     ConvertImageToUrlPipe,
-    MatTooltipModule
+    MatTooltipModule,
+    TranslateModule
   ],
   templateUrl: './product-fallback.component.html',
   styleUrls: ['./product-fallback.component.scss'],
@@ -67,7 +69,11 @@ export class ProductFallbackComponent {
   public showPlusButton = true;
   public showContent = false;
 
-  public initialFormValue = { name: 'Sample Name', description: 'Sample description', price: 200 };
+  public initialFormValue = {
+    name: this.translateService.instant('SHOP.PRODUCT.CREATE_FALLBACK.NAME'),
+    description: this.translateService.instant('SHOP.PRODUCT.CREATE_FALLBACK.DESCRIPTION'),
+    price: 200
+  };
   public createProductForm = new FormGroup({
     name: new FormControl<string>(this.initialFormValue.name, [Validators.required]),
     description: new FormControl<string>(this.initialFormValue.description, [Validators.required]),
@@ -85,7 +91,12 @@ export class ProductFallbackComponent {
     }
   }
 
-  constructor(private eRef: ElementRef, private cdr: ChangeDetectorRef, private uploadService: UploadService) {}
+  constructor(
+    private eRef: ElementRef,
+    private cdr: ChangeDetectorRef,
+    private uploadService: UploadService,
+    private translateService: TranslateService
+  ) {}
 
   public animationEnded(event: AnimationEvent): void {
     if (event.fromState === 'expanded') {

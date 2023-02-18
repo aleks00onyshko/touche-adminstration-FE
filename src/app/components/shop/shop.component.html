@@ -1,6 +1,6 @@
 <mat-drawer-container class="shop-container">
   <mat-drawer class="sidenav" mode="side" opened>
-    <mat-card>Integration</mat-card>
+    <mat-card>{{ 'SHOP.SIDEBAR.EDITING' | translate }}</mat-card>
   </mat-drawer>
 
   <mat-drawer-content class="content">
@@ -17,7 +17,9 @@
     <app-spinner *ngIf="shopStore.loading$ | async; else content"></app-spinner>
 
     <ng-template #content>
-      <p *ngIf="(shopStore.categories$ | async)!.length === 0; else content">You don't have any categories!</p>
+      <p *ngIf="(shopStore.categories$ | async)!.length === 0; else content">
+        {{ 'SHOP.NO_CATEGORIES_FALLBACK_TEXT' | translate }}
+      </p>
 
       <ng-template #content>
         <app-products

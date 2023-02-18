@@ -1,0 +1,107 @@
+.celum-avatar {
+  $component: celum-avatar;
+
+  display: flex;
+  overflow: hidden;
+
+  &--profile-trigger {
+    cursor: pointer;
+  }
+
+  &--profile-trigger &_name {
+    cursor: default;
+  }
+
+  &_image {
+    display: inline-block;
+    color: white;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    background-position: center;
+    background-size: cover;
+    border-radius: 100%;
+    user-select: none;
+    transition: transform 0.3s ease-out;
+    box-sizing: border-box;
+
+    &--none {
+      padding: 0 0.3rem;
+    }
+  }
+
+  &_name {
+    font-weight: 800;
+    margin-left: 1.1rem;
+    text-overflow: ellipsis;
+    align-items: center;
+    text-align: left;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    align-self: center;
+
+    &--inactive {
+      text-decoration: line-through;
+    }
+
+    &--small {
+      min-height: 2rem;
+      line-height: 2rem;
+    }
+
+    &--medium {
+      min-height: 3rem;
+      line-height: 3rem;
+    }
+
+    &--large {
+      min-height: 4rem;
+      line-height: 4rem;
+    }
+  }
+
+  &_visual-wrap {
+    position: relative;
+  }
+
+  &_bottom-labels {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .mat-icon {
+      border-radius: 100%;
+    }
+  }
+
+  &_top-labels {
+    position: absolute;
+    width: 100%;
+    display: flex;
+
+    .mat-icon {
+      border-radius: 100%;
+    }
+  }
+
+  &--size-20 {
+    padding-left: 0.3rem;
+    padding-top: 0.3rem;
+    line-height: 3rem;
+  }
+
+  &--size-30 {
+    padding-left: 0.3rem;
+    padding-top: 0.3rem;
+    line-height: 3rem;
+  }
+
+  &--size-80 {
+    padding-left: 0.3rem;
+    padding-top: 0.3rem;
+    line-height: 3rem;
+  }
+}

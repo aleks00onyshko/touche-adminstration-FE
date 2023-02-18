@@ -34,7 +34,7 @@
     <div
       class="add-button-container"
       [matTooltipDisabled]="!!image"
-      [matTooltip]="'Please upload product image first.'"
+      [matTooltip]="'SHOP.PRODUCT.CREATE_FALLBACK.DISABLED_BUTTON_TOOLTIP' | translate"
     >
       <button
         class="add-button"
@@ -45,7 +45,7 @@
         [disabled]="createProductForm.invalid || !image"
         (click)="createProduct()"
       >
-        Create
+        {{ 'COMMON.CREATE' | translate }}
       </button>
     </div>
 

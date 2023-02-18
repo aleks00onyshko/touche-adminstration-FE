@@ -4,6 +4,7 @@ import { collection, collectionData, deleteDoc, Firestore, setDoc, updateDoc } f
 import { MatDialog } from '@angular/material/dialog';
 import { doc } from '@firebase/firestore';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { TranslateService } from '@ngx-translate/core';
 import { List, Map } from 'immutable';
 import {
   EMPTY,
@@ -160,7 +161,8 @@ export class ShopStore extends ComponentStore<ShopState> {
     private firestore: Firestore,
     private UUIDGeneratorService: UUIDGeneratorService,
     private uploadService: UploadService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private translateService: TranslateService
   ) {
     super();
   }
@@ -259,7 +261,7 @@ export class ShopStore extends ComponentStore<ShopState> {
     categoryId$.pipe(
       switchMap(categoryId =>
         this.matDialog
-          .open(ConfirmDialogComponent, { data: 'Do you want to delete this category?' })
+          .open(ConfirmDialogComponent, { data: this.translateService.instant('SHOP.CATEGORY.DELETE_DIALOG.TITLE') })
           .afterClosed()
           .pipe(
             withLatestFrom(this.shopId$, this.categories$),
@@ -327,7 +329,7 @@ export class ShopStore extends ComponentStore<ShopState> {
     id$.pipe(
       switchMap(productId =>
         this.matDialog
-          .open(ConfirmDialogComponent, { data: 'Do you want to delete this product?' })
+          .open(ConfirmDialogComponent, { data: this.translateService.instant('SHOP.PRODUCT.DELETE_DIALOG.TITLE') })
           .afterClosed()
           .pipe(
             withLatestFrom(this.shopId$, this.selectedCategory$),
