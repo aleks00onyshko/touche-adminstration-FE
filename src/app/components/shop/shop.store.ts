@@ -101,7 +101,8 @@ export class ShopStore extends ComponentStore<ShopState> {
     if (state.categories.has(categoryIndex)) {
       return {
         ...state,
-        categories: state.categories.delete(categoryIndex).push(newCategory)
+        categories: state.categories.delete(categoryIndex).push(newCategory),
+        products: state.products.delete(TEMP_CATEGORY_ID).set(newCategory.id, List())
       };
     }
 
