@@ -26,6 +26,7 @@ import { catchError, of, take } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LocalStorageService } from './app/core/services/local-storage.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -61,20 +62,27 @@ bootstrapApplication(AppComponent, {
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [Auth, MatSnackBar, TranslateService],
-      useFactory: (auth: Auth, matSnackBar: MatSnackBar, translateService: TranslateService) => () => {
-        translateService.addLangs(['en', 'uk']);
-        translateService.setDefaultLang('uk');
-        translateService.use('uk');
+      deps: [Auth, MatSnackBar, TranslateService, LocalStorageService],
+      useFactory:
+        (
+          auth: Auth,
+          matSnackBar: MatSnackBar,
+          translateService: TranslateService,
+          localStorageService: LocalStorageService
+        ) =>
+        () => {
+          translateService.addLangs(['en', 'uk']);
+          translateService.setDefaultLang('uk');
+          translateService.use(localStorageService.get('shopLanguage') ?? 'uk');
 
-        return user(auth).pipe(
-          take(1),
-          catchError((err: Error) => {
-            matSnackBar.open(err.message);
-            return of(null);
-          })
-        );
-      }
+          return user(auth).pipe(
+            take(1),
+            catchError((err: Error) => {
+              matSnackBar.open(err.message);
+              return of(null);
+            })
+          );
+        }
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

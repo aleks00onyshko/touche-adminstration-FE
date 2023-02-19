@@ -10,8 +10,10 @@ import { AvatarConfigBuilder, AvatarConfiguration, AVATAR_SIZE } from './avatar.
 export class AvatarBuilderService {
   constructor(private store: Store<AuthenticationState>) {}
 
-  public createAvatarConfigurationFurCurrentUser$(): Observable<AvatarConfiguration> {
-    return this.getAvatarBuilder(this.store.select(selectUser), AVATAR_SIZE.m).pipe(map(builder => builder.build()));
+  public createAvatarConfigurationFurCurrentUser$(size?: AVATAR_SIZE): Observable<AvatarConfiguration> {
+    return this.getAvatarBuilder(this.store.select(selectUser), size ?? AVATAR_SIZE.m).pipe(
+      map(builder => builder.build())
+    );
   }
 
   private getAvatarBuilder(

@@ -1,4 +1,4 @@
-<div class="celum-avatar_visual-wrap">
+<div class="celum-avatar celum-avatar--size-{{ avatarConfiguration.size }}">
   <span
     class="celum-avatar_image celum-avatar_image--none"
     *ngIf="avatarConfiguration.image"
@@ -12,23 +12,11 @@
   >
     <span>{{ avatarConfiguration.placeholder }}</span>
   </span>
+
   <span
-    class="celum-avatar_image"
-    *ngIf="avatarConfiguration.image"
-    [style.backgroundImage]="'url(' + avatarConfiguration.image + ')'"
-    [style.width.rem]="avatarConfiguration.size"
-    [style.height.rem]="avatarConfiguration.size"
-    [style.min-width.rem]="avatarConfiguration.size"
-    [style.lineHeight.rem]="avatarConfiguration.size"
-    data-private
+    *ngIf="avatarConfiguration.placeholder"
+    class="celum-avatar_placeholder celum-avatar_placeholder--{{ avatarConfiguration.size | avatarSizeModifiers }}"
   >
-    &nbsp;
+    {{ avatarConfiguration.placeholder }}
   </span>
-</div>
-<div
-  *ngIf="avatarConfiguration.username"
-  class="celum-avatar_name celum-avatar_name--{{ avatarConfiguration.size | avatarSizeModifiers }}"
-  data-private
->
-  {{ avatarConfiguration.username }}
 </div>

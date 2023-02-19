@@ -1,14 +1,18 @@
 {
   "COMMON": {
+    "CREATE": "Create",
     "CONFIRM_DIALOG": {
       "YES": "Yes",
       "NO": "No"
     }
   },
+  "SYSTEMBAR": {
+    "LANGUAGE": "Language",
+    "LOGOUT": "Logout"
+  },
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Some analytics here in the future",
-    "YOUR_SHOPS": "Your shops",
-    "LOGOUT_BUTTON": "Log out"
+    "YOUR_SHOPS": "Your shops"
   },
   "SHOP": {
     "SIDEBAR": {

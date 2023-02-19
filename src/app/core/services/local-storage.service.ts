@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type LocalStorageKeys = 'lastVisitedShopId';
+export type LocalStorageKeys = 'lastVisitedShopId' | 'shopLanguage';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {

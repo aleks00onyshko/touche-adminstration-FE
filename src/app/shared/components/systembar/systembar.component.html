@@ -1,5 +1,23 @@
 <div class="systembar-container">
   <app-avatar
+    [matMenuTriggerFor]="menu"
     [avatarConfiguration]="(avatarBuilderService.createAvatarConfigurationFurCurrentUser$() | async)!"
   ></app-avatar>
+
+  <mat-menu #menu="matMenu">
+    <div class="systembar-popup-container">
+      <mat-form-field class="language-select" appearance="fill">
+        <mat-label>{{ 'SYSTEMBAR.LANGUAGE' | translate }}</mat-label>
+        <mat-select [formControl]="languageControl" (selectionChange)="changeLanguage($event.value)">
+          <mat-option *ngFor="let language of translateService.getLangs()" [value]="language">
+            {{ language }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button class="logout-button" mat-button mat-raised-button color="accent" (click)="logout()">
+        {{ 'SYSTEMBAR.LOGOUT' | translate }}
+      </button>
+    </div>
+  </mat-menu>
 </div>

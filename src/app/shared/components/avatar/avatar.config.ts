@@ -2,7 +2,8 @@ export enum AVATAR_SIZE {
   s = 20,
   m = 30,
   l = 40,
-  xl = 80,
+  xl = 60,
+  xxl = 80,
   xxxl = 160
 }
 

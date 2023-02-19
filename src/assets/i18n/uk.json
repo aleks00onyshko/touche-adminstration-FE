@@ -7,10 +7,13 @@
       "NO": "Ні"
     }
   },
+  "SYSTEMBAR": {
+    "LANGUAGE": "Мова",
+    "LOGOUT": "Вийти"
+  },
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
-    "YOUR_SHOPS": "Ваші магазини",
-    "LOGOUT_BUTTON": "Вийти"
+    "YOUR_SHOPS": "Ваші магазини"
   },
   "SHOP": {
     "SIDEBAR": {
