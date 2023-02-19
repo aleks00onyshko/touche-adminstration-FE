@@ -1,6 +1,10 @@
 {
   "COMMON": {
     "CREATE": "Create",
+    "LANGUAGE": {
+      "ENGLISH": "English",
+      "UKRAINIAN": "Ukrainian"
+    },
     "CONFIRM_DIALOG": {
       "YES": "Yes",
       "NO": "No"

@@ -1,4 +1,6 @@
 <div class="systembar-container">
+  <mat-icon class="dashboard-icon" (click)="navigateToTheDashboard()">apps</mat-icon>
+
   <app-avatar
     [matMenuTriggerFor]="menu"
     [avatarConfiguration]="(avatarBuilderService.createAvatarConfigurationFurCurrentUser$() | async)!"
@@ -10,7 +12,9 @@
         <mat-label>{{ 'SYSTEMBAR.LANGUAGE' | translate }}</mat-label>
         <mat-select [formControl]="languageControl" (selectionChange)="changeLanguage($event.value)">
           <mat-option *ngFor="let language of translateService.getLangs()" [value]="language">
-            {{ language }}
+            {{
+              language === 'en' ? ('COMMON.LANGUAGE.ENGLISH' | translate) : ('COMMON.LANGUAGE.UKRAINIAN' | translate)
+            }}
           </mat-option>
         </mat-select>
       </mat-form-field>

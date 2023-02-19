@@ -1,6 +1,10 @@
 {
   "COMMON": {
     "CREATE": "Створити",
+    "LANGUAGE": {
+      "ENGLISH": "Англійська",
+      "UKRAINIAN": "Українська"
+    },
     "CONFIRM_DIALOG": {
       "TITLE": "Підтвердження",
       "YES": "Так",
