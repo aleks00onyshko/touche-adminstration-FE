@@ -1,3 +1,10 @@
 <mat-form-field class="input" appearance="outline">
-  <textarea matInput autocomplete="off" resize="none" [formControl]="control" (blur)="onFocusLost.emit()"></textarea>
+  <textarea
+    matInput
+    autocomplete="off"
+    resize="none"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    (blur)="onFocusLost.emit()"
+  ></textarea>
 </mat-form-field>

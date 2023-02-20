@@ -69,15 +69,10 @@ export class ProductFallbackComponent {
   public showPlusButton = true;
   public showContent = false;
 
-  public initialFormValue = {
-    name: this.translateService.instant('SHOP.PRODUCT.CREATE_FALLBACK.NAME'),
-    description: this.translateService.instant('SHOP.PRODUCT.CREATE_FALLBACK.DESCRIPTION'),
-    price: 200
-  };
   public createProductForm = new FormGroup({
-    name: new FormControl<string>(this.initialFormValue.name, [Validators.required]),
-    description: new FormControl<string>(this.initialFormValue.description, [Validators.required]),
-    price: new FormControl<number>(this.initialFormValue.price, [Validators.required])
+    name: new FormControl<string>('', [Validators.required]),
+    description: new FormControl<string>('', [Validators.required]),
+    price: new FormControl<number | null>(null, [Validators.required])
   });
 
   @HostListener('document:click', ['$event'])
@@ -134,7 +129,7 @@ export class ProductFallbackComponent {
   }
 
   public discardChanges(): void {
-    this.createProductForm.reset(this.initialFormValue);
+    this.createProductForm.reset();
     this.collapsed = true;
     this.image = null;
   }

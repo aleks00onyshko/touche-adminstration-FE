@@ -23,6 +23,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class EditableInputComponent implements AfterViewInit {
   @Input() control!: FormControl;
+  @Input() placeholder: string = '';
   @Input() align: 'left' | 'center' | 'right' = 'left';
   @Input() autofocus: boolean = false;
 

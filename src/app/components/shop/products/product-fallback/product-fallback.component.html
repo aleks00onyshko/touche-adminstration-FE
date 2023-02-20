@@ -17,15 +17,22 @@
     </div>
 
     <div class="title">
-      <app-editable-input [control]="$any(createProductForm.controls['name'])"></app-editable-input>
+      <app-editable-input
+        [control]="$any(createProductForm.controls['name'])"
+        [placeholder]="'SHOP.PRODUCT.CREATE_FALLBACK.NAME' | translate"
+      ></app-editable-input>
     </div>
     <div class="description">
-      <app-editable-textarea [control]="$any(createProductForm.controls['description'])"></app-editable-textarea>
+      <app-editable-textarea
+        [control]="$any(createProductForm.controls['description'])"
+        [placeholder]="'SHOP.PRODUCT.CREATE_FALLBACK.DESCRIPTION' | translate"
+      ></app-editable-textarea>
     </div>
     <div class="footer">
       <app-editable-input
         class="price"
         [control]="$any(createProductForm.controls['price'])"
+        [placeholder]="'200'"
         align="center"
       ></app-editable-input>
       <span>$</span>

@@ -14,6 +14,7 @@ import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy
 })
 export class EditableTextareaComponent {
   @Input() control!: FormControl;
+  @Input() placeholder: string = '';
 
   @Output() onFocusLost = new EventEmitter<void>();
 }
