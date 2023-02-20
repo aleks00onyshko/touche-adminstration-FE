@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { map, Observable, takeUntil, takeWhile } from 'rxjs';
 import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
 import { selectUser } from '../../../store/authentication/authentication.selectors';
 import { AvatarConfigBuilder, AvatarConfiguration, AVATAR_SIZE } from './avatar.config';
@@ -21,6 +21,7 @@ export class AvatarBuilderService {
     size: AVATAR_SIZE
   ): Observable<AvatarConfigBuilder<AvatarConfiguration>> {
     return user$.pipe(
+      takeWhile(user => !!user),
       map(user =>
         new AvatarConfigBuilder()
           .withUsername(user!.displayName ?? user!.email ?? '')

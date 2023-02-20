@@ -1,60 +1,33 @@
-<mat-card>
-  <mat-card-title>
-    <span>Login</span>
-    <div class="register-text">
-      Don't have an account?
-      <a class="register-link" [routerLink]="['/authentication', 'register']"
-        >Create one</a
-      >
-    </div>
-  </mat-card-title>
+<div class="login-container">
+  <mat-card>
+    <mat-card-title>
+      <span>Login</span>
+      <div class="register-text">
+        Don't have an account?
+        <a class="register-link" [routerLink]="['/authentication', 'register']">Create one</a>
+      </div>
+    </mat-card-title>
 
-  <mat-card-content>
-    <form
-      class="login-form"
-      autocomplete="off"
-      [formGroup]="loginForm"
-      (ngSubmit)="login()"
-    >
-      <p>
+    <mat-card-content>
+      <form class="login-form" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input
-            type="text"
-            matInput
-            placeholder="Username"
-            [formControl]="loginForm.controls.email"
-          />
+          <input type="text" matInput placeholder="Username" [formControl]="loginForm.controls.email" />
         </mat-form-field>
-      </p>
 
-      <p>
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
-          <input
-            type="password"
-            matInput
-            placeholder="Password"
-            [formControl]="loginForm.controls.password"
-          />
+          <input type="password" matInput placeholder="Password" [formControl]="loginForm.controls.password" />
         </mat-form-field>
-      </p>
 
-      <div class="button">
-        <button
-          type="submit"
-          mat-button
-          mat-raised-button
-          color="primary"
-          [disabled]="loginForm.invalid"
-        >
-          Login
-        </button>
-      </div>
-    </form>
+        <div class="button">
+          <button type="submit" mat-button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+            Login
+          </button>
+        </div>
+      </form>
 
-    <app-additional-login-methods
-      class="additional-sign-in-methods"
-    ></app-additional-login-methods>
-  </mat-card-content>
-</mat-card>
+      <app-additional-login-methods class="additional-sign-in-methods"></app-additional-login-methods>
+    </mat-card-content>
+  </mat-card>
+</div>

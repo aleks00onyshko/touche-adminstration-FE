@@ -1,4 +1,4 @@
-.input {
+.editable-input {
   width: 100%;
 
   &.align-left {
@@ -12,32 +12,32 @@
   }
 
   &:not(.mat-focused) {
-    ::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled,
-    ::ng-deep .mat-form-field-outline {
+    .mat-form-field-appearance-outline.mat-form-field-disabled,
+    .mat-form-field-outline {
       opacity: 0;
     }
   }
 
-  ::ng-deep .mat-form-field-outline {
+  .mat-form-field-outline {
     color: white;
     transition: none;
   }
 
-  ::ng-deep .mat-form-field-infix {
+  .mat-form-field-infix {
     border-top: 0.2em solid rgba(0, 0, 0, 0);
     padding: 0.5em 0;
   }
 
-  ::ng-deep .mat-form-field-wrapper {
+  .mat-form-field-wrapper {
     padding: 0;
     margin: 0;
   }
 
-  ::ng-deep .mat-form-field-flex {
+  .mat-form-field-flex {
     padding: 0 0.5em;
   }
 
-  ::ng-deep .filter input {
+  .filter input {
     caret-color: white;
   }
 }

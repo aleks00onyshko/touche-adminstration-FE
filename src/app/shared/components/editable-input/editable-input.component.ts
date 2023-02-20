@@ -6,7 +6,8 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
@@ -19,7 +20,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule],
   templateUrl: './editable-input.component.html',
   styleUrls: ['./editable-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class EditableInputComponent implements AfterViewInit {
   @Input() control!: FormControl;

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { RouterModule } from '@angular/router';
 import { AdditionalLoginMethodsComponent } from '../additional-login-methods/additional-login-methods.component';
 import { Store } from '@ngrx/store';
 import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
 import { AuthenticationActions } from '../../../store/authentication/authentication.action';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-register',
