@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class ProductsComponent {
   @Input() products!: Product[];
 
-  @Output() createProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File }>();
+  @Output() createProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File | null }>();
   @Output() uploadImageForProduct = new EventEmitter<Product>();
   @Output() updateProduct = new EventEmitter<Product>();
   @Output() deleteProduct = new EventEmitter<string>();

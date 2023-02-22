@@ -38,18 +38,14 @@
       <span>$</span>
     </div>
 
-    <div
-      class="add-button-container"
-      [matTooltipDisabled]="!!image"
-      [matTooltip]="'SHOP.PRODUCT.CREATE_FALLBACK.DISABLED_BUTTON_TOOLTIP' | translate"
-    >
+    <div class="add-button-container">
       <button
         class="add-button"
         mat-button
         mat-raised-button
         color="accent"
         *ngIf="!collapsed"
-        [disabled]="createProductForm.invalid || !image"
+        [disabled]="createProductForm.invalid"
         (click)="createProduct()"
       >
         {{ 'COMMON.CREATE' | translate }}

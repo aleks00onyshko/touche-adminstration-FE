@@ -302,14 +302,17 @@ export class ShopStore extends ComponentStore<ShopState> {
   );
 
   public readonly createProduct$ = this.effect(
-    (productAndImage$: Observable<{ product: Omit<Product, 'id'>; image: File }>) =>
+    (productAndImage$: Observable<{ product: Omit<Product, 'id'>; image: File | null }>) =>
       productAndImage$.pipe(
         withLatestFrom(this.selectedCategory$, this.shopId$),
         switchMap(([{ product, image }, selectedCategory, shopId]) => {
           const id = this.UUIDGeneratorService.generateId();
 
           this.addProductToCategory({ product: { ...product, id }, categoryId: selectedCategory!.id });
-          this.uploadFileToStorageAndUpdateProduct$({ product: { ...product, id }, image });
+
+          if (image) {
+            this.uploadFileToStorageAndUpdateProduct$({ product: { ...product, id }, image });
+          }
 
           return from(
             setDoc(doc(this.firestore, `shops/${shopId}/categories/${selectedCategory!.id}/products/${id}`), {

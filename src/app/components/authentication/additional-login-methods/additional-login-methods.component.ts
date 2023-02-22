@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './additional-login-methods.component.html',
-  styleUrls: ['./additional-login-methods.component.scss']
+  styleUrls: ['./additional-login-methods.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AdditionalLoginMethodsComponent {
   constructor(private store: Store<AuthenticationState>) {}

@@ -29,6 +29,10 @@ export class CategoryFilterNameComponent implements OnChanges {
   }
 
   public changeName(): void {
+    if (!this.nameControl.value) {
+      this.categoryDeleted.emit(this.id);
+    }
+
     if (this.nameControl.valid && this.name !== this.nameControl.value) {
       this.nameChanged.emit({ name: this.nameControl.value as string, id: this.id });
     }

@@ -61,7 +61,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductFallbackComponent {
-  @Output() onCreateProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File }>();
+  @Output() onCreateProduct = new EventEmitter<{ product: Omit<Product, 'id'>; image: File | null }>();
 
   public image: File | null = null;
   public defaultImagePath = './assets/no-product-image-fallback.png';
@@ -86,12 +86,7 @@ export class ProductFallbackComponent {
     }
   }
 
-  constructor(
-    private eRef: ElementRef,
-    private cdr: ChangeDetectorRef,
-    private uploadService: UploadService,
-    private translateService: TranslateService
-  ) {}
+  constructor(private eRef: ElementRef, private cdr: ChangeDetectorRef, private uploadService: UploadService) {}
 
   public animationEnded(event: AnimationEvent): void {
     if (event.fromState === 'expanded') {
@@ -140,7 +135,7 @@ export class ProductFallbackComponent {
         name: this.createProductForm.value.name!,
         description: this.createProductForm.value.description!,
         price: this.createProductForm.value.price!,
-        image: URL.createObjectURL(this.image as File)
+        image: this.image ? URL.createObjectURL(this.image as File) : this.defaultImagePath
       },
       image: this.image as File
     });

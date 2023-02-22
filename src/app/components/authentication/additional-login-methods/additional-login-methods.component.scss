@@ -1,5 +1,15 @@
-:host {
-  .sign-in-method {
-    min-width: 30rem;
+.sign-in-method {
+  min-width: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .mdc-button__label {
+    display: flex;
+  }
+
+  img {
+    width: 2rem;
+    width: 2rem;
   }
 }
