@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "bot-administration-FE:build:production"
+              "buildTarget": "bot-administration-FE:build:production"
             },
             "development": {
-              "browserTarget": "bot-administration-FE:build:development"
+              "buildTarget": "bot-administration-FE:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bot-administration-FE:build"
+            "buildTarget": "bot-administration-FE:build"
           }
         },
         "test": {
