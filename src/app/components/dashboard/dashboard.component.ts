@@ -4,10 +4,6 @@ import { Store } from '@ngrx/store';
 import { AuthenticationState } from '../../store/authentication/authentication.reducer';
 import { AuthenticationActions } from '../../store/authentication/authentication.action';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {
-  CreateShopDialogResult,
-  CreateStoreDialogComponent
-} from './create-store-dialog/create-store-dialog.component';
 import { take } from 'rxjs';
 import { DashboardStore } from './dashboard.store';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
@@ -16,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { DaySelectListComponent } from './day-select-list/day-select-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatDialogModule,
     SpinnerComponent,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    DaySelectListComponent
   ],
   providers: [DashboardStore],
   templateUrl: './dashboard.component.html',
@@ -36,11 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-  constructor(
-    private store: Store<AuthenticationState>,
-    private dialog: MatDialog,
-    public dashboardStore: DashboardStore
-  ) {}
+  constructor(private store: Store<AuthenticationState>, public dashboardStore: DashboardStore) {}
 
   public ngOnInit(): void {
     this.dashboardStore.getShops();
@@ -48,17 +42,5 @@ export class DashboardComponent implements OnInit {
 
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
-  }
-
-  public openCreateBotDialog(): void {
-    this.dialog
-      .open(CreateStoreDialogComponent, { width: '38vw' })
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((res: CreateShopDialogResult | null) => {
-        if (res) {
-          this.dashboardStore.createShop(res);
-        }
-      });
   }
 }

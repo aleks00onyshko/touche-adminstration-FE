@@ -17,27 +17,8 @@
   },
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
-    "YOUR_SHOPS": "Ваші магазини"
-  },
-  "SHOP": {
-    "SIDEBAR": {
-      "EDITING": "Редагування"
-    },
-    "CATEGORY": {
-      "DELETE_DIALOG": {
-        "TITLE": "Чи ти точно хочеш видалити цю категорію?"
-      }
-    },
-    "PRODUCT": {
-      "CREATE_FALLBACK": {
-        "NAME": "Приклад імені",
-        "DESCRIPTION": "Приклад опису",
-        "DISABLED_BUTTON_TOOLTIP": "Для створення продукту завантаж картинку спочатку."
-      },
-      "DELETE_DIALOG": {
-        "TITLE": "Чи ти точно хочеш видалити цей продукт?"
-      }
-    },
-    "NO_CATEGORIES_FALLBACK_TEXT": "У Вас немає жодної категорії!"
+    "SIDENAV": {
+      "SLOTS": "Часові Слоти"
+    }
   }
 }

@@ -1,0 +1,34 @@
+.day-select-list {
+  min-width: max-content;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  width: 100%;
+  height: 5rem;
+  background-color: #181818;
+  box-sizing: border-box;
+
+  .days-batch_container {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    gap: 0.275rem;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+  }
+
+  .day {
+    width: 4rem;
+    height: 4rem;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+  }
+}

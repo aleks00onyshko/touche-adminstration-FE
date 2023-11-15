@@ -32,6 +32,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "immutable": "^4.2.4",
+    "moment": "^2.29.4",
     "npm": "^10.2.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

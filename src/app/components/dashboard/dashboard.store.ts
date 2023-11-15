@@ -6,7 +6,6 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { catchError, from, Observable, of, pipe, switchMap, take, tap } from 'rxjs';
 import { Shop } from '../../core/model/entities/shop.entity';
 import { BotFunctionsService } from '../../core/services/firebase/functions/bot-functions.service';
-import { CreateShopDialogResult } from './create-store-dialog/create-store-dialog.component';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';
 
 export interface DashboardState {
@@ -52,30 +51,6 @@ export class DashboardStore extends ComponentStore<DashboardState> {
             },
             (err: HttpErrorResponse) => console.error(err.message)
           )
-        )
-      )
-    )
-  );
-
-  public readonly createShop = this.effect((res$: Observable<CreateShopDialogResult>) =>
-    res$.pipe(
-      tap(() => this.setLoading(true)),
-      switchMap(({ botToken, shopName }) =>
-        this.botFunctionsService.createBot(botToken).pipe(
-          switchMap(() => {
-            const id = this.UUIDGeneratorService.generateId();
-
-            return from(setDoc(doc(this.firestore, 'shops', id), { name: shopName, id, botToken })).pipe(
-              tapResponse(
-                () => this.router.navigate(['shop', id]),
-                (err: HttpErrorResponse) => console.error(err.message)
-              )
-            );
-          }),
-          catchError((err: HttpErrorResponse) => {
-            this.setLoading(false);
-            return of(err);
-          })
         )
       )
     )
