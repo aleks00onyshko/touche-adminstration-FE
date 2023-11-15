@@ -13,10 +13,5 @@ export const appRoutes: Routes = [
     canActivate: [AuthenticationGuard],
     loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
   },
-  {
-    path: 'shop/:id',
-    canActivate: [AuthenticationGuard],
-    loadComponent: () => import('./shop/shop.component').then(m => m.ShopComponent)
-  },
   { path: '', redirectTo: '/authentication', pathMatch: 'full' }
 ];
