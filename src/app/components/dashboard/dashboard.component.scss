@@ -6,6 +6,10 @@
   .dashboard-container {
     height: 100%;
 
+    .mat-drawer-content {
+      overflow: hidden;
+    }
+
     .sidenav {
       width: 20%;
       padding: 20px;

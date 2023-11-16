@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as moment from 'moment';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 interface DayLabel {
   dayNumber: number;
@@ -10,7 +11,7 @@ interface DayLabel {
 @Component({
   selector: 'app-day-select-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollingModule],
   templateUrl: './day-select-list.component.html',
   styleUrls: ['./day-select-list.component.scss']
 })
@@ -20,7 +21,7 @@ export class DaySelectListComponent {
   private splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
     const batches: DayLabel[][] = [];
 
-    for (let i = 0; i < array.length; i += batchSize) {
+    for (let i = 0; i < array.length && batches.length < 4; i += batchSize) {
       batches.push(array.slice(i, i + batchSize));
     }
 
