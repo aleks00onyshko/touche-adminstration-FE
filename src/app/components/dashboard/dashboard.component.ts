@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { DaySelectListComponent } from './time-solts/day-select-list/day-select-list.component';
+import { DaySelectListComponent } from './time-slots/day-select-list/day-select-list.component';
 
 @Component({
   selector: 'app-dashboard',
