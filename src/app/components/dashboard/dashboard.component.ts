@@ -1,18 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthenticationState } from '../../store/authentication/authentication.reducer';
 import { AuthenticationActions } from '../../store/authentication/authentication.action';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { take } from 'rxjs';
-import { DashboardStore } from './dashboard.store';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { DaySelectListComponent } from './time-solts/day-select-list/day-select-list.component';
+import { DaySelectListComponent } from './time-slots/day-select-list/day-select-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,18 +26,12 @@ import { DaySelectListComponent } from './time-solts/day-select-list/day-select-
     TranslateModule,
     DaySelectListComponent
   ],
-  providers: [DashboardStore],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
-  constructor(private store: Store<AuthenticationState>, public dashboardStore: DashboardStore) {}
-
-  public ngOnInit(): void {
-    this.dashboardStore.getShops();
-  }
-
+export class DashboardComponent {
+  constructor(private store: Store<AuthenticationState>) {}
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
   }
