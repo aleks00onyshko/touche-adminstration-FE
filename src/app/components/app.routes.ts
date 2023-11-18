@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
   {
     path: 'dashboard',
     canActivate: [AuthenticationGuard],
-    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
+    loadChildren: () => import('./dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
   },
   { path: '', redirectTo: '/authentication', pathMatch: 'full' }
 ];

@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { collection, collectionData, doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { catchError, from, Observable, of, pipe, switchMap, take, tap } from 'rxjs';
+import { Observable, of, pipe, switchMap, take, tap } from 'rxjs';
 import { Shop } from '../../core/model/entities/shop.entity';
 import { BotFunctionsService } from '../../core/services/firebase/functions/bot-functions.service';
 import { UUIDGeneratorService } from '../../core/services/id-generator.service';

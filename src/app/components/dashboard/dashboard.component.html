@@ -4,15 +4,14 @@
   <mat-drawer-container class="dashboard-container">
     <mat-drawer class="sidenav" mode="side" opened>
       <div class="cards">
-        <mat-card class="card" [routerLink]="">
+        <mat-card class="card">
           {{ 'DASHBOARD.SIDENAV.SLOTS' | translate }}
         </mat-card>
       </div>
     </mat-drawer>
 
     <mat-drawer-content class="mat-drawer-content">
-      <app-day-select-list></app-day-select-list>
-      <div class="content">{{ 'DASHBOARD.ANALYTICS_FALLBACK' | translate }}</div>
+      <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>
 </ng-template>

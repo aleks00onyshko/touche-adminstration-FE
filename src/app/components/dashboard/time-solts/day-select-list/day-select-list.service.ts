@@ -1,24 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DayLabel } from './day-label';
 
-interface DayLabel {
-  dayNumber: number;
-  dayName: string;
-}
-
-@Component({
-  selector: 'app-day-select-list',
-  standalone: true,
-  imports: [CommonModule, ScrollingModule],
-  templateUrl: './day-select-list.component.html',
-  styleUrls: ['./day-select-list.component.scss']
-})
-export class DaySelectListComponent {
-  public dayLabelBatches: DayLabel[][] = this.splitDayLabelsIntoBatches(this.generateDaysList());
-
-  private splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
+@Injectable()
+export class DaySelectListService {
+  public splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
     const batches: DayLabel[][] = [];
 
     for (let i = 0; i < array.length && batches.length < 4; i += batchSize) {
@@ -28,16 +14,14 @@ export class DaySelectListComponent {
     return batches;
   }
 
-  private generateDaysList(): DayLabel[] {
+  // generating next 30days
+  public generateDaysList(): DayLabel[] {
     const currentDate = moment();
     const days: DayLabel[] = [];
+
     const addDays = (numberOfDays: number, currentDate: moment.Moment, days: DayLabel[]) => {
       for (let i = 0; i < numberOfDays; i++) {
-        const dayName = currentDate.format('ddd');
-        const dayNumber = currentDate.date();
-
-        days.push({ dayName, dayNumber });
-
+        days.push(new DayLabel(currentDate));
         currentDate.add(1, 'day');
       }
     };
