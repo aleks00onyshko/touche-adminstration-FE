@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DayLabel } from './day-label';
 import { DaySelectListService } from './day-select-list.service';
+import { DateId } from 'src/app/core/model/entities/time-slot';
 
 @Component({
   selector: 'app-day-select-list',
@@ -13,7 +14,7 @@ import { DaySelectListService } from './day-select-list.service';
   providers: [DaySelectListService]
 })
 export class DaySelectListComponent {
-  @Output() public daySelected = new EventEmitter<DayLabel>();
+  @Output() public daySelected = new EventEmitter<DateId>();
 
   public readonly dayLabelBatches: WritableSignal<DayLabel[][]> = signal(
     this.daySelectListService.splitDayLabelsIntoBatches(this.daySelectListService.generateDaysList())
@@ -26,7 +27,7 @@ export class DaySelectListComponent {
 
   constructor(@Self() private daySelectListService: DaySelectListService) {
     effect(() => {
-      this.daySelected.emit(this.selectedDay() as DayLabel);
+      this.daySelected.emit(this.selectedDay()!.id);
     });
   }
 }
