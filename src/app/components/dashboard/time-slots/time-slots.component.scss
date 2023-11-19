@@ -1,10 +1,26 @@
 .time-slots {
   &_content {
+    overflow-y: scroll;
     padding: 1.5rem;
 
     &_add-button {
       background-color: #181818;
       color: white;
+    }
+  }
+
+  &-list {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    app-time-slot-card-readonly:not(:last-child) {
+      margin-bottom: 1rem;
     }
   }
 }

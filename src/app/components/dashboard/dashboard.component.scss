@@ -1,8 +1,3 @@
-// @media (max-width:991px) {
-//   .sidenav{
-//     margin: 0;
-//   }
-// }
 :host {
   position: relative;
   height: 100%;
@@ -27,6 +22,8 @@
         background-color: #303030;
         width: 3%;
       }
+      box-sizing: border-box !important;
+      overflow-x: hidden;
     }
 
     .sidenav {

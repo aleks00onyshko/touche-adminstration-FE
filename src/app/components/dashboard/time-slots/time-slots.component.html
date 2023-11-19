@@ -5,3 +5,11 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
+
+<div class="time-slots-list">
+  @if(loading$ | async) {
+    <app-spinner></app-spinner>
+  } @else { @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
+    <app-time-slot-card-readonly [timeSlot]="timeSlot"></app-time-slot-card-readonly>
+  } @empty { @if((loading$ | async) === false) { <span> No available slots </span>} }}
+</div>
