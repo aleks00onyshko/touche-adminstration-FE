@@ -2,6 +2,7 @@
   &_content {
     overflow-y: scroll;
     padding: 1.5rem;
+    box-sizing: border-box !important;
 
     &_add-button {
       background-color: #181818;
@@ -10,11 +11,10 @@
   }
 
   &-list {
-    flex-grow: 1;
-    overflow: auto;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
+    width: 95%;
+    padding: 1%;
+    box-sizing: border-box !important;
+    width: 97%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
