@@ -1,0 +1,17 @@
+.time-slot {
+  padding: 2rem;
+  background-color: #181818;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+
+  &_duration {
+    width: 8rem;
+    margin-left: auto;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+}

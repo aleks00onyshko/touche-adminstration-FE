@@ -19,4 +19,8 @@ export class TimeSlotsComponent {
   public daySelected(dateId: DateId): void {
     this.timeSlotsStore.getTimeSlots$(dateId);
   }
+
+  public openCreateTimeSlotDialog(): void {
+    this.timeSlotsStore.openCreateTimeSlotDialog$();
+  }
 }

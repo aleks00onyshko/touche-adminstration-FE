@@ -1,0 +1,12 @@
+<div class="timepicker-wrapper">
+  <span class="label">{{ label ?? 'Some label here' }}</span>
+  <ngx-mat-timepicker-field
+    #startTime
+    color="warn"
+    [ariaAutoComplete]="false"
+    [format]="24"
+    [defaultTime]="(timeKeeperValueSignal() ?? []).join(':')"
+    [disabled]="timeKeeperDisabledSignal()"
+    (timeChanged)="timeChanged($event)"
+  ></ngx-mat-timepicker-field>
+</div>

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Create new time slot</h2>
+<mat-dialog-content class="mat-typography">
+  <app-time-slot-card [formControl]="timeSlotControl"></app-time-slot-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    [disabled]="timeSlotControl.invalid"
+    (click)="saveTimeSlot($any(timeSlotControl.value))"
+  >
+    Save
+  </button>
+</mat-dialog-actions>
