@@ -8,7 +8,8 @@
     width: 100%;
 
     .mat-drawer-content {
-      overflow: hidden;
+      box-sizing: border-box !important;
+      overflow-x: hidden;
     }
 
     .sidenav {

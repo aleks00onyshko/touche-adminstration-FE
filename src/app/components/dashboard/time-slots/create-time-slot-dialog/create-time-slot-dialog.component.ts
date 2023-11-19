@@ -21,10 +21,7 @@ export class CreateTimeSlotDialogComponent {
   public readonly defaultTimes: [number, number] = [moment().hour(), moment().minute()];
 
   public readonly timeSlotControl: FormControl<TimeSlotCardControlIncomeValue | null> =
-    new FormControl<TimeSlotCardControlIncomeValue>({
-      startTime: this.defaultTimes,
-      endTime: this.defaultTimes
-    });
+    new FormControl<TimeSlotCardControlIncomeValue>({ startTime: this.defaultTimes, endTime: this.defaultTimes });
 
   constructor(private readonly matDialogRef: MatDialogRef<CreateTimeSlotDialogComponent>) {}
 
