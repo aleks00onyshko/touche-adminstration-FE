@@ -15,9 +15,9 @@
       max-width: 100%;
 
       button {
-        background-color: #303030;
+        background-color: #737373;
         position: absolute;
-        bottom: 13.5rem;
+        top: 5rem;
         width: 1rem;
         left: -2rem;
       }
@@ -70,5 +70,21 @@
     .content {
       padding: 1rem;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    min-width: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidenav {
+    padding: 20px;
+    max-width: 40%;
+    min-width: 20%;
   }
 }

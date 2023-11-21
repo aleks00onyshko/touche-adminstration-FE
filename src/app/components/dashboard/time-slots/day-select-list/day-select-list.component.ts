@@ -27,8 +27,11 @@ export class DaySelectListComponent {
   );
 
   constructor(@Self() private daySelectListService: DaySelectListService) {
-    effect(() => {
-      this.daySelected.emit(this.selectedDay()!.id);
-    });
+    effect(
+      () => {
+        this.daySelected.emit(this.selectedDay()!.id);
+      },
+      { allowSignalWrites: true }
+    );
   }
 }
