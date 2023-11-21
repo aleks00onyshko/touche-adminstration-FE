@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collectionData, collection, setDoc, doc } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { Observable, firstValueFrom, from, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
+import { Observable, delay, firstValueFrom, from, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
 import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import {
   CreateTimeSlotDialogComponent,
@@ -14,13 +14,13 @@ import { UUIDGeneratorService } from '../../../core/services/id-generator.servic
 export interface TimeSlotsState {
   currentDateId: DateId | null;
   loading: boolean;
-  timeSlots: TimeSlot[];
+  timeSlots: TimeSlot[] | null;
 }
 
 export const initialState: TimeSlotsState = {
   currentDateId: null,
   loading: false,
-  timeSlots: []
+  timeSlots: null
 };
 
 @Injectable()
@@ -43,7 +43,7 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
   }));
   public readonly addTimeSlot = this.updater((state, timeSlot: TimeSlot) => ({
     ...state,
-    timeSlots: [timeSlot, ...state.timeSlots]
+    timeSlots: [timeSlot, ...(state.timeSlots ?? [])]
   }));
 
   constructor(
@@ -56,12 +56,12 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
 
   public readonly getTimeSlots$ = this.effect((dateId$: Observable<DateId>) =>
     dateId$.pipe(
+      tap(dateId => {
+        this.setLoading(true);
+        this.setDateId(dateId);
+      }),
       switchMap(dateId =>
         (collectionData(collection(this.firestore, `dateIds/${dateId}/slots`)) as Observable<TimeSlot[]>).pipe(
-          tap(() => {
-            this.setLoading(true);
-            this.setDateId(dateId);
-          }),
           tapResponse(
             timeSlots => {
               this.setTimeSlots(timeSlots);

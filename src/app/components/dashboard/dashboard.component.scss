@@ -11,8 +11,9 @@
 
     .mat-drawer-content {
       width: auto;
-      min-width: 85%;
+      min-width: 80%;
       max-width: 100%;
+
       button {
         background-color: #303030;
         position: absolute;
@@ -20,22 +21,7 @@
         width: 1rem;
         left: -2rem;
       }
-      .sidenav-content {
-        background-color: #303030;
-        width: 3%;
-      }
-      box-sizing: border-box !important;
-      overflow-x: hidden;
-      width: auto;
-      min-width: 85%;
-      max-width: 100%;
-      button {
-        background-color: #303030;
-        position: absolute;
-        bottom: 13.5rem;
-        width: 1rem;
-        left: -2rem;
-      }
+
       .sidenav-content {
         background-color: #303030;
         width: 3%;
