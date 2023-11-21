@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation, forwardRef, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,10 @@ import {
   ReactiveFormsModule,
   Validator
 } from '@angular/forms';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
@@ -20,22 +24,20 @@ import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
-import { TimeSlotDurationPipe } from './time-slot-duration.pipe';
 import { timeSlotCardValidator } from './config/time-slot.validator';
-import { DateService } from 'src/app/core/services/date.service';
 import { TimeSlotCardValidationErrors } from './config/validation.errors';
 
-export interface TimeSlotCardControlIncomeValue extends Pick<TimeSlot, 'startTime' | 'endTime'> {}
-export interface TimeSlotCardControlOutcomeValue extends Pick<TimeSlot, 'startTime' | 'endTime' | 'duration'> {}
+export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {}
 export type TimeSlotCardControlStructure = {
   startTime: FormControl<[number, number] | null>;
-  endTime: FormControl<[number, number] | null>;
+  duration: FormControl<number | null>;
 };
-
 @Component({
   selector: 'app-time-slot-card',
   standalone: true,
   imports: [
+    MatInputModule,
+    FormsModule,
     CommonModule,
     NgxMatTimepickerModule,
     MatInputModule,
@@ -45,7 +47,8 @@ export type TimeSlotCardControlStructure = {
     ReactiveFormsModule,
     FormsModule,
     TimePickerComponent,
-    TimeSlotDurationPipe
+    MatSelectModule,
+    MatFormFieldModule
   ],
   templateUrl: './time-slot-card.component.html',
   styleUrls: ['./time-slot-card.component.scss'],
@@ -67,19 +70,20 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   public readonly timeSlotForm = new FormGroup<TimeSlotCardControlStructure>(
     {
       startTime: new FormControl(null),
-      endTime: new FormControl(null)
+      duration: new FormControl(null)
     },
-    { validators: timeSlotCardValidator(this.dateService) }
+    { validators: timeSlotCardValidator() }
   );
   public readonly controls: TimeSlotCardControlStructure = {
     startTime: this.timeSlotForm.controls.startTime,
-    endTime: this.timeSlotForm.controls.endTime
+    duration: this.timeSlotForm.controls.duration
   };
+  public durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
 
-  public onChangeFn!: (value: TimeSlotCardControlOutcomeValue) => void;
+  public onChangeFn!: (value: TimeSlotCardControlValue) => void;
   public onTouchFn!: () => void;
 
-  constructor(private cdr: ChangeDetectorRef, private dateService: DateService) {
+  constructor(private cdr: ChangeDetectorRef) {
     super();
   }
 
@@ -92,19 +96,19 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
       .subscribe(value =>
         this.onChangeFn({
           startTime: value.startTime,
-          endTime: value.endTime,
-          duration: this.dateService.getDifferenceBetweenStartAndEndTime(value.startTime, value.endTime)
-        } as TimeSlotCardControlOutcomeValue)
+          duration: value.duration
+        } as TimeSlotCardControlValue)
       );
   }
 
-  public writeValue(value: TimeSlotCardControlIncomeValue | null): void {
+  public writeValue(value: TimeSlotCardControlValue | null): void {
     if (value) {
       this.timeSlotForm.patchValue(value);
+      this.cdr.detectChanges();
     }
   }
 
-  public registerOnChange(fn: (value: TimeSlotCardControlIncomeValue) => void): void {
+  public registerOnChange(fn: (value: TimeSlotCardControlValue) => void): void {
     this.onChangeFn = fn;
   }
 
@@ -118,6 +122,6 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   }
 
   public validate(): TimeSlotCardValidationErrors | null {
-    return timeSlotCardValidator(this.dateService)(this.timeSlotForm);
+    return timeSlotCardValidator()(this.timeSlotForm);
   }
 }

@@ -1,36 +1,36 @@
 .day-select-list {
   background-color: #181818;
-  scroll-snap-type: x mandatory;
   display: flex;
-  -webkit-overflow-scrolling: touch;
-  overflow-x: scroll;
-  width: 100%;
-  padding: 1rem;
-  height: 5rem;
 
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 0 1rem 0;
+  height: 5rem;
   /* Hiding scrollbar for IE, Edge and Firefox */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  overflow: auto;
+  scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
     display: none;
   }
-
   .days-batch_container {
+    min-width: 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
     align-items: center;
-    scroll-snap-align: start;
     justify-content: space-evenly;
     box-sizing: border-box;
     display: flex;
-    scroll-snap-align: start;
+    flex-direction: row;
+    left: 1rem;
     position: relative;
-    min-width: 80vw;
     height: 100%;
-    display: inline-flex;
   }
 
   .day {
-    min-width: 9vw;
+    width: 5%;
+    margin-left: -0.3rem;
     display: flex;
     flex-direction: column;
     align-items: center;

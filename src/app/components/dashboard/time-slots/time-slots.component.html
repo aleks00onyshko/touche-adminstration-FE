@@ -1,9 +1,19 @@
 <app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
 
-<div class="time-slots_content">
-  <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
+<div class="time-slots-list">
+  @if((loading$ | async) === true) {
+  <app-spinner></app-spinner>
+  } @else {
+
+  <div class="time-slots_content">
+    <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
+  <app-time-slot-card-readonly [timeSlot]="timeSlot"></app-time-slot-card-readonly>
+  }}
 </div>
 
 <div class="time-slots-list">

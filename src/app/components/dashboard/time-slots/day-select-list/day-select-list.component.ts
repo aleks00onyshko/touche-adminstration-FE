@@ -19,6 +19,7 @@ export class DaySelectListComponent {
   public readonly dayLabelBatches: WritableSignal<DayLabel[][]> = signal(
     this.daySelectListService.splitDayLabelsIntoBatches(this.daySelectListService.generateDaysList())
   );
+
   public readonly selectedDay: WritableSignal<undefined | null | DayLabel> = signal(
     this.dayLabelBatches()
       .flat()
