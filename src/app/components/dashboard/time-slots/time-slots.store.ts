@@ -9,8 +9,8 @@ import {
   CreateTimeSlotDialogComponent,
   CreateTimeSlotDialogResponse
 } from './create-time-slot-dialog/create-time-slot-dialog.component';
-
 import { UUIDGeneratorService } from '../../../core/services/id-generator.service';
+
 export interface TimeSlotsState {
   currentDateId: DateId | null;
   loading: boolean;
@@ -58,7 +58,6 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
     dateId$.pipe(
       switchMap(dateId =>
         (collectionData(collection(this.firestore, `dateIds/${dateId}/slots`)) as Observable<TimeSlot[]>).pipe(
-          take(1),
           tap(() => {
             this.setLoading(true);
             this.setDateId(dateId);
@@ -69,7 +68,8 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
               this.setLoading(false);
             },
             (err: HttpErrorResponse) => console.error(err.message)
-          )
+          ),
+          take(1) // TODO: check if needed
         )
       )
     )

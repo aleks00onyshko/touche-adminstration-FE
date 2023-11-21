@@ -1,3 +1,8 @@
+// @media (max-width:991px) {
+//   .sidenav{
+//     margin: 0;
+//   }
+// }
 :host {
   position: relative;
   height: 100%;
@@ -8,12 +13,27 @@
     width: 100%;
 
     .mat-drawer-content {
-      overflow: hidden;
+      width: auto;
+      min-width: 85%;
+      max-width: 100%;
+      button {
+        background-color: #303030;
+        position: absolute;
+        bottom: 13.5rem;
+        width: 1rem;
+        left: -2rem;
+      }
+      .sidenav-content {
+        background-color: #303030;
+        width: 3%;
+      }
     }
 
     .sidenav {
       width: 20%;
       padding: 20px;
+      max-width: 40%;
+      min-width: 20%;
 
       ::ng-deep .mat-drawer-inner-container {
         display: flex;

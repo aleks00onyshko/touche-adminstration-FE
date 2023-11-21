@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { DaySelectListComponent } from './time-slots/day-select-list/day-select-list.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ import { DaySelectListComponent } from './time-slots/day-select-list/day-select-
     SpinnerComponent,
     RouterModule,
     TranslateModule,
-    DaySelectListComponent
+    DaySelectListComponent,
+    MatIconModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],

@@ -1,9 +1,12 @@
 <mat-card class="time-slot">
   <app-time-picker [formControl]="controls.startTime" [label]="'Start time'"></app-time-picker>
-  <app-time-picker [formControl]="controls.endTime" [label]="'End time'"></app-time-picker>
 
-  <mat-form-field class="time-slot_duration">
+  <mat-form-field class="durationOptions">
     <mat-label>Duration</mat-label>
-    <input matInput type="number" [value]="$any(timeSlotForm.value) | timeSlotDuration" [disabled]="true" />
+    <mat-select [formControl]="controls.duration">
+      @for (option of durationOptions; track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-select>
   </mat-form-field>
 </mat-card>
