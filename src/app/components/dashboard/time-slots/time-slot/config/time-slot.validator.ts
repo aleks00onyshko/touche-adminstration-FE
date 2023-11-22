@@ -8,10 +8,16 @@ export function timeSlotCardValidator(): ValidatorFn {
     const {
       controls: { startTime, duration }
     } = timeSlotFormGroup as FormGroup<TimeSlotCardControlStructure>;
+    const errors: TimeSlotCardValidationErrors = {};
 
     if (!startTime.value || !duration.value) return null;
 
-    const errors: TimeSlotCardValidationErrors = { ...duration.errors };
+    const dayInMinutes = 1440;
+    const minutes: number = startTime.value[0] * 60 + startTime.value[1] + duration.value;
+
+    if (minutes >= dayInMinutes) {
+      errors.DURATION_IS_INVALID = true;
+    }
 
     return isEmpty(errors) ? null : errors;
   };

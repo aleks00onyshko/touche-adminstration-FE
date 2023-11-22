@@ -13,5 +13,9 @@
     .mat-mdc-form-field-subscript-wrapper {
       display: none;
     }
+
+    &_error {
+      font-size: 1rem;
+    }
   }
 }

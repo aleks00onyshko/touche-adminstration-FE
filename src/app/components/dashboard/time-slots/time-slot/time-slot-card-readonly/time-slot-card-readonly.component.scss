@@ -1,20 +1,24 @@
 .time-slot--readonly {
+  height: 10rem;
   padding: 1.5rem;
   background-color: #181818;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 
-  .lesson_delate {
-    margin-bottom: 1.5rem;
+  .lesson_delete {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border-bottom: 1rem;
+    position: absolute;
+    right: -0.5rem;
+    top: -0.5rem;
 
-    .example-button-container button {
+    .delete_button-container button {
       width: 2rem;
       height: 2rem;
       color: white;
@@ -23,23 +27,15 @@
     }
   }
 
-  .lesson-content-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .lesson_type-and_teacher {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    height: 100%;
 
     .teacher {
       font-size: 1.3rem;
-      height: 5rem;
-      display: flex;
-      align-items: flex-end;
+      margin-top: auto;
     }
 
     .lesson_type {
@@ -47,7 +43,6 @@
       color: white;
       font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
     }
   }
 
@@ -55,6 +50,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    height: 100%;
 
     .start-time {
       color: white;
@@ -62,8 +58,9 @@
       margin-bottom: 1.5rem;
     }
 
-    .duraction {
+    .duration {
       font-size: 1rem;
+      margin-top: auto;
     }
   }
 }
