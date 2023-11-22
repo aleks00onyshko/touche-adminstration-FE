@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection, setDoc, doc } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, setDoc, deleteDoc, doc } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, delay, firstValueFrom, from, pipe, switchMap, take, tap, withLatestFrom } from 'rxjs';
@@ -44,6 +44,10 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
   public readonly addTimeSlot = this.updater((state, timeSlot: TimeSlot) => ({
     ...state,
     timeSlots: [timeSlot, ...(state.timeSlots ?? [])]
+  }));
+  public readonly deleteTimeSlot = this.updater((state, id: string) => ({
+    ...state,
+    timeSlots: (state.timeSlots ?? []).filter(slot => slot.id !== id)
   }));
 
   constructor(
@@ -91,6 +95,23 @@ export class TimeSlotsStore extends ComponentStore<TimeSlotsState> {
           tapResponse(
             () => {
               this.addTimeSlot(optimisticallyGeneratedTimeSlot);
+              this.setLoading(false);
+            },
+            (err: HttpErrorResponse) => console.error(err.message)
+          )
+        );
+      })
+    )
+  );
+
+  public readonly delateTimeSlot$ = this.effect((id$: Observable<string>) =>
+    id$.pipe(
+      withLatestFrom(this.currentDateId$),
+      switchMap(([id, dateId]) => {
+        return from(deleteDoc(doc(this.firestore, `dateIds/${dateId}/slots/${id}`))).pipe(
+          tapResponse(
+            () => {
+              this.deleteTimeSlot(id);
               this.setLoading(false);
             },
             (err: HttpErrorResponse) => console.error(err.message)
