@@ -4,12 +4,14 @@ import { TimeSlotCardValidationErrors } from './validation.errors';
 import { isEmpty } from 'lodash';
 
 export function timeSlotCardValidator(): ValidatorFn {
-  return (timeSlotCardControl: AbstractControl<any>): TimeSlotCardValidationErrors | null => {
-    const { startTime, duration } = (timeSlotCardControl as FormGroup<TimeSlotCardControlStructure>)
-      .controls as TimeSlotCardControlStructure;
-    const errors: TimeSlotCardValidationErrors = {};
+  return (timeSlotFormGroup: AbstractControl<any>): TimeSlotCardValidationErrors | null => {
+    const {
+      controls: { startTime, duration }
+    } = timeSlotFormGroup as FormGroup<TimeSlotCardControlStructure>;
 
-    // TODO: add validation
+    if (!startTime.value || !duration.value) return null;
+
+    const errors: TimeSlotCardValidationErrors = { ...duration.errors };
 
     return isEmpty(errors) ? null : errors;
   };

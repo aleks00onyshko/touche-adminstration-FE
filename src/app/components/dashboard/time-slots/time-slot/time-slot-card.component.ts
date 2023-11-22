@@ -25,7 +25,8 @@ import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
 import { timeSlotCardValidator } from './config/time-slot.validator';
-import { TimeSlotCardValidationErrors } from './config/validation.errors';
+import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from './config/validation.errors';
+import { DurationErrorStateMatcher } from './config/duration-error-matcher';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {}
 export type TimeSlotCardControlStructure = {
@@ -79,6 +80,10 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
     duration: this.timeSlotForm.controls.duration
   };
   public durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
+  public errorsEnum: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
+  public durationErrorStateMatcher = new DurationErrorStateMatcher(
+    this.controls.startTime as FormControl<[number, number]>
+  );
 
   public onChangeFn!: (value: TimeSlotCardControlValue) => void;
   public onTouchFn!: () => void;

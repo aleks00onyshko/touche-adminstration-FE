@@ -3,10 +3,13 @@
 
   <mat-form-field class="durationOptions">
     <mat-label>Duration</mat-label>
-    <mat-select [formControl]="controls.duration">
+    <mat-select [formControl]="controls.duration" [errorStateMatcher]="durationErrorStateMatcher">
       @for (option of durationOptions; track option) {
       <mat-option [value]="option">{{ option }}</mat-option>
       }
     </mat-select>
+    @if(controls.duration.hasError(errorsEnum.DURATION_IS_INVALID)) {
+    <mat-error> Slot will end in the next day </mat-error>
+    }
   </mat-form-field>
 </mat-card>
