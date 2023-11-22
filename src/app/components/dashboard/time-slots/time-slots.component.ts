@@ -38,4 +38,8 @@ export class TimeSlotsComponent {
   public openCreateTimeSlotDialog(): void {
     this.timeSlotsStore.openCreateTimeSlotDialog$();
   }
+
+  public deleteTimeSlot(id: string): void {
+    this.timeSlotsStore.delateTimeSlot$(id);
+  }
 }

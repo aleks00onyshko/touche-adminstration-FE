@@ -12,6 +12,9 @@
   </div>
 
   @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
-  <app-time-slot-card-readonly [timeSlot]="timeSlot"></app-time-slot-card-readonly>
+  <app-time-slot-card-readonly
+    [timeSlot]="timeSlot"
+    (slotDeleted)="deleteTimeSlot($event)"
+  ></app-time-slot-card-readonly>
   }}
 </div>

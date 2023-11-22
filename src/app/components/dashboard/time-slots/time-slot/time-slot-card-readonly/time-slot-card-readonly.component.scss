@@ -1,11 +1,34 @@
 .time-slot--readonly {
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: #181818;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+
+  .lesson_delate {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1rem;
+
+    .example-button-container button {
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      background-color: #181818;
+      box-shadow: none;
+    }
+  }
+
+  .lesson-content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   .lesson_type-and_teacher {
     display: flex;
@@ -14,6 +37,9 @@
 
     .teacher {
       font-size: 1.3rem;
+      height: 5rem;
+      display: flex;
+      align-items: flex-end;
     }
 
     .lesson_type {

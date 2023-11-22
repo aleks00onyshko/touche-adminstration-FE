@@ -15,6 +15,8 @@ export class BotFunctionsService {
   constructor(private http: HttpClient) {}
 
   public createBot(botToken: string): Observable<CreateBotResponse> {
-    return this.http.post<CreateBotResponse>('https://create-736ronyepq-uc.a.run.app', { token: botToken } as CreateBotRequestBody);
+    return this.http.post<CreateBotResponse>('https://create-736ronyepq-uc.a.run.app', {
+      token: botToken
+    } as CreateBotRequestBody);
   }
 }

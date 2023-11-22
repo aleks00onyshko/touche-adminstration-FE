@@ -1,10 +1,23 @@
 <mat-card class="time-slot--readonly">
-  <div class="lesson_type-and_teacher">
-    <span class="lesson_type">Piano</span>
-    <span class="teacher"> Maria Boyko </span>
-  </div>
-  <div class="lesson_time">
-    <span class="start-time"> {{ timeSlot.startTime.join(':') }}</span>
-    <span class="duration"> {{ timeSlot.duration }} m</span>
+  <div class="lesson-content-container">
+    <div class="lesson_type-and_teacher">
+      <span class="lesson_type">Piano</span>
+      <span class="teacher"> Maria Boyko </span>
+    </div>
+    <div class="lesson_time">
+      <div class="lesson_delate">
+        <div class="example-button-container">
+          <button
+            mat-mini-fab
+            (click)="deleteTimeSlot(timeSlot.id)"
+            aria-label="Example icon button with a filter list icon"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
+      </div>
+      <span class="start-time"> {{ timeSlot.startTime.join(':') }}</span>
+      <span class="duration"> {{ timeSlot.duration }} m</span>
+    </div>
   </div>
 </mat-card>
