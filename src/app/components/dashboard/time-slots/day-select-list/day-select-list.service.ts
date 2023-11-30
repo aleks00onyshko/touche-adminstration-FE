@@ -25,17 +25,7 @@ export class DaySelectListService {
         currentDate.add(1, 'day');
       }
     };
-
-    // Calculate the number of days until the end of the month
-    const daysUntilEndOfMonth = moment(currentDate).endOf('month').date() - currentDate.date() + 1;
-
-    // Add labels for the current month, starting from the current day
-    addDays(daysUntilEndOfMonth, currentDate, days);
-
-    const remainingDaysFromNextMonth = Math.max(0, daysUntilEndOfMonth - currentDate.date());
-
-    // Adjust the loop for days from the next month
-    addDays(remainingDaysFromNextMonth, currentDate, days);
+    addDays(21, currentDate, days);
 
     return days;
   }
