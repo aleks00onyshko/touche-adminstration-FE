@@ -25,7 +25,7 @@ export class DaySelectListService {
         currentDate.add(1, 'day');
       }
     };
-    addDays(21, currentDate, days);
+    addDays(28, currentDate, days);
 
     return days;
   }
