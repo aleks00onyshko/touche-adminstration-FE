@@ -18,6 +18,34 @@
     "ANALYTICS_FALLBACK": "Some analytics here in the future",
     "SIDENAV": {
       "SLOTS": "SLOTS"
+    },
+    "CREATE_TIME_SLOT_CARD": {
+      "START_TIME": "Start Time",
+      "DURATION": "Duration",
+      "ERROR": "Slot will end in the next day"
+    },
+    "TIME_SLOT":{
+      "LESSON": "Piano",
+      "TEACHER": "Maria Boyko",
+      "MIN": "min"
+    },
+    "TIME_SLOT_LIST":{
+      "NO_SLOT": "No slots for this day"
+    },
+    "CREATE_TIME_SLOT_DIALOG":{
+      "TITLE": "Create new lesson",
+      "CANCEL": "Cancel",
+      "SAVE": "Save"
+    },
+    "DAY_LIST":{
+      "MON" : "MON",
+      "TUE" : "TUE",
+      "WED" : "WED",
+      "THU" : "THU",
+      "FRI" : "FRI",
+      "SAT" : "SAT",
+      "SUN" : "SUN"
     }
+  
   }
 }

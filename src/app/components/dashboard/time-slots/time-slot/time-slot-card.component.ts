@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 import { MatInputModule } from '@angular/material/input';
 import {
@@ -36,6 +38,7 @@ export type TimeSlotCardControlStructure = {
   selector: 'app-time-slot-card',
   standalone: true,
   imports: [
+    TranslateModule,
     MatInputModule,
     FormsModule,
     CommonModule,

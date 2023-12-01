@@ -1,8 +1,8 @@
 <mat-card class="time-slot" [formGroup]="timeSlotForm">
-  <app-time-picker [formControl]="controls.startTime" [label]="'Start time'"></app-time-picker>
+  <app-time-picker [formControl]="controls.startTime" [label]="'DASHBOARD.CREATE_TIME_SLOT_CARD.START_TIME' | translate"></app-time-picker>
 
   <mat-form-field class="time-slot_duration">
-    <mat-label>Duration</mat-label>
+    <mat-label>{{ 'DASHBOARD.CREATE_TIME_SLOT_CARD.DURATION' | translate }}</mat-label>
     <mat-select [formControl]="controls.duration">
       @for (option of durationOptions; track option) {
       <mat-option [value]="option">{{ option }}</mat-option>
@@ -12,5 +12,5 @@
 </mat-card>
 
 @if(timeSlotForm.invalid && timeSlotForm.hasError(errorsEnum.DURATION_IS_INVALID)) {
-<mat-error class="time-slot_duration_error"> Slot will end in the next day </mat-error>
+<mat-error class="time-slot_duration_error"> {{ 'DASHBOARD.CREATE_TIME_SLOT_CARD.ERROR' | translate }} </mat-error>
 }

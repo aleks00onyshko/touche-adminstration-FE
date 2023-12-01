@@ -4,11 +4,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DayLabel } from './day-label';
 import { DaySelectListService } from './day-select-list.service';
 import { DateId } from 'src/app/core/model/entities/time-slot';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-day-select-list',
   standalone: true,
-  imports: [CommonModule, ScrollingModule],
+  imports: [CommonModule, ScrollingModule, TranslateModule],
   templateUrl: './day-select-list.component.html',
   styleUrls: ['./day-select-list.component.scss'],
   providers: [DaySelectListService]
