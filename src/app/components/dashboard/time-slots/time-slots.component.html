@@ -17,6 +17,6 @@
     (slotDeleted)="deleteTimeSlot($event)"
   ></app-time-slot-card-readonly>
   }@empty {
-  <h2>No slots for this day</h2>
+  <h2>{{ 'DASHBOARD.TIME_SLOT_LIST.NO_SLOTS' | translate }} </h2>
   }}
 </div>

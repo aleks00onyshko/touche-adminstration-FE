@@ -4,6 +4,7 @@ import { DateId } from 'src/app/core/model/entities/time-slot';
 import { TimeSlotsStore } from './time-slots.store';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 import { TimeSlotCardComponent } from './time-slot/time-slot-card.component';
 import { CommonModule } from '@angular/common';
 import { TimeSlotCardReadonlyComponent } from './time-slot/time-slot-card-readonly/time-slot-card-readonly.component';
@@ -15,6 +16,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
   styleUrls: ['./time-slots.component.scss'],
   standalone: true,
   imports: [
+    TranslateModule,
     CommonModule,
     DaySelectListComponent,
     MatIconModule,

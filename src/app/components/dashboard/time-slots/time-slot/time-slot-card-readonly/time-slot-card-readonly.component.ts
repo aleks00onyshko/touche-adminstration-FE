@@ -4,11 +4,13 @@ import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-time-slot-card-readonly',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, TranslateModule],
   templateUrl: './time-slot-card-readonly.component.html',
   styleUrls: ['./time-slot-card-readonly.component.scss']
 })

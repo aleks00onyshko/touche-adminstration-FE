@@ -4,12 +4,21 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { TimeSlotCardControlValue, TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
 import * as moment from 'moment';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-time-slot-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule, TimeSlotCardComponent, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatDialogModule,
+    MatButtonModule,
+    TimeSlotCardComponent,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   templateUrl: './create-time-slot-dialog.component.html',
   styleUrls: ['./create-time-slot-dialog.component.scss']
 })

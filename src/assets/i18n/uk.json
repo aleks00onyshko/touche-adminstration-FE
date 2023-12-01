@@ -1,6 +1,8 @@
 {
   "COMMON": {
     "CREATE": "Створити",
+    "CANCEL": "Закрити",
+    "SAVE": "Зберегти",
     "LANGUAGE": {
       "ENGLISH": "Англійська",
       "UKRAINIAN": "Українська"
@@ -19,6 +21,31 @@
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
     "SIDENAV": {
       "SLOTS": "Часові Слоти"
+    },
+    "CREATE_TIME_SLOT": {
+      "START_TIME": "Початковий час",
+      "DURATION": "Тривалість",
+      "ERROR": "Слот закінчиться наступного дня"
+    },
+    "TIME_SLOT": {
+      "TYPE": "Фортепіано",
+      "MIN": "хв"
+    }, 
+    "TIME_SLOT_LIST":{
+      "NO_SLOTS": "Не має слотів на цей день"
+    },
+    "CREATE_TIME_SLOT_DIALOG": {
+      "TITLE": "Створіть новий урок"
+     
+    },
+    "DAY_LIST":{
+      "MON" : "ПН",
+      "TUE" : "ВТ",
+      "WED" : "СР",
+      "THU" : "ЧТ",
+      "FRI" : "ПТ",
+      "SAT" : "СБ",
+      "SUN" : "НД"
     }
   }
 }
