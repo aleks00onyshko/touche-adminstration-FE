@@ -87,8 +87,6 @@ export class TimeSlotsEffects {
         switchMap(([_, teachers]) => {
           const dialogRef = this.dialog.open(CreateTimeSlotDialogComponent, { data: { teachers } });
 
-          console.log(teachers);
-
           return dialogRef.afterClosed().pipe(
             map(result => {
               if (result) {

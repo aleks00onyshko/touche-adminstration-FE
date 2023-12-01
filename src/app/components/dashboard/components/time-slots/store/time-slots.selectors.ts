@@ -8,3 +8,6 @@ export const selectCurrentDateId = createSelector(selectTimeSlotsState, state =>
 export const selectLoading = createSelector(selectTimeSlotsState, state => state.loading);
 export const selectTimeSlots = createSelector(selectTimeSlotsState, state => state.timeSlots);
 export const selectTeachers = createSelector(selectTimeSlotsState, state => state.teachers);
+
+export const selectTeacherById = (teacherId: string) =>
+  createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));

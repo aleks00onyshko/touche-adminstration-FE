@@ -10,7 +10,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { Store } from '@ngrx/store';
 import { TimeSlotsState } from './store/time-slots.reducer';
 import { TimeSlotsActions } from './store/time-slots.actions';
-import { selectLoading, selectTimeSlots } from './store/time-slots.selectors';
+import { selectLoading, selectTeacherById, selectTimeSlots } from './store/time-slots.selectors';
 
 @Component({
   selector: 'app-time-slots',
