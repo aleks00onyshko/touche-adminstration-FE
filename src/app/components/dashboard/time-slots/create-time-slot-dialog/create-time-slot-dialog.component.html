@@ -3,7 +3,7 @@
   <app-time-slot-card [formControl]="timeSlotControl"></app-time-slot-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>{{ 'DASHBOARD.CREATE_TIME_SLOT_DIALOG.CANCEL' | translate }}</button>
+  <button mat-button mat-dialog-close>{{ 'COMMON.CANCEL' | translate }}</button>
   <button
     mat-button
     [mat-dialog-close]="true"
@@ -11,6 +11,6 @@
     [disabled]="timeSlotControl.invalid"
     (click)="saveTimeSlot($any(timeSlotControl.value))"
   >
-  {{ 'DASHBOARD.CREATE_TIME_SLOT_DIALOG.SAVE' | translate }}
+    {{ 'COMMON.SAVE' | translate }}
   </button>
 </mat-dialog-actions>

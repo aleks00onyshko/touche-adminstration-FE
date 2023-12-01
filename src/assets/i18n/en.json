@@ -1,11 +1,14 @@
 {
   "COMMON": {
     "CREATE": "Create",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
     "LANGUAGE": {
       "ENGLISH": "English",
       "UKRAINIAN": "Ukrainian"
     },
     "CONFIRM_DIALOG": {
+      "TITLE": "Confirmation",
       "YES": "Yes",
       "NO": "No"
     }
@@ -19,33 +22,29 @@
     "SIDENAV": {
       "SLOTS": "SLOTS"
     },
-    "CREATE_TIME_SLOT_CARD": {
+    "CREATE_TIME_SLOT": {
       "START_TIME": "Start Time",
       "DURATION": "Duration",
       "ERROR": "Slot will end in the next day"
     },
-    "TIME_SLOT":{
-      "LESSON": "Piano",
-      "TEACHER": "Maria Boyko",
+    "TIME_SLOT": {
+      "TYPE": "Piano",
       "MIN": "min"
     },
-    "TIME_SLOT_LIST":{
-      "NO_SLOT": "No slots for this day"
+    "TIME_SLOT_LIST": {
+      "NO_SLOTS": "No slots for this day"
     },
-    "CREATE_TIME_SLOT_DIALOG":{
-      "TITLE": "Create new lesson",
-      "CANCEL": "Cancel",
-      "SAVE": "Save"
+    "CREATE_TIME_SLOT_DIALOG": {
+      "TITLE": "Create new lesson"
     },
-    "DAY_LIST":{
-      "MON" : "MON",
-      "TUE" : "TUE",
-      "WED" : "WED",
-      "THU" : "THU",
-      "FRI" : "FRI",
-      "SAT" : "SAT",
-      "SUN" : "SUN"
+    "DAY_LIST": {
+      "MON": "MON",
+      "TUE": "TUE",
+      "WED": "WED",
+      "THU": "THU",
+      "FRI": "FRI",
+      "SAT": "SAT",
+      "SUN": "SUN"
     }
-  
   }
 }
