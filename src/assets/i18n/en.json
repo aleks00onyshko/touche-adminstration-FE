@@ -25,6 +25,7 @@
     "CREATE_TIME_SLOT": {
       "START_TIME": "Start Time",
       "DURATION": "Duration",
+      "TEACHER": "Teacher",
       "ERROR": "Slot will end in the next day"
     },
     "TIME_SLOT": {

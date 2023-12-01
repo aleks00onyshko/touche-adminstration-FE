@@ -1,0 +1,16 @@
+.avatars-dropdown_option {
+  .mat-pseudo-checkbox {
+    display: none;
+  }
+
+  app-avatar {
+    margin-right: 1rem;
+  }
+
+  .mdc-list-item__primary-text {
+    color: white !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

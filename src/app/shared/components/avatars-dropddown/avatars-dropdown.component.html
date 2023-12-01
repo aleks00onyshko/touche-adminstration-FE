@@ -1,0 +1,16 @@
+<mat-form-field class="avatars-dropdown_container">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [formControl]="control">
+    <mat-select-trigger>{{ control.value?.username }}</mat-select-trigger>
+    @for (avatarConfig of avatarConfigurations; track avatarConfig.email) {
+    <mat-option class="avatars-dropdown_option" [value]="avatarConfig">
+      <app-avatar [avatarConfiguration]="avatarConfig"></app-avatar>
+      <span> {{ avatarConfig.username }} </span>
+    </mat-option>
+    }
+  </mat-select>
+
+  @if(control.invalid && control.hasError('required')) {
+  <mat-error>You have to select a teacher</mat-error>
+  }
+</mat-form-field>

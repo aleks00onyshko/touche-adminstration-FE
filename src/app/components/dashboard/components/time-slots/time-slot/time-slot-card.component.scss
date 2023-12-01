@@ -4,18 +4,18 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 
   &_duration {
-    width: 8rem;
-    margin-left: auto;
-
-    .mat-mdc-form-field-subscript-wrapper {
-      display: none;
-    }
+    width: 16rem;
+    margin-right: 1rem;
 
     &_error {
       font-size: 1rem;
     }
+  }
+
+  .ngx-mat-timepicker__toggle {
+    margin-bottom: 0;
   }
 }

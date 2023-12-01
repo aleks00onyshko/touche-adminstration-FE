@@ -3,8 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, take, tap } from 'rxjs';
-import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
-import { selectUser } from '../../../store/authentication/authentication.selectors';
+import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
+import { selectUser } from 'src/app/components/authentication/store/authentication.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationGuard implements CanActivate {

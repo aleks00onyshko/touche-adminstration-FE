@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
-import { User } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
-import { map, Observable, takeUntil, takeWhile } from 'rxjs';
-import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
-import { selectUser } from '../../../store/authentication/authentication.selectors';
+import { filter, map, Observable } from 'rxjs';
 import { AvatarConfigBuilder, AvatarConfiguration, AVATAR_SIZE } from './avatar.config';
+import { User } from 'src/app/core/model/entities/user';
+import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
+import { selectUser } from 'src/app/components/authentication/store/authentication.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AvatarBuilderService {
   constructor(private store: Store<AuthenticationState>) {}
 
   public createAvatarConfigurationFurCurrentUser$(size?: AVATAR_SIZE): Observable<AvatarConfiguration> {
-    return this.getAvatarBuilder(this.store.select(selectUser), size ?? AVATAR_SIZE.m).pipe(
-      map(builder => builder.build())
+    return (this.store.select(selectUser) as Observable<User | null>).pipe(
+      filter(Boolean),
+      map(user => this.createAvatarCofigurationForUser(user, size))
     );
   }
 
-  private getAvatarBuilder(
-    user$: Observable<User | null>,
-    size: AVATAR_SIZE
-  ): Observable<AvatarConfigBuilder<AvatarConfiguration>> {
-    return user$.pipe(
-      takeWhile(user => !!user),
-      map(user =>
-        new AvatarConfigBuilder()
-          .withUsername(user!.displayName ?? user!.email ?? '')
-          .withSize(size)
-          .withBackgroundColor('#666666')
-      )
-    );
+  public createAvatarCofigurationForUser(user: User, size: AVATAR_SIZE = AVATAR_SIZE.m): AvatarConfiguration {
+    return this.getConfiguredAvatarBuilder(user, size).build();
+  }
+
+  private getConfiguredAvatarBuilder(user: User, size: AVATAR_SIZE): AvatarConfigBuilder<AvatarConfiguration> {
+    return new AvatarConfigBuilder()
+      .withId(user.id)
+      .withUsername(user!.displayName ?? user!.email ?? '')
+      .withSize(size)
+      .withBackgroundColor('#666666');
   }
 }

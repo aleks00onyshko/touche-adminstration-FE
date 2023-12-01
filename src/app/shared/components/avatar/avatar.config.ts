@@ -26,6 +26,7 @@ export class AvatarConfiguration {
   public email: string = '';
   public username: string = '';
   public placeholder: string = '';
+  public id: string = '';
 }
 
 export class AvatarConfigBuilder<T extends AvatarConfiguration> {
@@ -33,6 +34,11 @@ export class AvatarConfigBuilder<T extends AvatarConfiguration> {
 
   constructor() {
     this.config = this.createConfig();
+  }
+
+  public withId(id: string): AvatarConfigBuilder<T> {
+    this.config.id = id;
+    return this;
   }
 
   public withUsername(username: string): AvatarConfigBuilder<T> {

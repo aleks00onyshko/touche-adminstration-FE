@@ -15,14 +15,17 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { authenticationReducer, AUTHENTICATION_FEATURE_NAME } from './app/store/authentication/authentication.reducer';
-import { AuthenticationEffects } from './app/store/authentication/authentication.effects';
 import { catchError, of, take } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocalStorageService } from './app/core/services/local-storage.service';
 import { MatSnackBarModule, MatSnackBar, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { AuthenticationEffects } from './app/components/authentication/store/authentication.effects';
+import {
+  AUTHENTICATION_FEATURE_NAME,
+  authenticationReducer
+} from './app/components/authentication/store/authentication.reducer';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
