@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AdditionalLoginMethodsComponent } from '../additional-login-methods/additional-login-methods.component';
 import { Store } from '@ngrx/store';
-import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
-import { AuthenticationActions } from '../../../store/authentication/authentication.action';
+import { AuthenticationActions } from '../store/authentication.action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { AuthenticationState } from '../store/authentication.reducer';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,8 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule
   ],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
   public registerForm = new FormGroup({

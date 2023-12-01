@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AdditionalLoginMethodsComponent } from '../additional-login-methods/additional-login-methods.component';
-import { AuthenticationState } from '../../../store/authentication/authentication.reducer';
 import { Store } from '@ngrx/store';
-import { AuthenticationActions } from '../../../store/authentication/authentication.action';
+import { AuthenticationActions } from '../store/authentication.action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { AuthenticationState } from '../store/authentication.reducer';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,8 @@ import { MatInputModule } from '@angular/material/input';
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   public loginForm = new FormGroup({

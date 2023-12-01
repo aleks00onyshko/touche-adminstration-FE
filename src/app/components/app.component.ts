@@ -4,9 +4,8 @@ import { RouterModule } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { SystembarComponent } from '../shared/components/systembar/systembar.component';
-import { AuthenticationState } from '../store/authentication/authentication.reducer';
-import { selectUser } from '../store/authentication/authentication.selectors';
-
+import { AuthenticationState } from './authentication/store/authentication.reducer';
+import { selectUser } from './authentication/store/authentication.selectors';
 @Component({
   selector: 'app-root',
   standalone: true,

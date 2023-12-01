@@ -1,0 +1,90 @@
+:host {
+  position: relative;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+
+  .dashboard-container {
+    height: 100%;
+    width: 100%;
+
+    .mat-drawer-content {
+      width: auto;
+      min-width: 80%;
+      max-width: 100%;
+
+      button {
+        background-color: #737373;
+        position: absolute;
+        top: 5rem;
+        width: 1rem;
+        left: -2rem;
+      }
+
+      .sidenav-content {
+        background-color: #303030;
+        width: 3%;
+      }
+    }
+
+    .sidenav {
+      width: 20%;
+      padding: 20px;
+      max-width: 40%;
+      min-width: 20%;
+
+      ::ng-deep .mat-drawer-inner-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cards {
+        margin: 0 0 20px 0;
+        height: 100%;
+        overflow-y: scroll;
+
+        &-title {
+          font-size: 17px;
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        .card {
+          // TODO: use angular/material theming instead
+          background-color: #303030;
+          height: 4rem;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          padding: 1rem;
+          cursor: pointer;
+        }
+
+        .card:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .content {
+      padding: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    min-width: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidenav {
+    padding: 20px;
+    max-width: 40%;
+    min-width: 20%;
+  }
+}

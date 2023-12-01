@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvatarConfiguration } from './avatar.config';
 import { AvatarSizeModifiersPipe } from './avatar-size-modifiers.pipe';
@@ -8,7 +8,8 @@ import { AvatarSizeModifiersPipe } from './avatar-size-modifiers.pipe';
   standalone: true,
   imports: [CommonModule, AvatarSizeModifiersPipe],
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+  styleUrls: ['./avatar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent {
   @Input() avatarConfiguration!: AvatarConfiguration;

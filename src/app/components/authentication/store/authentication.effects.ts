@@ -14,6 +14,7 @@ import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { catchError, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
+import { Firestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthenticationEffects implements OnInitEffects {
@@ -93,7 +94,13 @@ export class AuthenticationEffects implements OnInitEffects {
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private auth: Auth, private router: Router, private snackbar: MatSnackBar) {}
+  constructor(
+    private actions$: Actions,
+    private auth: Auth,
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private firestore: Firestore
+  ) {}
 
   public ngrxOnInitEffects(): Action {
     return AuthenticationActions.getUser();
