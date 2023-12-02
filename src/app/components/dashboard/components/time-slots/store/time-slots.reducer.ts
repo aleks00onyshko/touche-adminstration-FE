@@ -53,7 +53,7 @@ const reducer = createReducer(
   on(TimeSlotsActions.getTeachersSuccess, (state, { teachers }) => ({ ...state, teachers })),
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,
-    timeSlots: (state.timeSlots ?? []).filter(timeSlot => timeSlot.id === id)
+    timeSlots: (state.timeSlots ?? []).filter(timeSlot => timeSlot.id !== id)
   }))
 );
 

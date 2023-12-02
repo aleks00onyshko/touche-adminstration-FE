@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Firestore, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
-import { Observable, catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { Observable, catchError, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
 import { TimeSlotsState } from './time-slots.reducer';
 import { selectCurrentDateId, selectTeachers } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
