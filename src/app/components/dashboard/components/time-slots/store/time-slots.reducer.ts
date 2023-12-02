@@ -45,11 +45,6 @@ const reducer = createReducer(
       loading: false
     })
   ),
-  on(TimeSlotsActions.createTimeSlotSuccess, (state, { timeSlot }) => ({
-    ...state,
-    timeSlots: [timeSlot, ...(state.timeSlots ?? [])],
-    loading: false
-  })),
   on(TimeSlotsActions.getTeachersSuccess, (state, { teachers }) => ({ ...state, teachers })),
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,
