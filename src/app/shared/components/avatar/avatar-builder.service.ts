@@ -23,7 +23,7 @@ export class AvatarBuilderService {
 
   private getConfiguredAvatarBuilder(user: User, size: AVATAR_SIZE): AvatarConfigBuilder<AvatarConfiguration> {
     return new AvatarConfigBuilder()
-      .withId(user.id)
+      .withId(user.uid)
       .withUsername(user!.displayName ?? user!.email ?? '')
       .withSize(size)
       .withBackgroundColor('#666666');

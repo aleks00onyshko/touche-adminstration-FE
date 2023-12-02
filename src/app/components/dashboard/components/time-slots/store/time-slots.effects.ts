@@ -53,7 +53,7 @@ export class TimeSlotsEffects {
           duration: timeSlotCardControlValue.duration,
           id,
           dateId: currentDateId!,
-          techerId: timeSlotCardControlValue.teacher!.id
+          teacherId: timeSlotCardControlValue.teacher!.id
         };
 
         return from(

@@ -6,6 +6,6 @@ export type DateId = Concat<[string, string, string]>;
 export interface TimeSlot extends Entity<string> {
   startTime: [number, number];
   duration: number;
-  techerId: string;
+  teacherId: string;
   dateId: DateId;
 }
