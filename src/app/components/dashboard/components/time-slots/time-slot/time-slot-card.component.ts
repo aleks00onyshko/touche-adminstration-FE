@@ -18,7 +18,8 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-  Validator
+  Validator,
+  Validators
 } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
@@ -40,6 +41,9 @@ import { Teacher } from 'src/app/core/model/entities/teacher';
 import { AvatarBuilderService } from 'src/app/shared/components/avatar/avatar-builder.service';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import { TimeSlotsState } from '../store/time-slots.reducer';
+import { timeSlotHasTimeTurnerSyndromeValidator } from './config/validators/time-turner-syndrome-async.validator';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teacher: AvatarConfiguration | null;
@@ -92,11 +96,11 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
 
   public readonly timeSlotForm = new FormGroup<TimeSlotCardControlStructure>(
     {
-      startTime: new FormControl(null),
-      duration: new FormControl(null),
-      teacher: new FormControl(null)
+      startTime: new FormControl(null, [Validators.required]),
+      duration: new FormControl(null, [Validators.required]),
+      teacher: new FormControl(null, [Validators.required])
     },
-    { validators: timeSlotCardValidator() }
+    { validators: timeSlotCardValidator(), asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
   );
   public readonly controls: TimeSlotCardControlStructure = {
     startTime: this.timeSlotForm.controls.startTime,
@@ -109,7 +113,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   public onChangeFn!: (value: TimeSlotCardControlValue) => void;
   public onTouchFn!: () => void;
 
-  constructor(private cdr: ChangeDetectorRef, private avatarBuilderService: AvatarBuilderService) {
+  constructor(private cdr: ChangeDetectorRef, private store: Store<TimeSlotsState>) {
     super();
   }
 

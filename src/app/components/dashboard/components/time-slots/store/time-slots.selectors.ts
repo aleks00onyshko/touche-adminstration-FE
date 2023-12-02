@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { selectDashboardState } from '../../../store/dashboard.selectors';
 import { DashboardState } from '../../../store/dashboard.reducer';
+import { TimeSlotCardControlValue } from '../time-slot/time-slot-card.component';
 
 export const selectTimeSlotsState = createSelector(selectDashboardState, (state: DashboardState) => state.timeSlots);
 
@@ -11,3 +12,28 @@ export const selectTeachers = createSelector(selectTimeSlotsState, state => stat
 
 export const selectTeacherById = (teacherId: string) =>
   createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));
+
+export const timeSlotHasTimeTurnerSyndrome = (timeSlotCardValue: TimeSlotCardControlValue) =>
+  createSelector(selectTimeSlots, timeSlots => {
+    const startTimeToMinutes = (startTime: [number, number]) => startTime[0] * 60 + startTime[1];
+    const endTimeToMinutes = (startTime: [number, number], duration: number) =>
+      startTimeToMinutes(startTime) + duration;
+    const inRange = (timeInMinutes: number, [startTime, endTime]: [number, number]) => {
+      return timeInMinutes >= startTime && timeInMinutes <= endTime;
+    };
+
+    return (timeSlots ?? []).some(timeSLot => {
+      const timeSlotRange: [number, number] = [
+        startTimeToMinutes(timeSLot.startTime),
+        endTimeToMinutes(timeSLot.startTime, timeSLot.duration)
+      ];
+      const comparedTimeSlotRange = [
+        startTimeToMinutes(timeSlotCardValue.startTime),
+        endTimeToMinutes(timeSlotCardValue.startTime, timeSlotCardValue.duration)
+      ];
+      const timeSlotOverlaps =
+        inRange(comparedTimeSlotRange[0], timeSlotRange) || inRange(comparedTimeSlotRange[1], timeSlotRange);
+
+      return timeSLot.teacherId === timeSlotCardValue.teacher?.id && timeSlotOverlaps;
+    });
+  });

@@ -1,21 +1,28 @@
 .time-slot {
-  padding: 2rem;
-  background-color: #181818;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem 2rem 0 2rem;
+  background-color: #181818;
 
-  &_duration {
-    width: 16rem;
-    margin-right: 1rem;
+  &_controls {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-end;
 
-    &_error {
-      font-size: 1rem;
+    &_duration {
+      width: 16rem;
+      margin-right: 1rem;
+    }
+
+    .ngx-mat-timepicker__toggle {
+      margin-bottom: 0;
     }
   }
 
-  .ngx-mat-timepicker__toggle {
-    margin-bottom: 0;
+  &_errors {
+    font-size: 1rem;
+    min-height: 2rem;
   }
 }
