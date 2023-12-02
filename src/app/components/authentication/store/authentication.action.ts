@@ -6,7 +6,7 @@ export const AuthenticationActions = createActionGroup({
   events: {
     'Get User': emptyProps(),
     Authenticated: props<{ user: User }>(),
-    // 'Onboard Teacher': props<{ user: User }>(),
+    'Onboard Teacher': props<{ user: User }>(),
     'Not Authenticated': emptyProps(),
     'Email Register': props<{ email: string; password: string }>(),
     'Email Login': props<{ email: string; password: string }>(),

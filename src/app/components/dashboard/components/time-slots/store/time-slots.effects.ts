@@ -52,9 +52,9 @@ export class TimeSlotsEffects {
           startTime: timeSlotCardControlValue.startTime,
           duration: timeSlotCardControlValue.duration,
           id,
-          dateId: currentDateId,
+          dateId: currentDateId!,
           techerId: timeSlotCardControlValue.teacher!.id
-        } as TimeSlot;
+        };
 
         return from(
           setDoc(doc(this.firestore, `dateIds/${currentDateId}/slots/${id}`), optimisticallyGeneratedTimeSlot)

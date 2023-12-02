@@ -12,9 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { catchError, from, map, of, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
-import { Firestore } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { Teacher } from 'src/app/core/model/entities/teacher';
 
 @Injectable()
 export class AuthenticationEffects implements OnInitEffects {
@@ -67,11 +68,31 @@ export class AuthenticationEffects implements OnInitEffects {
     )
   );
 
-  public authenticated$ = createEffect(
+  public authenticated$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthenticationActions.authenticated),
+      map(({ user }) => {
+        this.router.navigate(['dashboard']);
+
+        return AuthenticationActions.onboardTeacher({ user });
+      })
+    )
+  );
+
+  public readonly onboardTeacher$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthenticationActions.authenticated),
-        tap(() => this.router.navigate(['dashboard']))
+        ofType(AuthenticationActions.onboardTeacher),
+        switchMap(({ user }) => {
+          const teacher: Teacher = {
+            id: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid
+          };
+
+          return from(setDoc(doc(this.firestore, `teachers`, user.uid), teacher)).pipe(map(() => EMPTY));
+        })
       ),
     { dispatch: false }
   );
