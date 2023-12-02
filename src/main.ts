@@ -43,7 +43,7 @@ bootstrapApplication(AppComponent, {
       provideFirestore(() => getFirestore()),
       provideFunctions(() => getFunctions()),
       provideStorage(() => getStorage()),
-      RouterModule.forRoot(appRoutes),
+      RouterModule.forRoot(appRoutes, { useHash: true }),
       BrowserAnimationsModule,
       TranslateModule.forRoot({
         loader: {
