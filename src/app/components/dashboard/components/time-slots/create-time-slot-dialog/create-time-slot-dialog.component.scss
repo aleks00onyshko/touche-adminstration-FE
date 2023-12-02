@@ -3,4 +3,8 @@
   flex-direction: column;
   width: 50vw;
   max-height: 80vh;
+
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 }
