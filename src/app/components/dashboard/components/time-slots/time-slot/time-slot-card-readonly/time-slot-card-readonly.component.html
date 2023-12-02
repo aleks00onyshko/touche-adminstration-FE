@@ -6,7 +6,10 @@
     </span>
   </div>
   <div class="lesson_time">
-    <span class="start-time"> {{ timeSlot.startTime.join(':') }}</span>
+    <span class="start-time">
+      <!-- Adding '' if start time is [2, 2] => 02:02 -->
+      {{ ('0' + timeSlot.startTime[0]).slice(-2) }}:{{ ('0' + timeSlot.startTime[1]).slice(-2) }}</span
+    >
     <span class="duration"> {{ timeSlot.duration }} min</span>
   </div>
 
