@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { selectDashboardState } from '../../../store/dashboard.selectors';
 import { DashboardState } from '../../../store/dashboard.reducer';
-import { TimeSlotCardControlValue } from '../time-slot/time-slot-card.component';
+import { TimeSlotCardControlValue } from '../components/time-slot/time-slot-card.component';
 
 export const selectTimeSlotsState = createSelector(selectDashboardState, (state: DashboardState) => state.timeSlots);
 
@@ -9,6 +9,7 @@ export const selectCurrentDateId = createSelector(selectTimeSlotsState, state =>
 export const selectLoading = createSelector(selectTimeSlotsState, state => state.loading);
 export const selectTimeSlots = createSelector(selectTimeSlotsState, state => state.timeSlots);
 export const selectTeachers = createSelector(selectTimeSlotsState, state => state.teachers);
+export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
 
 export const selectTeacherById = (teacherId: string) =>
   createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));

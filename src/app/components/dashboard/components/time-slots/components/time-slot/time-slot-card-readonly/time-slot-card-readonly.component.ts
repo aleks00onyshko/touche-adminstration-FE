@@ -6,8 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { TimeSlotsState } from '../../store/time-slots.reducer';
-import { selectTeacherById } from '../../store/time-slots.selectors';
+import { TimeSlotsState } from '../../../store/time-slots.reducer';
+import { selectTeacherById } from '../../../store/time-slots.selectors';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { filter } from 'rxjs';
 

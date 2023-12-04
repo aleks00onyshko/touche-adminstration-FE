@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { TimeSlotsState } from '../../../store/time-slots.reducer';
+import { TimeSlotsState } from '../../../../store/time-slots.reducer';
 import { Observable, map, take } from 'rxjs';
 import { TimeSlotCardControlValue } from '../../time-slot-card.component';
-import { timeSlotHasTimeTurnerSyndrome } from '../../../store/time-slots.selectors';
+import { timeSlotHasTimeTurnerSyndrome } from '../../../../store/time-slots.selectors';
 import { TimeSlotCardValidationErrorsEnum } from '../validation.errors';
 
 export function timeSlotHasTimeTurnerSyndromeValidator(store: Store<TimeSlotsState>): AsyncValidatorFn {

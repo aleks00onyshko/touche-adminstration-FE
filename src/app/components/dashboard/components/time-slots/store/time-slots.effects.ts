@@ -10,8 +10,9 @@ import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UUIDGeneratorService } from '../../../../../core/services/id-generator.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateTimeSlotDialogComponent } from '../create-time-slot-dialog/create-time-slot-dialog.component';
+import { CreateTimeSlotDialogComponent } from '../components/create-time-slot-dialog/create-time-slot-dialog.component';
 import { Teacher } from 'src/app/core/model/entities/teacher';
+import { Location } from 'src/app/core/model/entities/location';
 
 @Injectable()
 export class TimeSlotsEffects {
@@ -37,6 +38,19 @@ export class TimeSlotsEffects {
         (collectionData(collection(this.firestore, `teachers`)) as Observable<Teacher[]>).pipe(
           map(teachers => TimeSlotsActions.getTeachersSuccess({ teachers })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTeachersFailed({ error })))
+        )
+      )
+    )
+  );
+
+  //   //!important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
+  public readonly getLocations$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TimeSlotsActions.getLocations),
+      switchMap(() =>
+        (collectionData(collection(this.firestore, `locations`)) as Observable<Location[]>).pipe(
+          map(locations => TimeSlotsActions.getLocationsSuccess({ locations })),
+          catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getLocationsFailed({ error })))
         )
       )
     )

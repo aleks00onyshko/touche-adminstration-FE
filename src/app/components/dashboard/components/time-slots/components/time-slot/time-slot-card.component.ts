@@ -42,7 +42,7 @@ import { AvatarBuilderService } from 'src/app/shared/components/avatar/avatar-bu
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { TimeSlotsState } from '../store/time-slots.reducer';
+import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { timeSlotHasTimeTurnerSyndromeValidator } from './config/validators/time-turner-syndrome-async.validator';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {

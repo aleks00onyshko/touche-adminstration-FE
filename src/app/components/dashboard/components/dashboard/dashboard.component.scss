@@ -78,6 +78,7 @@
     min-width: 0 !important;
     width: 0 !important;
     padding: 0 !important;
+    box-sizing: border-box;
   }
 }
 
@@ -86,5 +87,19 @@
     padding: 20px;
     max-width: 40%;
     min-width: 20%;
+    box-sizing: border-box;
   }
+
+  .mat-drawer-content {
+    max-width: 80%;
+    min-width: 60%;
+    box-sizing: border-box;
+  }
+}
+
+app-sidenav {
+  display: flex;
+}
+mat-drawer-container {
+  flex: 1 1 auto;
 }

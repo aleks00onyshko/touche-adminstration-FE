@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
-import { DaySelectListComponent } from '../time-slots/day-select-list/day-select-list.component';
+import { DaySelectListComponent } from '../time-slots/components/day-select-list/day-select-list.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 import { AuthenticationActions } from 'src/app/components/authentication/store/authentication.action';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';

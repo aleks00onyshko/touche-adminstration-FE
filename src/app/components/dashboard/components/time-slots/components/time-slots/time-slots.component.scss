@@ -1,0 +1,32 @@
+.time-slots_content {
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+
+  .time-slots_header-actions {
+    display: flex;
+  }
+
+  .time-slots_list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    app-time-slot-card-readonly {
+      display: block;
+      width: 100%;
+    }
+
+    app-time-slot-card-readonly:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &_add-button {
+    background-color: #181818;
+    color: white;
+  }
+}

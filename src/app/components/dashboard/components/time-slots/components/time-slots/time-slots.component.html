@@ -1,0 +1,38 @@
+<app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
+
+<div class="time-slots_content">
+  @if((loading$ | async) === true) {
+  <app-spinner></app-spinner>
+  } @else {
+
+  <div class="time-slots_header-actions">
+    <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <!-- <mat-form-field class="locations-dropdown">
+      <mat-label>Locations</mat-label>
+      <mat-select>
+        <mat-select-trigger> {{  }}</mat-select-trigger>
+        @for (avatarConfig of avatarConfigurations; track avatarConfig.email) {
+        <mat-option class="avatars-dropdown_option" [value]="avatarConfig">
+          <app-avatar [avatarConfiguration]="avatarConfig"></app-avatar>
+          <span> {{ avatarConfig.username }} </span>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+
+  <div class="time-slots_list">
+    @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
+    <app-time-slot-card-readonly
+      [timeSlot]="timeSlot"
+      (slotDeleted)="deleteTimeSlot($event)"
+    ></app-time-slot-card-readonly>
+    }@empty {
+    <h2>No slots for this day</h2>
+    }
+  </div>
+  }
+</div>

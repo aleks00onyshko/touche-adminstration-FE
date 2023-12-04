@@ -3,12 +3,14 @@ import { Teacher } from 'src/app/core/model/entities/teacher';
 import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { TimeSlotsActions } from './time-slots.actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from 'src/app/core/model/entities/location';
 
 export interface TimeSlotsState {
   currentDateId: DateId | null;
   loading: boolean;
   timeSlots: TimeSlot[] | null;
   teachers: Teacher[] | null;
+  locations: Location[] | null;
   error: HttpErrorResponse | null;
 }
 
@@ -17,6 +19,7 @@ export const initialState: TimeSlotsState = {
   loading: false,
   timeSlots: null,
   teachers: null,
+  locations: null,
   error: null
 };
 
@@ -27,6 +30,7 @@ const reducer = createReducer(
     TimeSlotsActions.getTimeSlots,
     TimeSlotsActions.createTimeSlot,
     TimeSlotsActions.getTeachers,
+    TimeSlotsActions.getLocations,
     TimeSlotsActions.deleteTimeSlot,
     state => ({
       ...state,
@@ -38,6 +42,7 @@ const reducer = createReducer(
     TimeSlotsActions.getTimeSlotsFailed,
     TimeSlotsActions.createTimeSlotFailed,
     TimeSlotsActions.getTeachersFailed,
+    TimeSlotsActions.getLocationsFailed,
     TimeSlotsActions.deleteTimeSlotFailded,
     (state, { error }) => ({
       ...state,
@@ -46,6 +51,7 @@ const reducer = createReducer(
     })
   ),
   on(TimeSlotsActions.getTeachersSuccess, (state, { teachers }) => ({ ...state, teachers })),
+  on(TimeSlotsActions.getLocationsSuccess, (state, { locations }) => ({ ...state, locations })),
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,
     timeSlots: (state.timeSlots ?? []).filter(timeSlot => timeSlot.id !== id)

@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { DaySelectListComponent } from './day-select-list/day-select-list.component';
+import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
 import { DateId } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { TimeSlotCardComponent } from './time-slot/time-slot-card.component';
+import { TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
 import { CommonModule } from '@angular/common';
-import { TimeSlotCardReadonlyComponent } from './time-slot/time-slot-card-readonly/time-slot-card-readonly.component';
+import { TimeSlotCardReadonlyComponent } from '../time-slot/time-slot-card-readonly/time-slot-card-readonly.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 import { Store } from '@ngrx/store';
-import { TimeSlotsState } from './store/time-slots.reducer';
-import { TimeSlotsActions } from './store/time-slots.actions';
-import { selectLoading, selectTeacherById, selectTimeSlots } from './store/time-slots.selectors';
+import { TimeSlotsState } from '../../store/time-slots.reducer';
+import { TimeSlotsActions } from '../../store/time-slots.actions';
+import { selectLoading, selectLocations, selectTeacherById, selectTimeSlots } from '../../store/time-slots.selectors';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-time-slots',
@@ -24,13 +25,15 @@ import { selectLoading, selectTeacherById, selectTimeSlots } from './store/time-
     MatButtonModule,
     TimeSlotCardComponent,
     TimeSlotCardReadonlyComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    MatSelectModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeSlotsComponent implements OnInit {
   public readonly timeSlots$ = this.store.select(selectTimeSlots);
   public readonly loading$ = this.store.select(selectLoading);
+  public readonly locations$ = this.store.select(selectLocations);
 
   constructor(private store: Store<TimeSlotsState>) {}
 

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
-import { TimeSlotsComponent } from '../components/time-slots/time-slots.component';
+import { TimeSlotsComponent } from '../components/time-slots/components/time-slots/time-slots.component';
 import { importProvidersFrom } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.reducer';
