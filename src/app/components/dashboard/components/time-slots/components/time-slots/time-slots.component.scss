@@ -8,6 +8,16 @@
 
   .time-slots_header-actions {
     display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .locations-dropdown {
+      margin-left: 1rem;
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
   }
 
   .time-slots_list {

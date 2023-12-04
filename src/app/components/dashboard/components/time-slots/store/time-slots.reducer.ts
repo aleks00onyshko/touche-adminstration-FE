@@ -11,6 +11,7 @@ export interface TimeSlotsState {
   timeSlots: TimeSlot[] | null;
   teachers: Teacher[] | null;
   locations: Location[] | null;
+  currentLocation: Location | null;
   error: HttpErrorResponse | null;
 }
 
@@ -20,6 +21,7 @@ export const initialState: TimeSlotsState = {
   timeSlots: null,
   teachers: null,
   locations: null,
+  currentLocation: null,
   error: null
 };
 
@@ -55,6 +57,11 @@ const reducer = createReducer(
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,
     timeSlots: (state.timeSlots ?? []).filter(timeSlot => timeSlot.id !== id)
+  })),
+  on(TimeSlotsActions.setCurrentLocation, (state, { location }) => ({
+    ...state,
+    currentLocation: location,
+    timeSlots: []
   }))
 );
 

@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Firestore, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
-import { Observable, catchError, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
+import { Observable, catchError, concatMap, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
 import { TimeSlotsState } from './time-slots.reducer';
-import { selectCurrentDateId, selectTeachers } from './time-slots.selectors';
+import { selectCurrentDateId, selectCurrentLocation, selectTeachers } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UUIDGeneratorService } from '../../../../../core/services/id-generator.service';
@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTimeSlotDialogComponent } from '../components/create-time-slot-dialog/create-time-slot-dialog.component';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { Location } from 'src/app/core/model/entities/location';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Injectable()
 export class TimeSlotsEffects {
@@ -20,9 +21,13 @@ export class TimeSlotsEffects {
   public readonly getTimeSlots$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.getTimeSlots),
-      withLatestFrom(this.store.select(selectCurrentDateId)),
-      switchMap(([_, dateId]) =>
-        (collectionData(collection(this.firestore, `dateIds/${dateId}/slots`)) as Observable<TimeSlot[]>).pipe(
+      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      switchMap(([_, currentDateId, currentLocation]) =>
+        (
+          collectionData(
+            collection(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots`)
+          ) as Observable<TimeSlot[]>
+        ).pipe(
           map(timeSlots => TimeSlotsActions.getTimeSlotsSuccess({ timeSlots })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTimeSlotsFailed({ error })))
         )
@@ -30,7 +35,6 @@ export class TimeSlotsEffects {
     )
   );
 
-  //   //!important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
   public readonly getTeachers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.getTeachers),
@@ -59,8 +63,8 @@ export class TimeSlotsEffects {
   public readonly createTimeSlot$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.createTimeSlot),
-      withLatestFrom(this.store.select(selectCurrentDateId)),
-      switchMap(([{ timeSlotCardControlValue }, currentDateId]) => {
+      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      switchMap(([{ timeSlotCardControlValue }, currentDateId, currentLocation]) => {
         const id = this.UUIDGeneratorService.generateId();
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           startTime: timeSlotCardControlValue.startTime,
@@ -71,7 +75,10 @@ export class TimeSlotsEffects {
         };
 
         return from(
-          setDoc(doc(this.firestore, `dateIds/${currentDateId}/slots/${id}`), optimisticallyGeneratedTimeSlot)
+          setDoc(
+            doc(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`),
+            optimisticallyGeneratedTimeSlot
+          )
         ).pipe(
           map(() => TimeSlotsActions.createTimeSlotSuccess({ timeSlot: optimisticallyGeneratedTimeSlot })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.createTimeSlotFailed({ error })))
@@ -83,9 +90,9 @@ export class TimeSlotsEffects {
   public readonly deleteTimeSlot$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.deleteTimeSlot),
-      withLatestFrom(this.store.select(selectCurrentDateId)),
-      switchMap(([{ id }, currentDateId]) =>
-        from(deleteDoc(doc(this.firestore, `dateIds/${currentDateId}/slots/${id}`))).pipe(
+      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      switchMap(([{ id }, currentDateId, currentLocation]) =>
+        from(deleteDoc(doc(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`))).pipe(
           map(() => TimeSlotsActions.deleteTimeSlotSuccess({ id })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.deleteTimeSlotFailded({ error })))
         )
@@ -113,11 +120,21 @@ export class TimeSlotsEffects {
     { dispatch: false }
   );
 
+  public setCurrentLocation$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TimeSlotsActions.setCurrentLocation),
+        map(({ location }) => this.localstorageService.set('location', JSON.stringify(location)))
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
     private store: Store<TimeSlotsState>,
     private UUIDGeneratorService: UUIDGeneratorService,
     private dialog: MatDialog,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private localstorageService: LocalStorageService
   ) {}
 }

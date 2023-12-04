@@ -38,7 +38,7 @@ import { AuthenticationState } from 'src/app/components/authentication/store/aut
 })
 export class SystembarComponent {
   public languageControl = new FormControl(
-    this.localStorageService.get('shopLanguage') ?? this.translateService.defaultLang
+    this.localStorageService.get('language') ?? this.translateService.defaultLang
   );
 
   constructor(
@@ -55,7 +55,7 @@ export class SystembarComponent {
 
   public changeLanguage(language: string): void {
     this.translateService.use(language);
-    this.localStorageService.set('shopLanguage', language);
+    this.localStorageService.set('language', language);
   }
 
   public logout(): void {

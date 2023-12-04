@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TimeSlotsEffects } from '../components/time-slots/store/time-slots.effects';
+import { timeSlotsResolver } from './resolvers/time-slots.resolver';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
@@ -25,7 +26,8 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       {
         component: TimeSlotsComponent,
-        path: 'time-slots'
+        path: 'time-slots',
+        resolve: [timeSlotsResolver]
       }
     ]
   }

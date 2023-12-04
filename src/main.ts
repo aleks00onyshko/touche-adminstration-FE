@@ -72,7 +72,7 @@ bootstrapApplication(AppComponent, {
         () => {
           translateService.addLangs(['en', 'uk']);
           translateService.setDefaultLang('uk');
-          translateService.use(localStorageService.get('shopLanguage') ?? 'uk');
+          translateService.use(localStorageService.get('language') ?? 'uk');
 
           return user(auth).pipe(
             take(1),

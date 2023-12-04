@@ -11,7 +11,7 @@ export const TimeSlotsActions = createActionGroup({
   source: 'Time Slots',
   events: {
     'Select day': props<{ dateId: DateId }>(),
-    'Get Time Slots': props<{ currentDateId: DateId }>(),
+    'Get Time Slots': emptyProps(),
     'Get Time Slots Success': props<{ timeSlots: TimeSlot[] }>(),
     'Get Time Slots Failed': props<{ error: HttpErrorResponse }>(),
     'Open Create Time Slot Dialog': emptyProps(),
@@ -26,6 +26,7 @@ export const TimeSlotsActions = createActionGroup({
     'Get Teachers Failed': props<{ error: HttpErrorResponse }>(),
     'Get Locations': emptyProps(),
     'Get Locations Success': props<{ locations: Location[] }>(),
-    'Get Locations Failed': props<{ error: HttpErrorResponse }>()
+    'Get Locations Failed': props<{ error: HttpErrorResponse }>(),
+    'Set Current Location': props<{ location: Location }>()
   }
 });

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
 import { DateId } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,8 +10,15 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { Store } from '@ngrx/store';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { TimeSlotsActions } from '../../store/time-slots.actions';
-import { selectLoading, selectLocations, selectTeacherById, selectTimeSlots } from '../../store/time-slots.selectors';
+import {
+  selectCurrentLocation,
+  selectLoading,
+  selectLocations,
+  selectTeacherById,
+  selectTimeSlots
+} from '../../store/time-slots.selectors';
 import { MatSelectModule } from '@angular/material/select';
+import { Location } from 'src/app/core/model/entities/location';
 
 @Component({
   selector: 'app-time-slots',
@@ -26,14 +33,17 @@ import { MatSelectModule } from '@angular/material/select';
     TimeSlotCardComponent,
     TimeSlotCardReadonlyComponent,
     SpinnerComponent,
+    MatSelectModule,
     MatSelectModule
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class TimeSlotsComponent implements OnInit {
   public readonly timeSlots$ = this.store.select(selectTimeSlots);
   public readonly loading$ = this.store.select(selectLoading);
   public readonly locations$ = this.store.select(selectLocations);
+  public readonly currentLocation$ = this.store.select(selectCurrentLocation);
 
   constructor(private store: Store<TimeSlotsState>) {}
 
@@ -43,7 +53,12 @@ export class TimeSlotsComponent implements OnInit {
 
   public daySelected(dateId: DateId): void {
     this.store.dispatch(TimeSlotsActions.selectDay({ dateId }));
-    this.store.dispatch(TimeSlotsActions.getTimeSlots({ currentDateId: dateId }));
+    this.store.dispatch(TimeSlotsActions.getTimeSlots());
+  }
+
+  public locationSelected(location: Location): void {
+    this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
+    this.store.dispatch(TimeSlotsActions.getTimeSlots());
   }
 
   public openCreateTimeSlotDialog(): void {
