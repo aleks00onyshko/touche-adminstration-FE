@@ -34,7 +34,9 @@ export const timeSlotHasTimeTurnerSyndrome = (timeSlotCardValue: TimeSlotCardCon
         endTimeToMinutes(timeSlotCardValue.startTime, timeSlotCardValue.duration)
       ];
       const timeSlotOverlaps =
-        inRange(comparedTimeSlotRange[0], timeSlotRange) || inRange(comparedTimeSlotRange[1], timeSlotRange);
+        inRange(comparedTimeSlotRange[0], timeSlotRange) ||
+        inRange(comparedTimeSlotRange[1], timeSlotRange) ||
+        (comparedTimeSlotRange[0] < timeSlotRange[0] && comparedTimeSlotRange[1] > timeSlotRange[1]);
 
       return timeSLot.teacherId === timeSlotCardValue.teacher?.id && timeSlotOverlaps;
     });
