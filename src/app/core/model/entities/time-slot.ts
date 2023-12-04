@@ -7,5 +7,6 @@ export interface TimeSlot extends Entity<string> {
   startTime: [number, number];
   duration: number;
   teacherId: string;
+  locationId: string;
   dateId: DateId;
 }

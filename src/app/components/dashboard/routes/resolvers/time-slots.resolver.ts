@@ -1,9 +1,8 @@
-import { Injectable, inject } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, filter, take, tap } from 'rxjs';
 import { TimeSlotsState } from '../../components/time-slots/store/time-slots.reducer';
-import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { TimeSlotsActions } from '../../components/time-slots/store/time-slots.actions';
 import { selectLocations } from '../../components/time-slots/store/time-slots.selectors';
 import { Location } from 'src/app/core/model/entities/location';
@@ -14,6 +13,7 @@ export const timeSlotsResolver: ResolveFn<Observable<Location[] | null>> = (rout
   const localstorageService = inject(LocalStorageService);
 
   store.dispatch(TimeSlotsActions.getLocations());
+  store.dispatch(TimeSlotsActions.getTeachers());
 
   return store.select(selectLocations).pipe(
     filter(locations => !!locations),

@@ -69,6 +69,7 @@ export class TimeSlotsEffects {
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           startTime: timeSlotCardControlValue.startTime,
           duration: timeSlotCardControlValue.duration,
+          locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
           teacherId: timeSlotCardControlValue.teacher!.id

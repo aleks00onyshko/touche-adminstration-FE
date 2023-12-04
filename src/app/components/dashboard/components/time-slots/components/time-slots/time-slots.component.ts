@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
 import { DateId } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +14,6 @@ import {
   selectCurrentLocation,
   selectLoading,
   selectLocations,
-  selectTeacherById,
   selectTimeSlots
 } from '../../store/time-slots.selectors';
 import { MatSelectModule } from '@angular/material/select';
@@ -39,17 +38,13 @@ import { Location } from 'src/app/core/model/entities/location';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TimeSlotsComponent implements OnInit {
+export class TimeSlotsComponent {
   public readonly timeSlots$ = this.store.select(selectTimeSlots);
   public readonly loading$ = this.store.select(selectLoading);
   public readonly locations$ = this.store.select(selectLocations);
   public readonly currentLocation$ = this.store.select(selectCurrentLocation);
 
   constructor(private store: Store<TimeSlotsState>) {}
-
-  public ngOnInit(): void {
-    this.store.dispatch(TimeSlotsActions.getTeachers());
-  }
 
   public daySelected(dateId: DateId): void {
     this.store.dispatch(TimeSlotsActions.selectDay({ dateId }));
