@@ -23,7 +23,7 @@
   .time-slots_list {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
 
     app-time-slot-card-readonly {
       display: block;
@@ -40,3 +40,29 @@
     color: white;
   }
 }
+@media(max-width: 1600px){
+  .time-slots_content  {
+    width: 98%;
+  }
+}
+@media(max-width: 1570px){
+  .time-slots_content  {
+    width: 97%;
+  }
+}
+@media(max-width: 1550px){
+  .time-slots_content  {
+    width: 96%;
+  }
+}
+@media(max-width: 1350px){
+  .time-slots_content  {
+    width: 94%;
+  }
+}
+@media(max-width: 1000px){
+  .time-slots_content  {
+    width: 92%;
+  }
+}
+

@@ -89,13 +89,14 @@
     min-width: 20%;
     box-sizing: border-box;
   }
-
-  .mat-drawer-content {
-    max-width: 80%;
-    min-width: 60%;
-    box-sizing: border-box;
+}
+@media (min-width: 1600px) {
+  .time-slots_content{
+     width: 45%;
   }
 }
+
+
 
 app-sidenav {
   display: flex;
@@ -103,3 +104,4 @@ app-sidenav {
 mat-drawer-container {
   flex: 1 1 auto;
 }
+
