@@ -15,8 +15,18 @@ export const selectCurrentLocation = createSelector(selectTimeSlotsState, state 
 export const selectTeacherById = (teacherId: string) =>
   createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));
 
-export const timeSlotHasTimeTurnerSyndrome = (timeSlotCardValue: TimeSlotCardControlValue) =>
-  createSelector(selectTimeSlots, timeSlots => {
+export const selectUserById = (userId: string) =>
+  createSelector(selectTimeSlotsState, state => state.users?.find(user => user.id === userId));
+
+export const timeSlotHasTimeTurnerSyndrome = (
+  timeSlotCardValue: TimeSlotCardControlValue,
+  editedTimeSlotId: string = ''
+) =>
+  createSelector(selectTimeSlots, timeSlotsItems => {
+    const timeSlots = editedTimeSlotId
+      ? (timeSlotsItems ?? []).filter(timeSlot => timeSlot.id !== editedTimeSlotId)
+      : timeSlotsItems ?? [];
+
     const startTimeToMinutes = (startTime: [number, number]) => startTime[0] * 60 + startTime[1];
     const endTimeToMinutes = (startTime: [number, number], duration: number) =>
       startTimeToMinutes(startTime) + duration;
@@ -24,7 +34,7 @@ export const timeSlotHasTimeTurnerSyndrome = (timeSlotCardValue: TimeSlotCardCon
       return timeInMinutes >= startTime && timeInMinutes <= endTime;
     };
 
-    return (timeSlots ?? []).some(timeSLot => {
+    return timeSlots.some(timeSLot => {
       const timeSlotRange: [number, number] = [
         startTimeToMinutes(timeSLot.startTime),
         endTimeToMinutes(timeSLot.startTime, timeSLot.duration)

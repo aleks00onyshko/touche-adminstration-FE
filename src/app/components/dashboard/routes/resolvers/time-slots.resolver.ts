@@ -8,12 +8,13 @@ import { selectLocations } from '../../components/time-slots/store/time-slots.se
 import { Location } from 'src/app/core/model/entities/location';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
-export const timeSlotsResolver: ResolveFn<Observable<Location[] | null>> = (route: ActivatedRouteSnapshot) => {
+export const timeSlotsResolver: ResolveFn<Observable<Location[] | null>> = () => {
   const store = inject(Store<TimeSlotsState>);
   const localstorageService = inject(LocalStorageService);
 
   store.dispatch(TimeSlotsActions.getLocations());
   store.dispatch(TimeSlotsActions.getTeachers());
+  store.dispatch(TimeSlotsActions.getUsers());
 
   return store.select(selectLocations).pipe(
     filter(locations => !!locations),

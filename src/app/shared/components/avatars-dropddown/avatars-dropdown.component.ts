@@ -66,4 +66,8 @@ export class AvatarsDropdownComponent extends ReactiveComponent implements OnIni
   public validate(): ValidationErrors | null {
     return Validators.required(this.control);
   }
+
+  protected compareWith(a1: AvatarConfiguration, a2: AvatarConfiguration): boolean {
+    return a1?.id === a2?.id;
+  }
 }

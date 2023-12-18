@@ -38,11 +38,17 @@
       margin-top: auto;
     }
 
-    .lesson_type {
-      font-size: 1.5rem;
-      color: white;
-      font-weight: bold;
-      text-transform: uppercase;
+    .lesson-type_attendee {
+      display: flex;
+      align-items: center;
+
+      .lesson_type {
+        font-size: 1.5rem;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-right: 1rem;
+      }
     }
   }
 
@@ -62,5 +68,9 @@
       font-size: 1rem;
       margin-top: auto;
     }
+  }
+
+  &.booked {
+    border: 1px solid darkorange;
   }
 }

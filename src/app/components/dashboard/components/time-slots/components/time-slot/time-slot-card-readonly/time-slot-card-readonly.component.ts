@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { TimeSlotsState } from '../../../store/time-slots.reducer';
-import { selectTeacherById } from '../../../store/time-slots.selectors';
+import { selectTeacherById, selectUserById } from '../../../store/time-slots.selectors';
+import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-time-slot-card-readonly',
@@ -20,6 +20,7 @@ import { filter } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     TranslateModule,
+    AvatarComponent,
     ConvertUsersToAvatarConfigsPipe
   ],
   templateUrl: './time-slot-card-readonly.component.html',
@@ -31,7 +32,8 @@ export class TimeSlotCardReadonlyComponent {
 
   @Output() public slotDeleted = new EventEmitter<string>();
 
-  public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id)).pipe(filter(user => !!user));
+  public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id));
+  public readonly userById$ = (id: string) => this.store.select(selectUserById(id));
 
   constructor(private store: Store<TimeSlotsState>) {}
 

@@ -9,4 +9,6 @@ export interface TimeSlot extends Entity<string> {
   teacherId: string;
   locationId: string;
   dateId: DateId;
+  booked: boolean;
+  attendeeId: string;
 }

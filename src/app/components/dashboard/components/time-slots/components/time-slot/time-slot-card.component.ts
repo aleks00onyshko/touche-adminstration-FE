@@ -38,12 +38,8 @@ import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from '
 import { AvatarsDropdownComponent } from 'src/app/shared/components/avatars-dropddown/avatars-dropdown.component';
 import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { AvatarBuilderService } from 'src/app/shared/components/avatar/avatar-builder.service';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
-import { TimeSlotsState } from '../../store/time-slots.reducer';
-import { timeSlotHasTimeTurnerSyndromeValidator } from './config/validators/time-turner-syndrome-async.validator';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teacher: AvatarConfiguration | null;
@@ -100,7 +96,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
       duration: new FormControl(null, [Validators.required]),
       teacher: new FormControl(null, [Validators.required])
     },
-    { validators: timeSlotCardValidator(), asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
+    { validators: timeSlotCardValidator() }
   );
   public readonly controls: TimeSlotCardControlStructure = {
     startTime: this.timeSlotForm.controls.startTime,
@@ -113,7 +109,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   public onChangeFn!: (value: TimeSlotCardControlValue) => void;
   public onTouchFn!: () => void;
 
-  constructor(private cdr: ChangeDetectorRef, private store: Store<TimeSlotsState>) {
+  constructor(private cdr: ChangeDetectorRef) {
     super();
   }
 

@@ -27,6 +27,7 @@
     <app-time-slot-card-readonly
       [timeSlot]="timeSlot"
       (slotDeleted)="deleteTimeSlot($event)"
+      (click)="openEditTimeSlotDialog(timeSlot)"
     ></app-time-slot-card-readonly>
     }@empty {
     <h2>No slots for this day</h2>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
-import { DateId } from 'src/app/core/model/entities/time-slot';
+import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
@@ -54,6 +54,10 @@ export class TimeSlotsComponent {
   public locationSelected(location: Location): void {
     this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
     this.store.dispatch(TimeSlotsActions.getTimeSlots());
+  }
+
+  public openEditTimeSlotDialog(timeSlot: TimeSlot): void {
+    this.store.dispatch(TimeSlotsActions.openEditTimeSlotDialog({ timeSlot }));
   }
 
   public openCreateTimeSlotDialog(): void {

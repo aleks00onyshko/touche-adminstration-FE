@@ -1,6 +1,6 @@
 <mat-form-field class="avatars-dropdown_container">
   <mat-label>{{ label }}</mat-label>
-  <mat-select [formControl]="control">
+  <mat-select [formControl]="control" [compareWith]="compareWith">
     <mat-select-trigger>{{ control.value?.username }}</mat-select-trigger>
     @for (avatarConfig of avatarConfigurations; track avatarConfig.email) {
     <mat-option class="avatars-dropdown_option" [value]="avatarConfig">

@@ -1,8 +1,15 @@
-<mat-card class="time-slot--readonly">
+<mat-card class="time-slot--readonly" [class.booked]="!!timeSlot.attendeeId">
   <div class="lesson_type-and_teacher">
-    <span class="lesson_type">{{ 'DASHBOARD.TIME_SLOT.TYPE' | translate }}</span>
+    <div class="lesson-type_attendee">
+      <span class="lesson_type">{{ 'DASHBOARD.TIME_SLOT.TYPE' | translate }}</span>
+
+      @if(userById$(timeSlot.attendeeId) | async; as user) {
+      <app-avatar [avatarConfiguration]="([user] | convertUsersToAvatarConfigs)[0]"></app-avatar>
+      }
+    </div>
+
     <span class="teacher">
-      {{ (([$any(teacherById$(timeSlot.teacherId) | async)] | convertUsersToAvatarConfigs) ?? [])[0].username }}
+      {{ (teacherById$(timeSlot.teacherId) | async)!.displayName }}
     </span>
   </div>
   <div class="lesson_time">

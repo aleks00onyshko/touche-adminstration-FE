@@ -7,6 +7,11 @@ import * as moment from 'moment';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
+import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
+import { TimeSlotsState } from '../../store/time-slots.reducer';
+import { Store } from '@ngrx/store';
+import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation.errors';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-create-time-slot-dialog',
@@ -18,34 +23,40 @@ import { TranslateModule } from '@ngx-translate/core';
     TimeSlotCardComponent,
     ReactiveFormsModule,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    MatFormFieldModule
   ],
   templateUrl: './create-time-slot-dialog.component.html',
   styleUrls: ['./create-time-slot-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateTimeSlotDialogComponent {
-  public readonly defaultTimes: [number, number] = [moment().hour(), moment().minute()];
-
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
-    new FormControl<TimeSlotCardControlValue>({
-      startTime: this.defaultTimes,
-      duration: 15,
-      teacher: null
-    });
+    new FormControl<TimeSlotCardControlValue>(
+      {
+        startTime: [moment().hour(), moment().minute()],
+        duration: 15,
+        teacher: null
+      },
+      { asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
+    );
+  protected timeSlotCardErrors: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
   constructor(
-    private readonly matDialogRef: MatDialogRef<CreateTimeSlotDialogComponent>,
+    private store: Store<TimeSlotsState>,
+    private readonly matDialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse>,
     @Inject(MAT_DIALOG_DATA) public dialogData: CreateTimeSlotDialogData
   ) {}
 
   public saveTimeSlot(value: TimeSlotCardControlValue): void {
-    this.matDialogRef.close(value);
+    this.matDialogRef.close({ timeSlotCardControlValue: value });
   }
 }
 
-export interface CreateTimeSlotDialogResponse extends TimeSlotCardControlValue {}
-
 export interface CreateTimeSlotDialogData {
   teachers: Teacher[];
+}
+
+export interface CreateTimeSlotDialogResponse {
+  timeSlotCardControlValue: TimeSlotCardControlValue;
 }

@@ -26,10 +26,6 @@
     <mat-error class="time-slot_error">
       {{ 'DASHBOARD.CREATE_TIME_SLOT.DURATION_LEAKS_TO_NEXT_DAY_ERROR' | translate }}
     </mat-error>
-    } @if(timeSlotForm.hasError(errorsEnum.HAS_TIME_TURNER_SYNDROME)) {
-    <mat-error class="time-slot_error">
-      {{ 'DASHBOARD.CREATE_TIME_SLOT.TIME_SLOT_OVERLAPS_ERROR' | translate }}
-    </mat-error>
     }
   </div>
 </mat-card>
