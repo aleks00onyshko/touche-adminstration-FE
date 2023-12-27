@@ -45,6 +45,7 @@
 
         .close-button {
           background-color: #ff0000;
+
           margin: 1rem;
         }
 
@@ -111,11 +112,19 @@
     width: 45%;
   }
 }
+
 @media (max-width: 430px) {
   .cards {
     width: 90vw !important;
   }
 }
+
+@media (min-width: 768px) {
+  .close-button {
+    display: none;
+  }
+}
+
 app-sidenav {
   display: flex;
 }
