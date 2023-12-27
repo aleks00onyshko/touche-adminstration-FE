@@ -14,17 +14,11 @@
       min-width: 80%;
       max-width: 100%;
 
-      button {
-        background-color: #737373;
-        position: absolute;
-        top: 5rem;
-        width: 1rem;
-        left: -2rem;
-      }
-
       .sidenav-content {
         background-color: #303030;
-        width: 3%;
+        position: absolute;
+        margin-top: 9.2rem;
+        margin-left: 1.5rem;
       }
     }
 
@@ -42,7 +36,16 @@
       .cards {
         margin: 0 0 20px 0;
         height: 100%;
+        width: 100%;
         overflow-y: scroll;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        align-items: center;
+
+        .close-button {
+          background-color: #ff0000;
+        }
 
         &-title {
           font-size: 17px;
@@ -75,10 +78,16 @@
 
 @media (max-width: 768px) {
   .sidenav {
-    min-width: 0 !important;
-    width: 0 !important;
+    background-color: rgba(39, 63, 2, 0.612);
+    position: absolute;
+    opacity: 0.7;
+    min-width: 100% !important;
+    width: 100% !important;
     padding: 0 !important;
     box-sizing: border-box;
+  }
+  .mat-drawer-content {
+    margin-left: 0 !important;
   }
 }
 
@@ -91,12 +100,15 @@
   }
 }
 @media (min-width: 1600px) {
-  .time-slots_content{
-     width: 45%;
+  .time-slots_content {
+    width: 45%;
   }
 }
-
-
+@media (min-width: 768px) {
+  .close-button {
+    display: none;
+  }
+}
 
 app-sidenav {
   display: flex;
@@ -104,4 +116,3 @@ app-sidenav {
 mat-drawer-container {
   flex: 1 1 auto;
 }
-

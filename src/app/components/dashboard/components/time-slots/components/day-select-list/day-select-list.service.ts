@@ -20,7 +20,7 @@ export class DaySelectListService {
     const days: DayLabel[] = [];
 
     const addDays = (numberOfDays: number, currentDate: moment.Moment, days: DayLabel[]) => {
-      for (let i = 0; i < numberOfDays; i++) {
+      for (let i = 0; i < 30; i++) {
         days.push(new DayLabel(currentDate));
         currentDate.add(1, 'day');
       }

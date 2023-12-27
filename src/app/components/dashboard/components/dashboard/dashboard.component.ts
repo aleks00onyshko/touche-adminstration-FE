@@ -38,4 +38,5 @@ export class DashboardComponent {
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
   }
+opened = false;  
 }
