@@ -19,13 +19,14 @@
         position: absolute;
         margin-top: 10.2rem;
         margin-left: 1rem;
-      
-        button{
-  
-            background-color: #57e200;
-            border-radius: 50%;
+
+        button {
+          background-color: #57e200;
+          border-radius: 50%;
         }
 
+        margin-top: 10rem;
+        margin-left: 1.5rem;
       }
     }
 
@@ -93,6 +94,11 @@
   .sidenav {
     background-color: rgb(31 50 0 / 93%);
     position: absolute;
+
+    background-color: rgba(39, 63, 2, 0.906);
+    position: absolute;
+  
+
     min-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;

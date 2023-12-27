@@ -26,15 +26,7 @@ export class DaySelectListService {
       }
     };
 
-    // Calculate the number of days until the end of the month
-  
-
-    // Add labels for the current month, starting from the current day
-
-
-
-    // Adjust the loop for days from the next month
-    addDays(30, currentDate, days);
+    addDays(31, currentDate, days);
 
     return days;
   }
