@@ -56,6 +56,7 @@
         .card {
           // TODO: use angular/material theming instead
           background-color: #303030;
+          width: 90%;
           height: 4rem;
           display: flex;
           align-items: flex-start;
@@ -77,6 +78,9 @@
 }
 
 @media (max-width: 768px) {
+  .cards{
+    width: 92vw  !important;
+  }
   .sidenav {
     background-color: rgba(39, 63, 2, 0.612);
     position: absolute;
@@ -92,6 +96,10 @@
 }
 
 @media (min-width: 769px) {
+  
+  .close-button {
+    display: none;
+  }
   .sidenav {
     padding: 20px;
     max-width: 40%;
@@ -104,11 +112,7 @@
     width: 45%;
   }
 }
-@media (min-width: 768px) {
-  .close-button {
-    display: none;
-  }
-}
+
 
 app-sidenav {
   display: flex;
