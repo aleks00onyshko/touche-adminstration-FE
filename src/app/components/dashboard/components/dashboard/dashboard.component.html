@@ -10,10 +10,11 @@
       <mat-card class="card" [routerLink]="['payment-slots']"> Налаштування оплати </mat-card>
     </div>
   </mat-drawer>
-  
+
+  >>>>>>> 4a7cdd0 (new changes)
   <mat-drawer-content class="mat-drawer-content">
     <div class="sidenav-content">
-      <button mat-mini-fab (click)="opened = !opened" mat-mini-fab>
+      <button type="button" mat-mini-fab (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
