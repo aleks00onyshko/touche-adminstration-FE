@@ -45,6 +45,7 @@
 
         .close-button {
           background-color: #ff0000;
+          margin: 1rem;
         }
 
         &-title {
@@ -78,13 +79,12 @@
 }
 
 @media (max-width: 768px) {
-  .cards{
-    width: 92vw  !important;
+  .cards {
+    width: 92vw !important;
   }
   .sidenav {
-    background-color: rgba(39, 63, 2, 0.612);
+    background-color: rgb(31 50 0 / 93%);
     position: absolute;
-    opacity: 0.7;
     min-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
@@ -96,7 +96,6 @@
 }
 
 @media (min-width: 769px) {
-  
   .close-button {
     display: none;
   }
@@ -112,8 +111,11 @@
     width: 45%;
   }
 }
-
-
+@media (max-width: 430px) {
+  .cards {
+    width: 90vw !important;
+  }
+}
 app-sidenav {
   display: flex;
 }
