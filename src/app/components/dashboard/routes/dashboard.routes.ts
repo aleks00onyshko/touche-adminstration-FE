@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TimeSlotsEffects } from '../components/time-slots/store/time-slots.effects';
+import { PaymentSlotsComponent } from '../components/payment-slots/components/payment-slots/payment-slots.component';
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
 
 export const DASHBOARD_ROUTES: Routes = [
@@ -23,6 +24,10 @@ export const DASHBOARD_ROUTES: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: 'time-slots'
+      },
+      {
+        component: PaymentSlotsComponent,
+        path: 'payment-slots'
       },
       {
         component: TimeSlotsComponent,

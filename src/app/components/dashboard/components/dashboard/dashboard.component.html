@@ -1,9 +1,10 @@
 <mat-drawer-container class="dashboard-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" opened>
     <div class="cards">
-      <mat-card class="card">
+      <mat-card class="card" [routerLink]="['time-slots']">
         {{ 'DASHBOARD.SIDENAV.SLOTS' | translate }}
       </mat-card>
+      <mat-card class="card" [routerLink]="['payment-slots']"> Налаштування оплати </mat-card>
     </div>
   </mat-drawer>
 
