@@ -13,7 +13,7 @@ import { AvatarComponent } from '../avatar/avatar.component';
 import { AvatarBuilderService } from '../avatar/avatar-builder.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
 
 @Component({
@@ -45,13 +45,8 @@ export class SystembarComponent {
     protected avatarBuilderService: AvatarBuilderService,
     protected translateService: TranslateService,
     private store: Store<AuthenticationState>,
-    private localStorageService: LocalStorageService,
-    private router: Router
+    private localStorageService: LocalStorageService
   ) {}
-
-  public navigateToTheDashboard(): void {
-    this.router.navigate(['dashboard']);
-  }
 
   public changeLanguage(language: string): void {
     this.translateService.use(language);

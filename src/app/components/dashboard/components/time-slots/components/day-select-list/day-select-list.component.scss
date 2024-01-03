@@ -1,7 +1,6 @@
 .day-select-list {
   background-color: #181818;
   display: flex;
-
   -webkit-overflow-scrolling: touch;
   padding: 1rem 0 1rem 0;
   height: 5rem;
@@ -15,7 +14,9 @@
     display: none;
   }
   .days-batch_container {
-    min-width: 100%;
+    min-width: 92%;
+    margin-right: 5rem;
+    max-width: 100%;
     scroll-snap-align: center;
     scroll-snap-stop: always;
     align-items: center;
@@ -23,14 +24,13 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    left: 1rem;
+
     position: relative;
     height: 100%;
   }
 
   .day {
-    width: 5%;
-    margin-left: -0.3rem;
+    width: 13%;
     display: flex;
     flex-direction: column;
     align-items: center;

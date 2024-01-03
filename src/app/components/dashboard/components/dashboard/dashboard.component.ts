@@ -33,6 +33,8 @@ import { AuthenticationState } from 'src/app/components/authentication/store/aut
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
+  protected opened: boolean = false;
+
   constructor(private store: Store<AuthenticationState>) {}
 
   public logout(): void {

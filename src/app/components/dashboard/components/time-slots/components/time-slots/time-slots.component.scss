@@ -1,15 +1,18 @@
 .time-slots_content {
-  padding: 1%;
+  padding: 1.5rem;
+
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 100%;
+  width: 100% important;
   flex: 1;
 
   .time-slots_header-actions {
     display: flex;
     align-items: center;
+    margin: 1rem 1rem 1rem 4rem;
     margin-bottom: 1rem;
+    margin-left: 4rem;
 
     .locations-dropdown {
       margin-left: 1rem;
@@ -43,7 +46,7 @@
 }
 @media (max-width: 1600px) {
   .time-slots_content {
-    width: 98%;
+    width: 89%;
   }
 }
 @media (max-width: 1570px) {
@@ -53,7 +56,7 @@
 }
 @media (max-width: 1550px) {
   .time-slots_content {
-    width: 96%;
+    width: 95%;
   }
 }
 @media (max-width: 1350px) {
