@@ -1,12 +1,13 @@
 <mat-drawer-container class="dashboard-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [(opened)]="opened">
     <div class="cards">
-      <mat-card class="card">
+      <mat-card class="card" [routerLink]="['time-slots']">
         {{ 'DASHBOARD.SIDENAV.SLOTS' | translate }}
       </mat-card>
       <button class="close-button" mat-mini-fab (click)="opened = !opened" mat-mini-fab>
         <mat-icon>close</mat-icon>
       </button>
+      <mat-card class="card" [routerLink]="['payment-slots']"> Налаштування оплати </mat-card>
     </div>
   </mat-drawer>
   <mat-drawer-content class="mat-drawer-content">

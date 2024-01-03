@@ -41,32 +41,36 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
   encapsulation: ViewEncapsulation.None
 })
 export class TimeSlotsComponent {
-  public readonly timeSlots$ = this.store.select(selectTimeSlots);
-  public readonly loading$ = this.store.select(selectLoading);
-  public readonly locations$ = this.store.select(selectLocations);
-  public readonly currentLocation$ = this.store.select(selectCurrentLocation);
+  protected readonly timeSlots$ = this.store.select(selectTimeSlots);
+  protected readonly loading$ = this.store.select(selectLoading);
+  protected readonly locations$ = this.store.select(selectLocations);
+  protected readonly currentLocation$ = this.store.select(selectCurrentLocation);
 
   constructor(private store: Store<TimeSlotsState>) {}
 
-  public daySelected(dateId: DateId): void {
+  protected daySelected(dateId: DateId): void {
     this.store.dispatch(TimeSlotsActions.selectDay({ dateId }));
     this.store.dispatch(TimeSlotsActions.getTimeSlots());
   }
 
-  public locationSelected(location: Location): void {
+  protected locationSelected(location: Location): void {
     this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
     this.store.dispatch(TimeSlotsActions.getTimeSlots());
   }
 
-  public openEditTimeSlotDialog(timeSlot: TimeSlot): void {
+  protected openEditTimeSlotDialog(timeSlot: TimeSlot): void {
     this.store.dispatch(TimeSlotsActions.openEditTimeSlotDialog({ timeSlot }));
   }
 
-  public openCreateTimeSlotDialog(): void {
+  protected openCreateTimeSlotDialog(): void {
     this.store.dispatch(TimeSlotsActions.openCreateTimeSlotDialog());
   }
 
-  public deleteTimeSlot(id: string): void {
+  protected deleteTimeSlot(id: string): void {
     this.store.dispatch(TimeSlotsActions.deleteTimeSlot({ id }));
+  }
+
+  protected compareLocations(l1: Location, l2: Location): boolean {
+    return l1.id === l2.id;
   }
 }
