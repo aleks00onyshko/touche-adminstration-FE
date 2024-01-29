@@ -22,6 +22,11 @@
     "SIDENAV": {
       "SLOTS": "Часові Слоти"
     },
+    "PAYMENT_SLOT": {
+      "TYPE": "занятть",
+      "PRICE": "ціна",
+      "CURRENCY": "грн"
+    },
     "CREATE_TIME_SLOT": {
       "START_TIME": "Початковий час",
       "DURATION": "Тривалість",

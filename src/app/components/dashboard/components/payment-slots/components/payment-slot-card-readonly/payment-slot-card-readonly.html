@@ -1,0 +1,21 @@
+<mat-card class="payment-slot-card-readonly" [class.booked]="!!paymentSlot.attendeeId">
+  <div class="number_lesson-and_price">
+    <div class="lesson-type_attendee">
+      <span class="lesson_type">{{ paymentSlot.numberOfClasses + " "}}{{ 'DASHBOARD.PAYMENT_SLOT.TYPE' | translate }}</span>
+    </div>
+    <div class="number-lesson">
+      <span class="classes">  </span>
+    </div>
+    <div class="lesson_price">
+      <span class="duration"> {{ paymentSlot.price }}{{'DASHBOARD.PAYMENT_SLOT.CURRENCY' | translate }} </span>
+    </div>
+  </div>
+
+  <div class="payment-card_delete">
+    <div class="delete_button-container">
+      <button mat-mini-fab (click)="deletePaymentSlot(paymentSlot.id)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

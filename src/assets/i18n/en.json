@@ -22,6 +22,11 @@
     "SIDENAV": {
       "SLOTS": "SLOTS"
     },
+    "PAYMENT_SLOT": {
+      "TYPE": "classes",
+      "PRICE": "PRICE",
+      "CURRENCY": "UA"
+    },
     "CREATE_TIME_SLOT": {
       "START_TIME": "Start Time",
       "DURATION": "Duration",
