@@ -20,12 +20,15 @@
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Some analytics here in the future",
     "SIDENAV": {
-      "SLOTS": "SLOTS"
+      "SLOTS": "SLOTS",
+      "PAYMENT-SLOTS": "PAYMENT SETTINGS"
     },
     "PAYMENT_SLOT": {
       "TYPE": "classes",
       "PRICE": "PRICE",
-      "CURRENCY": "UA"
+      "CURRENCY": "UA",
+      "CHOOSE_PACKAGE": "CREATION OF PACKAGES",
+      "EDIT_SLOT": "Edit slot"
     },
     "CREATE_TIME_SLOT": {
       "START_TIME": "Start Time",
@@ -43,6 +46,9 @@
     },
     "CREATE_TIME_SLOT_DIALOG": {
       "TITLE": "Create new lesson"
+    },
+    "CREATE_PAYMENT_SLOT_DIALOG": {
+      "TITLE": "Create New Package"
     },
     "DAY_LIST": {
       "MON": "MON",

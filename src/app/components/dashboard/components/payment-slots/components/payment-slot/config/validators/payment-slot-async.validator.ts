@@ -16,7 +16,7 @@ export function paymentSlotsOveralappingValidator(
   ): Observable<ValidationErrors | null> => {
     return store.select(paymentSlotsOverlappingByPriceAndClasses(timeSlotCardControl.value)).pipe(
       take(1),
-      map(overlapping => (overlapping ? { [PaymentSlotCardValidationErrorsEnum.HAS_OVERLAPPING]: true } : null))
+      map(overlapping => (overlapping ? { [PaymentSlotCardValidationErrorsEnum.HAS_PAYMENT_TURNER_SYNDROME]: true } : null))
     );
   };
 }

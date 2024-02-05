@@ -1,5 +1,4 @@
 .payment-slots_list {
- 
   .payment-slots_list {
     display: flex;
     flex-direction: column;
@@ -13,19 +12,22 @@
 
     app-payment-slot-card-readonly:not(:last-child) {
       margin-bottom: 1rem;
+      margin: -1rem;
     }
   }
 }
 .mainTextOnPaymentPage {
-    height: 9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    span{
-        font-size: 4rem;
-    }
+  span {
+    font-family: 'Noto Sans Linear B', sans-serif;
+    font-family: 'PT Serif', serif;
+    font-size: 3.5rem;
   }
+}
 .payment-slots_content_add-button {
   margin-left: 6rem;
   margin-top: 1rem;
@@ -43,6 +45,9 @@
   }
 }
 @media (max-width: 1350px) {
+  .mainTextOnPaymentPage span {
+    font-size: 2rem;
+  }
   .payment-slots_list {
     width: 94%;
   }

@@ -9,6 +9,21 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  .number_lesson-and_price {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: space-between;
+    .lesson-type_attendee .lesson_type {
+      font-size: 2rem;
+      font-family: 'Noto Sans Linear B', sans-serif;
+      font-family: 'PT Serif', serif;
+    }
+    .lesson_price .price {
+      font-size: 2rem;
+      color: rgb(249, 145, 0);
+    }
+  }
   .lesson-type_attendee {
     display: flex;
     align-items: center;
@@ -49,5 +64,4 @@
       }
     }
   }
-  
 }

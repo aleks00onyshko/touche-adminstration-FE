@@ -2,7 +2,6 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { PaymentSlotCardControlValue } from '../components/payment-slot/payment-slot-card.compomemt';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
-import { User } from 'src/app/core/model/entities/user';
 
 export const PaymentSlotAction = createActionGroup({
   source: 'Payment Slot',

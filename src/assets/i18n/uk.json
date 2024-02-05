@@ -20,12 +20,15 @@
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
     "SIDENAV": {
-      "SLOTS": "Часові Слоти"
+      "SLOTS": "Часові Слоти",
+      "PAYMENT-SLOTS": "Налаштування оплати"
     },
     "PAYMENT_SLOT": {
-      "TYPE": "занятть",
+      "TYPE": "заняття",
       "PRICE": "ціна",
-      "CURRENCY": "грн"
+      "CURRENCY": "грн",
+      "CHOOSE_PACKAGE": "СТВОРЕННЯ ПАКЕТІВ",
+      "EDIT_SLOT": "Редагувати слоту"
     },
     "CREATE_TIME_SLOT": {
       "START_TIME": "Початковий час",
@@ -43,6 +46,9 @@
     },
     "CREATE_TIME_SLOT_DIALOG": {
       "TITLE": "Створіть новий урок"
+    },
+    "CREATE_PAYMENT_SLOT_DIALOG": {
+      "TITLE": "Створіть новий пакет"
     },
     "DAY_LIST": {
       "MON": "ПН",

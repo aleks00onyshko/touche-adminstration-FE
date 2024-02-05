@@ -10,6 +10,7 @@ import { PaymentSlotCardReadonlyComponent } from '../payment-slot-card-readonly/
 import { DaySelectListComponent } from '../../../time-slots/components/day-select-list/day-select-list.component';
 import { SpinnerComponent } from '../../../../../../shared/components/spinner/spinner.component';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-payment-slots',
   standalone: true,
@@ -21,7 +22,8 @@ import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
     PaymentSlotCardReadonlyComponent,
     CommonModule,
     DaySelectListComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    TranslateModule
   ]
 })
 export class PaymentSlotsComponent {

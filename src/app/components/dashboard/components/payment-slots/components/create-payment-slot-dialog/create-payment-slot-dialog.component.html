@@ -1,6 +1,11 @@
-<h2 mat-dialog-title>{{ 'DASHBOARD.CREATE_TIME_SLOT_DIALOG.TITLE' | translate }}</h2>
+<h2 mat-dialog-title>{{ 'DASHBOARD.CREATE_PAYMENT_SLOT_DIALOG.TITLE' | translate }}</h2>
 <mat-dialog-content class="mat-typography">
   <app-payment-slot-card [formControl]="paymentSlotControl"></app-payment-slot-card>
+  @if(paymentSlotControl.hasError(paymentSlotCardErrors.HAS_PAYMENT_TURNER_SYNDROME)) {
+    <mat-error class="payment-slot_error">
+      {{ 'DASHBOARD.CREATE_TIME_SLOT.TIME_SLOT_OVERLAPS_ERROR' | translate }}
+    </mat-error>
+    }
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
