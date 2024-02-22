@@ -86,7 +86,7 @@ export class AuthenticationEffects implements OnInitEffects {
         switchMap(({ user }) => {
           const teacher: Teacher = {
             id: user.uid,
-            displayName: user.displayName,
+            displayName: user.displayName ?? user.email,
             email: user.email,
             uid: user.uid
           };
