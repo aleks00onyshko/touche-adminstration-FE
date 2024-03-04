@@ -25,6 +25,7 @@
     },
     "PAYMENT_SLOT": {
       "TYPE": "заняття",
+      "NUMBER_OF_CLASSES": "кількість занять",
       "PRICE": "ціна",
       "CURRENCY": "грн",
       "CHOOSE_PACKAGE": "СТВОРЕННЯ ПАКЕТІВ",
