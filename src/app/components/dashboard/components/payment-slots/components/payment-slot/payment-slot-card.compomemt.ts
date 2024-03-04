@@ -107,8 +107,6 @@ export class PaymentSlotCardComponent extends ReactiveComponent implements OnIni
   }
 
   public ngOnInit(): void {
-
-    
     this.paymentSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value =>
       this.onChangeFn({
         numberOfClasses: value.numberOfClasses ?? this.numberOfClassesOptions[1],
