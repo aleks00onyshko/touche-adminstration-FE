@@ -41,7 +41,7 @@ export class PaymentSlotsEffects {
           numberOfClasses: paymentSlotCardControlValue.numberOfClasses,
           price: paymentSlotCardControlValue.price,
           id: id,
-          attendeeId: ''
+
         };
 
         return from(setDoc(doc(this.firestore, `payment-slots/${id}`), optimisticallyGeneratedPaymentSlot)).pipe(
@@ -95,7 +95,7 @@ export class PaymentSlotsEffects {
           numberOfClasses: paymentSlotCardControlValue.numberOfClasses,
           price: paymentSlotCardControlValue.price,
           id: initialPaymentSlot.id,
-          attendeeId: ''
+   
         };
 
         return from(
