@@ -1,11 +1,13 @@
 <h2 mat-dialog-title>{{'DASHBOARD.PAYMENT_SLOT.EDIT_SLOT' | translate }}</h2>
 <mat-dialog-content class="mat-typography">
   <app-payment-slot-card [formControl]="paymentSlotControl"></app-payment-slot-card>
+<<<<<<< HEAD
   @if(paymentSlotControl.hasError(paymentSlotCardErrors.OVERLAPS_WITH_OTHER)) {
+=======
+>>>>>>> 5bc00b1 (new change)
   <mat-error class="payment-slot_error">
     {{ 'DASHBOARD.CREATE_TIME_SLOT.TIME_SLOT_OVERLAPS_ERROR' | translate }}
   </mat-error>
-  }
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>{{ 'COMMON.CANCEL' | translate }}</button>
