@@ -6,7 +6,6 @@ import { Observable, map, take } from 'rxjs';
 import { paymentSlotsOverlappingByPriceAndClasses } from '../../../../store/payment-slots.selector';
 import { PaymentSlotCardValidationErrorsEnum } from './validation.errors';
 
-
 export function paymentSlotsOveralappingValidator(
   store: Store<PaymentSlotsState>,
   editedPaymentSlotId: string = ''
@@ -14,9 +13,9 @@ export function paymentSlotsOveralappingValidator(
   return (
     timeSlotCardControl: AbstractControl<PaymentSlotCardControlValue, PaymentSlotCardControlValue>
   ): Observable<ValidationErrors | null> => {
-    return store.select(paymentSlotsOverlappingByPriceAndClasses(timeSlotCardControl.value)).pipe(
+    return store.select(paymentSlotsOverlappingByPriceAndClasses(timeSlotCardControl.value, editedPaymentSlotId)).pipe(
       take(1),
-      map(overlapping => (overlapping ? { [PaymentSlotCardValidationErrorsEnum.HAS_PAYMENT_TURNER_SYNDROME]: true } : null))
+      map(overlapping => (overlapping ? { [PaymentSlotCardValidationErrorsEnum.OVERLAPS_WITH_OTHER]: true } : null))
     );
   };
 }
