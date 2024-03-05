@@ -1,8 +1,7 @@
 import { ValidationErrors } from '@angular/forms';
 
-
 export enum PaymentSlotCardValidationErrorsEnum {
-HAS_PAYMENT_TURNER_SYNDROME="HAS_PAYMENT_TURNER_SYNDROME"
+  OVERLAPS_WITH_OTHER = 'OVERLAPS_WITH_OTHER'
 }
 
 export type PaymentSlotCardValidationErrors = ValidationErrors & {
