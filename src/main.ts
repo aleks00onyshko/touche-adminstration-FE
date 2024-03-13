@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, enableProdMode, importProvidersFrom, InjectionToken } from '@angular/core';
+import { APP_INITIALIZER, enableProdMode, importProvidersFrom } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth, Auth, user } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -26,6 +26,7 @@ import {
   AUTHENTICATION_FEATURE_NAME,
   authenticationReducer
 } from './app/components/authentication/store/authentication.reducer';
+import { PROJECT_SETTINGS_FEATURE_NAME, projectSettingsReducer } from './styles/store/projectSettings.reducer';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -53,7 +54,10 @@ bootstrapApplication(AppComponent, {
         }
       }),
       HttpClientModule,
-      StoreModule.forRoot({ [AUTHENTICATION_FEATURE_NAME]: authenticationReducer }),
+      StoreModule.forRoot({
+        [AUTHENTICATION_FEATURE_NAME]: authenticationReducer,
+        [PROJECT_SETTINGS_FEATURE_NAME]: projectSettingsReducer
+      }),
       EffectsModule.forRoot([AuthenticationEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production, autoPause: true }),
       MatSnackBarModule

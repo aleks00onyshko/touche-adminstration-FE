@@ -40,7 +40,8 @@
                 "inject": false
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["moment", "lodash"]
           },
           "configurations": {
             "production": {
