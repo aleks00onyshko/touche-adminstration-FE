@@ -8,6 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { TimeSlotsEffects } from '../components/time-slots/store/time-slots.effects';
 import { PaymentSlotsComponent } from '../components/payment-slots/components/payment-slots/payment-slots.component';
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
+import { PaymentSlotsEffects } from '../components/payment-slots/store/payment-slots.effects';
+import { paymentSlotsResolver } from './resolvers/payment-slots.resolver';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
@@ -16,7 +18,7 @@ export const DASHBOARD_ROUTES: Routes = [
     providers: [
       importProvidersFrom(
         StoreModule.forFeature(DASHBOARD_FEATURE_KEY, dashboardReducers),
-        EffectsModule.forFeature([TimeSlotsEffects])
+        EffectsModule.forFeature([TimeSlotsEffects, PaymentSlotsEffects])
       )
     ],
     children: [
@@ -27,7 +29,8 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       {
         component: PaymentSlotsComponent,
-        path: 'payment-slots'
+        path: 'payment-slots',
+        resolve: [paymentSlotsResolver]
       },
       {
         component: TimeSlotsComponent,

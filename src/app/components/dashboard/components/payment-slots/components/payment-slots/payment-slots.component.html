@@ -1,1 +1,20 @@
-<p>payment-slots works!</p>
+<div class="time-slots_content">
+  @if((loading$ | async) === true) {
+  <app-spinner></app-spinner>
+  } @else {
+  <div class="mainTextOnPaymentPage">
+    <span>{{'DASHBOARD.PAYMENT_SLOT.CHOOSE_PACKAGE' | translate }}</span>
+  </div>
+  <button mat-mini-fab class="payment-slots_content_add-button" (click)="openCreatePaymentSlotDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <div class="payment-slots_list">
+    @for(paymentSlot of paymentSlots$ | async; track paymentSlot.id) {
+    <app-payment-slot-card-readonly  (click)="openEditPaymentSlotDialog(paymentSlot)" (slotDeleted)="deletePaymentSlot($event)" [paymentSlot]="paymentSlot"></app-payment-slot-card-readonly>
+    }@empty {
+    <h2>No slots</h2>
+    }
+  </div>
+  }
+</div>

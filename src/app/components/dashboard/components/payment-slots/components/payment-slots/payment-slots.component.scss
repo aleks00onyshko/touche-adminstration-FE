@@ -1,0 +1,59 @@
+.payment-slots_list {
+  .payment-slots_list {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+
+    app-payment-slot-card-readonly {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+
+    app-payment-slot-card-readonly:not(:last-child) {
+      margin-bottom: 1rem;
+      margin: -1rem;
+    }
+  }
+}
+.mainTextOnPaymentPage {
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: 'Noto Sans Linear B', sans-serif;
+    font-family: 'PT Serif', serif;
+    font-size: 3.5rem;
+  }
+}
+.payment-slots_content_add-button {
+  margin-left: 6rem;
+  margin-top: 1rem;
+  background-color: #181818;
+  color: white;
+}
+@media (max-width: 1600px) {
+  .payment-slots_list {
+    width: 89%;
+  }
+}
+@media (max-width: 1570px) {
+  .payment-slots_list {
+    width: 97%;
+  }
+}
+@media (max-width: 1350px) {
+  .mainTextOnPaymentPage span {
+    font-size: 2rem;
+  }
+  .payment-slots_list {
+    width: 94%;
+  }
+}
+@media (max-width: 1000px) {
+  .payment-slots_list {
+    width: 92%;
+  }
+}
