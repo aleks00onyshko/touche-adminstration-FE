@@ -13,11 +13,6 @@ export const paymentSlotsResolver: ResolveFn<Observable<PaymentSlot[] | null>> =
 
   return store.select(selectPaymentSlots).pipe(
     filter(paymentSlots => !!paymentSlots),
-    tap(() => {
-      if (store) {
-        store.dispatch(PaymentSlotAction.getPaymentSlots());
-      }
-    }),
     take(1)
   );
 };
