@@ -2,7 +2,6 @@
   height: 10rem;
   margin: 1rem;
   padding: 1.5rem;
-  background-color: #181818;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,7 +29,6 @@
 
     .lesson_type {
       font-size: 1.5rem;
-      color: white;
       font-weight: bold;
       text-transform: uppercase;
       margin-right: 1rem;
@@ -48,8 +46,8 @@
     .delete_button-container button {
       width: 2rem;
       height: 2rem;
-      color: white;
-      background-color: #181818;
+    
+      // background-color: #181818;
       box-shadow: none;
     }
     .number-lesson {
@@ -57,7 +55,7 @@
       align-items: center;
       .classes {
         font-size: 1.5rem;
-        color: white;
+     
         font-weight: bold;
         text-transform: uppercase;
         margin-right: 1rem;

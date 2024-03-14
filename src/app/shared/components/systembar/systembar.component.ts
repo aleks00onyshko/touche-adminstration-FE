@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, Renderer2, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Store, StoreModule } from '@ngrx/store';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateService } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -37,11 +37,15 @@ import { AuthenticationState } from 'src/app/components/authentication/store/aut
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SystembarComponent {
+  protected opened: boolean = false;
+  readonly themeAnchor = this.document.getElementById('app-theme');
   public languageControl = new FormControl(
     this.localStorageService.get('language') ?? this.translateService.defaultLang
   );
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
     protected avatarBuilderService: AvatarBuilderService,
     protected translateService: TranslateService,
     private store: Store<AuthenticationState>,
@@ -55,5 +59,12 @@ export class SystembarComponent {
 
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
+  }
+  setTheme({ source }: MatSelectChange) {
+    if (source.value === 'light') {
+      this.renderer.setAttribute(this.themeAnchor, 'href', '/light-theme.css');
+    } else {
+      this.renderer.setAttribute(this.themeAnchor, 'href', '/dark-theme.css');
+    }
   }
 }

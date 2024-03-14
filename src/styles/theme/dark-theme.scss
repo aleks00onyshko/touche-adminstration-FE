@@ -1,0 +1,34 @@
+@use '@angular/material' as material;
+@use './common.scss';
+@use 'sass:map';
+
+$workshop-primary: material.define-palette(material.$cyan-palette, 700, 400, 900);
+$workshop-accent: material.define-palette(material.$green-palette, A400, A200);
+
+// Extra colors
+$workshop-success-for-dark: material.define-palette(material.$green-palette, 700, 500, 900);
+$workshop-info-for-dark: material.define-palette(material.$blue-palette, A400, A200, A700);
+
+$workshop-extra-color-scheme: (
+  success: $workshop-success-for-dark,
+  info: $workshop-info-for-dark,
+  background: (
+    background: map.get(material.$blue-gray-palette, 900)
+  )
+);
+
+$workshop-theme: material.define-dark-theme(
+  (
+    color: (
+      primary: $workshop-primary,
+      accent: $workshop-accent
+    ),
+    typography: common.$workshop-typography,
+    density: 0
+  )
+);
+
+$workshop-theme: common.apply-extra-colors($workshop-theme, $workshop-extra-color-scheme);
+// @debug $workshop-theme;
+// Generate theme
+@include common.create-theme($workshop-theme);

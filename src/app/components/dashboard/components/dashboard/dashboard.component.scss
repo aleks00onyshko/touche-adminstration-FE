@@ -1,3 +1,4 @@
+@import '../../../../../styles.scss';
 :host {
   position: relative;
   height: 100%;
@@ -15,13 +16,11 @@
       max-width: 100%;
 
       .sidenav-content {
-        background-color: #303030;
         position: absolute;
         margin-top: 10.2rem;
         margin-left: 1rem;
 
         button {
-          background-color: #57e200;
           border-radius: 50%;
         }
 
@@ -52,8 +51,6 @@
         align-items: center;
 
         .close-button {
-          background-color: #ff0000;
-
           margin: 1rem;
         }
 
@@ -65,7 +62,7 @@
 
         .card {
           // TODO: use angular/material theming instead
-          background-color: #303030;
+
           width: 90%;
           margin: 0.5rem;
           height: 4rem;
@@ -93,12 +90,7 @@
     width: 92vw !important;
   }
   .sidenav {
-    background-color: rgb(31 50 0 / 93%);
     position: absolute;
-
-    background-color: rgba(39, 63, 2, 0.906);
-    position: absolute;
-  
 
     min-width: 100% !important;
     width: 100% !important;

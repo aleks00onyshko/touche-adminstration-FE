@@ -1,0 +1,34 @@
+@use "@angular/material" as material;
+@use "sass:map";
+
+@mixin app-root-theme($theme) {
+  $theme-colors: material.get-color-config($theme);
+  $backgrounds: map.get($theme-colors, background);
+  $foregrounds: map.get($theme-colors, foreground);
+  $density-scale: material.get-density-config($theme);
+  $is-dark: map.get($theme, is-dark);
+
+  mat-card-content, mat-card-title {
+    color: material.get-color-from-palette($foregrounds, text);
+  }
+
+  .content {
+    background-color: material.get-color-from-palette($backgrounds, background);
+    min-height: calc(100vh - #{get-content-offset($density-scale)});
+  }
+  .logo {
+    @if $is-dark {
+      background-image: url("../assets/icon-light.png");
+    } @else {
+      background-image: url("../assets/icon-dark.png");
+    }
+  }
+}
+
+@function get-content-offset($density: default) {
+  $offset: 64px;
+  @if $density == minimum {
+    $offset: 44px;
+  }
+  @return $offset;
+}

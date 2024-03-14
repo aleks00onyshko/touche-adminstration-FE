@@ -1,0 +1,43 @@
+@use '@angular/material' as material;
+@use '../../app/banner/banner.component.scss-theme.scss' as banner;
+@use '../../app/app-theme.component.scss' as root;
+@use 'sass:map';
+
+$workshop-typography: material.define-typography-config(
+  $font-family: "'Open Sans', sans-serif",
+  $headline-1: material.define-typography-level(95px, 95px, 300, $letter-spacing: -0.05em)
+);
+
+@function apply-extra-colors($theme, $extra-color-scheme) {
+  @return map.deep-merge(
+    $theme,
+    (
+      color: $extra-color-scheme
+    )
+  );
+}
+
+@mixin create-theme($workshop-theme) {
+  body,
+  mat-drawer-container {
+    // @include material.angular-material-theme($workshop-theme);
+    // @include material.core-theme($workshop-theme);
+    // @include material.select-theme($workshop-theme);
+    // @include material.toolbar-theme($workshop-theme);
+    // @include material.button-theme($workshop-theme);
+    // @include material.fab-theme($workshop-theme);
+    // @include material.icon-button-theme($workshop-theme);
+    // @include material.card-theme($workshop-theme);
+
+    // @include material.c
+    @include material.all-component-themes($workshop-theme);
+    @include banner.app-banner-theme($workshop-theme);
+    // @include root.app-root-theme($workshop-theme);
+  }
+  body {
+    @include material.strong-focus-indicators-theme($workshop-theme);
+  }
+  .mat-toolbar.mat-primary {
+    @include material.strong-focus-indicators-theme(white);
+  }
+}

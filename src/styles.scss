@@ -1,12 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as material;
+@use './styles/theme/common.scss';
+
+@include material.core();
+
+@include material.strong-focus-indicators(
+  (
+    border-style: dotted,
+    border-width: 4px,
+    border-radius: 4px,
+  )
+);
+@include material.typography-hierarchy(common.$workshop-typography, "body");
+
 html,
 body {
   height: 100%;
   box-sizing: border-box !important;
   font-size: 12px;
-}
-body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+mat-card .mdc-card{
+border: 2px solid balck;
 }
 
