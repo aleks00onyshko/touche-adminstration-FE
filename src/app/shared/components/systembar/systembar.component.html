@@ -3,19 +3,20 @@
     [matMenuTriggerFor]="menu"
     [avatarConfiguration]="(avatarBuilderService.createAvatarConfigurationFurCurrentUser$() | async)!"
   ></app-avatar>
-  
+
   <mat-menu #menu="matMenu">
     <div class="systembar-popup-container">
       <mat-form-field class="theme-select">
         <mat-label>Choose a theme</mat-label>
-        <mat-select (selectionChange)="setTheme($event)">
-          <mat-option value="dark">Dark</mat-option>
-          <mat-option value="light">Light</mat-option>
+        <mat-select [value]="theme$ | async" (selectionChange)="changeTheme($event)">
+          <!-- TODO: translations -->
+          <mat-option value="{{ Theme.DARK_THEME }}">{{ Theme.DARK_THEME }}</mat-option>
+          <mat-option value="{{ Theme.LIGHT_THEME }}">{{ Theme.LIGHT_THEME }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="language-select" appearance="fill">
         <mat-label>{{ 'SYSTEMBAR.LANGUAGE' | translate }}</mat-label>
-        <mat-select [formControl]="languageControl" (selectionChange)="changeLanguage($event.value)">
+        <mat-select [value]="" (selectionChange)="changeLanguage($event.value)">
           <mat-option *ngFor="let language of translateService.getLangs()" [value]="language">
             {{
               language === 'en' ? ('COMMON.LANGUAGE.ENGLISH' | translate) : ('COMMON.LANGUAGE.UKRAINIAN' | translate)
