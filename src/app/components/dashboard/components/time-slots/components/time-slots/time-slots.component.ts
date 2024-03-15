@@ -16,6 +16,7 @@ import {
   selectLocations,
   selectTimeSlots
 } from '../../store/time-slots.selectors';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
 import { DashboardComponent } from '../../../dashboard/dashboard.component';
@@ -35,7 +36,8 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
     SpinnerComponent,
     MatSelectModule,
     MatSelectModule,
-    DashboardComponent
+    DashboardComponent,
+    TranslateModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

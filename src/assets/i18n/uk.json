@@ -40,7 +40,8 @@
     },
     "TIME_SLOT": {
       "TYPE": "Фортепіано",
-      "MIN": "хв"
+      "MIN": "хв",
+      "LOCATION": "Локація"
     },
     "TIME_SLOT_LIST": {
       "NO_SLOTS": "Не має слотів на цей день"

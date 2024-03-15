@@ -11,7 +11,7 @@
     </button>
 
     <mat-form-field class="locations-dropdown">
-      <mat-label>Locations</mat-label>
+      <mat-label>{{"DASHBOARDTIME_SLOT.LOCATION"| translate}}</mat-label>
       <mat-select
         (selectionChange)="locationSelected($event.value)"
         [value]="currentLocation$ | async"

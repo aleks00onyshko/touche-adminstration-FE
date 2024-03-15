@@ -40,8 +40,10 @@
     },
     "TIME_SLOT": {
       "TYPE": "Piano",
-      "MIN": "min"
+      "MIN": "min",
+      "LOCATION": "Location"
     },
+
     "TIME_SLOT_LIST": {
       "NO_SLOTS": "No slots for this day"
     },
