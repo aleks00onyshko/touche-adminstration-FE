@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output, Renderer2, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Store, StoreModule } from '@ngrx/store';
 import { MatMenuModule } from '@angular/material/menu';
@@ -63,20 +72,7 @@ export class SystembarComponent {
     this.store.dispatch(AuthenticationActions.logout());
   }
   public changeTheme({ value }: MatSelectChange): void {
-    console.log('changeTheme in systBar')
+    console.log('changeTheme in systBar');
     this.themeChange.emit(value);
   }
-
-  // public changeTheme({ value }: MatSelectChange): void {
-  //   this.store.dispatch(ProjectSettingsActions.setTheme({ theme: value }));
-  //   this.localStorageService.set('theme', value);
-
-   
-    // this.localStorageService.set('theme', source.value);
-    // if (source.value === 'light') {
-    //   this.renderer.setAttribute(this.themeAnchor, 'href', '/light-theme.css');
-    // } else {
-    //   this.renderer.setAttribute(this.themeAnchor, 'href', '/dark-theme.css');
-    // }
-  // }
 }

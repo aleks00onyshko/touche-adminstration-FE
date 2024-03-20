@@ -15,7 +15,11 @@
   },
   "SYSTEMBAR": {
     "LANGUAGE": "Language",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "THEME": {
+      "DARK": "Dark",
+      "LIGHT": "Light"
+    }
   },
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Some analytics here in the future",

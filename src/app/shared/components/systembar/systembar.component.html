@@ -10,8 +10,8 @@
         <mat-label>Choose a theme</mat-label>
         <mat-select [value]="theme$ | async" (selectionChange)="changeTheme($event)">
           <!-- TODO: translations -->
-          <mat-option value="{{ Theme.DARK_THEME }}">{{ Theme.DARK_THEME }}</mat-option>
-          <mat-option value="{{ Theme.LIGHT_THEME }}">{{ Theme.LIGHT_THEME }}</mat-option>
+          <mat-option value="{{ Theme.DARK_THEME }}">{{ "SYSTEMBAR.THEME.DARK" | translate}}</mat-option>
+          <mat-option value="{{ Theme.LIGHT_THEME }}">{{ "SYSTEMBAR.THEME.LIGHT" | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="language-select" appearance="fill">

@@ -15,7 +15,11 @@
   },
   "SYSTEMBAR": {
     "LANGUAGE": "Мова",
-    "LOGOUT": "Вийти"
+    "LOGOUT": "Вийти",
+    "THEME": {
+      "DARK": "Темна",
+      "LIGHT": "Світла"
+    }
   },
   "DASHBOARD": {
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",

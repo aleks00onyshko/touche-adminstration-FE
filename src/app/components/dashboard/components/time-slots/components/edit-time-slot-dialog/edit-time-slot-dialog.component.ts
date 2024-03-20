@@ -66,3 +66,4 @@ export interface EditTimeSlotDialogResponse {
   timeSlotCardControlValue: TimeSlotCardControlValue;
   initialTimeSlot: TimeSlot;
 }
+ 
