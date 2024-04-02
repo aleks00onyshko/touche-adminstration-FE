@@ -1,0 +1,28 @@
+<mat-card class="mainCalendarDiv" [class.booked]="!!timeSlots">
+  <mat-card-content class="contentDiv">
+    <h1>Події</h1>
+    <ng-container *ngFor="let hour of hours">
+      <ng-container *ngIf="timeSlots && timeSlots.length > 0">
+        <div class="hour-block">
+          <div class="hour-label">{{ hour }}</div>
+          <div class="event-container">
+            <div *ngIf="shouldDisplayEventBlock(timeSlots, hour)" class="event">
+              <div *ngFor="let timeSlot of timeSlots" [ngClass]="{ filled: isTimeSlotInHour(timeSlot, hour) }">
+                <div *ngIf="isTimeSlotInHour(timeSlot, hour)">
+                  <div class="typyAndTaecher">
+                    <span class="lessonType">Piano</span>
+                    <span class="teacher">{{ (teacherById$(timeSlot.teacherId) | async)!.displayName }}</span>
+                  </div>
+                  <div class="timeAndDuration">
+                    <span class="start-time">{{ formatTime(timeSlot.startTime) }}</span>
+                    <span class="duration">{{ timeSlot.duration }} {{ 'DASHBOARD.TIME_SLOT.MIN' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

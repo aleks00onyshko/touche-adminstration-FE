@@ -10,6 +10,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { Store } from '@ngrx/store';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { TimeSlotsActions } from '../../store/time-slots.actions';
+import { CalendarComponent } from '../../../../../../shared/components/calendar/calendar.component';
 import {
   selectCurrentLocation,
   selectLoading,
@@ -27,6 +28,7 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
   styleUrls: ['./time-slots.component.scss'],
   standalone: true,
   imports: [
+    CalendarComponent,
     CommonModule,
     DaySelectListComponent,
     MatIconModule,
@@ -47,6 +49,7 @@ export class TimeSlotsComponent {
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);
+  protected showCalendar: boolean = true;
 
   constructor(private store: Store<TimeSlotsState>) {}
 
@@ -75,4 +78,28 @@ export class TimeSlotsComponent {
   protected compareLocations(l1: Location, l2: Location): boolean {
     return l1.id === l2.id;
   }
+
+  protected sortTimeSlots(timeSlots: TimeSlot[]): TimeSlot[] {
+    return timeSlots.slice().sort((a, b) => {
+      const startTimeA = a.startTime[0];
+      const startTimeB = b.startTime[0];
+      const durationA = a.startTime[1];
+      const durationB = b.startTime[1];
+
+      const endTimeA = startTimeA + durationA;
+      const endTimeB = startTimeB + durationB;
+
+      return endTimeA - endTimeB;
+    });
+  }
+  protected trackByLocationId(index: number, location: Location): string {
+    return location.id;
+  }
+  protected toggleView(): void {
+    this.showCalendar = !this.showCalendar;
+  }
+  public trackByTimeSlotId(index: number, timeSlot: TimeSlot): string {
+    return timeSlot.id; // Повертаємо унікальний ідентифікатор елемента
+  }
+
 }

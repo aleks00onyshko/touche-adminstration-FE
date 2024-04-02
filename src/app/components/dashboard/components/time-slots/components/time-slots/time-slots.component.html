@@ -1,41 +1,55 @@
 <app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
 
-  <div class="time-slots_content">
-    @if((loading$ | async) === true) {
-    <app-spinner></app-spinner>
-    } @else {
+<div class="time-slots_header-actions">
+  <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-mini-fab class="time-slots_content_toggle-button" (click)="toggleView()">
+    <mat-icon>{{ showCalendar ? 'dns' : 'event' }}</mat-icon>
+  </button>
 
-  <div class="time-slots_header-actions">
-    <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
-      <mat-icon>add</mat-icon>
-    </button>
-
-    <mat-form-field class="locations-dropdown">
-      <mat-label>{{"DASHBOARDTIME_SLOT.LOCATION"| translate}}</mat-label>
-      <mat-select
-        (selectionChange)="locationSelected($event.value)"
-        [value]="currentLocation$ | async"
-        [compareWith]="compareLocations"
-      >
-        @for (location of locations$ | async; track location.id) {
-        <mat-option class="avatars-dropdown_option" [value]="location">
-          <span> {{ location.displayNames.uk }} </span>
-        </mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="time-slots_list">
-    @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
-    <app-time-slot-card-readonly
-      [timeSlot]="timeSlot"
-      (slotDeleted)="deleteTimeSlot($event)"
-      (click)="openEditTimeSlotDialog(timeSlot)"
-    ></app-time-slot-card-readonly>
-    }@empty {
-    <h2>No slots for this day</h2>
-    }
-  </div>
-  }
+  <mat-form-field class="locations-dropdown">
+    <mat-label>{{ 'DASHBOARDTIME_SLOT.LOCATION' | translate }}</mat-label>
+    <mat-select
+      (selectionChange)="locationSelected($event.value)"
+      [value]="currentLocation$ | async"
+      [compareWith]="compareLocations"
+    >
+      <mat-option *ngFor="let location of locations$ | async; trackBy: trackByLocationId" [value]="location">
+        <span>{{ location.displayNames.uk }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
+<div class="time-slots_content" *ngIf="(timeSlots$ | async) !== null; else loadingBlock">
+  <ng-container *ngIf="showCalendar; else slotsBlock">
+    <div *ngIf="timeSlots$ | async as timeSlots">  
+      <ng-container *ngIf="timeSlots.length > 0; else noSlots">
+        <app-calendar-component [timeSlots]="sortTimeSlots(timeSlots)"></app-calendar-component>
+      </ng-container>
+      <ng-template #noSlots>
+        <h2>No slots for this day</h2>
+      </ng-template>
+    </div>
+  </ng-container>
+  
+  <ng-template #slotsBlock>
+    <div class="time-slots_list">
+      @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
+      <app-time-slot-card-readonly
+        [timeSlot]="timeSlot"
+        (slotDeleted)="deleteTimeSlot($event)"
+        (click)="openEditTimeSlotDialog(timeSlot)"
+      ></app-time-slot-card-readonly>
+      }@empty {
+      <h2>No slots for this day</h2>
+      }
+    </div>
+    <div *ngIf="(timeSlots$ | async)?.length === 0">
+      <!-- <h2>No slots for this day</h2> -->
+    </div>
+  </ng-template>
+</div>
+<ng-template #loadingBlock>
+  <app-spinner></app-spinner>
+</ng-template>

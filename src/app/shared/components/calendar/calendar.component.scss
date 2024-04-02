@@ -1,0 +1,92 @@
+/* mainCalendarDiv styles */
+.mainCalendarDiv {
+  width: 90%;
+  border: 1px solid #ccc; /* Обрамлення */
+  border-radius: 10px; /* Радіус кутів */
+  padding: 20px; /* Відступи від країв */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь */
+}
+
+.booked {
+  border: 2px solid grey;
+}
+
+/* contentDiv styles */
+.contentDiv {
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* hour-block styles */
+.hour-block {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* hour-label styles */
+.hour-label {
+  width: 30px; /* Ширина блоку для мітки години */
+  text-align: right;
+  margin-right: 10px;
+}
+
+/* event-container styles */
+.event-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+
+  border-top: 1px solid grey;
+  border-left: 1px solid rgb(212 196 177);
+}
+
+/* event styles */
+.event {
+  // border-radius: 5px;
+  // padding: 3px;
+  margin-bottom: 3px;
+  width: 98%;
+  min-height: 1rem;
+}
+
+/* filled styles */
+.filled {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тінь для блоку події */
+  border-radius: 5px;
+  padding: 3px;
+  margin: 0.3rem;
+  margin-bottom: 3px;
+  width: 100%;
+  min-height: 1rem;
+  background-color: #a6b7b7; /* Колір блоку події, коли він заповнений */
+}
+.typyAndTaecher{
+  display: flex;
+}
+/* lessonType styles */
+.lessonType {
+  margin-right: 3rem;
+  font-weight: bold;
+}
+
+/* teacher styles */
+.teacher {
+  font-style: italic;
+}
+
+/* start-time styles */
+.start-time {
+  margin-right: 3rem;
+  // margin-right: 10px;
+}
+
+/* duration styles */
+.duration {
+  font-size: 12px;
+}

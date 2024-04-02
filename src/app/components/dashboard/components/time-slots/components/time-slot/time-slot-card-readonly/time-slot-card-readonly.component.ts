@@ -35,7 +35,9 @@ export class TimeSlotCardReadonlyComponent {
   public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id));
   public readonly userById$ = (id: string) => this.store.select(selectUserById(id));
 
-  constructor(private store: Store<TimeSlotsState>) {}
+  constructor(private store: Store<TimeSlotsState>) {
+
+  }
 
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);
