@@ -18,15 +18,6 @@ $workshop-typography: material.define-typography-config(
 @mixin create-theme($workshop-theme) {
   body,
   mat-drawer-container {
-    // @include material.angular-material-theme($workshop-theme);
-    // @include material.core-theme($workshop-theme);
-    // @include material.select-theme($workshop-theme);
-    // @include material.toolbar-theme($workshop-theme);
-    // @include material.button-theme($workshop-theme);
-    // @include material.fab-theme($workshop-theme);
-    // @include material.icon-button-theme($workshop-theme);
-    // @include material.card-theme($workshop-theme);
-    // @include root.app-root-theme($workshop-theme);
 
     @include material.all-component-themes($workshop-theme);
   }
