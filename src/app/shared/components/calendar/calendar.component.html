@@ -10,8 +10,11 @@
               <div *ngFor="let timeSlot of timeSlots" [ngClass]="{ filled: isTimeSlotInHour(timeSlot, hour) }">
                 <div *ngIf="isTimeSlotInHour(timeSlot, hour)">
                   <div class="typyAndTaecher">
-                    <span class="lessonType">Piano</span>
                     <span class="teacher">{{ (teacherById$(timeSlot.teacherId) | async)!.displayName }}</span>
+                    <span class="lessonType">Piano</span>
+                    <button (click)="deleteTimeSlot(timeSlot.id)">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
                   </div>
                   <div class="timeAndDuration">
                     <span class="start-time">{{ formatTime(timeSlot.startTime) }}</span>

@@ -32,7 +32,6 @@ import { TimeSlotsState } from 'src/app/components/dashboard/components/time-slo
 export class CalendarComponent {
   @Output() public daySelected = new EventEmitter<DateId>();
   @Output() public slotDeleted = new EventEmitter<string>();
-
   @Input() public timeSlots: TimeSlot[] = [];
 
   public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id));
@@ -65,6 +64,9 @@ export class CalendarComponent {
 
   formatTime(time: number[]): string {
     return `${('0' + time[0]).slice(-2)}:${('0' + time[1]).slice(-2)}`;
+  }
+  public deleteTimeSlot(id: string): void {
+    this.slotDeleted.emit(id);
   }
 
 }

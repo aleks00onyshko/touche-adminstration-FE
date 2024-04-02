@@ -23,16 +23,16 @@
 </div>
 <div class="time-slots_content" *ngIf="(timeSlots$ | async) !== null; else loadingBlock">
   <ng-container *ngIf="showCalendar; else slotsBlock">
-    <div *ngIf="timeSlots$ | async as timeSlots">  
+    <div *ngIf="timeSlots$ | async as timeSlots">
       <ng-container *ngIf="timeSlots.length > 0; else noSlots">
-        <app-calendar-component [timeSlots]="sortTimeSlots(timeSlots)"></app-calendar-component>
+        <app-calendar-component   (slotDeleted)="deleteTimeSlot($event)" [timeSlots]="sortTimeSlots(timeSlots)"></app-calendar-component>
       </ng-container>
       <ng-template #noSlots>
         <h2>No slots for this day</h2>
       </ng-template>
     </div>
   </ng-container>
-  
+
   <ng-template #slotsBlock>
     <div class="time-slots_list">
       @for(timeSlot of timeSlots$ | async; track timeSlot.id) {
@@ -46,7 +46,6 @@
       }
     </div>
   </ng-template>
-
 </div>
 <ng-template #loadingBlock>
   <app-spinner></app-spinner>
