@@ -1,14 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  Output,
-  Renderer2,
-  ViewEncapsulation
-} from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Store, StoreModule } from '@ngrx/store';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
@@ -25,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
 import { Theme } from 'src/styles/store/projectSettings.reducer';
-import { ProjectSettingsActions } from 'src/styles/store/projectSettings.action';
 import { selectTheme } from 'src/styles/store/projectSettings.selectors';
 import { Observable } from 'rxjs';
 
@@ -72,7 +62,7 @@ export class SystembarComponent {
     this.store.dispatch(AuthenticationActions.logout());
   }
   public changeTheme({ value }: MatSelectChange): void {
-    console.log('changeTheme in systBar');
+
     this.themeChange.emit(value);
   }
 }
