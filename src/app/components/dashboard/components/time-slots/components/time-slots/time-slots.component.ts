@@ -99,7 +99,6 @@ export class TimeSlotsComponent {
   }
 
   public toggleView(showCalendarData: boolean | null): void {
-    console.log(showCalendarData);
     this.store.dispatch(TimeSlotsActions.toggleCalendar({ showCalendar: !(showCalendarData ?? false) }));
   }
 

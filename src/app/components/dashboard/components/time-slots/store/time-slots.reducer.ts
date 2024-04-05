@@ -47,7 +47,7 @@ const reducer = createReducer(
     })
   ),
   on(TimeSlotsActions.toggleCalendar, (state, { showCalendar }) => {
-    console.log(showCalendar, 'reducer');
+   
     return {
       ...state,
       showCalendar
