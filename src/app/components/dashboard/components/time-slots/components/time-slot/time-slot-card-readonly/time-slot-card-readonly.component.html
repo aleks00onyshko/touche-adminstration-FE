@@ -20,7 +20,7 @@
 
   <div class="lesson_delete">
     <div class="delete_button-container">
-      <button mat-mini-fab (click)="deleteTimeSlot(timeSlot.id)">
+      <button mat-mini-fab (click)="deleteTimeSlot(timeSlot.id); $event.stopPropagation()">
         <mat-icon>cancel</mat-icon>
       </button>
     </div>

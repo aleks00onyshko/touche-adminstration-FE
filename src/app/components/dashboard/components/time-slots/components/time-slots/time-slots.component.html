@@ -4,8 +4,13 @@
   <button mat-mini-fab class="time-slots_content_add-button" (click)="openCreateTimeSlotDialog()">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-mini-fab class="time-slots_content_toggle-button" (click)="toggleView()">
-    <mat-icon>{{ showCalendar ? 'dns' : 'event' }}</mat-icon>
+  <button
+    *ngIf="{ showCalendar: showCalendar$ | async } as showCalendarData"
+    mat-mini-fab
+    class="time-slots_content_toggle-button"
+    (click)="toggleView(showCalendarData.showCalendar)"
+  >
+    <mat-icon>{{ (showCalendar$ | async) ? 'dns' : 'event' }}</mat-icon>
   </button>
 
   <mat-form-field class="locations-dropdown">
@@ -22,14 +27,19 @@
   </mat-form-field>
 </div>
 <div class="time-slots_content" *ngIf="(timeSlots$ | async) !== null; else loadingBlock">
-  <ng-container *ngIf="showCalendar; else slotsBlock">
-    <div *ngIf="timeSlots$ | async as timeSlots">
-      <ng-container *ngIf="timeSlots.length > 0; else noSlots">
-        <app-calendar-component   (slotDeleted)="deleteTimeSlot($event)" [timeSlots]="sortTimeSlots(timeSlots)"></app-calendar-component>
-      </ng-container>
-      <ng-template #noSlots>
-        <h2>No slots for this day</h2>
-      </ng-template>
+  <ng-container *ngIf="showCalendar$ | async as showCalendarData; else slotsBlock">
+    <div *ngIf="showCalendarData">
+      <div *ngIf="timeSlots$ | async as timeSlots">
+        <ng-container *ngIf="timeSlots.length > 0; else noSlots">
+          <app-calendar-component
+            (slotDeleted)="deleteTimeSlot($event)"
+            [timeSlots]="sortTimeSlots(timeSlots)"
+          ></app-calendar-component>
+        </ng-container>
+        <ng-template #noSlots>
+          <h2>No slots for this day</h2>
+        </ng-template>
+      </div>
     </div>
   </ng-container>
 

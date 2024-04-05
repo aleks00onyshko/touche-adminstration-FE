@@ -15,6 +15,7 @@ export interface TimeSlotsState {
   locations: Location[] | null;
   currentLocation: Location | null;
   error: HttpErrorResponse | null;
+  showCalendar: boolean;
 }
 
 export const initialState: TimeSlotsState = {
@@ -25,7 +26,8 @@ export const initialState: TimeSlotsState = {
   users: null,
   locations: null,
   currentLocation: null,
-  error: null
+  error: null,
+  showCalendar: true
 };
 
 const reducer = createReducer(
@@ -44,6 +46,13 @@ const reducer = createReducer(
       loading: true
     })
   ),
+  on(TimeSlotsActions.toggleCalendar, (state, { showCalendar }) => {
+    console.log(showCalendar, 'reducer');
+    return {
+      ...state,
+      showCalendar
+    };
+  }),
   on(TimeSlotsActions.getTimeSlotsSuccess, (state, { timeSlots }) => ({ ...state, timeSlots, loading: false })),
   on(
     TimeSlotsActions.getTimeSlotsFailed,

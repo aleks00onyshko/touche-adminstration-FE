@@ -12,6 +12,7 @@ export const TimeSlotsActions = createActionGroup({
   source: 'Time Slots',
   events: {
     'Select day': props<{ dateId: DateId }>(),
+    'Toggle Calendar': props<{ showCalendar: boolean }>(),
     'Get Time Slots': emptyProps(),
     'Get Time Slots Success': props<{ timeSlots: TimeSlot[] }>(),
     'Get Time Slots Failed': props<{ error: HttpErrorResponse }>(),

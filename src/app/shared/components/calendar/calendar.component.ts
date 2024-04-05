@@ -25,14 +25,13 @@ import { TimeSlotsState } from 'src/app/components/dashboard/components/time-slo
     MatButtonModule,
     MatIconModule,
     TranslateModule
-
-    // Ці імпорти можуть бути непотрібні, оскільки компонент не повинен включати інші компоненти в імпорти
   ]
 })
 export class CalendarComponent {
+  @Input() public timeSlots: TimeSlot[] = [];
+
   @Output() public daySelected = new EventEmitter<DateId>();
   @Output() public slotDeleted = new EventEmitter<string>();
-  @Input() public timeSlots: TimeSlot[] = [];
 
   public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id));
   public readonly userById$ = (id: string) => this.store.select(selectUserById(id));
@@ -54,9 +53,11 @@ export class CalendarComponent {
   ];
 
   constructor(private store: Store<TimeSlotsState>) {}
+
   shouldDisplayEventBlock(timeSlots: TimeSlot[], hour: string): boolean {
     return timeSlots.some(timeSlot => this.isTimeSlotInHour(timeSlot, hour));
   }
+
   isTimeSlotInHour(timeSlot: TimeSlot, hour: string): boolean {
     const startTime = this.formatTime(timeSlot.startTime).split(':')[0];
     return startTime === hour.split(':')[0];
@@ -65,8 +66,8 @@ export class CalendarComponent {
   formatTime(time: number[]): string {
     return `${('0' + time[0]).slice(-2)}:${('0' + time[1]).slice(-2)}`;
   }
+
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);
   }
-
 }

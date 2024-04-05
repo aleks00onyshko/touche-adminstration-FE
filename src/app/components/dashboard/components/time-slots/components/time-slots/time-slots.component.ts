@@ -15,12 +15,14 @@ import {
   selectCurrentLocation,
   selectLoading,
   selectLocations,
-  selectTimeSlots
+  selectTimeSlots,
+  showCalendar
 } from '../../store/time-slots.selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
 import { DashboardComponent } from '../../../dashboard/dashboard.component';
+import { Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-time-slots',
@@ -49,7 +51,7 @@ export class TimeSlotsComponent {
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);
-  protected showCalendar: boolean = true;
+  protected readonly showCalendar$ = this.store.select(showCalendar);
 
   constructor(private store: Store<TimeSlotsState>) {}
 
@@ -95,11 +97,13 @@ export class TimeSlotsComponent {
   protected trackByLocationId(index: number, location: Location): string {
     return location.id;
   }
-  protected toggleView(): void {
-    this.showCalendar = !this.showCalendar;
-  }
-  public trackByTimeSlotId(index: number, timeSlot: TimeSlot): string {
-    return timeSlot.id; // Повертаємо унікальний ідентифікатор елемента
+
+  public toggleView(showCalendarData: boolean | null): void {
+    console.log(showCalendarData);
+    this.store.dispatch(TimeSlotsActions.toggleCalendar({ showCalendar: !(showCalendarData ?? false) }));
   }
 
+  public trackByTimeSlotId(index: number, timeSlot: TimeSlot): string {
+    return timeSlot.id;
+  }
 }
