@@ -49,6 +49,11 @@ app-calendar-component {
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 450px) {
+  .locations-dropdown{
+    width: 48%;
+  }
+}
 @media (max-width: 1600px) {
   .time-slots_content {
     width: 89%;

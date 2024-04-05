@@ -1,6 +1,6 @@
 /* mainCalendarDiv styles */
 .mainCalendarDiv {
-  width: 90%;
+  width: 100%;
   border: 1px solid #ccc; /* Обрамлення */
   border-radius: 10px; /* Радіус кутів */
   padding: 20px; /* Відступи від країв */
@@ -41,15 +41,12 @@ h1 {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-
   border-top: 1px solid grey;
   border-left: 1px solid rgb(212 196 177);
 }
 
 /* event styles */
 .event {
-  // border-radius: 5px;
-  // padding: 3px;
   margin-bottom: 3px;
   width: 98%;
   min-height: 1rem;
@@ -105,4 +102,9 @@ h1 {
 /* duration styles */
 .duration {
   font-size: 12px;
+}
+@media (max-width: 450px) {
+  .teacher, .start-time{
+    min-width: auto;
+  }
 }
