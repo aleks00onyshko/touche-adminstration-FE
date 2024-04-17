@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
 import { DashboardComponent } from '../../../dashboard/dashboard.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-time-slots',
@@ -43,7 +44,18 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
   encapsulation: ViewEncapsulation.None
 })
 export class TimeSlotsComponent {
-  protected readonly timeSlots$ = this.store.select(selectTimeSlots);
+  protected readonly timeSlots$ = this.store.select(selectTimeSlots).pipe(
+    map(timeSlots => {
+      if (timeSlots) {
+        return timeSlots.slice().sort((a, b) => {
+          const startTimeA = a.startTime as [number, number];
+          const startTimeB = b.startTime as [number, number];
+          return startTimeA[0] - startTimeB[0] || startTimeA[1] - startTimeB[1];
+        });
+      }
+      return [];
+    })
+  );
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);

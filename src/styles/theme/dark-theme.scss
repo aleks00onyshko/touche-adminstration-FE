@@ -17,6 +17,23 @@ $workshop-extra-color-scheme: (
   )
 );
 
+.mat-drawer-container {
+  div.lesson_time {
+    .start-time {
+      transform: scale(1.1);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      color: map.get(material.$orange-palette, 400);
+      font-weight: bold;
+    }
+    .duration {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      color: map.get(material.$red-palette, 400);
+      font-weight: bold;
+      transform: scale(1.1);
+    }
+  }
+}
+
 $workshop-theme: material.define-dark-theme(
   (
     color: (

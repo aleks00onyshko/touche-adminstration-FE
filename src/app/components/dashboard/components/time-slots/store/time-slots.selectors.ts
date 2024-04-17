@@ -30,8 +30,12 @@ export const timeSlotHasTimeTurnerSyndrome = (
     const startTimeToMinutes = (startTime: [number, number]) => startTime[0] * 60 + startTime[1];
     const endTimeToMinutes = (startTime: [number, number], duration: number) =>
       startTimeToMinutes(startTime) + duration;
+
     const inRange = (timeInMinutes: number, [startTime, endTime]: [number, number]) => {
-      return timeInMinutes >= startTime && timeInMinutes <= endTime;
+      return (
+        (timeInMinutes >= startTime || timeInMinutes >= startTime) &&
+        (timeInMinutes <= endTime || timeInMinutes <= endTime)
+      );
     };
 
     return timeSlots.some(timeSLot => {
@@ -43,11 +47,13 @@ export const timeSlotHasTimeTurnerSyndrome = (
         startTimeToMinutes(timeSlotCardValue.startTime),
         endTimeToMinutes(timeSlotCardValue.startTime, timeSlotCardValue.duration)
       ];
+
+      
       const timeSlotOverlaps =
         inRange(comparedTimeSlotRange[0], timeSlotRange) ||
         inRange(comparedTimeSlotRange[1], timeSlotRange) ||
         (comparedTimeSlotRange[0] < timeSlotRange[0] && comparedTimeSlotRange[1] > timeSlotRange[1]);
 
-      return timeSLot.teacherId === timeSlotCardValue.teacher?.id && timeSlotOverlaps;
+      return timeSlotOverlaps;
     });
   });
