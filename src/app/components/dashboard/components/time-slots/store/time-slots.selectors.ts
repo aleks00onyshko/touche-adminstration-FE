@@ -2,6 +2,8 @@ import { createSelector } from '@ngrx/store';
 import { selectDashboardState } from '../../../store/dashboard.selectors';
 import { DashboardState } from '../../../store/dashboard.reducer';
 import { TimeSlotCardControlValue } from '../components/time-slot/time-slot-card.component';
+import { getTimeSlotRangeInMinutes, inRange, timeSlotsOverlap, timeToMinutes } from '../utils/time-slots-sort';
+import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 
 export const selectTimeSlotsState = createSelector(selectDashboardState, (state: DashboardState) => state.timeSlots);
 
@@ -27,33 +29,7 @@ export const timeSlotHasTimeTurnerSyndrome = (
       ? (timeSlotsItems ?? []).filter(timeSlot => timeSlot.id !== editedTimeSlotId)
       : timeSlotsItems ?? [];
 
-    const startTimeToMinutes = (startTime: [number, number]) => startTime[0] * 60 + startTime[1];
-    const endTimeToMinutes = (startTime: [number, number], duration: number) =>
-      startTimeToMinutes(startTime) + duration;
-
-    const inRange = (timeInMinutes: number, [startTime, endTime]: [number, number]) => {
-      return (
-        (timeInMinutes >= startTime || timeInMinutes >= startTime) &&
-        (timeInMinutes <= endTime || timeInMinutes <= endTime)
-      );
-    };
-
     return timeSlots.some(timeSLot => {
-      const timeSlotRange: [number, number] = [
-        startTimeToMinutes(timeSLot.startTime),
-        endTimeToMinutes(timeSLot.startTime, timeSLot.duration)
-      ];
-      const comparedTimeSlotRange = [
-        startTimeToMinutes(timeSlotCardValue.startTime),
-        endTimeToMinutes(timeSlotCardValue.startTime, timeSlotCardValue.duration)
-      ];
-
-      
-      const timeSlotOverlaps =
-        inRange(comparedTimeSlotRange[0], timeSlotRange) ||
-        inRange(comparedTimeSlotRange[1], timeSlotRange) ||
-        (comparedTimeSlotRange[0] < timeSlotRange[0] && comparedTimeSlotRange[1] > timeSlotRange[1]);
-
-      return timeSlotOverlaps;
+      return timeSlotsOverlap(timeSLot, timeSlotCardValue as any as TimeSlot);
     });
   });
