@@ -15,6 +15,8 @@ import {
 } from '@angular/forms';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
+import '@angular/compiler';
+
 
 @Component({
   selector: 'app-avatar-multiple-select-dropdown',

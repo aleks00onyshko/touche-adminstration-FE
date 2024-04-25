@@ -14,11 +14,11 @@
       </mat-select>
     </mat-form-field>
 
-    <app-select-multiple-example
+    <app-avatar-multiple-select-dropdown
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
       [formControl]="controls.teacher"
-    ></app-select-multiple-example>
+    ></app-avatar-multiple-select-dropdown>
 
     <!-- <app-avatars-dropdown
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
