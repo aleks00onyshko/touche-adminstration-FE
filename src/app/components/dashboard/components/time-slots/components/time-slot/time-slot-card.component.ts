@@ -40,6 +40,7 @@ import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.con
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { SelectMultipleExample } from 'src/app/shared/components/select-multiple/avatar-multiple-select-dropdown';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teacher: AvatarConfiguration | null;
@@ -68,7 +69,8 @@ export type TimeSlotCardControlStructure = {
     MatFormFieldModule,
     AvatarsDropdownComponent,
     ConvertUsersToAvatarConfigsPipe,
-    TranslateModule
+    TranslateModule,
+    SelectMultipleExample
   ],
   templateUrl: './time-slot-card.component.html',
   styleUrls: ['./time-slot-card.component.scss'],
