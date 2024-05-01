@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 export function timeSlotCardValidator(): ValidatorFn {
   return (timeSlotFormGroup: AbstractControl<any>): TimeSlotCardValidationErrors | null => {
     const {
-      controls: { startTime, duration, teacher }
+      controls: { startTime, duration, teachers }
     } = timeSlotFormGroup as FormGroup<TimeSlotCardControlStructure>;
     const errors: TimeSlotCardValidationErrors = {};
 
@@ -16,7 +16,7 @@ export function timeSlotCardValidator(): ValidatorFn {
       errors.DURATION_IS_INVALID = true;
     }
 
-    if (teacher.hasError('required')) {
+    if (teachers.hasError('required')) {
       errors.TEACHER_IS_REQUIRED = true;
     }
 

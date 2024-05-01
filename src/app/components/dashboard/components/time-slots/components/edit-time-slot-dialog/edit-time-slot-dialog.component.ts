@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { AvatarBuilderService } from 'src/app/shared/components/avatar/avatar-builder.service';
-import { User } from 'src/app/core/model/entities/user';
 import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { Store } from '@ngrx/store';
@@ -33,16 +32,9 @@ import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation
 })
 export class EditTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
-    new FormControl<TimeSlotCardControlValue>(
-      {
-        startTime: this.dialogData.timeSlot.startTime,
-        duration: this.dialogData.timeSlot.duration,
-        teacher: this.avatarBuilderService.createAvatarCofigurationForUser(
-          this.dialogData.teachers.find(teacher => teacher.id === this.dialogData.timeSlot.teacherId) as User
-        )
-      },
-      { asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store, this.dialogData.timeSlot.id)] }
-    );
+    new FormControl<TimeSlotCardControlValue>(this.generateTimeSlotControlData(this.dialogData), {
+      asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store, this.dialogData.timeSlot.id)]
+    });
   protected timeSlotCardErrors: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
   constructor(
@@ -55,6 +47,16 @@ export class EditTimeSlotDialogComponent {
   public saveTimeSlot(value: TimeSlotCardControlValue): void {
     this.matDialogRef.close({ initialTimeSlot: this.dialogData.timeSlot, timeSlotCardControlValue: value });
   }
+
+  private generateTimeSlotControlData(dialogData: EditTimeSlotDialogData): TimeSlotCardControlValue {
+    const startTime = dialogData.timeSlot.startTime;
+    const duration = dialogData.timeSlot.duration;
+    const teachersAvatarConfigs = dialogData.teachers
+      .filter(teacher => dialogData.timeSlot.teachersIds.includes(teacher.id))
+      .map(teacher => this.avatarBuilderService.createAvatarConfigurationForUser(teacher));
+
+    return { startTime, duration, teachers: teachersAvatarConfigs };
+  }
 }
 
 export interface EditTimeSlotDialogData {
@@ -66,4 +68,3 @@ export interface EditTimeSlotDialogResponse {
   timeSlotCardControlValue: TimeSlotCardControlValue;
   initialTimeSlot: TimeSlot;
 }
- 

@@ -36,7 +36,7 @@ export class CreateTimeSlotDialogComponent {
       {
         startTime: [moment().hour(), moment().minute()],
         duration: 15,
-        teacher: null
+        teachers: null
       },
       { asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
     );

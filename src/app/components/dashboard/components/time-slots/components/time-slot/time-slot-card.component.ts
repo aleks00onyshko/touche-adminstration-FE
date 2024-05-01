@@ -40,15 +40,17 @@ import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.con
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { SelectMultipleExample } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
+import {
+  AvatarMultipleSelectDropdown
+} from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
-  teacher: AvatarConfiguration | null;
+  teachers: AvatarConfiguration[] | null;
 }
 export type TimeSlotCardControlStructure = {
   startTime: FormControl<[number, number] | null>;
   duration: FormControl<number | null>;
-  teacher: FormControl<AvatarConfiguration | null>;
+  teachers: FormControl<AvatarConfiguration[] | null>;
 };
 @Component({
   selector: 'app-time-slot-card',
@@ -70,7 +72,7 @@ export type TimeSlotCardControlStructure = {
     AvatarsDropdownComponent,
     ConvertUsersToAvatarConfigsPipe,
     TranslateModule,
-    SelectMultipleExample
+    AvatarMultipleSelectDropdown
   ],
   templateUrl: './time-slot-card.component.html',
   styleUrls: ['./time-slot-card.component.scss'],
@@ -96,14 +98,14 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
     {
       startTime: new FormControl(null, [Validators.required]),
       duration: new FormControl(null, [Validators.required]),
-      teacher: new FormControl(null, [Validators.required])
+      teachers: new FormControl(null, [Validators.required])
     },
     { validators: timeSlotCardValidator() }
   );
   public readonly controls: TimeSlotCardControlStructure = {
     startTime: this.timeSlotForm.controls.startTime,
     duration: this.timeSlotForm.controls.duration,
-    teacher: this.timeSlotForm.controls.teacher
+    teachers: this.timeSlotForm.controls.teachers
   };
   public durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
   public errorsEnum: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
@@ -116,11 +118,11 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   }
 
   public ngOnInit(): void {
-    this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value =>
+    this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe((value) =>
       this.onChangeFn({
         startTime: value.startTime ?? [0, 0],
         duration: value.duration ?? this.durationOptions[0],
-        teacher: value.teacher ?? new AvatarConfiguration()
+        teachers: value.teachers ?? [new AvatarConfiguration()]
       })
     );
   }

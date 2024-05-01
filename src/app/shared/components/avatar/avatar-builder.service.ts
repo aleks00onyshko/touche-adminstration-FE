@@ -13,11 +13,11 @@ export class AvatarBuilderService {
   public createAvatarConfigurationFurCurrentUser$(size?: AVATAR_SIZE): Observable<AvatarConfiguration> {
     return (this.store.select(selectUser) as Observable<User | null>).pipe(
       filter(Boolean),
-      map(user => this.createAvatarCofigurationForUser(user, size))
+      map(user => this.createAvatarConfigurationForUser(user, size))
     );
   }
 
-  public createAvatarCofigurationForUser(user: User, size: AVATAR_SIZE = AVATAR_SIZE.m): AvatarConfiguration {
+  public createAvatarConfigurationForUser(user: User, size: AVATAR_SIZE = AVATAR_SIZE.m): AvatarConfiguration {
     return this.getConfiguredAvatarBuilder(user, size).build();
   }
 

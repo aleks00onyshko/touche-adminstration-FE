@@ -94,10 +94,9 @@ export class TimeSlotsEffects {
           locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
-          teacherId: timeSlotCardControlValue.teacher!.id,
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
           booked: false,
-          attendeeId: '',
-     
+          attendeeId: ''
         };
 
         return from(
@@ -125,10 +124,9 @@ export class TimeSlotsEffects {
           locationId: currentLocation!.id,
           id: initialTimeSlot.id,
           dateId: currentDateId!,
-          teacherId: timeSlotCardControlValue.teacher!.id,
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
           booked: initialTimeSlot.booked,
-          attendeeId: initialTimeSlot.attendeeId,
-         
+          attendeeId: initialTimeSlot.attendeeId
         };
 
         return from(

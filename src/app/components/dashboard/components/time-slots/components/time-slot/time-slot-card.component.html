@@ -17,14 +17,8 @@
     <app-avatar-multiple-select-dropdown
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
-      [formControl]="controls.teacher"
+      [formControl]="controls.teachers"
     ></app-avatar-multiple-select-dropdown>
-
-    <!-- <app-avatars-dropdown
-      [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
-      [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
-      [formControl]="controls.teacher"
-    ></app-avatars-dropdown> -->
   </div>
 
   <div class="time-slot_errors" [style.visibility]="timeSlotForm.invalid ? 'visible' : 'hidden'">
