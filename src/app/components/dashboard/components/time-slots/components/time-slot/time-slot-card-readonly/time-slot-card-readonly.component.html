@@ -4,21 +4,24 @@
       <span class="lesson_type">{{ 'DASHBOARD.TIME_SLOT.TYPE' | translate }}</span>
 
       @if(userById$(timeSlot.attendeeId) | async; as user) {
-        <app-avatar [avatarConfiguration]="([user] | convertUsersToAvatarConfigs)[0]"></app-avatar>
+      <app-avatar [avatarConfiguration]="([user] | convertUsersToAvatarConfigs)[0]"></app-avatar>
       }
     </div>
-
-    <span class="teacher">
-      @for (teacherId of timeSlot.teachersIds; track teacherId) {
-        {{ (teacherById$(teacherId) | async)!.displayName }}
-      }
-    </span>
+    <div class="teacherBlock">
+      <!-- <span class="teacher"> -->
+        @for (teacherId of timeSlot.teachersIds; track teacherId) {
+          <h3> {{ (teacherById$(teacherId) | async)!.displayName }}</h3>
+       
+        }
+      <!-- </span> -->
+    </div>
   </div>
   <div class="lesson_time">
     <span class="start-time">
       <!-- Adding '' if start time is [2, 2] => 02:02 -->
-      {{ ('0' + timeSlot.startTime[0]).slice(-2) }}:{{ ('0' + timeSlot.startTime[1]).slice(-2) }}</span>
-    <span class="duration"> {{ timeSlot.duration }} {{"DASHBOARD.TIME_SLOT.MIN" | translate}} </span>
+      {{ ('0' + timeSlot.startTime[0]).slice(-2) }}:{{ ('0' + timeSlot.startTime[1]).slice(-2) }}</span
+    >
+    <span class="duration"> {{ timeSlot.duration }} {{ 'DASHBOARD.TIME_SLOT.MIN' | translate }} </span>
   </div>
 
   <div class="lesson_delete">
