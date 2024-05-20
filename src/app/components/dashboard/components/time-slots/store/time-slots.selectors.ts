@@ -4,6 +4,7 @@ import { DashboardState } from '../../../store/dashboard.reducer';
 import { TimeSlotCardControlValue } from '../components/time-slot/time-slot-card.component';
 import { getTimeSlotRangeInMinutes, inRange, timeSlotsOverlap, timeToMinutes } from '../utils/time-slots-sort';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
+import { TimeSlotsState } from './time-slots.reducer';
 
 export const selectTimeSlotsState = createSelector(selectDashboardState, (state: DashboardState) => state.timeSlots);
 
@@ -33,3 +34,16 @@ export const timeSlotHasTimeTurnerSyndrome = (
       return timeSlotsOverlap(timeSLot, timeSlotCardValue as any as TimeSlot);
     });
   });
+  export const selectSortedTimeSlots = createSelector(
+    selectTimeSlots,
+    (timeSlots) => {
+      return !!timeSlots && timeSlots.slice().sort((a, b) => {
+        const [aHour, aMinute] = a.startTime;
+        const [bHour, bMinute] = b.startTime;
+        if (aHour !== bHour) {
+          return aHour - bHour;
+        }
+        return aMinute - bMinute;
+      });
+    }
+  );
