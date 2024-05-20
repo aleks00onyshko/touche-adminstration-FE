@@ -15,7 +15,9 @@ import {
   selectLoading,
   selectLocations,
   selectSortedTimeSlots,
-  selectTimeSlots
+  selectTeachers,
+  selectTimeSlots,
+  selectUserById
 } from '../../store/time-slots.selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -45,6 +47,7 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
 })
 export class TimeSlotsComponent {
   protected readonly timeSlots$ = this.store.select(selectSortedTimeSlots);
+  protected readonly teachers$ = this.store.select(selectTeachers);
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);

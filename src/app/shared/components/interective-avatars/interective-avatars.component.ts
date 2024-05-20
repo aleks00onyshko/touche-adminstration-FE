@@ -22,6 +22,7 @@ import { ConvertUsersToAvatarConfigsPipe } from '../avatar/convert-users-to-avat
 @Component({
   selector: 'app-interective-avatars',
   standalone: true,
+
   imports: [CommonModule, AvatarComponent, MatSelectModule, ReactiveFormsModule, ConvertUsersToAvatarConfigsPipe,MatIconModule],
   templateUrl: './interective-avatars.component.html',
   styleUrls: ['./interective-avatars.component.scss'],

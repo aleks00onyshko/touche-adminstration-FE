@@ -10,52 +10,38 @@ import { TimeSlotsState } from '../../../store/time-slots.reducer';
 import { selectTeacherById, selectUserById } from '../../../store/time-slots.selectors';
 import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
-import { InterectiveAvatarsComponent } from "../../../../../../../shared/components/interective-avatars/interective-avatars.component";
+
+import { InterectiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interective-avatars.component';
 import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
 import { Teacher } from 'src/app/core/model/entities/teacher';
+import { User } from 'src/app/core/model/entities/user';
 
 @Component({
-    selector: 'app-time-slot-card-readonly',
-    standalone: true,
-    templateUrl: './time-slot-card-readonly.component.html',
-    styleUrls: ['./time-slot-card-readonly.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        TranslateModule,
-        AvatarComponent,
-        ConvertUsersToAvatarConfigsPipe,
-        InterectiveAvatarsComponent
-    ],
-    providers: [ConvertUsersToAvatarConfigsPipe]
+  selector: 'app-time-slot-card-readonly',
+  standalone: true,
+  templateUrl: './time-slot-card-readonly.component.html',
+  styleUrls: ['./time-slot-card-readonly.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    TranslateModule,
+    AvatarComponent,
+    ConvertUsersToAvatarConfigsPipe,
+    InterectiveAvatarsComponent
+  ],
+  providers: [ConvertUsersToAvatarConfigsPipe]
+
 })
 export class TimeSlotCardReadonlyComponent {
   @Input({ required: true }) public timeSlot!: TimeSlot;
+  @Input({ required: true }) public teachers!: Teacher[];
+  @Input() public attendee?: User | undefined;
 
   @Output() public slotDeleted = new EventEmitter<string>();
 
-  public avatarConfig: AvatarConfiguration[] = [];
-  public teachers: Teacher[] = [];
-
-  public readonly teacherById$ = (id: string) => this.store.select(selectTeacherById(id));
-  public readonly userById$ = (id: string) => this.store.select(selectUserById(id));
-
- 
-
-  constructor(private store: Store<TimeSlotsState>) {}
-  ngOnInit(): void {
-
-    this.timeSlot.teachersIds.forEach((teacherId: string) => {
-      this.store.select(selectTeacherById(teacherId)).subscribe((teacher) => {
-        if (teacher) {
-          this.teachers.push(teacher);
-        }
-      });
-    });
-  }
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);
   }

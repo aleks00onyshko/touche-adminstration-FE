@@ -27,14 +27,17 @@
   </div>
 
 
-    <div class="time-slots_list" *ngIf="(timeSlots$ | async) as timeSlots">
-      <ng-container *ngFor="let timeSlot of timeSlots">
-        <app-time-slot-card-readonly
-          [timeSlot]="timeSlot"
-          (slotDeleted)="deleteTimeSlot($event)"
-          (click)="openEditTimeSlotDialog(timeSlot)"
-        ></app-time-slot-card-readonly>
-      </ng-container>
+  <div class="time-slots_list" *ngIf="timeSlots$ | async as timeSlots">
+    @for(timeSlot of timeSlots; track timeSlot.id) {
+    <app-time-slot-card-readonly
+      [timeSlot]="timeSlot"
+      [teachers]="(teachers$ | async)!"
+      (slotDeleted)="deleteTimeSlot($event)"
+      (click)="openEditTimeSlotDialog(timeSlot)"
+    ></app-time-slot-card-readonly>
+    }@empty {
+    <h2>No slots for this day</h2>
+    }
 
   </div>
   }

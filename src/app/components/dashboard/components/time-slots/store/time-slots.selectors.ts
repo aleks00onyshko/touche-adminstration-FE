@@ -15,7 +15,7 @@ export const selectTeachers = createSelector(selectTimeSlotsState, state => stat
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
 export const selectCurrentLocation = createSelector(selectTimeSlotsState, state => state.currentLocation);
 
-export const selectTeacherById = (teacherId: string) =>
+export const  selectTeacherById = (teacherId: string) =>
   createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));
 
 export const selectUserById = (userId: string) =>
