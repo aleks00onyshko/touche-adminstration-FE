@@ -15,9 +15,7 @@ import {
   selectLoading,
   selectLocations,
   selectSortedTimeSlots,
-  selectTeachers,
-  selectTimeSlots,
-  selectUserById
+  selectTeachers
 } from '../../store/time-slots.selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';

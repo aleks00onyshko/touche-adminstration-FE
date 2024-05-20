@@ -26,7 +26,6 @@
     </mat-form-field>
   </div>
 
-
   <div class="time-slots_list" *ngIf="timeSlots$ | async as timeSlots">
     @for(timeSlot of timeSlots; track timeSlot.id) {
     <app-time-slot-card-readonly
@@ -38,7 +37,6 @@
     }@empty {
     <h2>No slots for this day</h2>
     }
-
   </div>
   }
 </div>

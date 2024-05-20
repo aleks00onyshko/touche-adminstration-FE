@@ -5,16 +5,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
-import { TimeSlotsState } from '../../../store/time-slots.reducer';
-import { selectTeacherById, selectUserById } from '../../../store/time-slots.selectors';
 import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
-
-import { InterectiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interective-avatars.component';
-import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { User } from 'src/app/core/model/entities/user';
+import { InterectiveAvatarsComponent } from 'src/app/shared/components/interective-avatars/interective-avatars.component';
+import { Teacher } from 'src/app/core/model/entities/teacher';
 
 @Component({
   selector: 'app-time-slot-card-readonly',
@@ -33,7 +28,6 @@ import { User } from 'src/app/core/model/entities/user';
     InterectiveAvatarsComponent
   ],
   providers: [ConvertUsersToAvatarConfigsPipe]
-
 })
 export class TimeSlotCardReadonlyComponent {
   @Input({ required: true }) public timeSlot!: TimeSlot;

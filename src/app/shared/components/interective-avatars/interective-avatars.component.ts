@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AvatarConfiguration } from '../avatar/avatar.config';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { MatSelectModule } from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 import {
   ControlValueAccessor,
   FormControl,
@@ -22,8 +22,14 @@ import { ConvertUsersToAvatarConfigsPipe } from '../avatar/convert-users-to-avat
 @Component({
   selector: 'app-interective-avatars',
   standalone: true,
-
-  imports: [CommonModule, AvatarComponent, MatSelectModule, ReactiveFormsModule, ConvertUsersToAvatarConfigsPipe,MatIconModule],
+  imports: [
+    CommonModule,
+    AvatarComponent,
+    MatSelectModule,
+    ReactiveFormsModule,
+    ConvertUsersToAvatarConfigsPipe,
+    MatIconModule
+  ],
   templateUrl: './interective-avatars.component.html',
   styleUrls: ['./interective-avatars.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -85,9 +91,8 @@ export class InterectiveAvatarsComponent extends ReactiveComponent implements On
     return a1?.id === a2?.id;
   }
 
-  public toggleShowAll(event: Event , showAll: boolean): void {
+  public toggleShowAll(event: Event, showAll: boolean): void {
     event.stopPropagation();
     this.showAllTeachers = !this.showAllTeachers;
   }
- 
 }
