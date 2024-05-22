@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AvatarConfiguration } from '../avatar/avatar.config';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { MatSelectModule } from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon'
 import {
   ControlValueAccessor,
   FormControl,
@@ -21,7 +22,7 @@ import { ConvertUsersToAvatarConfigsPipe } from '../avatar/convert-users-to-avat
 @Component({
   selector: 'app-interective-avatars',
   standalone: true,
-  imports: [CommonModule, AvatarComponent, MatSelectModule, ReactiveFormsModule, ConvertUsersToAvatarConfigsPipe],
+  imports: [CommonModule, AvatarComponent, MatSelectModule, ReactiveFormsModule, ConvertUsersToAvatarConfigsPipe,MatIconModule],
   templateUrl: './interective-avatars.component.html',
   styleUrls: ['./interective-avatars.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

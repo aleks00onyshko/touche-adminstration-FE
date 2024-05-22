@@ -1,3 +1,5 @@
 import { User } from './user';
 
-export interface Teacher extends User {}
+export interface Teacher extends User {
+    imageUrl: string;
+}

@@ -85,6 +85,7 @@ export class AuthenticationEffects implements OnInitEffects {
         ofType(AuthenticationActions.onboardTeacher),
         switchMap(({ user }) => {
           const teacher: Teacher = {
+            imageUrl  : "",
             id: user.uid,
             displayName: user.displayName ?? user.email,
             email: user.email,

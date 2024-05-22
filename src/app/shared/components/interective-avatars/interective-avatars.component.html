@@ -1,19 +1,19 @@
-<div class="interective-avatars">
-    <div class="avatars-list">
-      <ng-container *ngFor="let config of avatarConfigurations.slice(0, 2)">
-        <app-avatar [avatarConfiguration]="config"></app-avatar>
-      </ng-container>
-      <div *ngIf="avatarConfigurations.length > 2" class="more-avatars" (click)="toggleShowAll($event, true)">
-        +{{ avatarConfigurations.length - 2 }}
-      </div>
-    </div>
-    <div *ngIf="showAllTeachers" class="teacher-modal" (click)="$event.stopPropagation()">
-      <div class="teacher-list">
-        <ng-container *ngFor="let config of avatarConfigurations">
-          <app-avatar [avatarConfiguration]="config"></app-avatar>
-        </ng-container>
-      </div>
-
+<div class="interective-avatars" (click)="$event.stopPropagation()">
+  <div class="avatars-list" [class.expanded]="showAllTeachers">
+    <ng-container
+      *ngFor="let config of avatarConfigurations.slice(0, showAllTeachers ? avatarConfigurations.length : 2)"
+    >
+      <app-avatar [avatarConfiguration]="config"></app-avatar>
+    </ng-container>
+    <div
+      *ngIf="avatarConfigurations.length > 2 && !showAllTeachers"
+      class="more-avatars"
+      (click)="toggleShowAll($event, true)"
+    >
+      +{{ avatarConfigurations.length - 2 }}
     </div>
   </div>
-  
+  <div class="cancelButton">
+    <mat-icon *ngIf="showAllTeachers" (click)="toggleShowAll($event, false)">cancel</mat-icon>
+  </div>
+</div>
