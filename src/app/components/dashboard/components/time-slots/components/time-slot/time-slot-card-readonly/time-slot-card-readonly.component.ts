@@ -8,8 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { User } from 'src/app/core/model/entities/user';
-import { InterectiveAvatarsComponent } from 'src/app/shared/components/interective-avatars/interective-avatars.component';
+
 import { Teacher } from 'src/app/core/model/entities/teacher';
+import { InterectiveAvatarsComponent } from 'src/app/shared/components/interective-avatars/interective-avatars.component';
 
 @Component({
   selector: 'app-time-slot-card-readonly',
