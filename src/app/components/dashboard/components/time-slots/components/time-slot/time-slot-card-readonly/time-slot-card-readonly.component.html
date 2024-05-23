@@ -8,12 +8,9 @@
       }
     </div>
     <div class="teacherBlock">
-      <!-- <span class="teacher"> -->
         @for (teacherId of timeSlot.teachersIds; track teacherId) {
           <h3> {{ (teacherById$(teacherId) | async)!.displayName }}</h3>
-       
         }
-      <!-- </span> -->
     </div>
   </div>
   <div class="lesson_time">
