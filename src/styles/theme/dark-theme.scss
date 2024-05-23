@@ -22,12 +22,12 @@ $workshop-extra-color-scheme: (
     .start-time {
       transform: scale(1.1);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      color: map.get(material.$orange-palette, 400);
+      color: map.get(material.$grey-palette, 400);
       font-weight: bold;
     }
     .duration {
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      color: map.get(material.$red-palette, 400);
+      color: map.get(material.$grey-palette, 500);
       font-weight: bold;
       transform: scale(1.1);
     }

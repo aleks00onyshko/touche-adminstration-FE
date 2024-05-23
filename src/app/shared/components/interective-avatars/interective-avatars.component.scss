@@ -1,0 +1,66 @@
+.interective-avatars {
+  display: flex;
+  align-items: center;
+
+  .avatars-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.3rem;
+
+    app-avatar {
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+    }
+
+    .more-avatars {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e0e0e0;
+      border-radius: 50%;
+
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 10px;
+    }
+  }
+
+  .avatars-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    z-index: 1;
+
+    app-avatar {
+      width: 1.6rem;
+      height: 1.6rem;
+
+      &:not(:last-child) {
+        margin-right: 0.3rem;
+      }
+
+      div {
+        width: 1.6rem;
+        height: 1.6rem;
+
+        span {
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+
+  .cancelButton {
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+      transform: scale(0.8);
+      color: black;
+    }
+  }
+}
