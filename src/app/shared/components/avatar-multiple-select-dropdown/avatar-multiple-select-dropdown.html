@@ -1,0 +1,11 @@
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <mat-select [formControl]="control" [compareWith]="compareWith"multiple>
+      @for (avatarConfig of avatarConfigurations; track avatarConfig.email) {
+        <mat-option class="avatars-dropdown_option" [value]="avatarConfig">
+          <app-avatar [avatarConfiguration]="avatarConfig"></app-avatar>
+          <span> {{ avatarConfig.username }} </span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>

@@ -1,7 +1,6 @@
 <mat-card class="time-slot" [formGroup]="timeSlotForm">
-  <div     color="accent"  class="time-slot_controls">
+  <div color="accent" class="time-slot_controls">
     <app-time-picker
-
       [formControl]="controls.startTime"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate"
     ></app-time-picker>
@@ -15,11 +14,11 @@
       </mat-select>
     </mat-form-field>
 
-    <app-avatars-dropdown
+    <app-avatar-multiple-select-dropdown
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
-      [formControl]="controls.teacher"
-    ></app-avatars-dropdown>
+      [formControl]="controls.teachers"
+    ></app-avatar-multiple-select-dropdown>
   </div>
 
   <div class="time-slot_errors" [style.visibility]="timeSlotForm.invalid ? 'visible' : 'hidden'">
