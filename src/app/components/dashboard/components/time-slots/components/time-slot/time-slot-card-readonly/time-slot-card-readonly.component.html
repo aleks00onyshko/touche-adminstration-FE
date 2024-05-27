@@ -9,7 +9,7 @@
     </div>
     <div class="teacherBlock">
       <span class="teacher">
-        <app-interective-avatars [teachers]="teachers" [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate">
+        <app-interective-avatars [teachers]="getTeachersAssignedToSlot()" [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate">
         </app-interective-avatars>
       </span>
     </div>
