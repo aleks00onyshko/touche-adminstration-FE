@@ -1,0 +1,8 @@
+<mat-form-field class="time-slot_controls_duration">
+  <mat-label>{{ 'DASHBOARD.CREATE_TIME_SLOT.DURATION' | translate }}</mat-label>
+  <mat-select [formControl]="durationControl">
+    @for (option of durationOptions; track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

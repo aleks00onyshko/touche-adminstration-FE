@@ -1,18 +1,11 @@
 <mat-card class="time-slot" [formGroup]="timeSlotForm">
-  <div color="accent" class="time-slot_controls">
+  <div class="time-slot_controls">
     <app-time-picker
       [formControl]="controls.startTime"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate"
     ></app-time-picker>
 
-    <mat-form-field class="time-slot_controls_duration">
-      <mat-label>{{ 'DASHBOARD.CREATE_TIME_SLOT.DURATION' | translate }}</mat-label>
-      <mat-select [formControl]="controls.duration">
-        @for (option of durationOptions; track option) {
-        <mat-option [value]="option">{{ option }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <app-duration-select [formControl]="controls.duration"></app-duration-select>
 
     <app-avatar-multiple-select-dropdown
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"

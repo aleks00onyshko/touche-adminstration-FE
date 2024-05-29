@@ -40,9 +40,8 @@ import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.con
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  AvatarMultipleSelectDropdown
-} from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
+import { AvatarMultipleSelectDropdown } from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
+import { DurationSelectComponent } from '../../../../../../shared/components/duration-select/duration-select.component';
 
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teachers: AvatarConfiguration[] | null;
@@ -72,7 +71,8 @@ export type TimeSlotCardControlStructure = {
     AvatarsDropdownComponent,
     ConvertUsersToAvatarConfigsPipe,
     TranslateModule,
-    AvatarMultipleSelectDropdown
+    AvatarMultipleSelectDropdown,
+    DurationSelectComponent
   ],
   templateUrl: './time-slot-card.component.html',
   styleUrls: ['./time-slot-card.component.scss'],
@@ -107,7 +107,6 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
     duration: this.timeSlotForm.controls.duration,
     teachers: this.timeSlotForm.controls.teachers
   };
-  public durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
   public errorsEnum: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
   public onChangeFn!: (value: TimeSlotCardControlValue) => void;
@@ -118,13 +117,14 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   }
 
   public ngOnInit(): void {
-    this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe((value) =>
+    this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
+      console.log(value);
       this.onChangeFn({
         startTime: value.startTime ?? [0, 0],
-        duration: value.duration ?? this.durationOptions[0],
+        duration: value.duration ?? 15,
         teachers: value.teachers ?? [new AvatarConfiguration()]
-      })
-    );
+      });
+    });
   }
 
   public writeValue(value: TimeSlotCardControlValue | null): void {
