@@ -40,4 +40,7 @@ export class TimeSlotCardReadonlyComponent {
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);
   }
+  public getTeachersAssignedToSlot(): Teacher[] {
+    return this.teachers.filter(teacher => this.timeSlot.teachersIds.includes(teacher.id));
+  }
 }
