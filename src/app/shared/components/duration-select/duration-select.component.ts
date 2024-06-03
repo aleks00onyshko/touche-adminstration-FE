@@ -29,18 +29,13 @@ import { takeUntil } from 'rxjs';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => DurationSelectComponent), // tslint:disable-line
       multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => DurationSelectComponent), // tslint:disable-line
-      multi: true
     }
   ]
 })
-export class DurationSelectComponent extends ReactiveComponent implements ControlValueAccessor, OnInit, Validator {
+export class DurationSelectComponent extends ReactiveComponent implements ControlValueAccessor, OnInit {
   public readonly durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
 
-  public durationControl = new FormControl<number>(this.durationOptions[0], [Validators.required]);
+  public durationControl = new FormControl<number>(this.durationOptions[0]);
 
   protected onChangeFn!: (value: number) => void;
   protected onTouchedFn!: () => void;
@@ -67,9 +62,5 @@ export class DurationSelectComponent extends ReactiveComponent implements Contro
 
   public registerOnTouched(fn: any) {
     this.onTouchedFn = fn;
-  }
-
-  public validate(): ValidationErrors | null {
-    return Validators.required(this.durationControl);
   }
 }

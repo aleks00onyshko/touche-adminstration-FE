@@ -5,6 +5,8 @@ import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { TimeSlotCardControlValue } from '../components/time-slot/time-slot-card.component';
 import { Location } from 'src/app/core/model/entities/location';
 import { User } from 'src/app/core/model/entities/user';
+import { FilterTimeSlotCardControlValue } from 'src/app/components/dashboard/components/time-slots/components/time-slots/filter-time-slot/filter-time-slot.component';
+import { QueryFieldFilterConstraint } from '@firebase/firestore';
 
 export const TIMESLOTS_FEATURE_KEY = 'timeSlots';
 
@@ -12,7 +14,9 @@ export const TimeSlotsActions = createActionGroup({
   source: 'Time Slots',
   events: {
     'Select day': props<{ dateId: DateId }>(),
-    'Get Time Slots': emptyProps(),
+    'Get Time Slots': props<{ constraints?: QueryFieldFilterConstraint[] }>(),
+    'Reset Filter': emptyProps(),
+    'Filter Time Slots': props<{ filter: FilterTimeSlotCardControlValue }>(),
     'Get Time Slots Success': props<{ timeSlots: TimeSlot[] }>(),
     'Get Time Slots Failed': props<{ error: HttpErrorResponse }>(),
     'Open Create Time Slot Dialog': emptyProps(),

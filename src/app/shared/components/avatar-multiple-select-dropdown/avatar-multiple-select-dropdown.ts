@@ -48,7 +48,9 @@ export class AvatarMultipleSelectDropdown extends ReactiveComponent implements O
   public ngOnInit(): void {
     this.control.valueChanges
       .pipe(takeUntil(this.unsubscribe$), filter(Boolean))
-      .subscribe(avatarConfigs => this.onChangeFn(avatarConfigs));
+      .subscribe(avatarConfigs => {
+        this.onChangeFn(avatarConfigs)
+      });
   }
 
   public registerOnChange(fn: (avatarConfiguration: AvatarConfiguration[]) => void): void {

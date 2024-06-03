@@ -35,6 +35,7 @@ export class TimeSlotCardReadonlyComponent {
   @Input({ required: true }) public teachers!: Teacher[];
   @Input() public attendee?: User | undefined;
 
+
   @Output() public slotDeleted = new EventEmitter<string>();
 
   public deleteTimeSlot(id: string): void {

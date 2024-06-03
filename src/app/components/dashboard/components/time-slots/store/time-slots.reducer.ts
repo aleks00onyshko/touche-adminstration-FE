@@ -5,6 +5,7 @@ import { TimeSlotsActions } from './time-slots.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from 'src/app/core/model/entities/location';
 import { User } from 'src/app/core/model/entities/user';
+import { FilterTimeSlotCardControlValue } from '../components/time-slots/filter-time-slot/filter-time-slot.component';
 
 export interface TimeSlotsState {
   currentDateId: DateId | null;
@@ -15,6 +16,7 @@ export interface TimeSlotsState {
   locations: Location[] | null;
   currentLocation: Location | null;
   error: HttpErrorResponse | null;
+  constraints: FilterTimeSlotCardControlValue | null;
 }
 
 export const initialState: TimeSlotsState = {
@@ -25,7 +27,8 @@ export const initialState: TimeSlotsState = {
   users: null,
   locations: null,
   currentLocation: null,
-  error: null
+  error: null,
+  constraints: null
 };
 
 const reducer = createReducer(
