@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Firestore, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
+import {
+  CollectionReference,
+  Firestore,
+  Query,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  query,
+  setDoc,
+  where
+} from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
 import { EMPTY, Observable, catchError, concatMap, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
 import { TimeSlotsState } from './time-slots.reducer';
@@ -22,6 +33,8 @@ import {
   EditTimeSlotDialogResponse
 } from '../components/edit-time-slot-dialog/edit-time-slot-dialog.component';
 import { User } from 'src/app/core/model/entities/user';
+import { FilterTimeSlotCardControlValue } from 'src/app/components/dashboard/components/time-slots/components/time-slots/filter-time-slot/filter-time-slot.component';
+import { QueryFieldFilterConstraint } from '@firebase/firestore';
 
 @Injectable()
 export class TimeSlotsEffects {
@@ -30,16 +43,41 @@ export class TimeSlotsEffects {
     this.actions$.pipe(
       ofType(TimeSlotsActions.getTimeSlots),
       withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
-      switchMap(([_, currentDateId, currentLocation]) =>
-        (
-          collectionData(
-            collection(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots`)
-          ) as Observable<TimeSlot[]>
-        ).pipe(
-          map(timeSlots => TimeSlotsActions.getTimeSlotsSuccess({ timeSlots })),
+      switchMap(([{ constraints }, currentDateId, currentLocation]) => {
+        const timeSlotsCollectionReference: CollectionReference = collection(
+          this.firestore,
+          `dateIds/${currentDateId}/${currentLocation!.id}-slots`
+        );
+        const timeSlotsQuery: Query = !!constraints
+          ? query(timeSlotsCollectionReference, ...constraints)
+          : timeSlotsCollectionReference;
+
+        console.log('Constraints:', constraints);
+        console.log('Generated query:', timeSlotsQuery);
+
+        return (collectionData(timeSlotsQuery) as Observable<TimeSlot[]>).pipe(
+          map(timeSlots => {
+            console.log('Filtered time slots:', timeSlots);
+            return TimeSlotsActions.getTimeSlotsSuccess({ timeSlots });
+          }),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTimeSlotsFailed({ error })))
-        )
+        );
+      })
+    )
+  );
+
+  public readonly filterTimeSlots$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TimeSlotsActions.filterTimeSlots),
+      map(({ filter }) =>
+        TimeSlotsActions.getTimeSlots({ constraints: this.generateQueryFieldFilterConstraints(filter) })
       )
+    )
+  );
+  public readonly resetTimeSlotsFilter$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TimeSlotsActions.resetFilter),
+      map(({}) => TimeSlotsActions.getTimeSlots({}))
     )
   );
 
@@ -226,4 +264,29 @@ export class TimeSlotsEffects {
     private firestore: Firestore,
     private localstorageService: LocalStorageService
   ) {}
+
+  private generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlValue): QueryFieldFilterConstraint[] {
+    const constrainsts: QueryFieldFilterConstraint[] = [];
+
+    if (filter.booked !== null) {
+      constrainsts.push(where('booked', '==', filter.booked));
+    }
+
+    if (filter.duration !== null) {
+      constrainsts.push(where('duration', '==', filter.duration));
+    }
+
+    if ((filter.teachers ?? []).length > 0) {
+      constrainsts.push(
+        where(
+          'teachersIds',
+          'array-contains-any',
+          filter.teachers!.map(teacher => teacher.id)
+        )
+      );
+    }
+    console.log('Generated constraints:', constrainsts);
+
+    return constrainsts;
+  }
 }

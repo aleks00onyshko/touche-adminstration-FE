@@ -21,12 +21,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
 import { DashboardComponent } from '../../../dashboard/dashboard.component';
+import { FilterTimeSlotCardControlValue, FilterTimeSlotsComponent } from './filter-time-slot/filter-time-slot.component';
 
 @Component({
   selector: 'app-time-slots',
   templateUrl: './time-slots.component.html',
   styleUrls: ['./time-slots.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     DaySelectListComponent,
@@ -38,10 +41,9 @@ import { DashboardComponent } from '../../../dashboard/dashboard.component';
     MatSelectModule,
     MatSelectModule,
     DashboardComponent,
-    TranslateModule
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    TranslateModule,
+    FilterTimeSlotsComponent
+  ]
 })
 export class TimeSlotsComponent {
   protected readonly timeSlots$ = this.store.select(selectSortedTimeSlots);
@@ -52,14 +54,21 @@ export class TimeSlotsComponent {
 
   constructor(private store: Store<TimeSlotsState>) {}
 
+  protected filterChange(filter: FilterTimeSlotCardControlValue): void {
+    this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter }));  
+  }
+  protected resetFilter(): void {
+    this.store.dispatch(TimeSlotsActions.resetFilter());
+  }
+
   protected daySelected(dateId: DateId): void {
     this.store.dispatch(TimeSlotsActions.selectDay({ dateId }));
-    this.store.dispatch(TimeSlotsActions.getTimeSlots());
+    this.store.dispatch(TimeSlotsActions.getTimeSlots({}));
   }
 
   protected locationSelected(location: Location): void {
     this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
-    this.store.dispatch(TimeSlotsActions.getTimeSlots());
+    this.store.dispatch(TimeSlotsActions.getTimeSlots({}));
   }
 
   protected openEditTimeSlotDialog(timeSlot: TimeSlot): void {

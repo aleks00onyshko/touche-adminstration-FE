@@ -1,0 +1,20 @@
+.example-section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 22rem;
+  .footer-example-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+button{
+  border: none;
+  outline: none;
+}
+.mat-button-focus-overlay {
+  background-color: transparent!important;
+}

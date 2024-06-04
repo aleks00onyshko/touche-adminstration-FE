@@ -1,6 +1,7 @@
 <app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
-
+<app-filter-time-slot [teachers]="(teachers$ | async)!" (filterChange)="filterChange($event)" (resetFilter)="resetFilter()" ></app-filter-time-slot>
 <div class="time-slots_content">
+
   @if((loading$ | async) === true) {
   <app-spinner></app-spinner>
   } @else {

@@ -17,7 +17,6 @@ export enum TEXT_SIZE {
 
 export class AvatarConfiguration {
   public static INACTIVE_BG_COLOR = 'rgba(0,0,0,0.3)';
-
   public backgroundColor: string = '#666666';
   public image: string = '';
   public size: number | AVATAR_SIZE = AVATAR_SIZE.m;
