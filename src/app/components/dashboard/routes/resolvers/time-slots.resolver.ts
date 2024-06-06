@@ -17,13 +17,12 @@ export const timeSlotsResolver: ResolveFn<Observable<Location[] | null>> = () =>
   store.dispatch(TimeSlotsActions.getUsers());
 
   return store.select(selectLocations).pipe(
-    filter(locations => !!locations),
+    filter(locations => (locations ?? []).length > 0),
     tap(locations => {
       if (locations) {
         const storedLocation = locations.find(
-          location => location.id === JSON.parse(localstorageService.get('location'))?.id
+          location => location.id === (localstorageService.get('location') ?? ({} as any))?.id
         );
-
         store.dispatch(TimeSlotsActions.setCurrentLocation({ location: storedLocation ?? locations[0] }));
       }
     }),

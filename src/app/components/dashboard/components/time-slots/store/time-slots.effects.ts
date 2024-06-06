@@ -52,12 +52,8 @@ export class TimeSlotsEffects {
           ? query(timeSlotsCollectionReference, ...constraints)
           : timeSlotsCollectionReference;
 
-        console.log('Constraints:', constraints);
-        console.log('Generated query:', timeSlotsQuery);
-
         return (collectionData(timeSlotsQuery) as Observable<TimeSlot[]>).pipe(
           map(timeSlots => {
-            console.log('Filtered time slots:', timeSlots);
             return TimeSlotsActions.getTimeSlotsSuccess({ timeSlots });
           }),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTimeSlotsFailed({ error })))
@@ -285,8 +281,6 @@ export class TimeSlotsEffects {
         )
       );
     }
-    console.log('Generated constraints:', constrainsts);
-
     return constrainsts;
   }
 }

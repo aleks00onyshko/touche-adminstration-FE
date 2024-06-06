@@ -11,7 +11,7 @@ export class LocalStorageService {
     localStorage.setItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-${key}`, value);
   }
 
-  public get<T>(key: LocalStorageKeys): T {
-    return localStorage.getItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-${key}`) as T;
+  public get<T>(key: LocalStorageKeys): T | undefined {
+    return localStorage.getItem(LocalStorageService.TOUCHE_LOCALSTORAGE_KEY + '-' + key) as T;
   }
 }

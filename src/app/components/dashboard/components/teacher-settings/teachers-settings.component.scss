@@ -1,0 +1,16 @@
+
+mat-accordion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  app-teacher-settings {
+    width: 98%;
+    display: flex;
+    align-self: center;
+    position: absolute;
+    top: 16rem;
+  }
+}
+
+

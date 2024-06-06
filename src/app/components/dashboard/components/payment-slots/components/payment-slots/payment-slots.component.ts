@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     DaySelectListComponent,
     SpinnerComponent,
-    TranslateModule
+    TranslateModule,
   ]
 })
 export class PaymentSlotsComponent {

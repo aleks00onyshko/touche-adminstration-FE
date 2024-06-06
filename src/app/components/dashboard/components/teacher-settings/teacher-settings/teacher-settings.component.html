@@ -1,0 +1,20 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let teacher of teachers">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            <img src="{{ teacher.imageUrl }}"> 
+          {{ teacher.displayName }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <h2>piano</h2>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Email: {{ teacher.email }}</p>
+      <p>id: {{ teacher.id }}</p>
+      <p>description: {{teacher.description}}</p>
+      <p>number: {{teacher.number}}</p>
+      <button mat-icon-button >
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -10,6 +10,9 @@
       <mat-card (click)="opened = !opened" class="card" [routerLink]="['payment-slots']">
         {{ 'DASHBOARD.SIDENAV.PAYMENT-SLOTS' | translate }}</mat-card
       >
+      <mat-card (click)="opened = !opened" class="card" [routerLink]="['teachers-settings']">
+        {{ 'DASHBOARD.SIDENAV.TEACHER-SETTINGS' | translate }}</mat-card
+      >
     </div>
     <main class="content"></main>
   </mat-drawer>
@@ -20,6 +23,7 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
+
 
     <router-outlet> </router-outlet>
   </mat-drawer-content>
