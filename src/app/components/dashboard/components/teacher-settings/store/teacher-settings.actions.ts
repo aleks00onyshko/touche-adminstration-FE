@@ -10,7 +10,8 @@ export const TeacherSettingsAction = createActionGroup({
   events: {
     'Get Teachers Failed': props<{ error: HttpErrorResponse }>(),
     'Get Teachers Success': props<{ teachers: Teacher[] }>(),
-    'Get Teachers': emptyProps()
+    'Get Teachers': emptyProps(),
+    'Update Teacher': props<{ teacher: Teacher }>(),
     //     'Delete Payment Slot': props<{ id: string }>(),
     //     'Delete Payment Slot Success': props<{ id: string }>(),
     //     'Delete Payment Slot Failded': props<{ error: HttpErrorResponse }>(),

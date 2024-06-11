@@ -1,8 +1,6 @@
-
-
-import {Component, Input, OnInit} from '@angular/core';
-import {MatExpansionModule} from '@angular/material/expansion';
-import { ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ControlValueAccessor, FormControl, FormGroup } from '@angular/forms';
 import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TeacherSettingsState } from '../store/teacher-settings.reducer';
@@ -18,33 +16,35 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './teacher-settings.component.html',
   styleUrls: ['./teacher-settings.component.scss'],
   standalone: true,
-  imports: [MatExpansionModule, CommonModule,MatIconModule],
+  imports: [MatExpansionModule, CommonModule, MatIconModule]
 })
-export class TeacherSettingsComponent implements OnInit, ControlValueAccessor {
+export class TeacherSettingsComponent implements OnInit {
+  @Input() description!: string;
+  @Input() number!: string;
+  @Output() save = new EventEmitter<{ description: string, number: string }>();
 
-    @Input({ required: true }) public teachers!: Teacher[];
+  form: FormGroup = new FormGroup({
+    description: new FormControl(''),
+    number: new FormControl('')
+  });
 
+  isEditingDescription = false;
+  isEditingNumber = false;
 
-    protected readonly teachers$ = this.store.select(selectTeachers);
-    protected readonly loading$ = this.store.select(selectLoading);
-  
-    constructor(private store: Store<TeacherSettingsState>) {}
-    writeValue(obj: any): void {
-        throw new Error('Method not implemented.');
-    }
-    registerOnChange(fn: any): void {
-        throw new Error('Method not implemented.');
-    }
-    registerOnTouched(fn: any): void {
-        throw new Error('Method not implemented.');
-    }
-    setDisabledState?(isDisabled: boolean): void {
-        throw new Error('Method not implemented.');
-    }
-  
-    ngOnInit(): void {
-      console.log(this.teachers);
-    }
-
- 
+  ngOnInit(): void {
+    this.form.setValue({
+      description: this.description,
+      number: this.number
+    });
   }
+
+  toggleEditDescription() {
+    this.isEditingDescription = !this.isEditingDescription;
+  }
+
+  toggleEditNumber() {
+    this.isEditingNumber = !this.isEditingNumber;
+  }
+
+
+}

@@ -2,7 +2,8 @@
 @use './common.scss';
 @use 'sass:map';
 
-$workshop-primary: material.define-palette(material.$red-palette, 700, 400, 900);
+
+$workshop-primary: material.define-palette(material.$red-palette, 400, 400, 900);
 // !!!! change border-color in all components
 $workshop-accent: material.define-palette(material.$green-palette, A400, A200);
 
@@ -50,3 +51,4 @@ $workshop-theme: common.apply-extra-colors($workshop-theme, $workshop-extra-colo
 // @debug $workshop-theme;
 // Generate theme
 @include common.create-theme($workshop-theme);
+

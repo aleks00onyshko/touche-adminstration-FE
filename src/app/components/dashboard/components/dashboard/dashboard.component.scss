@@ -9,6 +9,7 @@
   .dashboard-container {
     height: 100%;
     width: 100%;
+    position: relative;
 
     .mat-drawer-content {
       width: auto;
@@ -19,10 +20,6 @@
         position: absolute;
         margin-top: 10.2rem;
         margin-left: 1rem;
-
-        button {
-          border-radius: 50%;
-        }
 
         margin-top: 10rem;
         margin-left: 1.5rem;
@@ -136,4 +133,15 @@ app-sidenav {
 }
 mat-drawer-container {
   flex: 1 1 auto;
+}
+
+button {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  top: 20px; /* Змістіть за необхідності */
+  left: 0.45rem; /* Змістіть за необхідності */
+  z-index: 1000; /* Забезпечує, що кнопка завжди буде на вершині */
+//  margin-left: -1.3rem;
+  border-radius: 50%;
 }

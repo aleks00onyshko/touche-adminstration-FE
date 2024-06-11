@@ -15,6 +15,25 @@ $workshop-typography: material.define-typography-config(
   );
 }
 
+@mixin button-no-animations {
+  .mat-button,
+  .mat-icon-button,
+  .mat-raised-button,
+  .mat-stroked-button,
+  .mat-flat-button,
+  .mat-fab,
+  .mat-mini-fab {
+    transition: none !important;
+    animation: none !important;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: inherit !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
 @mixin create-theme($workshop-theme) {
   body,
   mat-drawer-container {
