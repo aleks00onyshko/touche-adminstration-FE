@@ -15,11 +15,8 @@ export const selectTeachers = createSelector(selectTimeSlotsState, state => stat
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
 export const selectCurrentLocation = createSelector(selectTimeSlotsState, state => state.currentLocation);
 
-export const  selectTeacherById = (teacherId: string) =>
+export const selectTeacherById = (teacherId: string) =>
   createSelector(selectTimeSlotsState, state => state.teachers?.find(teacher => teacher.id === teacherId));
-
-export const selectUserById = (userId: string) =>
-  createSelector(selectTimeSlotsState, state => state.users?.find(user => user.id === userId));
 
 export const timeSlotHasTimeTurnerSyndrome = (
   timeSlotCardValue: TimeSlotCardControlValue,
@@ -34,16 +31,16 @@ export const timeSlotHasTimeTurnerSyndrome = (
       return timeSlotsOverlap(timeSLot, timeSlotCardValue as any as TimeSlot);
     });
   });
-  export const selectSortedTimeSlots = createSelector(
-    selectTimeSlots,
-    (timeSlots) => {
-      return !!timeSlots && timeSlots.slice().sort((a, b) => {
-        const [aHour, aMinute] = a.startTime;
-        const [bHour, bMinute] = b.startTime;
-        if (aHour !== bHour) {
-          return aHour - bHour;
-        }
-        return aMinute - bMinute;
-      });
-    }
-  );
+export const selectSortedTimeSlots = createSelector(
+  selectTimeSlots,
+  (timeSlots) => {
+    return !!timeSlots && timeSlots.slice().sort((a, b) => {
+      const [aHour, aMinute] = a.startTime;
+      const [bHour, bMinute] = b.startTime;
+      if (aHour !== bHour) {
+        return aHour - bHour;
+      }
+      return aMinute - bMinute;
+    });
+  }
+);

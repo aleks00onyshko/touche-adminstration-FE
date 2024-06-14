@@ -1,29 +1,24 @@
 <mat-accordion multi>
   <h1>Teachers</h1>
-  @for (teacher of teachers$ | async; track teacher.id) {
-  <mat-expansion-panel>
+
+  @if(loading$ | async) {
+
+  <p>Loading...</p>
+
+  } @else if((teachers$ | async)?.length === 0) {
+
+  <p>No teachers found.</p>
+  } @else {
+
+  <mat-expansion-panel *ngFor="let teacher of teachers$ | async; trackBy: trackByTeacherId"
+    [expanded]="teacher.id === (selectedTeacherId$ | async)" (opened)="selectTeacher(teacher.id)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <img [src]="teacher.imageUrl" alt="Teacher Image" />
         {{ teacher.displayName }}
       </mat-panel-title>
-      <mat-panel-description>
-        <h2>{{ teacher.subjects }}</h2>
-      </mat-panel-description>
     </mat-expansion-panel-header>
-    <div>
-      <p>Email: {{ teacher.email }}</p>
-    </div>
-    <div>
-      <p>id: {{ teacher.id }}</p>
-    </div>
-
-    <app-teacher-settings
-      [formGroup]="filterTeacherSlotForm"
-      [description]="teacher.description"
-      [number]="teacher.number"
-      (save)="saveTeacher($event, teacher.id)"
-    ></app-teacher-settings>
+    <app-teacher-settings [teacher]="teacher" (teacherUpdated)="updateTeacher($any($event))"></app-teacher-settings>
   </mat-expansion-panel>
   }
 </mat-accordion>

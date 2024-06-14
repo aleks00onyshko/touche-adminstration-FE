@@ -1,26 +1,21 @@
-<div>
+<form [formGroup]="teacherSettingsForm" class="teacher-settings_form">
+  <div>
     <div>
-      <p *ngIf="!isEditingDescription">Description: {{ description }}</p>
-      <div *ngIf="isEditingDescription">
-        <input matInput formControlName="description" placeholder="Edit description">
-      </div>
-      <button (click)="toggleEditDescription()" mat-icon-button color="warn">
-        <mat-icon *ngIf="!isEditingDescription">create</mat-icon>
-        <mat-icon *ngIf="isEditingDescription">close</mat-icon>
-      </button>
+      <mat-form-field class="teacher-settings_form_phone">
+        <mat-label>Telephone</mat-label>
+        <span matTextPrefix>+38 &nbsp;</span>
+        <input type="tel" matInput placeholder="055-555-55-55" [formControl]="controls.number">
+      </mat-form-field>
     </div>
-    <div>
-      <p *ngIf="!isEditingNumber">Number: {{ number }}</p>
-      <div *ngIf="isEditingNumber">
-        <input matInput formControlName="number" placeholder="Edit number">
-      </div>
-      <button (click)="toggleEditNumber()" mat-icon-button color="warn">
-        <mat-icon *ngIf="!isEditingNumber">create</mat-icon>
-        <mat-icon *ngIf="isEditingNumber">close</mat-icon>
-      </button>
-    </div>
-    <!-- <button *ngIf="isEditingDescription || isEditingNumber" (click)="saveDescription()" mat-icon-button color="primary">
-      <mat-icon>save</mat-icon>
-    </button> -->
   </div>
-  
+
+  <div>
+    <div>
+      <mat-form-field class="teacher-settings_form_description">
+        <mat-label>Leave a description</mat-label>
+        <textarea matInput placeholder="Please specify your description here" [formControl]="controls.description"
+          class="teacher-settings_form_description_input"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

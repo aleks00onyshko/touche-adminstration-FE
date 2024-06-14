@@ -29,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class PaymentSlotsComponent {
   protected readonly paymentSlots$ = this.store.select(selectPaymentSlots);
   protected readonly loading$ = this.store.select(selectLoading);
+  
   constructor(private store: Store<PaymentSlotsState>) {}
 
   protected openCreatePaymentSlotDialog(): void {

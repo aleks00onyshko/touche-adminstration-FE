@@ -1,50 +1,64 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ControlValueAccessor, FormControl, FormGroup } from '@angular/forms';
-import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { TeacherSettingsState } from '../store/teacher-settings.reducer';
-import { Store } from '@ngrx/store';
-import { selectTeachers, selectLoading } from '../store/teacher-settings.selector';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-/**
- * @title Basic expansion panel
- */
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveComponent } from 'src/app/core/classes/reactive';
+import { debounceTime, delay, takeUntil } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
+import { SimpleChangesGeneric } from 'src/app/core/model/simple-changes-generic.model';
+
+export interface TeacherSettingsControlValue {
+  description: string | null;
+  number: string | null;
+}
+
+export type TeacherSettingsControlStructure = {
+  description: FormControl<string | null>;
+  number: FormControl<string | null>;
+};
+
 @Component({
   selector: 'app-teacher-settings',
   templateUrl: './teacher-settings.component.html',
   styleUrls: ['./teacher-settings.component.scss'],
   standalone: true,
-  imports: [MatExpansionModule, CommonModule, MatIconModule]
+  imports: [MatExpansionModule, CommonModule, MatIconModule, ReactiveFormsModule, MatInputModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeacherSettingsComponent implements OnInit {
-  @Input() description!: string;
-  @Input() number!: string;
-  @Output() save = new EventEmitter<{ description: string, number: string }>();
+export class TeacherSettingsComponent extends ReactiveComponent implements OnInit, OnChanges {
+  @Input({ required: true }) teacher!: Teacher;
+  @Output() teacherUpdated = new EventEmitter<Teacher>();
 
-  form: FormGroup = new FormGroup({
-    description: new FormControl(''),
-    number: new FormControl('')
+  public readonly teacherSettingsForm = new FormGroup<TeacherSettingsControlStructure>({
+    description: new FormControl(null, [Validators.required]),
+    number: new FormControl(null, [Validators.required])
   });
 
-  isEditingDescription = false;
-  isEditingNumber = false;
+  public readonly controls: TeacherSettingsControlStructure = {
+    description: this.teacherSettingsForm.controls.description,
+    number: this.teacherSettingsForm.controls.number
+  };
+
+  constructor(private cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.form.setValue({
-      description: this.description,
-      number: this.number
-    });
-  }
-
-  toggleEditDescription() {
-    this.isEditingDescription = !this.isEditingDescription;
-  }
-
-  toggleEditNumber() {
-    this.isEditingNumber = !this.isEditingNumber;
+    this.teacherSettingsForm.valueChanges.pipe(takeUntil(this.unsubscribe$), debounceTime(3000)).subscribe(value => {
+      if (this.teacherSettingsForm.valid) {
+        this.teacherUpdated.emit({ ...this.teacher, description: value.description!, number: value.number! });
+      }
+    })
   }
 
 
+  public ngOnChanges({ teacher: { currentValue: currentTeacher } }: SimpleChangesGeneric<TeacherSettingsComponent>): void {
+    if (currentTeacher !== null) {
+      this.teacherSettingsForm.patchValue({ description: currentTeacher.description, number: currentTeacher.number }, { emitEvent: false });
+      this.cdr.detectChanges();
+    }
+
+  }
 }

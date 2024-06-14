@@ -1,14 +1,24 @@
-import { createSelector } from "@ngrx/store";
-import { selectTeachers } from "../../time-slots/store/time-slots.selectors";
-import { DashboardState, selectDashboardState } from "../../../store/dashboard.reducer";
+import { createSelector } from '@ngrx/store';
+import { DashboardState, selectDashboardState } from '../../../store/dashboard.reducer';
 
 export const selectTeacherSettingsState = createSelector(
-    selectDashboardState,
-    (state: DashboardState) => state.teachers
-  );
-  
+  selectDashboardState,
+  (state: DashboardState) => state.teachers
+);
 
-export const selectLoading = createSelector(selectTeacherSettingsState, state => state.loading);
+export const selectLoading = createSelector(
+  selectTeacherSettingsState,
+  state => state.loading
+);
 
-export { selectTeachers };
+export const selectTeachers = createSelector(
+  selectTeacherSettingsState,
+  state => state.teachers
+);
+
+
+export const selectSelectedTeacherId = createSelector(
+  selectTeacherSettingsState,
+  state => state.selectedTeacherId
+);
 

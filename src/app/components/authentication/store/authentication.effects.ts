@@ -71,12 +71,13 @@ export class AuthenticationEffects implements OnInitEffects {
   public authenticated$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthenticationActions.authenticated),
-      map(({ user }) => {
+      tap(({ user }) => {
         this.router.navigate(['dashboard']);
 
-        return AuthenticationActions.onboardTeacher({ user });
+        // return AuthenticationActions.onboardTeacher({ user });
       })
-    )
+    ),
+    { dispatch: false }
   );
 
   public readonly onboardTeacher$ = createEffect(
@@ -85,10 +86,9 @@ export class AuthenticationEffects implements OnInitEffects {
         ofType(AuthenticationActions.onboardTeacher),
         switchMap(({ user }) => {
           const teacher: Teacher = {
-            subjects: '',
             number: '',
-            description : "",
-            imageUrl  : "",
+            description: "",
+            imageUrl: "",
             id: user.uid,
             displayName: user.displayName ?? user.email,
             email: user.email,
@@ -125,7 +125,7 @@ export class AuthenticationEffects implements OnInitEffects {
     private router: Router,
     private snackbar: MatSnackBar,
     private firestore: Firestore
-  ) {}
+  ) { }
 
   public ngrxOnInitEffects(): Action {
     return AuthenticationActions.getUser();

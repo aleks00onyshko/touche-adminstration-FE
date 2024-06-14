@@ -12,7 +12,6 @@ export interface TimeSlotsState {
   loading: boolean;
   timeSlots: TimeSlot[] | null;
   teachers: Teacher[] | null;
-  users: User[] | null;
   locations: Location[] | null;
   currentLocation: Location | null;
   error: HttpErrorResponse | null;
@@ -24,7 +23,6 @@ export const initialState: TimeSlotsState = {
   loading: false,
   timeSlots: null,
   teachers: null,
-  users: null,
   locations: null,
   currentLocation: null,
   error: null,
@@ -38,7 +36,6 @@ const reducer = createReducer(
     TimeSlotsActions.getTimeSlots,
     TimeSlotsActions.createTimeSlot,
     TimeSlotsActions.getTeachers,
-    TimeSlotsActions.getUsers,
     TimeSlotsActions.getLocations,
     TimeSlotsActions.deleteTimeSlot,
     TimeSlotsActions.editTimeSlot,
@@ -53,7 +50,6 @@ const reducer = createReducer(
     TimeSlotsActions.createTimeSlotFailed,
     TimeSlotsActions.editTimeSlotFailed,
     TimeSlotsActions.getTeachersFailed,
-    TimeSlotsActions.getUsersFailed,
     TimeSlotsActions.getLocationsFailed,
     TimeSlotsActions.deleteTimeSlotFailded,
     (state, { error }) => ({
@@ -63,7 +59,6 @@ const reducer = createReducer(
     })
   ),
   on(TimeSlotsActions.getTeachersSuccess, (state, { teachers }) => ({ ...state, teachers })),
-  on(TimeSlotsActions.getUsersSuccess, (state, { users }) => ({ ...state, users })),
   on(TimeSlotsActions.getLocationsSuccess, (state, { locations }) => ({ ...state, locations })),
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,
