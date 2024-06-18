@@ -90,7 +90,7 @@ export class AuthenticationEffects implements OnInitEffects {
             description: "",
             imageUrl: "",
             id: user.uid,
-            displayName: user.displayName ?? user.email,
+            displayName: user.displayName ?? user.email!,
             email: user.email,
             uid: user.uid
           };

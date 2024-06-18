@@ -18,5 +18,16 @@ button{
   color: #fff;
 }
 mat-accordion{
-  
+  display: flex;
+  max-width: 98% !important;
+  flex-direction: column;
+  align-items: center;
+  mat-expansion-panel{
+    width: 98%;
+  }
+  app-teacher-settings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
