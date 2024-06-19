@@ -21,7 +21,8 @@ export class ImageUploadComponent {
     @Output() imageUrlChange = new EventEmitter<string>();
 
     uploadForm: FormGroup;
-    imgSrc: string = '/assets/img/image_placeholder.jpg';
+    defaultImgSrc: string = 'https://firebasestorage.googleapis.com/v0/b/bot-administration.appspot.com/o/images%2F1718716761222_269625663_441776540660892_5164002921909792570_n-616x411.jpg?alt=media&token=7b6feae1-131d-427f-9d39-2afe33647e90';
+    imgSrc: string = this.defaultImgSrc;
     selectedFile: File | null = null;
     isSubmitted: boolean = false;
     forms: FormGroup[] = [];
@@ -62,7 +63,7 @@ export class ImageUploadComponent {
                 console.error('Error uploading image:', error);
             });
         } else {
-            this.imgSrc = '/assets/img/image_placeholder.jpg';
+            this.imgSrc = this.defaultImgSrc;
             this.selectedFile = null;
         }
     }
