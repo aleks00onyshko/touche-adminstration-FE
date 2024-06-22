@@ -18,6 +18,7 @@ export enum TEXT_SIZE {
 export class AvatarConfiguration {
   public static INACTIVE_BG_COLOR = 'rgba(0,0,0,0.3)';
   public backgroundColor: string = '#666666';
+  public backgroundImageUrl: string | null = null;
   public image: string = '';
   public size: number | AVATAR_SIZE = AVATAR_SIZE.m;
   public fontSize: number | TEXT_SIZE = TEXT_SIZE.m;
@@ -43,6 +44,11 @@ export class AvatarConfigBuilder<T extends AvatarConfiguration> {
   public withUsername(username: string): AvatarConfigBuilder<T> {
     this.config.username = username;
     this.config.placeholder = this.createPlaceholder(username);
+    return this;
+  }
+
+  public withBbackgroundImageUrl(imageUrl: string): AvatarConfigBuilder<T> {
+    this.config.backgroundImageUrl = imageUrl;
     return this;
   }
 

@@ -8,7 +8,7 @@ import { selectUser } from 'src/app/components/authentication/store/authenticati
 
 @Injectable({ providedIn: 'root' })
 export class AvatarBuilderService {
-  constructor(private store: Store<AuthenticationState>) {}
+  constructor(private store: Store<AuthenticationState>) { }
 
   public createAvatarConfigurationFurCurrentUser$(size?: AVATAR_SIZE): Observable<AvatarConfiguration> {
     return (this.store.select(selectUser) as Observable<User | null>).pipe(
@@ -26,6 +26,6 @@ export class AvatarBuilderService {
       .withId(user.uid)
       .withUsername(user!.displayName ?? user!.email ?? '')
       .withSize(size)
-      .withBackgroundColor('#666666');
+      .withBbackgroundImageUrl(user!.backgroundImageUrl)
   }
 }
