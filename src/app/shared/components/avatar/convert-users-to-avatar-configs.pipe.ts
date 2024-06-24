@@ -11,7 +11,6 @@ export class ConvertUsersToAvatarConfigsPipe implements PipeTransform {
   constructor(private avatarBuilderService: AvatarBuilderService) { }
 
   public transform(users: User[]): AvatarConfiguration[] {
-    console.log(users)
     return users.map(user => this.avatarBuilderService.createAvatarConfigurationForUser(user));
   }
 }

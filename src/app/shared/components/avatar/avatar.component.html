@@ -1,23 +1,17 @@
 <!-- TODO: Roman please adapt the class name  -->
 <div class="celum-avatar celum-avatar--size-{{ avatarConfiguration.size }}">
-  <span
-    class="celum-avatar_image celum-avatar_image--none"
-    *ngIf="avatarConfiguration.image"
-    [style.lineHeight.rem]="avatarConfiguration.size"
-    [style.font-size.rem]="avatarConfiguration.fontSize"
-    [style.font-weight]="avatarConfiguration.fontSize < 10 ? 600 : 500"
-    [style.background-color]="avatarConfiguration.backgroundColor"
-    [style.width.rem]="avatarConfiguration.size"
-    [style.height.rem]="avatarConfiguration.size"
-    [style.min-width.rem]="avatarConfiguration.size"
-  >
-    <span>{{ avatarConfiguration.placeholder }}</span>
-  </span>
 
-  <span
-    *ngIf="avatarConfiguration.placeholder"
-    class="celum-avatar_placeholder celum-avatar_placeholder--{{ avatarConfiguration.size | avatarSizeModifiers }}"
-  >
+
+  @if(!!avatarConfiguration.backgroundImageUrl) {
+  <span class="celum-avatar_image celum-avatar_image"
+    [style.background-image]="'url(' + avatarConfiguration.backgroundImageUrl + ')'">
+  </span>
+  } @else {
+  <span *ngIf="avatarConfiguration.placeholder"
+    class="celum-avatar_placeholder celum-avatar_placeholder--{{ avatarConfiguration.size | avatarSizeModifiers }}">
     {{ avatarConfiguration.placeholder }}
   </span>
+
+  }
+
 </div>

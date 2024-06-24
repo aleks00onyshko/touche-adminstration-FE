@@ -14,7 +14,7 @@
     [expanded]="teacher.id === (selectedTeacherId$ | async)" (opened)="selectTeacher(teacher.id)">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <img [src]="teacher.imageUrl" alt="Teacher Image" />
+        <img [src]="teacher.backgroundImageUrl" alt="Teacher Image" />
         {{ teacher.displayName }}
       </mat-panel-title>
     </mat-expansion-panel-header>

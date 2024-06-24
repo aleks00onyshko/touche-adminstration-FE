@@ -1,4 +1,5 @@
 @import '../../../../../styles.scss';
+
 :host {
   position: relative;
   height: 100%;
@@ -86,6 +87,7 @@
   .cards {
     width: 92vw !important;
   }
+
   .sidenav {
     position: absolute;
 
@@ -94,6 +96,7 @@
     padding: 0 !important;
     box-sizing: border-box;
   }
+
   .mat-drawer-content {
     margin-left: 0 !important;
   }
@@ -103,6 +106,7 @@
   .close-button {
     display: none;
   }
+
   .sidenav {
     padding: 20px;
     max-width: 40%;
@@ -110,6 +114,7 @@
     box-sizing: border-box;
   }
 }
+
 @media (min-width: 1600px) {
   .time-slots_content {
     width: 45%;
@@ -131,6 +136,7 @@
 app-sidenav {
   display: flex;
 }
+
 mat-drawer-container {
   flex: 1 1 auto;
 }
@@ -139,9 +145,8 @@ button {
   width: 36px;
   height: 36px;
   position: fixed;
-  top: 20px; /* Змістіть за необхідності */
-  left: 0.45rem; /* Змістіть за необхідності */
-  z-index: 1000; /* Забезпечує, що кнопка завжди буде на вершині */
-//  margin-left: -1.3rem;
+  top: 20px;
+  left: 0.45rem;
+  z-index: 1000;
   border-radius: 50%;
 }

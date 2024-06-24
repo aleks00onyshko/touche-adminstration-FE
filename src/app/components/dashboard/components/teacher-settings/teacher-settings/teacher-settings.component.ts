@@ -22,7 +22,7 @@ export interface TeacherSettingsControlValue {
 export type TeacherSettingsControlStructure = {
   description: FormControl<string | null>;
   number: FormControl<string | null>;
-  imageUrl: FormControl<string | null>;
+  backgroundImageUrl: FormControl<string | null>;
   displayName: FormControl<string | null>;
 };
 
@@ -41,14 +41,14 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
   public readonly teacherSettingsForm = new FormGroup<TeacherSettingsControlStructure>({
     description: new FormControl(null, [Validators.required]),
     number: new FormControl(null, [Validators.required]),
-    imageUrl: new FormControl(null, [Validators.required]),
+    backgroundImageUrl: new FormControl(null, [Validators.required]),
     displayName: new FormControl(null, [Validators.required])
   });
 
   public readonly controls: TeacherSettingsControlStructure = {
     description: this.teacherSettingsForm.controls.description,
     number: this.teacherSettingsForm.controls.number,
-    imageUrl: this.teacherSettingsForm.controls.imageUrl,
+    backgroundImageUrl: this.teacherSettingsForm.controls.backgroundImageUrl,
     displayName: this.teacherSettingsForm.controls.displayName
   };
 
@@ -59,12 +59,11 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
   ngOnInit(): void {
     this.teacherSettingsForm.valueChanges.pipe(takeUntil(this.unsubscribe$), debounceTime(3000)).subscribe(value => {
       if (this.teacherSettingsForm.valid) {
-        console.log(value);
         this.teacherUpdated.emit({
           ...this.teacher,
           description: value.description!,
           number: value.number!,
-          imageUrl: value.imageUrl!,
+          backgroundImageUrl: value.backgroundImageUrl!,
           displayName: value.displayName!
         });
       }
@@ -76,7 +75,7 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
       this.teacherSettingsForm.patchValue({
         description: currentTeacher.description,
         number: currentTeacher.number,
-        imageUrl: currentTeacher.imageUrl,
+        backgroundImageUrl: currentTeacher.backgroundImageUrl,
         displayName: currentTeacher.displayName
       }, { emitEvent: false });
       this.cdr.detectChanges();
@@ -84,6 +83,6 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
   }
 
   onImageUrlChange(newImageUrl: string): void {
-    this.teacherSettingsForm.patchValue({ imageUrl: newImageUrl });
+    this.teacherSettingsForm.patchValue({ backgroundImageUrl: newImageUrl });
   }
 }

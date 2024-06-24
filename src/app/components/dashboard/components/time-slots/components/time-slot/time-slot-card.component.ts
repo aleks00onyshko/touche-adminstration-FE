@@ -118,7 +118,6 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
 
   public ngOnInit(): void {
     this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
-      console.log(value);
       this.onChangeFn({
         startTime: value.startTime ?? [0, 0],
         duration: value.duration ?? 15,

@@ -1,5 +1,5 @@
 <form [formGroup]="teacherSettingsForm" class="teacher-settings_form">
-  <app-image-upload [imageUrl]="teacherSettingsForm.controls.imageUrl.value"
+  <app-image-upload [imageUrl]="teacherSettingsForm.controls.backgroundImageUrl.value"
     (imageUrlChange)="onImageUrlChange($event)">
   </app-image-upload>
   <div class="teacher-settings_form_info">
