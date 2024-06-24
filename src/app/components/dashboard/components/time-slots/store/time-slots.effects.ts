@@ -44,20 +44,16 @@ export class TimeSlotsEffects {
       ofType(TimeSlotsActions.getTimeSlots),
       withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
       switchMap(([{ constraints }, currentDateId, currentLocation]) => {
-        const timeSlotsCollectionReference: CollectionReference = collection(
-          this.firestore,
-          `dateIds/${currentDateId}/${currentLocation!.id}-slots`
-        );
+          const timeSlotsCollectionReference: CollectionReference = collection(
+            this.firestore,
+            `dateIds/${currentDateId}/${currentLocation!.id}-slots`
+          );
         const timeSlotsQuery: Query = !!constraints
           ? query(timeSlotsCollectionReference, ...constraints)
           : timeSlotsCollectionReference;
 
-        console.log('Constraints:', constraints);
-        console.log('Generated query:', timeSlotsQuery);
-
         return (collectionData(timeSlotsQuery) as Observable<TimeSlot[]>).pipe(
           map(timeSlots => {
-            console.log('Filtered time slots:', timeSlots);
             return TimeSlotsActions.getTimeSlotsSuccess({ timeSlots });
           }),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTimeSlotsFailed({ error })))
@@ -94,18 +90,6 @@ export class TimeSlotsEffects {
     )
   );
 
-  // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
-  public readonly getUsers$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(TimeSlotsActions.getUsers),
-      switchMap(() =>
-        (collectionData(collection(this.firestore, `users`)) as Observable<User[]>).pipe(
-          map(users => TimeSlotsActions.getUsersSuccess({ users })),
-          catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getUsersFailed({ error })))
-        )
-      )
-    )
-  );
 
   // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
   public readonly getLocations$ = createEffect(() =>
@@ -285,8 +269,6 @@ export class TimeSlotsEffects {
         )
       );
     }
-    console.log('Generated constraints:', constrainsts);
-
     return constrainsts;
   }
 }

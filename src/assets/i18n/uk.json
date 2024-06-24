@@ -25,7 +25,8 @@
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
     "SIDENAV": {
       "SLOTS": "Часові Слоти",
-      "PAYMENT-SLOTS": "Налаштування оплати"
+      "PAYMENT-SLOTS": "Налаштування оплати",
+      "TEACHER-SETTINGS": "Налаштування вчителів"
     },
     "PAYMENT_SLOT": {
       "TYPE": "заняття",

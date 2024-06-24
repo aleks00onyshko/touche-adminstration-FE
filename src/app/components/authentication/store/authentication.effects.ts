@@ -14,7 +14,7 @@ import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { catchError, EMPTY, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
-import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 
 @Injectable()
@@ -68,26 +68,36 @@ export class AuthenticationEffects implements OnInitEffects {
     )
   );
 
-  public authenticated$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthenticationActions.authenticated),
-      map(({ user }) => {
-        this.router.navigate(['dashboard']);
+  public authenticated$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthenticationActions.authenticated),
+        tap(({ user }) => {
+          this.router.navigate(['dashboard']);
 
-        return AuthenticationActions.onboardTeacher({ user });
-      })
-    )
+          return AuthenticationActions.onboardTeacher({ user });
+        })
+      ),
+    { dispatch: false }
   );
 
   public readonly onboardTeacher$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthenticationActions.onboardTeacher),
-        switchMap(({ user }) => {
+        switchMap(async ({ user }) => {
+          const teacherSnapshot = await getDoc(doc(this.firestore, `teachers`, user.uid));
+
+          if (teacherSnapshot.exists()) {
+            return EMPTY;
+          }
+
           const teacher: Teacher = {
-            imageUrl  : "",
+            number: '',
+            description: '',
+            backgroundImageUrl: '',
             id: user.uid,
-            displayName: user.displayName ?? user.email,
+            displayName: user.displayName ?? user.email!,
             email: user.email,
             uid: user.uid
           };

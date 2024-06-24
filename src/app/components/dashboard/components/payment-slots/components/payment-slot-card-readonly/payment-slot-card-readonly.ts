@@ -4,7 +4,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
 
@@ -17,7 +16,6 @@ import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
     MatButtonModule,
     MatIconModule,
     TranslateModule,
-    AvatarComponent,
     ConvertUsersToAvatarConfigsPipe
   ],
   templateUrl: './payment-slot-card-readonly.html',

@@ -25,7 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
 import { Theme } from 'src/styles/store/projectSettings.reducer';
-import { ProjectSettingsActions } from 'src/styles/store/projectSettings.action';
 import { selectTheme } from 'src/styles/store/projectSettings.selectors';
 import { Observable } from 'rxjs';
 
@@ -61,18 +60,18 @@ export class SystembarComponent {
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService
-  ) {}
+  ) { }
 
   public changeLanguage(language: string): void {
     this.translateService.use(language);
     this.localStorageService.set('language', language);
   }
 
+  public changeTheme({ value }: MatSelectChange): void {
+    this.themeChange.emit(value);
+  }
+  
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
-  }
-  public changeTheme({ value }: MatSelectChange): void {
-    console.log('changeTheme in systBar');
-    this.themeChange.emit(value);
   }
 }

@@ -23,12 +23,13 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     DaySelectListComponent,
     SpinnerComponent,
-    TranslateModule
+    TranslateModule,
   ]
 })
 export class PaymentSlotsComponent {
   protected readonly paymentSlots$ = this.store.select(selectPaymentSlots);
   protected readonly loading$ = this.store.select(selectLoading);
+  
   constructor(private store: Store<PaymentSlotsState>) {}
 
   protected openCreatePaymentSlotDialog(): void {

@@ -8,7 +8,7 @@ import { AvatarConfiguration } from './avatar.config';
   standalone: true
 })
 export class ConvertUsersToAvatarConfigsPipe implements PipeTransform {
-  constructor(private avatarBuilderService: AvatarBuilderService) {}
+  constructor(private avatarBuilderService: AvatarBuilderService) { }
 
   public transform(users: User[]): AvatarConfiguration[] {
     return users.map(user => this.avatarBuilderService.createAvatarConfigurationForUser(user));

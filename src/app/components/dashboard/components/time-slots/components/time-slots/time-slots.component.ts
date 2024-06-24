@@ -55,7 +55,7 @@ export class TimeSlotsComponent {
   constructor(private store: Store<TimeSlotsState>) {}
 
   protected filterChange(filter: FilterTimeSlotCardControlValue): void {
-    this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter }));  
+    this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter })); 
   }
   protected resetFilter(): void {
     this.store.dispatch(TimeSlotsActions.resetFilter());

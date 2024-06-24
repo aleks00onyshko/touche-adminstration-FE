@@ -25,7 +25,8 @@
     "ANALYTICS_FALLBACK": "Some analytics here in the future",
     "SIDENAV": {
       "SLOTS": "SLOTS",
-      "PAYMENT-SLOTS": "PAYMENT SETTINGS"
+      "PAYMENT-SLOTS": "PAYMENT SETTINGS",
+      "TEACHER-SETTINGS": "TEACHER SETTINGS"
     },
     "PAYMENT_SLOT": {
       "TYPE": "classes",

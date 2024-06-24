@@ -1,0 +1,30 @@
+.teacher-settings_form {
+width: 90%;
+
+    &_info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        .teacher-settings_phone, .teacher-settings_name {   
+            width: 50%;
+            .teacher-settings_form_name, .teacher-settings_form_description {
+                width: 90%;
+            }
+        }
+    }
+    &_description {
+        width: 100%;
+
+
+        &_input {
+            width: 100%;
+        }
+    }
+    .teacher-settings_form_name, .teacher-settings_form_phone{
+        width: 98%;
+    }
+}
+.teacher-settings_form_description{
+    width: 95%;
+}

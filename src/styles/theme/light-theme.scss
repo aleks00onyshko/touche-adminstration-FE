@@ -2,6 +2,9 @@
 @use './common.scss';
 @use 'sass:map';
 
+
+
+
 $workshop-primary: material.define-palette(material.$cyan-palette, 500, 200, 700);
 $workshop-accent: material.define-palette(material.$pink-palette, A200, A100);
 
@@ -32,3 +35,4 @@ $workshop-theme: common.apply-extra-colors($workshop-theme, $workshop-extra-colo
 
 // Generate theme
 @include common.create-theme($workshop-theme);
+

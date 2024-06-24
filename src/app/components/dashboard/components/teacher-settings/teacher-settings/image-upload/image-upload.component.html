@@ -1,0 +1,21 @@
+<div class="image-upload-container">
+    <div>
+        <img [src]="imgSrc" alt="Image preview" width="350px" height="250px">
+    </div>
+    <button mat-button (click)="triggerFileInput()">
+        <mat-icon>edit</mat-icon>
+    </button>
+
+    <input #fileInput type="file" (change)="showPreview($event)" hidden>
+
+    <div *ngFor="let form of forms">
+        <img [src]="imgSrc" alt="Image preview">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <button mat-button (click)="triggerFileInput()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
