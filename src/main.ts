@@ -77,7 +77,7 @@ bootstrapApplication(AppComponent, {
           translateService.addLangs(['en', 'uk']);
           translateService.setDefaultLang('uk');
           translateService.use(localStorageService.get('language') ?? 'uk');
-//TODO add action(authenticated)
+          
           return user(auth).pipe(
             take(1), 
             catchError((err: Error) => {
