@@ -14,7 +14,7 @@ import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { catchError, EMPTY, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
-import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 
 @Injectable()
@@ -68,15 +68,16 @@ export class AuthenticationEffects implements OnInitEffects {
     )
   );
 
-  public authenticated$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthenticationActions.authenticated),
-      tap(({ user }) => {
-        this.router.navigate(['dashboard']);
+  public authenticated$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthenticationActions.authenticated),
+        tap(({ user }) => {
+          this.router.navigate(['dashboard']);
 
-        // return AuthenticationActions.onboardTeacher({ user });
-      })
-    ),
+          return AuthenticationActions.onboardTeacher({ user });
+        })
+      ),
     { dispatch: false }
   );
 
@@ -84,11 +85,17 @@ export class AuthenticationEffects implements OnInitEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthenticationActions.onboardTeacher),
-        switchMap(({ user }) => {
+        switchMap(async ({ user }) => {
+          const teacherSnapshot = await getDoc(doc(this.firestore, `teachers`, user.uid));
+
+          if (teacherSnapshot.exists()) {
+            return EMPTY;
+          }
+
           const teacher: Teacher = {
             number: '',
-            description: "",
-            imageUrl: "",
+            description: '',
+            backgroundImageUrl: '',
             id: user.uid,
             displayName: user.displayName ?? user.email!,
             email: user.email,
@@ -125,7 +132,7 @@ export class AuthenticationEffects implements OnInitEffects {
     private router: Router,
     private snackbar: MatSnackBar,
     private firestore: Firestore
-  ) { }
+  ) {}
 
   public ngrxOnInitEffects(): Action {
     return AuthenticationActions.getUser();
