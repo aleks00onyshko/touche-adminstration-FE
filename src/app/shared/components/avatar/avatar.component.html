@@ -1,17 +1,12 @@
-<!-- TODO: Roman please adapt the class name  -->
-<div class="celum-avatar celum-avatar--size-{{ avatarConfiguration.size }}">
-
-
+<div class="touche-avatar touche-avatar--size-{{ avatarConfiguration.size }}">
   @if(!!avatarConfiguration.backgroundImageUrl) {
-  <span class="celum-avatar_image celum-avatar_image"
-    [style.background-image]="'url(' + avatarConfiguration.backgroundImageUrl + ')'">
-  </span>
+    <span class="touche-avatar_image touche-avatar_image"
+      [style.background-image]="'url(' + avatarConfiguration.backgroundImageUrl + ')'">
+    </span>
   } @else {
-  <span *ngIf="avatarConfiguration.placeholder"
-    class="celum-avatar_placeholder celum-avatar_placeholder--{{ avatarConfiguration.size | avatarSizeModifiers }}">
-    {{ avatarConfiguration.placeholder }}
-  </span>
-
+    <span *ngIf="avatarConfiguration.placeholder"
+      class="touche-avatar_placeholder touche-avatar_placeholder--{{ avatarConfiguration.size | avatarSizeModifiers }}">
+      {{ avatarConfiguration.placeholder }}
+    </span>
   }
-
 </div>

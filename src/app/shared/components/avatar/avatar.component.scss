@@ -1,4 +1,4 @@
-.celum-avatar {
+.touche-avatar {
   display: flex;
   overflow: hidden;
   justify-content: center;
@@ -10,7 +10,6 @@
     width: 100%;
     height: 100%;
     display: inline-block;
-    position: absolute;
     bottom: 49%;
     right: 50%;
     transform: translate(50%, 50%);
@@ -83,6 +82,12 @@
   &--size-80 {
     width: 8rem;
     height: 8rem;
+    line-height: 3rem;
+  }
+
+  &--size-160 {
+    width: 16rem;
+    height: 16rem;
     line-height: 3rem;
   }
 }
