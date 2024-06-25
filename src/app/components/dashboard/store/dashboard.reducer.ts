@@ -6,8 +6,11 @@ import {
   PaymentSlotsState,
   paymentSlotsReducer
 } from '../components/payment-slots/store/payment-slots.reducer';
-import { TEACHERS_SETTINGS_FEATURE_KEY } from '../components/teacher-settings/store/teacher-settings.actions';
-import { TeacherSettingsState, teachersSettingsReducer } from '../components/teacher-settings/store/teacher-settings.reducer';
+import {
+  TEACHERS_SETTINGS_FEATURE_KEY,
+  TeacherSettingsState,
+  teachersSettingsReducer
+} from '../components/teacher-settings/store/teacher-settings.reducer';
 
 export const DASHBOARD_FEATURE_KEY = 'dashboard';
 export const selectDashboardState = createFeatureSelector<DashboardState>(DASHBOARD_FEATURE_KEY);

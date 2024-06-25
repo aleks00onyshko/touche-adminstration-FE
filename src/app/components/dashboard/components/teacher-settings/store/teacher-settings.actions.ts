@@ -2,9 +2,6 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 
-
-export const TEACHERS_SETTINGS_FEATURE_KEY = 'teachers';
-
 export const TeacherSettingsAction = createActionGroup({
   source: 'Teacher Settings',
   events: {
@@ -14,6 +11,6 @@ export const TeacherSettingsAction = createActionGroup({
     'Select Teacher': props<{ teacherId: string }>(),
     'Update Teacher': props<{ teacher: Teacher }>(),
     'Update Teacher Success': props<{ teacher: Teacher }>(),
-    'Update Teacher Failed': props<{ error: HttpErrorResponse }>(),
+    'Update Teacher Failed': props<{ error: HttpErrorResponse }>()
   }
 });

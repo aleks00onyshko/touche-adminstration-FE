@@ -2,6 +2,7 @@
   <app-image-upload [imageUrl]="teacherSettingsForm.controls.backgroundImageUrl.value"
     (imageUrlChange)="onImageUrlChange($event)">
   </app-image-upload>
+
   <div class="teacher-settings_form_info">
     <div class="teacher-settings_phone">
       <div>
@@ -15,20 +16,25 @@
     <div class="teacher-settings_name">
       <mat-form-field class="teacher-settings_form_name">
         <mat-label>Leave Name and Surname</mat-label>
-        <input matInput placeholder="Please specify your name and surname here" [formControl]="controls.displayName"
+        <input
+          matInput
+          [formControl]="controls.displayName"
+          placeholder="Please specify your name and surname here"
           class="teacher-settings_form_name_input">
-
       </mat-form-field>
     </div>
   </div>
+
   <div>
     <div>
       <mat-form-field class="teacher-settings_form_description">
         <mat-label>Leave a description</mat-label>
-        <textarea matInput placeholder="Please specify your description here" [formControl]="controls.description"
+        <textarea
+          matInput
+          placeholder="Please specify your description here"
+          [formControl]="controls.description"
           class="teacher-settings_form_description_input"></textarea>
       </mat-form-field>
     </div>
   </div>
-
 </form>

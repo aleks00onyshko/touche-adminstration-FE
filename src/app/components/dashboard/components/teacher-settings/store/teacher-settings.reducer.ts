@@ -1,10 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { reducer } from 'src/styles/store/projectSettings.reducer';
 import { TeacherSettingsAction } from './teacher-settings.actions';
-import { state } from '@angular/animations';
-import { error } from 'console';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 
 export const TEACHERS_SETTINGS_FEATURE_KEY = 'teachers';
@@ -46,12 +43,7 @@ export const teacherReducer = createReducer(
   })),
   on(TeacherSettingsAction.updateTeacherSuccess, (state, { teacher }) => ({
     ...state,
-    teachers: state.teachers ? state.teachers.map(t => t.id === teacher.id ? teacher : t) : null,
-    loading: false
-  })),
-  on(TeacherSettingsAction.updateTeacher, state => ({
-    ...state,
-    loading: true
+    teachers: state.teachers ? state.teachers.map(t => (t.id === teacher.id ? teacher : t)) : null
   })),
   on(TeacherSettingsAction.updateTeacherFailed, (state, { error }) => ({
     ...state,
