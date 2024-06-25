@@ -13,9 +13,9 @@
   <mat-expansion-panel *ngFor="let teacher of teachers$ | async; trackBy: trackByTeacherId"
     [expanded]="teacher.id === (selectedTeacherId$ | async)" (opened)="selectTeacher(teacher.id)">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        <img [src]="teacher.backgroundImageUrl" alt="Teacher Image" />
-        {{ teacher.displayName }}
+      <mat-panel-title class="teacher-setting_title" >
+        <app-avatar [avatarConfiguration]="([teacher] | convertUsersToAvatarConfigs)[0]" class="teacher-setting_title_avatar"></app-avatar>
+        <span class="teacher-setting_title_text">{{ teacher.displayName }}</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-teacher-settings [teacher]="teacher" (teacherUpdated)="updateTeacher($any($event))"></app-teacher-settings>

@@ -1,33 +1,25 @@
-
-img{
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  margin: 0.3rem;
-}
-button{
-  border: 0;
-  /* border-radius: 50%; */
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: 0.3rem;
-  /* display: flex; */
-  // align-items: center;
-  // justify-content: center;
-  background-color: transparent;
-  color: #fff;
-}
 mat-accordion{
   display: flex;
   max-width: 98% !important;
   flex-direction: column;
   align-items: center;
+
   mat-expansion-panel{
     width: 98%;
-  }
-  app-teacher-settings{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+    .teacher-setting_title {
+      &_avatar {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+    }
+
+    app-teacher-settings{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
