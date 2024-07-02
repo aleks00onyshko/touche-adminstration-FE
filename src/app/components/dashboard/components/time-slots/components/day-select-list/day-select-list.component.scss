@@ -1,70 +1,68 @@
+// @import "../../../../../../../styles/media-queries/media-queries.scss";
+
 .day-select-list {
-  display: flex;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 1rem 0 1rem 0;
-  height: 5rem;
-  /* Hiding scrollbar for IE, Edge and Firefox */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(100% - 2px);
+  min-height: 12vh;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   overflow: auto;
   scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+
   .days-batch_container {
-    min-width: 92%;
-    margin-right: 5rem;
-    max-width: 100%;
     scroll-snap-align: center;
     scroll-snap-stop: always;
-    align-items: center;
-    justify-content: space-evenly;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
+    width: 100%;
+    display: grid;
+    grid-gap: 0rem;
+    grid-template-columns: repeat(7, 1fr);
 
-    position: relative;
-    height: 100%;
-  }
-
-  .day {
-    width: 13%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    &:hover {
-      .dayNumber:not(.dayNumber--active) {
-        background-color: #c0c0c0 !important;
-      }
-    }
-
-    .dayName {
-      cursor: pointer;
+    .day {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 4rem;
-      margin-bottom: 0vw;
-      color: rgb(142, 142, 142);
-      font-size: 0.8rem;
-    }
-
-    .dayNumber {
-      cursor: pointer;
-      width: 3rem;
-      height: 3rem;
-
+      flex-direction: column;
       border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
-      &--active {
-        background-color: orange;
+      &:hover {
+        .dayNumber:not(.dayNumber--active) {
+          background-color: #c0c0c0 !important;
+        }
+      }
+
+      .dayName {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0vw;
+        color: rgb(142, 142, 142);
+        font-size: 0.8rem;
+      }
+
+      .dayNumber {
+        cursor: pointer;
+        width: 3rem;
+        height: 3rem;
+
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--active {
+          background-color: orange;
+        }
       }
     }
   }

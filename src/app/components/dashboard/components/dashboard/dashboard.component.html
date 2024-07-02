@@ -1,28 +1,23 @@
 <mat-drawer-container class="dashboard-container" autosize>
-  <mat-drawer #drawer class="sidenav"  mode="side">
-   
+  <mat-drawer #drawer class="sidenav" mode="side">
+
     <div class="cards">
-      <button color="warn" class="close-button" mat-mini-fab (click)="opened = !opened" mat-mini-fab>
-        <mat-icon>close</mat-icon>
-      </button>
-      <mat-card (click)="opened = !opened" class="card mat1-card" [routerLink]="['time-slots']">
+      <mat-card (click)="drawer.toggle()" class="card mat1-card" [routerLink]="['time-slots']">
         {{ 'DASHBOARD.SIDENAV.SLOTS' | translate }}
       </mat-card>
-      <mat-card (click)="opened = !opened" class="card" [routerLink]="['payment-slots']">
-        {{ 'DASHBOARD.SIDENAV.PAYMENT-SLOTS' | translate }}</mat-card
-      >
-      <mat-card (click)="opened = !opened" class="card" [routerLink]="['teachers-settings']">
-        {{ 'DASHBOARD.SIDENAV.TEACHER-SETTINGS' | translate }}</mat-card
-      >
+      <mat-card (click)="drawer.toggle()" class="card" [routerLink]="['payment-slots']">
+        {{ 'DASHBOARD.SIDENAV.PAYMENT-SLOTS' | translate }}</mat-card>
+      <mat-card (click)="drawer.toggle()" class="card" [routerLink]="['teachers-settings']">
+        {{ 'DASHBOARD.SIDENAV.TEACHER-SETTINGS' | translate }}</mat-card>
     </div>
     <main class="content">
-     
+
     </main>
   </mat-drawer>
 
   <mat-drawer-content class="mat-drawer-content content">
     <router-outlet> </router-outlet>
-      <button type="button" mat-mini-fab  (click)="drawer.toggle()">
+    <button type="button" mat-mini-fab (click)="drawer.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
   </mat-drawer-content>

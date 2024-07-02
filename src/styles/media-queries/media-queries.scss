@@ -1,0 +1,22 @@
+@media(max-width: 580px) {
+    .mainTextOnPaymentPage {
+        span {
+            font-size: 2rem !important;
+        }
+    }
+
+    .teacher-settings_form {
+        grid-template-rows: 17rem 14rem 6rem !important;
+
+        .teacher-settings_form_info {
+            display: grid;
+            grid-auto-flow: row;
+            grid-row-gap: 0.4rem;
+            height: 13rem;
+        }
+
+        &_description {
+            width: 100%;
+        }
+    }
+}

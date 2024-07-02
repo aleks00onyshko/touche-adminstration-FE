@@ -1,11 +1,5 @@
-app-filter-time-slot {
-  position: absolute;
-  left: 89%;
-  top: 10rem;
-  border: none !important;
-}
 .time-slots_content {
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -13,9 +7,10 @@ app-filter-time-slot {
   flex: 1;
 
   .time-slots_header-actions {
-    display: flex;
-    align-items: center;
     margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 4rem 1fr 4rem;
+    align-items: center;
 
     .locations-dropdown {
       margin-left: 1rem;
@@ -44,30 +39,5 @@ app-filter-time-slot {
 
   &_add-button {
     color: white;
-  }
-}
-@media (max-width: 1600px) {
-  .time-slots_content {
-    width: 89%;
-  }
-}
-@media (max-width: 1570px) {
-  .time-slots_content {
-    width: 97%;
-  }
-}
-@media (max-width: 1550px) {
-  .time-slots_content {
-    width: 95%;
-  }
-}
-@media (max-width: 1350px) {
-  .time-slots_content {
-    width: 94%;
-  }
-}
-@media (max-width: 1000px) {
-  .time-slots_content {
-    width: 92%;
   }
 }
