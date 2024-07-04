@@ -1,6 +1,9 @@
+@import "../../../../../styles/media-queries/media-queries.scss";
+
 mat-accordion {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: 4rem 1fr;
+  align-items: center;
   justify-items: center;
 
   mat-expansion-panel {

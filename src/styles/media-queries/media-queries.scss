@@ -1,8 +1,6 @@
 @media(max-width: 580px) {
-    .mainTextOnPaymentPage {
-        span {
-            font-size: 2rem !important;
-        }
+  .title {
+        font-size: 2rem !important;
     }
 
     .teacher-settings_form {
@@ -20,3 +18,41 @@
         }
     }
 }
+
+
+
+
+@media (max-width: 768px) {
+    
+    .cards {
+      width: 97% !important;
+    }
+  
+    .sidenav {
+      position: absolute;
+      min-width: 100% !important;
+      width: 100% !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+    }
+  
+    .mat-drawer-content {
+      margin-left: 0 !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+  
+    .sidenav {
+      padding: 20px;
+      max-width: 40%;
+      min-width: 20%;
+      box-sizing: border-box;
+    }
+  }
+  
+
+  
+
+  
+  

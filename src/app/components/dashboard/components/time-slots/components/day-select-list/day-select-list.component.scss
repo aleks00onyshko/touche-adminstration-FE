@@ -1,18 +1,15 @@
 // @import "../../../../../../../styles/media-queries/media-queries.scss";
 
 .day-select-list {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: calc(100% - 2px);
-  min-height: 12vh;
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  overflow: auto;
   scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overflow-x: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;

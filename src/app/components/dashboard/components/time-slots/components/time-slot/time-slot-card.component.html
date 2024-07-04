@@ -1,13 +1,15 @@
 <mat-card class="time-slot" [formGroup]="timeSlotForm">
   <div class="time-slot_controls">
     <app-time-picker
+     class="time-picker"
       [formControl]="controls.startTime"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate"
     ></app-time-picker>
 
-    <app-duration-select [formControl]="controls.duration"></app-duration-select>
+    <app-duration-select class="time-slot_controls_duration" [formControl]="controls.duration"></app-duration-select>
 
     <app-avatar-multiple-select-dropdown
+    class="time-slot_controls_teachers"
       [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
       [formControl]="controls.teachers"

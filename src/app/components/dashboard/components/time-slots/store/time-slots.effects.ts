@@ -44,10 +44,10 @@ export class TimeSlotsEffects {
       ofType(TimeSlotsActions.getTimeSlots),
       withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
       switchMap(([{ constraints }, currentDateId, currentLocation]) => {
-          const timeSlotsCollectionReference: CollectionReference = collection(
-            this.firestore,
-            `dateIds/${currentDateId}/${currentLocation!.id}-slots`
-          );
+        const timeSlotsCollectionReference: CollectionReference = collection(
+          this.firestore,
+          `dateIds/${currentDateId}/${currentLocation!.id}-slots`
+        );
         const timeSlotsQuery: Query = !!constraints
           ? query(timeSlotsCollectionReference, ...constraints)
           : timeSlotsCollectionReference;
@@ -73,7 +73,7 @@ export class TimeSlotsEffects {
   public readonly resetTimeSlotsFilter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.resetFilter),
-      map(({}) => TimeSlotsActions.getTimeSlots({}))
+      map(({ }) => TimeSlotsActions.getTimeSlots({}))
     )
   );
 
@@ -186,7 +186,7 @@ export class TimeSlotsEffects {
         switchMap(([_, teachers]) => {
           const dialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse> = this.dialog.open(
             CreateTimeSlotDialogComponent,
-            { data: { teachers } }
+            { data: { teachers }, width: '100% - 4rem' }
           );
 
           return dialogRef.afterClosed().pipe(
@@ -211,7 +211,7 @@ export class TimeSlotsEffects {
         switchMap(([{ timeSlot }, teachers]) => {
           const dialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse> = this.dialog.open(
             EditTimeSlotDialogComponent,
-            { data: { timeSlot, teachers } }
+            { data: { timeSlot, teachers }, width: '100% - 4rem' }
           );
 
           return dialogRef.afterClosed().pipe(
@@ -247,7 +247,7 @@ export class TimeSlotsEffects {
     private dialog: MatDialog,
     private firestore: Firestore,
     private localstorageService: LocalStorageService
-  ) {}
+  ) { }
 
   private generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlValue): QueryFieldFilterConstraint[] {
     const constrainsts: QueryFieldFilterConstraint[] = [];
