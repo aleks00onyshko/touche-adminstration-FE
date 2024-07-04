@@ -5,18 +5,15 @@
   padding: 2rem 2rem 0 2rem;
 
   &_controls {
-    @media (max-width: 1350px) {
-      flex-direction: column;
-      align-items: self-start;
-    }
 
     &_duration {
-      width: 16rem;
+
       margin-right: 1rem;
     }
 
-    .ngx-mat-timepicker__toggle {
-      margin-bottom: 0;
+    &_teachers {
+
+      margin-right: 1rem;
     }
   }
 

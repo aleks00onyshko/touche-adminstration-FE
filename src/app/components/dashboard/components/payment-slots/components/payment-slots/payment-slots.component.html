@@ -1,9 +1,9 @@
-<div class="time-slots_content">
+<div class="payment-slots_content">
   @if((loading$ | async) === true) {
   <app-spinner></app-spinner>
   } @else {
   <div class="mainTextOnPaymentPage">
-    <span>{{ 'DASHBOARD.PAYMENT_SLOT.CHOOSE_PACKAGE' | translate }}</span>
+    <span class="title">{{ 'DASHBOARD.PAYMENT_SLOT.CHOOSE_PACKAGE' | translate }}</span>
   </div>
   <button mat-mini-fab class="payment-slots_content_add-button" (click)="openCreatePaymentSlotDialog()">
     <mat-icon>add</mat-icon>

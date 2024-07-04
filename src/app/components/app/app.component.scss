@@ -6,12 +6,11 @@
   .main-container {
     height: 100%;
     width: 100%;
-    display: flex;
-    overflow: hidden;
-    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 4rem 1fr;
 
     .content {
-      width: 100%;
+      min-width: 100% !important;
     }
   }
 }

@@ -1,25 +1,18 @@
-mat-accordion{
-  display: flex;
-  max-width: 98% !important;
-  flex-direction: column;
-  align-items: center;
+@import "../../../../../styles/media-queries/media-queries.scss";
 
-  mat-expansion-panel{
-    width: 98%;
+mat-accordion {
+  display: grid;
+  grid-template-rows: 4rem 1fr;
+  align-items: center;
+  justify-items: center;
+
+  mat-expansion-panel {
+    width: 100%;
 
     .teacher-setting_title {
       &_avatar {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
         margin-right: 0.5rem;
       }
-    }
-
-    app-teacher-settings{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
   }
 }
