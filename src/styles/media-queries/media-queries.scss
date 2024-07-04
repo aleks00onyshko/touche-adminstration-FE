@@ -1,5 +1,7 @@
-@media(max-width: 580px) {
-  .title {
+@import "variables";
+
+@media(max-width: $breakpoint_sm) {
+    .title {
         font-size: 2rem !important;
     }
 
@@ -19,40 +21,36 @@
     }
 }
 
-
-
-
-@media (max-width: 768px) {
-    
+@media (max-width: $breakpoint_md) {
     .cards {
-      width: 97% !important;
+        width: 97% !important;
     }
-  
+
     .sidenav {
-      position: absolute;
-      min-width: 100% !important;
-      width: 100% !important;
-      padding: 0 !important;
-      box-sizing: border-box;
+        position: absolute;
+        min-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        box-sizing: border-box;
     }
-  
+
     .mat-drawer-content {
-      margin-left: 0 !important;
+        margin-left: 0 !important;
     }
-  }
-  
-  @media (min-width: 769px) {
-  
+}
+
+@media (min-width: $breakpoint_md) {
+
     .sidenav {
-      padding: 20px;
-      max-width: 40%;
-      min-width: 20%;
-      box-sizing: border-box;
+        padding: 20px;
+        max-width: 40%;
+        min-width: 20%;
+        box-sizing: border-box;
     }
-  }
-  
+}
 
-  
+@media (max-width: $breakpoint_lg) {}
 
-  
-  
+@media (max-width: $breakpoint_xl) {}
+
+@media (max-width: $breakpoint_xxl) {}
