@@ -37,6 +37,7 @@
     "moment": "^2.29.4",
     "ngx-mat-timepicker": "^17.0.0",
     "npm": "^10.2.3",
+    "prettier": "^3.2.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",

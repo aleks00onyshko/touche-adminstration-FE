@@ -27,6 +27,8 @@ import {
   authenticationReducer
 } from './app/components/authentication/store/authentication.reducer';
 import { PROJECT_SETTINGS_FEATURE_NAME, projectSettingsReducer } from './styles/store/projectSettings.reducer';
+import { FileExtractor, ToucheFileExtractor } from './app/core/model/file-extractor/file-extract.service';
+import { FileUpload, ToucheFileUpload } from './app/core/model/file-upload/file-upload.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -77,9 +79,9 @@ bootstrapApplication(AppComponent, {
           translateService.addLangs(['en', 'uk']);
           translateService.setDefaultLang('uk');
           translateService.use(localStorageService.get('language') ?? 'uk');
-          
+
           return user(auth).pipe(
-            take(1), 
+            take(1),
             catchError((err: Error) => {
               matSnackBar.open(err.message);
               return of(null);
@@ -90,6 +92,14 @@ bootstrapApplication(AppComponent, {
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { verticalPosition: 'bottom', horizontalPosition: 'left', duration: 2000 }
+    },
+    {
+      provide: FileExtractor,
+      useClass: ToucheFileExtractor
+    },
+    {
+      provide: FileUpload,
+      useClass: ToucheFileUpload
     }
   ]
 }).catch(err => console.error(err));

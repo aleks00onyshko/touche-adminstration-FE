@@ -1,20 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  Output,
-  Renderer2,
-  ViewEncapsulation
-} from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Store, StoreModule } from '@ngrx/store';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateService } from '@ngx-translate/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthenticationActions } from '../../../components/authentication/store/authentication.action';
@@ -49,18 +40,18 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SystembarComponent {
-  public opened: boolean = false;
-  public Theme: typeof Theme = Theme;
-  public theme$: Observable<Theme | null> = this.store.select(selectTheme);
   @Input() public theme: Theme | null = null;
   @Output() public themeChange: EventEmitter<Theme> = new EventEmitter<Theme>();
+
+  public Theme: typeof Theme = Theme;
+  public theme$: Observable<Theme | null> = this.store.select(selectTheme);
 
   constructor(
     protected avatarBuilderService: AvatarBuilderService,
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService
-  ) { }
+  ) {}
 
   public changeLanguage(language: string): void {
     this.translateService.use(language);
@@ -70,7 +61,7 @@ export class SystembarComponent {
   public changeTheme({ value }: MatSelectChange): void {
     this.themeChange.emit(value);
   }
-  
+
   public logout(): void {
     this.store.dispatch(AuthenticationActions.logout());
   }

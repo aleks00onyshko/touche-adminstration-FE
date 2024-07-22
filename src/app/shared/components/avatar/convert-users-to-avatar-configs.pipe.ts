@@ -10,7 +10,11 @@ import { AVATAR_SIZE, AvatarConfiguration } from './avatar.config';
 export class ConvertUsersToAvatarConfigsPipe implements PipeTransform {
   constructor(private avatarBuilderService: AvatarBuilderService) {}
 
-  public transform(users: User[], size: AVATAR_SIZE = AVATAR_SIZE.s): AvatarConfiguration[] {
-    return users.map(user => this.avatarBuilderService.createAvatarConfigurationForUser(user, size));
+  public transform(
+    users: User[],
+    size: AVATAR_SIZE = AVATAR_SIZE.s,
+    withFileExtractor: boolean = false
+  ): AvatarConfiguration[] {
+    return users.map(user => this.avatarBuilderService.createAvatarConfigurationForUser(user, size, withFileExtractor));
   }
 }

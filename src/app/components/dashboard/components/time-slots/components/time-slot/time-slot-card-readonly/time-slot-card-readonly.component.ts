@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avata
 import { User } from 'src/app/core/model/entities/user';
 
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { InterectiveAvatarsComponent } from 'src/app/shared/components/interective-avatars/interective-avatars.component';
+import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
 
 @Component({
   selector: 'app-time-slot-card-readonly',
@@ -26,7 +26,7 @@ import { InterectiveAvatarsComponent } from 'src/app/shared/components/interecti
     TranslateModule,
     AvatarComponent,
     ConvertUsersToAvatarConfigsPipe,
-    InterectiveAvatarsComponent
+    InteractiveAvatarsComponent
   ],
   providers: [ConvertUsersToAvatarConfigsPipe]
 })
@@ -34,7 +34,6 @@ export class TimeSlotCardReadonlyComponent {
   @Input({ required: true }) public timeSlot!: TimeSlot;
   @Input({ required: true }) public teachers!: Teacher[];
   @Input() public attendee?: User | undefined;
-
 
   @Output() public slotDeleted = new EventEmitter<string>();
 

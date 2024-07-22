@@ -1,3 +1,6 @@
+import { FileExtractor } from '../../../core/model/file-extractor/file-extract.service';
+import { FileUpload } from '../../../core/model/file-upload/file-upload.service';
+
 export enum AVATAR_SIZE {
   s = 20,
   m = 30,
@@ -27,6 +30,8 @@ export class AvatarConfiguration {
   public username: string = '';
   public placeholder: string = '';
   public id: string = '';
+  public fileUploadImplementation: FileUpload | null = null;
+  public fileExtractorImplementation: FileExtractor | null = null;
 }
 
 export class AvatarConfigBuilder<T extends AvatarConfiguration> {
@@ -41,13 +46,23 @@ export class AvatarConfigBuilder<T extends AvatarConfiguration> {
     return this;
   }
 
+  public withFileUploadImplementation(implementation: FileUpload): AvatarConfigBuilder<T> {
+    this.config.fileUploadImplementation = implementation;
+    return this;
+  }
+
+  public withFileExtractorImplementation(implementation: FileExtractor): AvatarConfigBuilder<T> {
+    this.config.fileExtractorImplementation = implementation;
+    return this;
+  }
+
   public withUsername(username: string): AvatarConfigBuilder<T> {
     this.config.username = username;
     this.config.placeholder = this.createPlaceholder(username);
     return this;
   }
 
-  public withBbackgroundImageUrl(imageUrl: string): AvatarConfigBuilder<T> {
+  public withBackgroundImageUrl(imageUrl: string): AvatarConfigBuilder<T> {
     this.config.backgroundImageUrl = imageUrl;
     return this;
   }

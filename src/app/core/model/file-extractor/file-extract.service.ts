@@ -1,34 +1,18 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
-import { uploadBytesResumable } from '@firebase/storage';
 import { Observable } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
-@Injectable({ providedIn: 'root' })
-export class UploadService {
-  constructor(@Inject(DOCUMENT) private document: Document, private storage: Storage) {}
+export abstract class FileExtractor {
+  public abstract getFiles(single?: boolean, supportedFileTypes?: string[]): Observable<File[]>;
+}
 
-  public uploadFileToStorage(file: File, shopId: string): Observable<string | null> {
-    return new Observable(subj => {
-      const storageRef = ref(this.storage, `${shopId}/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on('state_changed', {
-        complete: () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(downloadUrl => {
-            subj.next(downloadUrl);
-            subj.complete();
-          });
-        },
-        error: () => {
-          subj.next(null);
-          subj.complete();
-        }
-      });
-    });
-  }
+@Injectable()
+export class ToucheFileExtractor implements FileExtractor {
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public getFiles(single?: boolean, supportedFileTypes?: string[]): Observable<File[]> {
+    console.log('called?');
+
     return new Observable(subj => {
       const fileInputElement: HTMLInputElement = this.createFileInputElement();
 

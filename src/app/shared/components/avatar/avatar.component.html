@@ -9,4 +9,8 @@
       {{ avatarConfiguration.placeholder }}
     </span>
   }
+
+  @if(avatarConfiguration.fileExtractorImplementation) {
+    <mat-icon class="touche-avatar_upload-icon" (click)="uploadClicked()">upload_file</mat-icon>
+  }
 </div>

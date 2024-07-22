@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -13,19 +12,18 @@ import {
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-  Validators
+  ReactiveFormsModule
 } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { InterectiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interective-avatars.component';
+import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../../shared/components/avatar/convert-users-to-avatar-configs.pipe';
@@ -33,8 +31,6 @@ import { AvatarConfiguration } from '../../../../../../../shared/components/avat
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { DurationSelectComponent } from '../../../../../../../shared/components/duration-select/duration-select.component';
-import { TimeSlotsActions } from 'src/app/components/dashboard/components/time-slots/store/time-slots.actions';
-import { Store } from '@ngrx/store';
 import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 
 export interface FilterTimeSlotCardControlValue {
@@ -63,7 +59,7 @@ export type FilterTimeSlotCardControlStructure = {
     MatIconModule,
     FormsModule,
     MatCheckboxModule,
-    InterectiveAvatarsComponent,
+    InteractiveAvatarsComponent,
     AvatarMultipleSelectDropdown,
     ConvertUsersToAvatarConfigsPipe,
     DurationSelectComponent

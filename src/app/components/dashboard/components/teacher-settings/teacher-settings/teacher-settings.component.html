@@ -1,6 +1,6 @@
 <form [formGroup]="teacherSettingsForm" class="teacher-settings_form">
   <div class="teacher-settings_form_avatar">
-    <app-avatar [avatarConfiguration]="([teacher] | convertUsersToAvatarConfigs:avatarSize.xxxl)[0]"></app-avatar>
+    <app-avatar [avatarConfiguration]="([teacher] | convertUsersToAvatarConfigs:avatarSize.xxxl:true)[0]"></app-avatar>
   </div>
 
   <div class="teacher-settings_form_info">

@@ -82,7 +82,9 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
     });
   }
 
-  ngOnChanges({ teacher: { currentValue: currentTeacher } }: SimpleChangesGeneric<TeacherSettingsComponent>): void {
+  public ngOnChanges({
+    teacher: { currentValue: currentTeacher }
+  }: SimpleChangesGeneric<TeacherSettingsComponent>): void {
     this.teacherSettingsForm.patchValue(
       {
         description: currentTeacher.description,
@@ -94,9 +96,5 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
     );
 
     this.cdr.detectChanges();
-  }
-
-  onImageUrlChange(newImageUrl: string): void {
-    this.teacherSettingsForm.patchValue({ backgroundImageUrl: newImageUrl });
   }
 }

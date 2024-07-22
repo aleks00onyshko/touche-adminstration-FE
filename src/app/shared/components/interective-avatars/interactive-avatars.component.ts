@@ -30,25 +30,25 @@ import { ConvertUsersToAvatarConfigsPipe } from '../avatar/convert-users-to-avat
     ConvertUsersToAvatarConfigsPipe,
     MatIconModule
   ],
-  templateUrl: './interective-avatars.component.html',
-  styleUrls: ['./interective-avatars.component.scss'],
+  templateUrl: './interactive-avatars.component.html',
+  styleUrls: ['./interactive-avatars.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InterectiveAvatarsComponent), // tslint:disable-line
+      useExisting: forwardRef(() => InteractiveAvatarsComponent), // tslint:disable-line
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => InterectiveAvatarsComponent), // tslint:disable-line
+      useExisting: forwardRef(() => InteractiveAvatarsComponent), // tslint:disable-line
       multi: true
     },
     ConvertUsersToAvatarConfigsPipe // Додаємо тут
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class InterectiveAvatarsComponent extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
+export class InteractiveAvatarsComponent extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
   @Input({ required: true }) public teachers: Teacher[] = [];
   @Input({ required: true }) public label!: string;
 
