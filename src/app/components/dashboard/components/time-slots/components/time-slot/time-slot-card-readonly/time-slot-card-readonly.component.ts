@@ -5,8 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
-import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
+import { AvatarComponent } from '../../../../../../../shared/components/avatar/components/avatar/avatar.component';
+import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { User } from 'src/app/core/model/entities/user';
 
 import { Teacher } from 'src/app/core/model/entities/teacher';

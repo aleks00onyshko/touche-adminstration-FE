@@ -1,8 +1,10 @@
 <div class="systembar-container">
-  <app-avatar
-    [matMenuTriggerFor]="menu"
-    [avatarConfiguration]="(avatarBuilderService.createAvatarConfigurationFurCurrentUser$() | async)!"
-  ></app-avatar>
+  @if(currentUser$ | async; as user) {
+    <app-avatar
+      [matMenuTriggerFor]="menu"
+      [avatar]="avatarBuilder.createAvatar(user)"
+    ></app-avatar>
+  }
 
   <mat-menu #menu="matMenu">
     <div class="systembar-popup-container">

@@ -29,6 +29,12 @@ import {
 import { PROJECT_SETTINGS_FEATURE_NAME, projectSettingsReducer } from './styles/store/projectSettings.reducer';
 import { FileExtractor, ToucheFileExtractor } from './app/core/model/file-extractor/file-extract.service';
 import { FileUpload, ToucheFileUpload } from './app/core/model/file-upload/file-upload.service';
+import { AvatarBuilder, ToucheAvatarBuilder } from './app/shared/components/avatar/models/avatar-builder';
+import {
+  AvatarConfigurationBuilder,
+  ToucheAvatarConfigurationBuilder
+} from './app/shared/components/avatar/models/avatar-configuration-builder';
+import { AvatarConfiguration } from './app/shared/components/avatar/models/avatar-configuration';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -100,6 +106,19 @@ bootstrapApplication(AppComponent, {
     {
       provide: FileUpload,
       useClass: ToucheFileUpload
+    },
+    {
+      provide: AvatarConfigurationBuilder,
+      useClass: ToucheAvatarConfigurationBuilder
+    },
+    {
+      provide: AvatarBuilder,
+      deps: [AvatarConfigurationBuilder, FileUpload, FileExtractor],
+      useFactory: (
+        avatarConfigurationBuilder: AvatarConfigurationBuilder,
+        fileUpload: FileUpload,
+        fileExtract: FileExtractor
+      ) => new ToucheAvatarBuilder(avatarConfigurationBuilder, fileUpload, fileExtract)
     }
   ]
 }).catch(err => console.error(err));

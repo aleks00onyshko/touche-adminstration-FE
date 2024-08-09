@@ -9,8 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthenticationActions } from '../../../components/authentication/store/authentication.action';
-import { AvatarComponent } from '../avatar/avatar.component';
-import { AvatarBuilderService } from '../avatar/avatar-builder.service';
+import { AvatarComponent } from '../avatar/components/avatar/avatar.component';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
@@ -18,6 +17,9 @@ import { AuthenticationState } from 'src/app/components/authentication/store/aut
 import { Theme } from 'src/styles/store/projectSettings.reducer';
 import { selectTheme } from 'src/styles/store/projectSettings.selectors';
 import { Observable } from 'rxjs';
+import { AvatarBuilder } from '../avatar/models/avatar-builder';
+import { User } from '../../../core/model/entities/user';
+import { selectUser } from '../../../components/authentication/store/authentication.selectors';
 
 @Component({
   selector: 'app-systembar',
@@ -45,14 +47,17 @@ export class SystembarComponent {
 
   public Theme: typeof Theme = Theme;
   public theme$: Observable<Theme | null> = this.store.select(selectTheme);
+  // TODO: fix
+  public currentUser$: Observable<User> = this.store.select(selectUser) as any as Observable<User>;
 
   constructor(
-    protected avatarBuilderService: AvatarBuilderService,
+    protected avatarBuilder: AvatarBuilder,
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService
-  ) {}
-
+  ) {
+    console.log(avatarBuilder);
+  }
   public changeLanguage(language: string): void {
     this.translateService.use(language);
     this.localStorageService.set('language', language);

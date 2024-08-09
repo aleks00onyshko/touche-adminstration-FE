@@ -73,7 +73,7 @@ export class TimeSlotsEffects {
   public readonly resetTimeSlotsFilter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TimeSlotsActions.resetFilter),
-      map(({ }) => TimeSlotsActions.getTimeSlots({}))
+      map(({}) => TimeSlotsActions.getTimeSlots({}))
     )
   );
 
@@ -89,7 +89,6 @@ export class TimeSlotsEffects {
       )
     )
   );
-
 
   // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
   public readonly getLocations$ = createEffect(() =>
@@ -116,7 +115,7 @@ export class TimeSlotsEffects {
           locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
           booked: false,
           attendeeId: ''
         };
@@ -146,7 +145,7 @@ export class TimeSlotsEffects {
           locationId: currentLocation!.id,
           id: initialTimeSlot.id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
           booked: initialTimeSlot.booked,
           attendeeId: initialTimeSlot.attendeeId
         };
@@ -247,7 +246,7 @@ export class TimeSlotsEffects {
     private dialog: MatDialog,
     private firestore: Firestore,
     private localstorageService: LocalStorageService
-  ) { }
+  ) {}
 
   private generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlValue): QueryFieldFilterConstraint[] {
     const constrainsts: QueryFieldFilterConstraint[] = [];
@@ -261,11 +260,12 @@ export class TimeSlotsEffects {
     }
 
     if ((filter.teachers ?? []).length > 0) {
+      // TODO: naming
       constrainsts.push(
         where(
           'teachersIds',
           'array-contains-any',
-          filter.teachers!.map(teacher => teacher.id)
+          filter.teachers!.map(teacher => teacher.configuration.id)
         )
       );
     }

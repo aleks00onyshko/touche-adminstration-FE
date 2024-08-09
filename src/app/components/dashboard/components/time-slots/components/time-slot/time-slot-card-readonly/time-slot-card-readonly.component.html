@@ -4,7 +4,7 @@
       <span class="lesson_type">{{ 'DASHBOARD.TIME_SLOT.TYPE' | translate }}</span>
 
       @if(attendee) {
-      <app-avatar [avatarConfiguration]="([attendee] | convertUsersToAvatarConfigs)[0]"></app-avatar>
+      <app-avatar [avatar]="([attendee] | convertUsersToAvatarConfigs)[0]"></app-avatar>
       }
     </div>
     <div class="teacherBlock">

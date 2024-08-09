@@ -26,22 +26,23 @@ import { Teacher } from 'src/app/core/model/entities/teacher';
 import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../../shared/components/avatar/convert-users-to-avatar-configs.pipe';
-import { AvatarConfiguration } from '../../../../../../../shared/components/avatar/avatar.config';
+import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { DurationSelectComponent } from '../../../../../../../shared/components/duration-select/duration-select.component';
 import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
+import { Avatar } from '../../../../../../../shared/components/avatar/models/avatar';
 
+// TODO: naming here
 export interface FilterTimeSlotCardControlValue {
   duration: number | null;
   booked: boolean | null;
-  teachers: AvatarConfiguration[] | null;
+  teachers: Avatar[] | null;
 }
 export type FilterTimeSlotCardControlStructure = {
   booked: FormControl<boolean | null>;
   duration: FormControl<number | null>;
-  teachers: FormControl<AvatarConfiguration[] | null>;
+  teachers: FormControl<Avatar[] | null>;
 };
 @Component({
   selector: 'app-filter-time-slot',

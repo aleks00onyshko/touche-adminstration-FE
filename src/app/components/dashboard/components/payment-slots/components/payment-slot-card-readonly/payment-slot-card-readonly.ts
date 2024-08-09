@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
+import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
 
 @Component({

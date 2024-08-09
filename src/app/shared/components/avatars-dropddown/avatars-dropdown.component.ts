@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarConfiguration } from '../avatar/avatar.config';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { AvatarComponent } from '../avatar/components/avatar/avatar.component';
 import { MatSelectModule } from '@angular/material/select';
 import {
   ControlValueAccessor,
@@ -15,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
+import { Avatar } from '../avatar/models/avatar';
 
 @Component({
   selector: 'app-avatars-dropdown',
@@ -38,12 +38,12 @@ import { filter, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class AvatarsDropdownComponent extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
-  @Input({ required: true }) public avatarConfigurations!: AvatarConfiguration[];
+  @Input({ required: true }) public avatars!: Avatar[];
   @Input({ required: true }) public label!: string;
 
-  public control = new FormControl<AvatarConfiguration | null>(null, [Validators.required]);
+  public control = new FormControl<Avatar | null>(null, [Validators.required]);
   public onTouchFn!: () => void;
-  public onChangeFn!: (avatarConfiguration: AvatarConfiguration) => void;
+  public onChangeFn!: (avatarConfiguration: Avatar) => void;
 
   public ngOnInit(): void {
     this.control.valueChanges
@@ -51,7 +51,7 @@ export class AvatarsDropdownComponent extends ReactiveComponent implements OnIni
       .subscribe(avatarConfig => this.onChangeFn(avatarConfig));
   }
 
-  public registerOnChange(fn: (avatarConfiguration: AvatarConfiguration) => void): void {
+  public registerOnChange(fn: (avatars: Avatar) => void): void {
     this.onChangeFn = fn;
   }
 
@@ -59,7 +59,7 @@ export class AvatarsDropdownComponent extends ReactiveComponent implements OnIni
     this.onTouchFn = fn;
   }
 
-  public writeValue(avatarConfiguration: AvatarConfiguration): void {
+  public writeValue(avatarConfiguration: Avatar): void {
     this.control.setValue(avatarConfiguration, { emitEvent: false });
   }
 
@@ -67,7 +67,7 @@ export class AvatarsDropdownComponent extends ReactiveComponent implements OnIni
     return Validators.required(this.control);
   }
 
-  protected compareWith(a1: AvatarConfiguration, a2: AvatarConfiguration): boolean {
-    return a1?.id === a2?.id;
+  protected compareWith(a1: Avatar, a2: Avatar): boolean {
+    return a1.configuration.id === a2.configuration.id;
   }
 }

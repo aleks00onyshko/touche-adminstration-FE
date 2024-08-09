@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarConfiguration } from '../avatar/avatar.config';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { AvatarComponent } from '../avatar/components/avatar/avatar.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import {
@@ -17,7 +16,9 @@ import {
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { ConvertUsersToAvatarConfigsPipe } from '../avatar/convert-users-to-avatar-configs.pipe';
+import { ConvertUsersToAvatarConfigsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
+import { AvatarBuilder } from '../avatar/models/avatar-builder';
+import { Avatar } from '../avatar/models/avatar';
 
 @Component({
   selector: 'app-interective-avatars',
@@ -53,25 +54,22 @@ export class InteractiveAvatarsComponent extends ReactiveComponent implements On
   @Input({ required: true }) public label!: string;
 
   public showAllTeachers = false;
-  public avatarConfigurations: AvatarConfiguration[] = [];
-  public showAll = false;
 
-  public control = new FormControl<AvatarConfiguration[] | null>(null, [Validators.required]);
+  public control = new FormControl<Avatar[] | null>(null, [Validators.required]);
   public onTouchFn!: () => void;
-  public onChangeFn!: (avatarConfigurations: AvatarConfiguration[]) => void;
+  public onChangeFn!: (avatarConfigurations: Avatar[]) => void;
 
-  constructor(private convertUsersToAvatarConfigsPipe: ConvertUsersToAvatarConfigsPipe) {
+  constructor() {
     super();
   }
 
   public ngOnInit(): void {
-    this.avatarConfigurations = this.convertUsersToAvatarConfigsPipe.transform(this.teachers);
     this.control.valueChanges
       .pipe(takeUntil(this.unsubscribe$), filter(Boolean))
       .subscribe(avatarConfigs => this.onChangeFn(avatarConfigs));
   }
 
-  public registerOnChange(fn: (avatarConfiguration: AvatarConfiguration[]) => void): void {
+  public registerOnChange(fn: (avatars: Avatar[]) => void): void {
     this.onChangeFn = fn;
   }
 
@@ -79,16 +77,16 @@ export class InteractiveAvatarsComponent extends ReactiveComponent implements On
     this.onTouchFn = fn;
   }
 
-  public writeValue(avatarConfigurations: AvatarConfiguration[]): void {
-    this.control.setValue(avatarConfigurations, { emitEvent: false });
+  public writeValue(avatars: Avatar[]): void {
+    this.control.setValue(avatars, { emitEvent: false });
   }
 
   public validate(): ValidationErrors | null {
     return Validators.required(this.control);
   }
 
-  protected compareWith(a1: AvatarConfiguration, a2: AvatarConfiguration): boolean {
-    return a1?.id === a2?.id;
+  protected compareWith(a1: Avatar, a2: Avatar): boolean {
+    return a1?.configuration?.id === a2?.configuration?.id;
   }
 
   public toggleShowAll(event: Event, showAll: boolean): void {
