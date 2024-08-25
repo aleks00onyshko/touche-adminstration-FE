@@ -37,11 +37,11 @@ import { timeSlotCardValidator } from './config/validators/time-slot.validator';
 import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from './config/validation.errors';
 import { AvatarsDropdownComponent } from 'src/app/shared/components/avatars-dropddown/avatars-dropdown.component';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { AvatarMultipleSelectDropdown } from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 import { DurationSelectComponent } from '../../../../../../shared/components/duration-select/duration-select.component';
 import { Avatar } from '../../../../../../shared/components/avatar/models/avatar';
+import { ConvertUsersToAvatarsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 // TOOD: naming
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
@@ -70,7 +70,7 @@ export type TimeSlotCardControlStructure = {
     MatSelectModule,
     MatFormFieldModule,
     AvatarsDropdownComponent,
-    ConvertUsersToAvatarConfigsPipe,
+    ConvertUsersToAvatarsPipe,
     TranslateModule,
     AvatarMultipleSelectDropdown,
     DurationSelectComponent

@@ -15,9 +15,6 @@ import { AVATAR_SIZE } from '../../models/avatar-configuration';
 })
 export class AvatarComponent {
   @Input({ required: true }) avatar!: Avatar;
-  protected readonly AVATAR_SIZE = AVATAR_SIZE;
 
-  ngOnChanges() {
-    console.log(this.avatar);
-  }
+  protected readonly AVATAR_SIZE = AVATAR_SIZE;
 }

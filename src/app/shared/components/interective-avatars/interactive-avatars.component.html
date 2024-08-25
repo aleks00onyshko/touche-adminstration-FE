@@ -1,19 +1,19 @@
 <div class="interective-avatars" (click)="$event.stopPropagation()">
   <div class="avatars-list" [class.expanded]="showAllTeachers">
     <ng-container
-      *ngFor="let avatar of (teachers | convertUsersToAvatarConfigs).slice(0, showAllTeachers ? teachers.length : 2)">
+      *ngFor="let avatar of (teachers | convertUsersToAvatars).slice(0, showAllTeachers ? teachers.length : 2)">
       <app-avatar [avatar]="avatar"></app-avatar>
     </ng-container>
-<!--    TODO: convert to normal if-->
-    <div
-      *ngIf="teachers.length > 2 && !showAllTeachers"
-      class="more-avatars"
-      (click)="toggleShowAll($event, true)"
-    >
-      +{{ teachers.length - 2 }}
-    </div>
+
+    @if(teachers.length > 2 && !showAllTeachers) {
+      <div
+        class="more-avatars"
+        (click)="toggleShowAll($event)">
+        +{{ teachers.length - 2 }}
+      </div>
+    }
   </div>
   <div class="cancelButton">
-    <mat-icon *ngIf="showAllTeachers" (click)="toggleShowAll($event, false)">cancel</mat-icon>
+    <mat-icon *ngIf="showAllTeachers" (click)="toggleShowAll($event)">cancel</mat-icon>
   </div>
 </div>

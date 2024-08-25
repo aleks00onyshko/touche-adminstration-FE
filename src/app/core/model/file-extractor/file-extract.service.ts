@@ -11,8 +11,6 @@ export class ToucheFileExtractor implements FileExtractor {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public getFiles(single?: boolean, supportedFileTypes?: string[]): Observable<File[]> {
-    console.log('called?');
-
     return new Observable(subj => {
       const fileInputElement: HTMLInputElement = this.createFileInputElement();
 

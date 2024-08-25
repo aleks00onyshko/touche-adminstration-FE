@@ -2,10 +2,9 @@
   @if(currentUser$ | async; as user) {
     <app-avatar
       [matMenuTriggerFor]="menu"
-      [avatar]="avatarBuilder.createAvatar(user)"
-    ></app-avatar>
+      [avatar]="( $any([(currentUser$) | async]) | convertUsersToAvatars)[0]"
+  ></app-avatar>
   }
-
   <mat-menu #menu="matMenu">
     <div class="systembar-popup-container">
       <mat-form-field class="theme-select">

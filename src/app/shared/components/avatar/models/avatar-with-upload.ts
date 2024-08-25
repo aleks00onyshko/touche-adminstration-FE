@@ -1,7 +1,7 @@
 import { FileUpload } from '../../../../core/model/file-upload/file-upload.service';
 import { FileExtractor } from '../../../../core/model/file-extractor/file-extract.service';
 import { switchMap } from 'rxjs/operators';
-import { catchError, map, take, tap } from 'rxjs';
+import { map, take, tap } from 'rxjs';
 
 import { Avatar } from './avatar';
 import { AvatarConfiguration } from './avatar-configuration';
@@ -29,7 +29,6 @@ export abstract class AvatarWithFileUpload extends Avatar implements WithUpload 
           switchMap(files => {
             return this.fileUploadImplementation.uploadFileToStorage(files[0]).pipe(
               map(downloadUrl => {
-                console.log('performed');
                 return downloadUrl;
               })
             );

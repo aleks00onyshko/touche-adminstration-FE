@@ -1,4 +1,16 @@
 import { AVATAR_SIZE, AvatarConfiguration } from './avatar-configuration';
+import { Injectable } from '@angular/core';
+
+export abstract class AvatarConfigurationBuilderFactory {
+  abstract getBuilder(): AvatarConfigurationBuilder;
+}
+
+@Injectable()
+export class ToucheAvatarConfigurationBuilderFactory implements AvatarConfigurationBuilderFactory {
+  public getBuilder(): AvatarConfigurationBuilder {
+    return new ToucheAvatarConfigurationBuilder();
+  }
+}
 
 export abstract class AvatarConfigurationBuilder<T extends AvatarConfiguration = AvatarConfiguration> {
   public abstract config: T;
@@ -15,7 +27,11 @@ export abstract class AvatarConfigurationBuilder<T extends AvatarConfiguration =
 }
 
 export class ToucheAvatarConfigurationBuilder<T extends AvatarConfiguration> implements AvatarConfigurationBuilder<T> {
-  public config: T = this.createConfig();
+  public config: T;
+
+  constructor() {
+    this.config = this.createConfig();
+  }
 
   public withId(id: string): AvatarConfigurationBuilder<T> {
     this.config.id = id;
@@ -23,7 +39,6 @@ export class ToucheAvatarConfigurationBuilder<T extends AvatarConfiguration> imp
   }
 
   public withUsername(username: string): AvatarConfigurationBuilder<T> {
-    console.log('with username called?', username);
     this.config.username = username;
     return this;
   }

@@ -6,32 +6,24 @@ import {
   Input,
   OnInit,
   Output,
-  ViewEncapsulation,
-  forwardRef
+  ViewEncapsulation
 } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { DurationSelectComponent } from '../../../../../../../shared/components/duration-select/duration-select.component';
 import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 import { Avatar } from '../../../../../../../shared/components/avatar/models/avatar';
+import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 // TODO: naming here
 export interface FilterTimeSlotCardControlValue {
@@ -62,25 +54,15 @@ export type FilterTimeSlotCardControlStructure = {
     MatCheckboxModule,
     InteractiveAvatarsComponent,
     AvatarMultipleSelectDropdown,
-    ConvertUsersToAvatarConfigsPipe,
+    ConvertUsersToAvatarsPipe,
     DurationSelectComponent
   ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FilterTimeSlotsComponent), // tslint:disable-line
-      multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => FilterTimeSlotsComponent), // tslint:disable-line
-      multi: true
-    }
-  ],
+  providers: [],
   encapsulation: ViewEncapsulation.None
 })
 export class FilterTimeSlotsComponent extends ReactiveComponent implements OnInit {
   @Input({ required: true }) public teachers!: Teacher[];
+
   @Output() public filterChange = new EventEmitter<FilterTimeSlotCardControlValue>();
   @Output() public resetFilter = new EventEmitter<void>();
 

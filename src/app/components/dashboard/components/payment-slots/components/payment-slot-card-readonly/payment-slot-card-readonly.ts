@@ -4,20 +4,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
 
 @Component({
   selector: 'app-payment-slot-card-readonly',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    TranslateModule,
-    ConvertUsersToAvatarConfigsPipe
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, TranslateModule],
   templateUrl: './payment-slot-card-readonly.html',
   styleUrls: ['./payment-slot-card-readonly.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

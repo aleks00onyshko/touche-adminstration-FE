@@ -12,7 +12,7 @@
       (opened)="selectTeacher(teacher.id)">
       <mat-expansion-panel-header>
         <mat-panel-title class="teacher-setting_title" >
-          <app-avatar [avatar]="([teacher] | convertUsersToAvatarConfigs)[0]" class="teacher-setting_title_avatar"></app-avatar>
+          <app-avatar [avatar]="([teacher] | convertUsersToAvatars)[0]" class="teacher-setting_title_avatar"></app-avatar>
           <span class="teacher-setting_title_text">{{ teacher.displayName }}</span>
         </mat-panel-title>
       </mat-expansion-panel-header>

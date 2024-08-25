@@ -31,7 +31,6 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-picker.component';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { paymentSlotCardValidator } from './config/validators/payment-slot.validator';
 import {
@@ -62,7 +61,6 @@ export type PaymentSlotCardControlStructure = {
     TimePickerComponent,
     MatSelectModule,
     MatFormFieldModule,
-    ConvertUsersToAvatarConfigsPipe,
     TranslateModule
   ],
   templateUrl: './payment-slot-card.compomemt.html',

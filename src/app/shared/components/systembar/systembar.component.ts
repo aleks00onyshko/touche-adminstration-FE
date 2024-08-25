@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { AvatarBuilder } from '../avatar/models/avatar-builder';
 import { User } from '../../../core/model/entities/user';
 import { selectUser } from '../../../components/authentication/store/authentication.selectors';
+import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 @Component({
   selector: 'app-systembar',
@@ -34,12 +35,14 @@ import { selectUser } from '../../../components/authentication/store/authenticat
     MatButtonModule,
     TranslateModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    ConvertUsersToAvatarsPipe
   ],
   templateUrl: './systembar.component.html',
   styleUrls: ['./systembar.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: []
 })
 export class SystembarComponent {
   @Input() public theme: Theme | null = null;
@@ -55,9 +58,7 @@ export class SystembarComponent {
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService
-  ) {
-    console.log(avatarBuilder);
-  }
+  ) {}
   public changeLanguage(language: string): void {
     this.translateService.use(language);
     this.localStorageService.set('language', language);

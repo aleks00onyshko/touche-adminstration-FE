@@ -16,9 +16,8 @@ import {
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { ConvertUsersToAvatarConfigsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
-import { AvatarBuilder } from '../avatar/models/avatar-builder';
 import { Avatar } from '../avatar/models/avatar';
+import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 @Component({
   selector: 'app-interective-avatars',
@@ -28,7 +27,7 @@ import { Avatar } from '../avatar/models/avatar';
     AvatarComponent,
     MatSelectModule,
     ReactiveFormsModule,
-    ConvertUsersToAvatarConfigsPipe,
+    ConvertUsersToAvatarsPipe,
     MatIconModule
   ],
   templateUrl: './interactive-avatars.component.html',
@@ -44,8 +43,7 @@ import { Avatar } from '../avatar/models/avatar';
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => InteractiveAvatarsComponent), // tslint:disable-line
       multi: true
-    },
-    ConvertUsersToAvatarConfigsPipe // Додаємо тут
+    }
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -89,7 +87,7 @@ export class InteractiveAvatarsComponent extends ReactiveComponent implements On
     return a1?.configuration?.id === a2?.configuration?.id;
   }
 
-  public toggleShowAll(event: Event, showAll: boolean): void {
+  public toggleShowAll(event: Event): void {
     event.stopPropagation();
     this.showAllTeachers = !this.showAllTeachers;
   }
