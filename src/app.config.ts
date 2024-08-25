@@ -98,10 +98,6 @@ export const applicationConfig: ApplicationConfig = {
       useClass: ToucheFileUpload
     },
     {
-      provide: AvatarConfigurationBuilder,
-      useClass: ToucheAvatarConfigurationBuilder
-    },
-    {
       provide: AvatarConfigurationBuilderFactory,
       useClass: ToucheAvatarConfigurationBuilderFactory
     },
