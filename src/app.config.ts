@@ -25,9 +25,7 @@ import { catchError, of, take } from 'rxjs';
 import { FileExtractor, ToucheFileExtractor } from './app/core/model/file-extractor/file-extract.service';
 import { FileUpload, ToucheFileUpload } from './app/core/model/file-upload/file-upload.service';
 import {
-  AvatarConfigurationBuilder,
   AvatarConfigurationBuilderFactory,
-  ToucheAvatarConfigurationBuilder,
   ToucheAvatarConfigurationBuilderFactory
 } from './app/shared/components/avatar/models/avatar-configuration-builder';
 import { AvatarBuilder, ToucheAvatarBuilder } from './app/shared/components/avatar/models/avatar-builder';
