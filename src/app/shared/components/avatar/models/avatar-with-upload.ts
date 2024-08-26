@@ -1,7 +1,7 @@
 import { FileUpload } from '../../../../core/model/file-upload/file-upload.service';
 import { FileExtractor } from '../../../../core/model/file-extractor/file-extract.service';
 import { switchMap } from 'rxjs/operators';
-import { map, take, tap } from 'rxjs';
+import { firstValueFrom, map, take, tap } from 'rxjs';
 
 import { Avatar } from './avatar';
 import { AvatarConfiguration } from './avatar-configuration';
@@ -9,11 +9,11 @@ import { AvatarConfiguration } from './avatar-configuration';
 interface WithUpload {
   fileUploadImplementation: FileUpload;
   fileExtractorImplementation: FileExtractor;
-  uploadFn: () => void;
+  uploadFn: () => Promise<string>;
 }
 
 export abstract class AvatarWithFileUpload extends Avatar implements WithUpload {
-  public uploadFn: () => void;
+  public uploadFn: () => Promise<string>;
 
   protected constructor(
     config: AvatarConfiguration,
@@ -23,20 +23,20 @@ export abstract class AvatarWithFileUpload extends Avatar implements WithUpload 
     super(config);
 
     this.uploadFn = () =>
-      this.fileExtractorImplementation
-        .getFiles(true)
-        .pipe(
+      firstValueFrom(
+        this.fileExtractorImplementation.getFiles(true).pipe(
           switchMap(files => {
             return this.fileUploadImplementation.uploadFileToStorage(files[0]).pipe(
               map(downloadUrl => {
-                return downloadUrl;
+                // TODO: update corresponding User in firestore
+
+                return downloadUrl as string;
               })
             );
           }),
-          tap(url => (this.configuration.backgroundImageUrl = url)),
           take(1)
         )
-        .subscribe();
+      );
   }
 }
 

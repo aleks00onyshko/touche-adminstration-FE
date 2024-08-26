@@ -97,4 +97,8 @@ export class TeacherSettingsComponent extends ReactiveComponent implements OnIni
 
     this.cdr.detectChanges();
   }
+
+  protected updateTeacherWithNewImage(downloadImageUrl: string): void {
+    this.teacherUpdated.emit({ ...this.teacher, backgroundImageUrl: downloadImageUrl });
+  }
 }
