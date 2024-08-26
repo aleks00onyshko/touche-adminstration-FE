@@ -18,9 +18,9 @@ import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { debounceTime, takeUntil } from 'rxjs';
 import { SimpleChangesGeneric } from 'src/app/core/model/simple-changes-generic.model';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
-import { AvatarComponent } from '../../../../../shared/components/avatar/components/avatar/avatar.component';
 import { ConvertUsersToAvatarsPipe } from '../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { AVATAR_SIZE } from '../../../../../shared/components/avatar/models/avatar-configuration';
+import { UploadAvatarComponent } from '../../../../../shared/components/avatar/components/upload-avatar/upload-avatar.component';
 
 export type TeacherSettingsControlStructure = {
   description: FormControl<string | null>;
@@ -41,7 +41,7 @@ export type TeacherSettingsControlStructure = {
     ReactiveFormsModule,
     MatInputModule,
     ImageUploadComponent,
-    AvatarComponent,
+    UploadAvatarComponent,
     ConvertUsersToAvatarsPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
