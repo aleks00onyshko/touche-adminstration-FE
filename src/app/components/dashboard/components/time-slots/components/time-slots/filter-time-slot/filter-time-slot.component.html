@@ -1,15 +1,16 @@
 <button mat-icon-button [matMenuTriggerFor]="flterMenu"><mat-icon>filter_list</mat-icon></button>
+
 <mat-menu #flterMenu="matMenu">
   <ng-container [formGroup]="filterTimeSlotForm">
     <section class="example-section">
       <app-duration-select [formControl]="controls.duration"></app-duration-select>
 
       <app-avatar-multiple-select-dropdown
-        [formControl]="controls.teachers"
+        [formControl]="controls.avatars"
         [avatars]="teachers | convertUsersToAvatars"
-        [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
-      >
+        [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate">
       </app-avatar-multiple-select-dropdown>
+
       <div class="footer-example-section">
         <mat-checkbox [formControl]="controls.booked" class="example-margin">booked</mat-checkbox>
         <button mat-button (click)="reset()">Reset</button>

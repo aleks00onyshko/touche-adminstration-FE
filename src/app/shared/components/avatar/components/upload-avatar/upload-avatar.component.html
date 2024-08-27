@@ -1,5 +1,6 @@
 <div class="upload-avatar">
-  <app-avatar [avatar]="uploadAvatar"></app-avatar>
+
+    <app-avatar [avatar]="$any(avatar$ | async)"></app-avatar>
 
   <mat-icon class="upload-avatar_upload-icon" (click)="upload()">upload_file</mat-icon>
 </div>

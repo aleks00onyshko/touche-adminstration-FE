@@ -14,10 +14,9 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
-import { Theme } from 'src/styles/store/projectSettings.reducer';
-import { selectTheme } from 'src/styles/store/projectSettings.selectors';
+import { Language, Theme } from 'src/styles/store/projectSettings.reducer';
+import { selectLanguage, selectTheme } from 'src/styles/store/projectSettings.selectors';
 import { Observable } from 'rxjs';
-import { AvatarBuilder } from '../avatar/models/avatar-builder';
 import { User } from '../../../core/model/entities/user';
 import { selectUser } from '../../../components/authentication/store/authentication.selectors';
 import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
@@ -50,15 +49,16 @@ export class SystembarComponent {
 
   public Theme: typeof Theme = Theme;
   public theme$: Observable<Theme | null> = this.store.select(selectTheme);
+  public language$: Observable<Language | null> = this.store.select(selectLanguage);
   // TODO: fix
   public currentUser$: Observable<User> = this.store.select(selectUser) as any as Observable<User>;
 
   constructor(
-    protected avatarBuilder: AvatarBuilder,
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService
   ) {}
+
   public changeLanguage(language: string): void {
     this.translateService.use(language);
     this.localStorageService.set('language', language);

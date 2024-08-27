@@ -25,16 +25,15 @@ import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-m
 import { Avatar } from '../../../../../../../shared/components/avatar/models/avatar';
 import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
-// TODO: naming here
 export interface FilterTimeSlotCardControlValue {
   duration: number | null;
   booked: boolean | null;
-  teachers: Avatar[] | null;
+  avatars: Avatar[] | null;
 }
 export type FilterTimeSlotCardControlStructure = {
   booked: FormControl<boolean | null>;
   duration: FormControl<number | null>;
-  teachers: FormControl<Avatar[] | null>;
+  avatars: FormControl<Avatar[] | null>;
 };
 @Component({
   selector: 'app-filter-time-slot',
@@ -69,12 +68,12 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
   public readonly filterTimeSlotForm = new FormGroup<FilterTimeSlotCardControlStructure>({
     booked: new FormControl(null),
     duration: new FormControl(null),
-    teachers: new FormControl(null)
+    avatars: new FormControl(null)
   });
   public readonly controls: FilterTimeSlotCardControlStructure = {
     booked: this.filterTimeSlotForm.controls.booked,
     duration: this.filterTimeSlotForm.controls.duration,
-    teachers: this.filterTimeSlotForm.controls.teachers
+    avatars: this.filterTimeSlotForm.controls.avatars
   };
 
   constructor() {
@@ -86,8 +85,9 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
       const filter: FilterTimeSlotCardControlValue = {
         booked: value.booked ?? null,
         duration: value.duration ?? null,
-        teachers: value.teachers ?? null
+        avatars: value.avatars ?? null
       };
+
       this.filterChange.emit(filter);
     });
   }

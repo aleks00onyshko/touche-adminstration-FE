@@ -1,27 +1,35 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvatarWithFileUpload } from '../../models/avatar-with-upload';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { MatIconModule } from '@angular/material/icon';
-import { TeacherSettingsState } from '../../../../../components/dashboard/components/teacher-settings/store/teacher-settings.reducer';
-import { Store } from '@ngrx/store';
-import { TeacherSettingsAction } from '../../../../../components/dashboard/components/teacher-settings/store/teacher-settings.actions';
+import { BehaviorSubject } from 'rxjs';
+import { SimpleChangesGeneric } from '../../../../../core/model/simple-changes-generic.model';
 
 @Component({
   selector: 'app-upload-avatar',
   standalone: true,
   imports: [CommonModule, AvatarComponent, MatIconModule],
   templateUrl: './upload-avatar.component.html',
-  styleUrls: ['./upload-avatar.component.scss']
+  styleUrls: ['./upload-avatar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UploadAvatarComponent {
+export class UploadAvatarComponent implements OnChanges {
   @Input({ required: true }) public uploadAvatar!: AvatarWithFileUpload;
+
+  protected avatar$ = new BehaviorSubject<AvatarWithFileUpload>(this.uploadAvatar);
 
   @Output() public onUploadNewImage = new EventEmitter<string>();
 
-  constructor(private store: Store<TeacherSettingsState>) {}
+  public ngOnChanges({ uploadAvatar }: SimpleChangesGeneric<UploadAvatarComponent>): void {
+    this.avatar$.next(uploadAvatar.currentValue);
+  }
 
   protected async upload(): Promise<void> {
-    this.onUploadNewImage.emit(await this.uploadAvatar.uploadFn());
+    const downloadUrl = await this.avatar$.getValue().uploadFn();
+
+    // backgroundImageUrl is changed in avatar, just letting UI know, that it was updated
+    this.avatar$.next({ ...this.avatar$.getValue() });
+    this.onUploadNewImage.emit(downloadUrl);
   }
 }

@@ -14,7 +14,7 @@ import {
   where
 } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
-import { EMPTY, Observable, catchError, concatMap, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
+import { EMPTY, Observable, catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TimeSlotsState } from './time-slots.reducer';
 import { selectCurrentDateId, selectCurrentLocation, selectTeachers } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
@@ -32,7 +32,6 @@ import {
   EditTimeSlotDialogComponent,
   EditTimeSlotDialogResponse
 } from '../components/edit-time-slot-dialog/edit-time-slot-dialog.component';
-import { User } from 'src/app/core/model/entities/user';
 import { FilterTimeSlotCardControlValue } from 'src/app/components/dashboard/components/time-slots/components/time-slots/filter-time-slot/filter-time-slot.component';
 import { QueryFieldFilterConstraint } from '@firebase/firestore';
 
@@ -259,13 +258,12 @@ export class TimeSlotsEffects {
       constrainsts.push(where('duration', '==', filter.duration));
     }
 
-    if ((filter.teachers ?? []).length > 0) {
-      // TODO: naming
+    if ((filter.avatars ?? []).length > 0) {
       constrainsts.push(
         where(
           'teachersIds',
           'array-contains-any',
-          filter.teachers!.map(teacher => teacher.configuration.id)
+          filter.avatars!.map(avatar => avatar.configuration.id)
         )
       );
     }

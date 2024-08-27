@@ -4,7 +4,6 @@ import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { TimeSlotsActions } from './time-slots.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from 'src/app/core/model/entities/location';
-import { User } from 'src/app/core/model/entities/user';
 import { FilterTimeSlotCardControlValue } from '../components/time-slots/filter-time-slot/filter-time-slot.component';
 
 export interface TimeSlotsState {
