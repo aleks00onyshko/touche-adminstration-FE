@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app/components/app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import {
   AUTHENTICATION_FEATURE_NAME,
