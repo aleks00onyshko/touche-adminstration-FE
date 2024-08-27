@@ -1,9 +1,9 @@
 @use '@angular/material' as material;
 @use 'sass:map';
 
-$workshop-typography: material.define-typography-config(
+$workshop-typography: material.m2-define-typography-config(
   $font-family: "'Open Sans', sans-serif",
-  $headline-1: material.define-typography-level(95px, 95px, 300, $letter-spacing: -0.05em)
+  $headline-1: material.m2-define-typography-level(95px, 95px, 300, $letter-spacing: -0.05em)
 );
 
 @function apply-extra-colors($theme, $extra-color-scheme) {

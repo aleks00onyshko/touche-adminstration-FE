@@ -3,19 +3,19 @@
 @use 'sass:map';
 
 
-$workshop-primary: material.define-palette(material.$red-palette, 400, 400, 900);
+$workshop-primary: material.m2-define-palette(material.$m2-red-palette, 400, 400, 900);
 // !!!! change border-color in all components
-$workshop-accent: material.define-palette(material.$green-palette, A400, A200);
+$workshop-accent: material.m2-define-palette(material.$m2-green-palette, A400, A200);
 
 // Extra colors
-$workshop-success-for-dark: material.define-palette(material.$green-palette, 700, 500, 900);
-$workshop-info-for-dark: material.define-palette(material.$blue-palette, A400, A200, A700);
+$workshop-success-for-dark: material.m2-define-palette(material.$m2-green-palette, 700, 500, 900);
+$workshop-info-for-dark: material.m2-define-palette(material.$m2-blue-palette, A400, A200, A700);
 
 $workshop-extra-color-scheme: (
   success: $workshop-success-for-dark,
   info: $workshop-info-for-dark,
   background: (
-    background: map.get(material.$blue-gray-palette, 900)
+    background: map.get(material.$m2-blue-gray-palette, 900)
   )
 );
 
@@ -24,19 +24,19 @@ $workshop-extra-color-scheme: (
     .start-time {
       transform: scale(1.1);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      color: map.get(material.$grey-palette, 400);
+      color: map.get(material.$m2-grey-palette, 400);
       font-weight: bold;
     }
     .duration {
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      color: map.get(material.$grey-palette, 500);
+      color: map.get(material.$m2-grey-palette, 500);
       font-weight: bold;
       transform: scale(1.1);
     }
   }
 }
 
-$workshop-theme: material.define-dark-theme(
+$workshop-theme: material.m2-define-dark-theme(
   (
     color: (
       primary: $workshop-primary,
