@@ -1,5 +1,5 @@
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
+
 import { environment } from './environments/environment';
 import { Auth, getAuth, provideAuth, user } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -31,33 +31,31 @@ import {
 import { AvatarBuilder, ToucheAvatarBuilder } from './app/shared/components/avatar/models/avatar-builder';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 export const applicationConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(
-      provideFirebaseApp(() => initializeApp(environment.firebase)),
-      provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore()),
-      provideFunctions(() => getFunctions()),
-      provideStorage(() => getStorage()),
-      RouterModule.forRoot(appRoutes, { useHash: true }),
-      BrowserAnimationsModule,
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
-          deps: [HttpClient]
-        }
-      }),
-      HttpClientModule,
-      StoreModule.forRoot({
-        [AUTHENTICATION_FEATURE_NAME]: authenticationReducer,
-        [PROJECT_SETTINGS_FEATURE_NAME]: projectSettingsReducer
-      }),
-      EffectsModule.forRoot([AuthenticationEffects]),
-      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production, autoPause: true }),
-      MatSnackBarModule
-    ),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
+    provideStorage(() => getStorage()),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
+    BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+        deps: [HttpClient]
+      }
+    }),
+    StoreModule.forRoot({
+      [AUTHENTICATION_FEATURE_NAME]: authenticationReducer,
+      [PROJECT_SETTINGS_FEATURE_NAME]: projectSettingsReducer
+    }),
+    EffectsModule.forRoot([AuthenticationEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production, autoPause: true }),
+    MatSnackBarModule,
     {
       provide: APP_INITIALIZER,
       multi: true,

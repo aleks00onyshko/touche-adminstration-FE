@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { DateId } from 'src/app/core/model/entities/time-slot';
 
 export class DayLabel {
