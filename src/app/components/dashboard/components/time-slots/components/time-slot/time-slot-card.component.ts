@@ -27,7 +27,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-picker.component';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
@@ -62,7 +61,6 @@ export type TimeSlotCardControlStructure = {
     NgxMatTimepickerModule,
     MatInputModule,
     MatButtonModule,
-    NgxMatMomentModule,
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,

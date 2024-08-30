@@ -3,7 +3,7 @@
     <app-avatar
       [matMenuTriggerFor]="menu"
       [avatar]="( $any([(currentUser$) | async]) | convertUsersToAvatars)[0]"
-  ></app-avatar>
+    ></app-avatar>
   }
 
   <mat-menu #menu="matMenu" [hasBackdrop]="false">
