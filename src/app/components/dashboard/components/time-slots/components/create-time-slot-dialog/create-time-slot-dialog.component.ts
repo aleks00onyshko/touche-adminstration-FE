@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { TimeSlotCardControlValue, TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
-import * as moment from 'moment';
+import moment from 'moment';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';

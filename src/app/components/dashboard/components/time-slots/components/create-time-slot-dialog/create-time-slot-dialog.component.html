@@ -13,10 +13,8 @@
   <button
     mat-button
     [mat-dialog-close]="true"
-    cdkFocusInitial
     [disabled]="timeSlotControl.invalid"
-    (click)="saveTimeSlot($any(timeSlotControl.value))"
-  >
+    (click)="saveTimeSlot($any(timeSlotControl.value))">
     {{ 'COMMON.SAVE' | translate }}
   </button>
 </mat-dialog-actions>

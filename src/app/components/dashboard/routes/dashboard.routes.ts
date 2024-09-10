@@ -1,29 +1,27 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { TimeSlotsComponent } from '../components/time-slots/components/time-slots/time-slots.component';
-import { importProvidersFrom } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
+import { provideState } from '@ngrx/store';
 import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { TimeSlotsEffects } from '../components/time-slots/store/time-slots.effects';
+import { provideEffects } from '@ngrx/effects';
+
 import { PaymentSlotsComponent } from '../components/payment-slots/components/payment-slots/payment-slots.component';
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
-import { PaymentSlotsEffects } from '../components/payment-slots/store/payment-slots.effects';
 import { paymentSlotsResolver } from './resolvers/payment-slots.resolver';
 import { TeachersSettingsComponent } from '../components/teacher-settings/teachers-settings.component';
-import { TeacherSettingsEffects } from '../components/teacher-settings/store/teacher-settings.effects';
 import { teachersSettingsResolver } from './resolvers/teachers-settings.resolver';
 
+import * as timeSlotsEffects from '../components/time-slots/store/time-slots.effects';
+import * as teacherSettingsEffects from '../components/teacher-settings/store/teacher-settings.effects';
+import * as paymentSlotsEffects from '../components/payment-slots/store/payment-slots.effects';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
     path: '',
     component: DashboardComponent,
     providers: [
-      importProvidersFrom(
-        StoreModule.forFeature(DASHBOARD_FEATURE_KEY, dashboardReducers),
-        EffectsModule.forFeature([TimeSlotsEffects, PaymentSlotsEffects, TeacherSettingsEffects])
-      )
+      provideState(DASHBOARD_FEATURE_KEY, dashboardReducers),
+      provideEffects(timeSlotsEffects, teacherSettingsEffects, paymentSlotsEffects)
     ],
     children: [
       {

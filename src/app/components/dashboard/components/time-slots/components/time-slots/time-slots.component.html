@@ -21,8 +21,12 @@
         }
       </mat-select>
     </mat-form-field>
-    <app-filter-time-slot [teachers]="(teachers$ | async)!" (filterChange)="filterChange($event)"
-      (resetFilter)="resetFilter()"></app-filter-time-slot>
+
+    <app-filter-time-slot
+      [teachers]="(teachers$ | async)!"
+      (filterChange)="filterChange($event)"
+      (resetFilter)="resetFilter()">
+    </app-filter-time-slot>
   </div>
 
   <div class="time-slots_list" *ngIf="timeSlots$ | async as timeSlots">

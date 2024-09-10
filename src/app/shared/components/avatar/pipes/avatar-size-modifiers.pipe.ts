@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AVATAR_SIZE } from './avatar.config';
+import { AVATAR_SIZE } from '../models/avatar-configuration';
 
 @Pipe({
   name: 'avatarSizeModifiers',

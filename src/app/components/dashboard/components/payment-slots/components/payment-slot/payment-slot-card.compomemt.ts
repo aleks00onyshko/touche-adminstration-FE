@@ -26,12 +26,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-picker.component';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
-import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { paymentSlotCardValidator } from './config/validators/payment-slot.validator';
 import {
@@ -55,14 +53,12 @@ export type PaymentSlotCardControlStructure = {
     NgxMatTimepickerModule,
     MatInputModule,
     MatButtonModule,
-    NgxMatMomentModule,
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
     TimePickerComponent,
     MatSelectModule,
     MatFormFieldModule,
-    ConvertUsersToAvatarConfigsPipe,
     TranslateModule
   ],
   templateUrl: './payment-slot-card.compomemt.html',
@@ -83,7 +79,6 @@ export type PaymentSlotCardControlStructure = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentSlotCardComponent extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
-
   public readonly paymentSlotForm = new FormGroup<PaymentSlotCardControlStructure>(
     {
       numberOfClasses: new FormControl(null, [Validators.required]),

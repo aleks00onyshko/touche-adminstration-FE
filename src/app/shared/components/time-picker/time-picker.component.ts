@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, WritableSignal, forwardRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { ReactiveFormsModule, FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +15,6 @@ import { Concat } from 'src/app/core/utility/concat';
     NgxMatTimepickerModule,
     MatInputModule,
     MatButtonModule,
-    NgxMatMomentModule,
     MatCardModule,
     ReactiveFormsModule,
     FormsModule

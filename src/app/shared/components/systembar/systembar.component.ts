@@ -9,15 +9,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthenticationActions } from '../../../components/authentication/store/authentication.action';
-import { AvatarComponent } from '../avatar/avatar.component';
-import { AvatarBuilderService } from '../avatar/avatar-builder.service';
+import { AvatarComponent } from '../avatar/components/avatar/avatar.component';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AuthenticationState } from 'src/app/components/authentication/store/authentication.reducer';
-import { Theme } from 'src/styles/store/projectSettings.reducer';
-import { selectTheme } from 'src/styles/store/projectSettings.selectors';
+import { Language, Theme } from 'src/styles/store/projectSettings.reducer';
+import { selectLanguage, selectTheme } from 'src/styles/store/projectSettings.selectors';
 import { Observable } from 'rxjs';
+import { User } from '../../../core/model/entities/user';
+import { selectUser } from '../../../components/authentication/store/authentication.selectors';
+import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 @Component({
   selector: 'app-systembar',
@@ -32,12 +34,14 @@ import { Observable } from 'rxjs';
     MatButtonModule,
     TranslateModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    ConvertUsersToAvatarsPipe
   ],
   templateUrl: './systembar.component.html',
   styleUrls: ['./systembar.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: []
 })
 export class SystembarComponent {
   @Input() public theme: Theme | null = null;
@@ -45,9 +49,11 @@ export class SystembarComponent {
 
   public Theme: typeof Theme = Theme;
   public theme$: Observable<Theme | null> = this.store.select(selectTheme);
+  public language$: Observable<Language | null> = this.store.select(selectLanguage);
+  // TODO: fix
+  public currentUser$: Observable<User> = this.store.select(selectUser) as any as Observable<User>;
 
   constructor(
-    protected avatarBuilderService: AvatarBuilderService,
     protected translateService: TranslateService,
     protected store: Store<AuthenticationState>,
     protected localStorageService: LocalStorageService

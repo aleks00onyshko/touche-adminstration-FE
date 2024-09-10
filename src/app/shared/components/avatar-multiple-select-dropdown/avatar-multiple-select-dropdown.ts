@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarConfiguration } from '../avatar/avatar.config';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { AvatarComponent } from '../avatar/components/avatar/avatar.component';
 import { MatSelectModule } from '@angular/material/select';
 import {
   ControlValueAccessor,
@@ -15,6 +14,7 @@ import {
 } from '@angular/forms';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { filter, takeUntil } from 'rxjs';
+import { Avatar } from '../avatar/models/avatar';
 
 @Component({
   selector: 'app-avatar-multiple-select-dropdown',
@@ -38,22 +38,20 @@ import { filter, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class AvatarMultipleSelectDropdown extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
-  @Input({ required: true }) public avatarConfigurations!: AvatarConfiguration[];
+  @Input({ required: true }) public avatars!: Avatar[];
   @Input({ required: true }) public label!: string;
 
-  public control = new FormControl<AvatarConfiguration[] | null>(null, [Validators.required]);
+  public control = new FormControl<Avatar[] | null>(null, [Validators.required]);
   public onTouchFn!: () => void;
-  public onChangeFn!: (avatarConfigurations: AvatarConfiguration[]) => void;
+  public onChangeFn!: (avatars: Avatar[]) => void;
 
   public ngOnInit(): void {
-    this.control.valueChanges
-      .pipe(takeUntil(this.unsubscribe$), filter(Boolean))
-      .subscribe(avatarConfigs => {
-        this.onChangeFn(avatarConfigs)
-      });
+    this.control.valueChanges.pipe(takeUntil(this.unsubscribe$), filter(Boolean)).subscribe(avatars => {
+      this.onChangeFn(avatars);
+    });
   }
 
-  public registerOnChange(fn: (avatarConfiguration: AvatarConfiguration[]) => void): void {
+  public registerOnChange(fn: (avatar: Avatar[]) => void): void {
     this.onChangeFn = fn;
   }
 
@@ -61,15 +59,15 @@ export class AvatarMultipleSelectDropdown extends ReactiveComponent implements O
     this.onTouchFn = fn;
   }
 
-  public writeValue(avatarConfigurations: AvatarConfiguration[]): void {
-    this.control.setValue(avatarConfigurations, { emitEvent: false });
+  public writeValue(avatars: Avatar[]): void {
+    this.control.setValue(avatars, { emitEvent: false });
   }
 
   public validate(): ValidationErrors | null {
     return Validators.required(this.control);
   }
 
-  protected compareWith(a1: AvatarConfiguration, a2: AvatarConfiguration): boolean {
-    return a1?.id === a2?.id;
+  protected compareWith(a1: Avatar, a2: Avatar): boolean {
+    return a1?.configuration?.id === a2?.configuration?.id;
   }
 }

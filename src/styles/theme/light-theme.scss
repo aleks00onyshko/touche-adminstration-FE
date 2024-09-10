@@ -5,22 +5,22 @@
 
 
 
-$workshop-primary: material.define-palette(material.$cyan-palette, 500, 200, 700);
-$workshop-accent: material.define-palette(material.$pink-palette, A200, A100);
+$workshop-primary: material.m2-define-palette(material.$m2-cyan-palette, 500, 200, 700);
+$workshop-accent: material.m2-define-palette(material.$m2-pink-palette, A200, A100);
 
 // Extra colors
-$workshop-success-for-light: material.define-palette(material.$green-palette);
-$workshop-info-for-light: material.define-palette(material.$blue-palette);
+$workshop-success-for-light: material.m2-define-palette(material.$m2-green-palette);
+$workshop-info-for-light: material.m2-define-palette(material.$m2-blue-palette);
 
 $workshop-extra-color-scheme: (
   success: $workshop-success-for-light,
   info: $workshop-info-for-light,
   background: (
-    background: map.get(material.$blue-gray-palette, 100)
+    background: map.get(material.$m2-blue-gray-palette, 100)
   )
 );
 
-$workshop-theme: material.define-light-theme(
+$workshop-theme: material.m2-define-light-theme(
   (
     color: (
       primary: $workshop-primary,

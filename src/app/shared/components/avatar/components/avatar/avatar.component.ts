@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AvatarConfiguration } from './avatar.config';
-import { AvatarSizeModifiersPipe } from './avatar-size-modifiers.pipe';
+import { AvatarSizeModifiersPipe } from '../../pipes/avatar-size-modifiers.pipe';
 import { MatIconModule } from '@angular/material/icon';
-import { map } from 'rxjs';
+import { Avatar } from '../../models/avatar';
+import { AVATAR_SIZE } from '../../models/avatar-configuration';
 
 @Component({
   selector: 'app-avatar',
@@ -14,12 +14,7 @@ import { map } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent {
-  @Input() avatarConfiguration!: AvatarConfiguration;
+  @Input({ required: true }) avatar!: Avatar;
 
-  protected uploadClicked() {
-    this.avatarConfiguration
-      .fileExtractorImplementation!.getFiles()
-      .pipe(map(files => console.log(files)))
-      .subscribe();
-  }
+  protected readonly AVATAR_SIZE = AVATAR_SIZE;
 }

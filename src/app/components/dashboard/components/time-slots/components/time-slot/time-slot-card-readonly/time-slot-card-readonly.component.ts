@@ -5,12 +5,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
-import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
+import { AvatarComponent } from '../../../../../../../shared/components/avatar/components/avatar/avatar.component';
 import { User } from 'src/app/core/model/entities/user';
 
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
+import { AvatarBuilder } from '../../../../../../../shared/components/avatar/models/avatar-builder';
+import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 @Component({
   selector: 'app-time-slot-card-readonly',
@@ -25,10 +26,10 @@ import { InteractiveAvatarsComponent } from '../../../../../../../shared/compone
     MatIconModule,
     TranslateModule,
     AvatarComponent,
-    ConvertUsersToAvatarConfigsPipe,
-    InteractiveAvatarsComponent
+    InteractiveAvatarsComponent,
+    ConvertUsersToAvatarsPipe
   ],
-  providers: [ConvertUsersToAvatarConfigsPipe]
+  providers: []
 })
 export class TimeSlotCardReadonlyComponent {
   @Input({ required: true }) public timeSlot!: TimeSlot;
@@ -36,6 +37,8 @@ export class TimeSlotCardReadonlyComponent {
   @Input() public attendee?: User | undefined;
 
   @Output() public slotDeleted = new EventEmitter<string>();
+
+  constructor(protected avatarBuilder: AvatarBuilder) {}
 
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);

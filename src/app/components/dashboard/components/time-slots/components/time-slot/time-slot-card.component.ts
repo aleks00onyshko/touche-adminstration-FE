@@ -27,7 +27,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-picker.component';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
@@ -36,20 +35,21 @@ import { takeUntil } from 'rxjs';
 import { timeSlotCardValidator } from './config/validators/time-slot.validator';
 import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from './config/validation.errors';
 import { AvatarsDropdownComponent } from 'src/app/shared/components/avatars-dropddown/avatars-dropdown.component';
-import { AvatarConfiguration } from 'src/app/shared/components/avatar/avatar.config';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { ConvertUsersToAvatarConfigsPipe } from 'src/app/shared/components/avatar/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { AvatarMultipleSelectDropdown } from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 import { DurationSelectComponent } from '../../../../../../shared/components/duration-select/duration-select.component';
+import { Avatar } from '../../../../../../shared/components/avatar/models/avatar';
+import { ConvertUsersToAvatarsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
+// TOOD: naming
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
-  teachers: AvatarConfiguration[] | null;
+  teachers: Avatar[] | null;
 }
 export type TimeSlotCardControlStructure = {
   startTime: FormControl<[number, number] | null>;
   duration: FormControl<number | null>;
-  teachers: FormControl<AvatarConfiguration[] | null>;
+  teachers: FormControl<Avatar[] | null>;
 };
 @Component({
   selector: 'app-time-slot-card',
@@ -61,7 +61,6 @@ export type TimeSlotCardControlStructure = {
     NgxMatTimepickerModule,
     MatInputModule,
     MatButtonModule,
-    NgxMatMomentModule,
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
@@ -69,7 +68,7 @@ export type TimeSlotCardControlStructure = {
     MatSelectModule,
     MatFormFieldModule,
     AvatarsDropdownComponent,
-    ConvertUsersToAvatarConfigsPipe,
+    ConvertUsersToAvatarsPipe,
     TranslateModule,
     AvatarMultipleSelectDropdown,
     DurationSelectComponent
@@ -121,7 +120,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
       this.onChangeFn({
         startTime: value.startTime ?? [0, 0],
         duration: value.duration ?? 15,
-        teachers: value.teachers ?? [new AvatarConfiguration()]
+        teachers: value.teachers ?? []
       });
     });
   }

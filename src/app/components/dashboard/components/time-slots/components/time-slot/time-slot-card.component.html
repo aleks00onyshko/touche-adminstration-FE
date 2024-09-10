@@ -9,8 +9,8 @@
     <app-duration-select class="time-slot_controls_duration" [formControl]="controls.duration"></app-duration-select>
 
     <app-avatar-multiple-select-dropdown
-    class="time-slot_controls_teachers"
-      [avatarConfigurations]="teachers | convertUsersToAvatarConfigs"
+      class="time-slot_controls_teachers"
+      [avatars]="teachers | convertUsersToAvatars"
       [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
       [formControl]="controls.teachers"
     ></app-avatar-multiple-select-dropdown>

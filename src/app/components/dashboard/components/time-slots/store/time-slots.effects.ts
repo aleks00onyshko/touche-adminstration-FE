@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+// noinspection TypeScriptValidateTypes
+
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
@@ -14,8 +16,7 @@ import {
   where
 } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
-import { EMPTY, Observable, catchError, concatMap, from, map, of, switchMap, take, withLatestFrom } from 'rxjs';
-import { TimeSlotsState } from './time-slots.reducer';
+import { EMPTY, Observable, catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { selectCurrentDateId, selectCurrentLocation, selectTeachers } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -32,20 +33,19 @@ import {
   EditTimeSlotDialogComponent,
   EditTimeSlotDialogResponse
 } from '../components/edit-time-slot-dialog/edit-time-slot-dialog.component';
-import { User } from 'src/app/core/model/entities/user';
 import { FilterTimeSlotCardControlValue } from 'src/app/components/dashboard/components/time-slots/components/time-slots/filter-time-slot/filter-time-slot.component';
 import { QueryFieldFilterConstraint } from '@firebase/firestore';
+import { concatLatestFrom } from '@ngrx/operators';
 
-@Injectable()
-export class TimeSlotsEffects {
-  //!important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
-  public readonly getTimeSlots$ = createEffect(() =>
-    this.actions$.pipe(
+//!important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
+export const getTimeSlots$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.getTimeSlots),
-      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
       switchMap(([{ constraints }, currentDateId, currentLocation]) => {
         const timeSlotsCollectionReference: CollectionReference = collection(
-          this.firestore,
+          firestore,
           `dateIds/${currentDateId}/${currentLocation!.id}-slots`
         );
         const timeSlotsQuery: Query = !!constraints
@@ -53,77 +53,87 @@ export class TimeSlotsEffects {
           : timeSlotsCollectionReference;
 
         return (collectionData(timeSlotsQuery) as Observable<TimeSlot[]>).pipe(
-          map(timeSlots => {
-            return TimeSlotsActions.getTimeSlotsSuccess({ timeSlots });
-          }),
+          map(timeSlots => TimeSlotsActions.getTimeSlotsSuccess({ timeSlots })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTimeSlotsFailed({ error })))
         );
       })
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public readonly filterTimeSlots$ = createEffect(() =>
-    this.actions$.pipe(
+export const filterTimeSlots$ = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.filterTimeSlots),
-      map(({ filter }) =>
-        TimeSlotsActions.getTimeSlots({ constraints: this.generateQueryFieldFilterConstraints(filter) })
-      )
-    )
-  );
-  public readonly resetTimeSlotsFilter$ = createEffect(() =>
-    this.actions$.pipe(
+      map(({ filter }) => TimeSlotsActions.getTimeSlots({ constraints: generateQueryFieldFilterConstraints(filter) }))
+    ),
+  { functional: true }
+);
+export const resetTimeSlotsFilter$ = createEffect(
+  (actions$ = inject(Actions)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.resetFilter),
-      map(({ }) => TimeSlotsActions.getTimeSlots({}))
-    )
-  );
+      map(() => TimeSlotsActions.getTimeSlots({}))
+    ),
+  { functional: true }
+);
 
-  // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
-  public readonly getTeachers$ = createEffect(() =>
-    this.actions$.pipe(
+// !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
+export const getTeachers$ = createEffect(
+  (actions$ = inject(Actions), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.getTeachers),
       switchMap(() =>
-        (collectionData(collection(this.firestore, `teachers`)) as Observable<Teacher[]>).pipe(
+        (collectionData(collection(firestore, `teachers`)) as Observable<Teacher[]>).pipe(
           map(teachers => TimeSlotsActions.getTeachersSuccess({ teachers })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTeachersFailed({ error })))
         )
       )
-    )
-  );
+    ),
+  { functional: true }
+);
 
-
-  // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
-  public readonly getLocations$ = createEffect(() =>
-    this.actions$.pipe(
+// !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
+export const getLocations$ = createEffect(
+  (actions$ = inject(Actions), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.getLocations),
       switchMap(() =>
-        (collectionData(collection(this.firestore, `locations`)) as Observable<Location[]>).pipe(
+        (collectionData(collection(firestore, `locations`)) as Observable<Location[]>).pipe(
           map(locations => TimeSlotsActions.getLocationsSuccess({ locations })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getLocationsFailed({ error })))
         )
       )
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public readonly createTimeSlot$ = createEffect(() =>
-    this.actions$.pipe(
+export const createTimeSlot$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    store = inject(Store),
+    uuidGeneratorService = inject(UUIDGeneratorService),
+    firestore = inject(Firestore)
+  ) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.createTimeSlot),
-      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
       switchMap(([{ timeSlotCardControlValue }, currentDateId, currentLocation]) => {
-        const id = this.UUIDGeneratorService.generateId();
+        const id = uuidGeneratorService.generateId();
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           startTime: timeSlotCardControlValue.startTime,
           duration: timeSlotCardControlValue.duration,
           locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
           booked: false,
           attendeeId: ''
         };
 
         return from(
           setDoc(
-            doc(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`),
+            doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`),
             optimisticallyGeneratedTimeSlot
           )
         ).pipe(
@@ -132,13 +142,15 @@ export class TimeSlotsEffects {
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.createTimeSlotFailed({ error })))
         );
       })
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public readonly editTimeSlot$ = createEffect(() =>
-    this.actions$.pipe(
+export const editTimeSlot$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.editTimeSlot),
-      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
       switchMap(([{ initialTimeSlot, timeSlotCardControlValue }, currentDateId, currentLocation]) => {
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           startTime: timeSlotCardControlValue.startTime,
@@ -146,14 +158,14 @@ export class TimeSlotsEffects {
           locationId: currentLocation!.id,
           id: initialTimeSlot.id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.id),
+          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
           booked: initialTimeSlot.booked,
           attendeeId: initialTimeSlot.attendeeId
         };
 
         return from(
           setDoc(
-            doc(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${initialTimeSlot.id}`),
+            doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${initialTimeSlot.id}`),
             optimisticallyGeneratedTimeSlot
           )
         ).pipe(
@@ -162,113 +174,106 @@ export class TimeSlotsEffects {
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.editTimeSlotFailed({ error })))
         );
       })
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public readonly deleteTimeSlot$ = createEffect(() =>
-    this.actions$.pipe(
+export const deleteTimeSlot$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(TimeSlotsActions.deleteTimeSlot),
-      withLatestFrom(this.store.select(selectCurrentDateId), this.store.select(selectCurrentLocation)),
+      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
       switchMap(([{ id }, currentDateId, currentLocation]) =>
-        from(deleteDoc(doc(this.firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`))).pipe(
+        from(deleteDoc(doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`))).pipe(
           map(() => TimeSlotsActions.deleteTimeSlotSuccess({ id })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.deleteTimeSlotFailded({ error })))
         )
       )
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public openCreateTimeSlotDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(TimeSlotsActions.openCreateTimeSlotDialog),
-        withLatestFrom(this.store.select(selectTeachers)),
-        switchMap(([_, teachers]) => {
-          const dialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse> = this.dialog.open(
-            CreateTimeSlotDialogComponent,
-            { data: { teachers }, width: '100% - 4rem' }
-          );
+export const openCreateTimeSlotDialog$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
+    actions$.pipe(
+      ofType(TimeSlotsActions.openCreateTimeSlotDialog),
+      withLatestFrom(store.select(selectTeachers)),
+      switchMap(([_, teachers]) => {
+        const dialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse> = dialog.open(
+          CreateTimeSlotDialogComponent,
+          { data: { teachers }, width: '100% - 4rem' }
+        );
 
-          return dialogRef.afterClosed().pipe(
-            map(result => {
-              if (result) {
-                this.store.dispatch(
-                  TimeSlotsActions.createTimeSlot({ timeSlotCardControlValue: result.timeSlotCardControlValue })
-                );
-              }
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+        return dialogRef.afterClosed().pipe(
+          map(result => {
+            if (result) {
+              store.dispatch(
+                TimeSlotsActions.createTimeSlot({ timeSlotCardControlValue: result.timeSlotCardControlValue })
+              );
+            }
+          })
+        );
+      })
+    ),
+  { functional: true, dispatch: false }
+);
 
-  public openEditTimeSlotDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(TimeSlotsActions.openEditTimeSlotDialog),
-        withLatestFrom(this.store.select(selectTeachers)),
-        switchMap(([{ timeSlot }, teachers]) => {
-          const dialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse> = this.dialog.open(
-            EditTimeSlotDialogComponent,
-            { data: { timeSlot, teachers }, width: '100% - 4rem' }
-          );
+export const openEditTimeSlotDialog$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
+    actions$.pipe(
+      ofType(TimeSlotsActions.openEditTimeSlotDialog),
+      concatLatestFrom(() => store.select(selectTeachers)),
+      switchMap(([{ timeSlot }, teachers]) => {
+        const dialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse> = dialog.open(
+          EditTimeSlotDialogComponent,
+          { data: { timeSlot, teachers }, width: '100% - 4rem' }
+        );
 
-          return dialogRef.afterClosed().pipe(
-            map(result => {
-              if (result) {
-                this.store.dispatch(
-                  TimeSlotsActions.editTimeSlot({
-                    initialTimeSlot: result.initialTimeSlot,
-                    timeSlotCardControlValue: result.timeSlotCardControlValue
-                  })
-                );
-              }
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+        return dialogRef.afterClosed().pipe(
+          map(result => {
+            if (result) {
+              store.dispatch(
+                TimeSlotsActions.editTimeSlot({
+                  initialTimeSlot: result.initialTimeSlot,
+                  timeSlotCardControlValue: result.timeSlotCardControlValue
+                })
+              );
+            }
+          })
+        );
+      })
+    ),
+  { functional: true, dispatch: false }
+);
 
-  public setCurrentLocation$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(TimeSlotsActions.setCurrentLocation),
-        map(({ location }) => this.localstorageService.set('location', JSON.stringify(location)))
-      ),
-    { dispatch: false }
-  );
+export const setCurrentLocation$ = createEffect(
+  (actions$ = inject(Actions), localstorageService = inject(LocalStorageService)) =>
+    actions$.pipe(
+      ofType(TimeSlotsActions.setCurrentLocation),
+      map(({ location }) => localstorageService.set('location', JSON.stringify(location)))
+    ),
+  { dispatch: false, functional: true }
+);
 
-  constructor(
-    private actions$: Actions,
-    private store: Store<TimeSlotsState>,
-    private UUIDGeneratorService: UUIDGeneratorService,
-    private dialog: MatDialog,
-    private firestore: Firestore,
-    private localstorageService: LocalStorageService
-  ) { }
+function generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlValue): QueryFieldFilterConstraint[] {
+  const constrainsts: QueryFieldFilterConstraint[] = [];
 
-  private generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlValue): QueryFieldFilterConstraint[] {
-    const constrainsts: QueryFieldFilterConstraint[] = [];
-
-    if (filter.booked !== null) {
-      constrainsts.push(where('booked', '==', filter.booked));
-    }
-
-    if (filter.duration !== null) {
-      constrainsts.push(where('duration', '==', filter.duration));
-    }
-
-    if ((filter.teachers ?? []).length > 0) {
-      constrainsts.push(
-        where(
-          'teachersIds',
-          'array-contains-any',
-          filter.teachers!.map(teacher => teacher.id)
-        )
-      );
-    }
-    return constrainsts;
+  if (filter.booked !== null) {
+    constrainsts.push(where('booked', '==', filter.booked));
   }
+
+  if (filter.duration !== null) {
+    constrainsts.push(where('duration', '==', filter.duration));
+  }
+
+  if ((filter.avatars ?? []).length > 0) {
+    constrainsts.push(
+      where(
+        'teachersIds',
+        'array-contains-any',
+        filter.avatars!.map(avatar => avatar.configuration.id)
+      )
+    );
+  }
+  return constrainsts;
 }

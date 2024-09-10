@@ -19,8 +19,8 @@ export interface ProjectSettingsState {
   language: Language | null;
 }
 export const initialState: ProjectSettingsState = {
-  theme: localStorage.getItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-theme`) as Theme,
-  language: localStorage.getItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-language`) as Language
+  theme: (localStorage.getItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-theme`) ?? Theme.DARK_THEME) as Theme,
+  language: (localStorage.getItem(`${LocalStorageService.TOUCHE_LOCALSTORAGE_KEY}-language`) ?? Language.UK) as Language
 };
 
 export const reducer = createReducer(

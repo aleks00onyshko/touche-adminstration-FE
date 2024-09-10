@@ -10,8 +10,8 @@ import { TeacherSettingsComponent } from './teacher-settings/teacher-settings.co
 import { MatIconModule } from '@angular/material/icon';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TeacherSettingsAction } from './store/teacher-settings.actions';
-import { AvatarComponent } from '../../../../shared/components/avatar/avatar.component';
-import { ConvertUsersToAvatarConfigsPipe } from '../../../../shared/components/avatar/convert-users-to-avatar-configs.pipe';
+import { AvatarComponent } from '../../../../shared/components/avatar/components/avatar/avatar.component';
+import { ConvertUsersToAvatarsPipe } from '../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TeacherSettingsComponent,
     MatIconModule,
     AvatarComponent,
-    ConvertUsersToAvatarConfigsPipe
+    ConvertUsersToAvatarsPipe
   ]
 })
 export class TeachersSettingsComponent {

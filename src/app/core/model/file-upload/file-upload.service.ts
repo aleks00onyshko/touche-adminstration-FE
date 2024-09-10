@@ -4,16 +4,16 @@ import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { uploadBytesResumable } from '@firebase/storage';
 
 export abstract class FileUpload {
-  public abstract uploadFileToStorage(file: File, shopId: string): Observable<string | null>;
+  public abstract uploadFileToStorage(file: File): Observable<string | null>;
 }
 
 @Injectable()
 export class ToucheFileUpload implements FileUpload {
   constructor(private storage: Storage) {}
 
-  public uploadFileToStorage(file: File, shopId: string): Observable<string | null> {
+  public uploadFileToStorage(file: File): Observable<string | null> {
     return new Observable(subj => {
-      const storageRef = ref(this.storage, `${shopId}/${file.name}`);
+      const storageRef = ref(this.storage, `${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on('state_changed', {

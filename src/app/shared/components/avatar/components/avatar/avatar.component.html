@@ -1,0 +1,11 @@
+<div class="touche-avatar touche-avatar--size-{{ avatar.configuration.size }}">
+  @if(!!avatar.configuration.backgroundImageUrl) {
+    <span class="touche-avatar_image touche-avatar_image"
+      [style.background-image]="'url(' + avatar.configuration.backgroundImageUrl + ')'">
+    </span>
+  } @else {
+    <span class="touche-avatar_placeholder touche-avatar_placeholder--{{ avatar.configuration.size | avatarSizeModifiers }}">
+      {{  avatar.configuration.placeholder }}
+    </span>
+  }
+</div>

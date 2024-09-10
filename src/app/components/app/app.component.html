@@ -1,6 +1,8 @@
 <div class="main-container">
-  <app-systembar [theme]="theme$ | async" (themeChange)="changeTheme($event)"
-    *ngIf="isAuthenticated$ | async"></app-systembar>
+  @if(isAuthenticated$ | async) {
+    <app-systembar [theme]="theme$ | async" (themeChange)="changeTheme($event)"></app-systembar>
+  }
+
   <div class="content">
     <router-outlet></router-outlet>
   </div>

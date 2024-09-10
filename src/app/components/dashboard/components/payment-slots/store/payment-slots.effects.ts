@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { PaymentSlotAction } from './payment-slots.actions';
 import { Firestore, collection, collectionData, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
 import { EMPTY, Observable, catchError, from, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { UUIDGeneratorService } from '../../../../../core/services/id-generator.service';
-import { PaymentSlotsState } from './payment-slots.reducer';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
@@ -18,126 +17,127 @@ import {
   EditPaymentSlotDialogResponse
 } from '../components/edit-payment-slot-dialog/edit-payment-slot-dialog';
 
-@Injectable()
-export class PaymentSlotsEffects {
-  public readonly getPaymentSlots$ = createEffect(() =>
-    this.actions$.pipe(
+export const getPaymentSlots$ = createEffect(
+  (actions$ = inject(Actions), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(PaymentSlotAction.getPaymentSlots),
       switchMap(() =>
-        (collectionData(collection(this.firestore, `payment-slots`)) as Observable<PaymentSlot[]>).pipe(
+        (collectionData(collection(firestore, `payment-slots`)) as Observable<PaymentSlot[]>).pipe(
           map(paymentSlots => PaymentSlotAction.getPaymentSlotsSuccess({ paymentSlots })),
           catchError((error: HttpErrorResponse) => of(PaymentSlotAction.getPaymentSlotsFailed({ error })))
         )
       )
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public readonly createPaymentSlot$ = createEffect(() =>
-    this.actions$.pipe(
+export const createPaymentSlot$ = createEffect(
+  (actions$ = inject(Actions), uuidGeneratorService = inject(UUIDGeneratorService), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(PaymentSlotAction.createPaymentSlot),
       switchMap(({ paymentSlotCardControlValue }) => {
-        const id = this.UUIDGeneratorService.generateId();
+        const id = uuidGeneratorService.generateId();
         const optimisticallyGeneratedPaymentSlot: PaymentSlot = {
           numberOfClasses: paymentSlotCardControlValue.numberOfClasses,
           price: paymentSlotCardControlValue.price,
-          id: id,
-
+          id: id
         };
 
-        return from(setDoc(doc(this.firestore, `payment-slots/${id}`), optimisticallyGeneratedPaymentSlot)).pipe(
+        return from(setDoc(doc(firestore, `payment-slots/${id}`), optimisticallyGeneratedPaymentSlot)).pipe(
           //! we are listening to firestore changes anyway, so no need to insert created slot into state
           switchMap(() => EMPTY),
           catchError((error: HttpErrorResponse) => of(PaymentSlotAction.createPaymentSlotFailed({ error })))
         );
       })
-    )
-  );
-  public readonly deletePaymentSlot$ = createEffect(() =>
-    this.actions$.pipe(
+    ),
+  { functional: true }
+);
+
+export const deletePaymentSlot$ = createEffect(
+  (actions$ = inject(Actions), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(PaymentSlotAction.deletePaymentSlot),
       switchMap(({ id }) =>
-        from(deleteDoc(doc(this.firestore, `payment-slots/${id}`))).pipe(
+        from(deleteDoc(doc(firestore, `payment-slots/${id}`))).pipe(
           map(() => PaymentSlotAction.deletePaymentSlotSuccess({ id })),
           catchError((error: HttpErrorResponse) => of(PaymentSlotAction.deletePaymentSlotFailded({ error })))
         )
       )
-    )
-  );
+    ),
+  { functional: true }
+);
 
-  public openCreatePaymentSlotDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(PaymentSlotAction.openCreatePaymentSlotDialog),
-        switchMap(() => {
-          const dialogRef: MatDialogRef<CreatePaymentSlotDialogComponent, CreatePaymentSlotDialogResponse> =
-            this.dialog.open(CreatePaymentSlotDialogComponent);
+export const openCreatePaymentSlotDialog$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
+    actions$.pipe(
+      ofType(PaymentSlotAction.openCreatePaymentSlotDialog),
+      switchMap(() => {
+        const dialogRef: MatDialogRef<CreatePaymentSlotDialogComponent, CreatePaymentSlotDialogResponse> = dialog.open(
+          CreatePaymentSlotDialogComponent
+        );
 
-          return dialogRef.afterClosed().pipe(
-            map(result => {
-              if (result) {
-                this.store.dispatch(
-                  PaymentSlotAction.createPaymentSlot({
-                    paymentSlotCardControlValue: result.paymentSlotCardControlValue
-                  })
-                );
-              }
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
-  public readonly editPaymentSlot$ = createEffect(() =>
-    this.actions$.pipe(
+        return dialogRef.afterClosed().pipe(
+          map(result => {
+            if (result) {
+              store.dispatch(
+                PaymentSlotAction.createPaymentSlot({
+                  paymentSlotCardControlValue: result.paymentSlotCardControlValue
+                })
+              );
+            }
+          })
+        );
+      })
+    ),
+  { dispatch: false, functional: true }
+);
+
+export const editPaymentSlot$ = createEffect(
+  (actions$ = inject(Actions), firestore = inject(Firestore)) =>
+    actions$.pipe(
       ofType(PaymentSlotAction.editPaymentSlot),
       switchMap(({ initialPaymentSlot, paymentSlotCardControlValue }) => {
         const optimisticallyGeneratedPaymentSlot: PaymentSlot = {
           numberOfClasses: paymentSlotCardControlValue.numberOfClasses,
           price: paymentSlotCardControlValue.price,
-          id: initialPaymentSlot.id,
-   
+          id: initialPaymentSlot.id
         };
 
         return from(
-          setDoc(doc(this.firestore, `payment-slots/${initialPaymentSlot.id}`), optimisticallyGeneratedPaymentSlot)
+          setDoc(doc(firestore, `payment-slots/${initialPaymentSlot.id}`), optimisticallyGeneratedPaymentSlot)
         ).pipe(
           //! we are listening to firestore changes anyway, so no need to insert created slot into state
           switchMap(() => EMPTY),
           catchError((error: HttpErrorResponse) => of(PaymentSlotAction.editPaymentSlotFailed({ error })))
         );
       })
-    )
-  );
-  public openEditPaymentSlotDialog$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(PaymentSlotAction.openEditPaymentSlotDialog),
-        switchMap(({ paymentSlot }) => {
-          const dialogRef: MatDialogRef<EditPaymentSlotDialogComponent, EditPaymentSlotDialogResponse> =
-            this.dialog.open(EditPaymentSlotDialogComponent, { data: { paymentSlot } });
+    ),
+  { functional: true }
+);
 
-          return dialogRef.afterClosed().pipe(
-            map(result => {
-              if (result) {
-                this.store.dispatch(
-                  PaymentSlotAction.editPaymentSlot({
-                    initialPaymentSlot: result.initialPaymentSlot,
-                    paymentSlotCardControlValue: result.paymentSlotCardControlValue
-                  })
-                );
-              }
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+export const openEditPaymentSlotDialog$ = createEffect(
+  (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore), dialog = inject(MatDialog)) =>
+    actions$.pipe(
+      ofType(PaymentSlotAction.openEditPaymentSlotDialog),
+      switchMap(({ paymentSlot }) => {
+        const dialogRef: MatDialogRef<EditPaymentSlotDialogComponent, EditPaymentSlotDialogResponse> = dialog.open(
+          EditPaymentSlotDialogComponent,
+          { data: { paymentSlot } }
+        );
 
-  constructor(
-    private actions$: Actions,
-    private store: Store<PaymentSlotsState>,
-    private firestore: Firestore,
-    private dialog: MatDialog,
-    private UUIDGeneratorService: UUIDGeneratorService
-  ) {}
-}
+        return dialogRef.afterClosed().pipe(
+          map(result => {
+            if (result) {
+              store.dispatch(
+                PaymentSlotAction.editPaymentSlot({
+                  initialPaymentSlot: result.initialPaymentSlot,
+                  paymentSlotCardControlValue: result.paymentSlotCardControlValue
+                })
+              );
+            }
+          })
+        );
+      })
+    ),
+  { dispatch: false, functional: true }
+);

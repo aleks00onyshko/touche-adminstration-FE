@@ -1,6 +1,9 @@
 <form [formGroup]="teacherSettingsForm" class="teacher-settings_form">
   <div class="teacher-settings_form_avatar">
-    <app-avatar [avatarConfiguration]="([teacher] | convertUsersToAvatarConfigs:avatarSize.xxxl:true)[0]"></app-avatar>
+    <app-upload-avatar
+      [uploadAvatar]="$any(([teacher] | convertUsersToAvatars:{ size: avatarSize.xxl }:true)[0])"
+      (onUploadNewImage)="updateTeacherWithNewImage($event)">
+    </app-upload-avatar>
   </div>
 
   <div class="teacher-settings_form_info">

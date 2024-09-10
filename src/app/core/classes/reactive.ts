@@ -7,5 +7,6 @@ export abstract class ReactiveComponent implements OnDestroy {
 
   public ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

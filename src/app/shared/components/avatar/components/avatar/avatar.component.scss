@@ -29,20 +29,6 @@
     }
   }
 
-  &_upload-icon {
-    --upload-icon-width: 1rem;
-    --upload-icon-height: 1rem;
-    --upload-icon-font-size: 1rem;
-
-    font-size:var(--upload-icon-font-size);
-    width: var(--upload-icon-width);
-    height: var(--upload-icon-height);
-
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-
   &_placeholder {
     font-weight: 800;
     text-overflow: ellipsis;

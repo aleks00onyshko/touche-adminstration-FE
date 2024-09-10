@@ -7,12 +7,12 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { TranslateModule } from '@ngx-translate/core';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
-import { AvatarBuilderService } from 'src/app/shared/components/avatar/avatar-builder.service';
 import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { Store } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation.errors';
+import { AvatarBuilder } from '../../../../../../shared/components/avatar/models/avatar-builder';
 
 @Component({
   selector: 'app-edit-time-slot-dialog',
@@ -39,7 +39,7 @@ export class EditTimeSlotDialogComponent {
 
   constructor(
     private store: Store<TimeSlotsState>,
-    private avatarBuilderService: AvatarBuilderService,
+    private avatarBuilder: AvatarBuilder,
     private readonly matDialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse>,
     @Inject(MAT_DIALOG_DATA) public dialogData: EditTimeSlotDialogData
   ) {}
@@ -53,7 +53,7 @@ export class EditTimeSlotDialogComponent {
     const duration = dialogData.timeSlot.duration;
     const teachersAvatarConfigs = dialogData.teachers
       .filter(teacher => dialogData.timeSlot.teachersIds.includes(teacher.id))
-      .map(teacher => this.avatarBuilderService.createAvatarConfigurationForUser(teacher));
+      .map(teacher => this.avatarBuilder.createAvatar(teacher));
 
     return { startTime, duration, teachers: teachersAvatarConfigs };
   }
