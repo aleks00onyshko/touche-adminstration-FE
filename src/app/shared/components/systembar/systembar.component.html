@@ -6,12 +6,11 @@
     ></app-avatar>
   }
 
-  <mat-menu #menu="matMenu">
-    <div class="systembar-popup-container">
+  <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+    <div (click)="$event.stopPropagation()" class="systembar-popup-container">
       <mat-form-field class="theme-select">
         <mat-label>Choose a theme</mat-label>
         <mat-select [value]="theme$ | async" (selectionChange)="changeTheme($event)">
-          <!-- TODO: translations -->
           <mat-option value="{{ Theme.DARK_THEME }}">{{ "SYSTEMBAR.THEME.DARK" | translate}}</mat-option>
           <mat-option value="{{ Theme.LIGHT_THEME }}">{{ "SYSTEMBAR.THEME.LIGHT" | translate}}</mat-option>
         </mat-select>
