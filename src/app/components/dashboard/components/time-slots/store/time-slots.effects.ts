@@ -1,5 +1,3 @@
-// noinspection TypeScriptValidateTypes
-
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -69,6 +67,7 @@ export const filterTimeSlots$ = createEffect(
     ),
   { functional: true }
 );
+
 export const resetTimeSlotsFilter$ = createEffect(
   (actions$ = inject(Actions)) =>
     actions$.pipe(

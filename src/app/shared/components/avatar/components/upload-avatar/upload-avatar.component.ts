@@ -17,9 +17,9 @@ import { SimpleChangesGeneric } from '../../../../../core/model/simple-changes-g
 export class UploadAvatarComponent implements OnChanges {
   @Input({ required: true }) public uploadAvatar!: AvatarWithFileUpload;
 
-  protected avatar$ = new BehaviorSubject<AvatarWithFileUpload>(this.uploadAvatar);
-
   @Output() public onUploadNewImage = new EventEmitter<string>();
+
+  protected avatar$ = new BehaviorSubject<AvatarWithFileUpload>(this.uploadAvatar);
 
   public ngOnChanges({ uploadAvatar }: SimpleChangesGeneric<UploadAvatarComponent>): void {
     this.avatar$.next(uploadAvatar.currentValue);

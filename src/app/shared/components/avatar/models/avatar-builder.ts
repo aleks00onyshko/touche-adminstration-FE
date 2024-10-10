@@ -22,7 +22,7 @@ export class ToucheAvatarBuilder extends AvatarBuilder {
     super();
   }
 
-  public createAvatar(user: User, params: Partial<AvatarConfiguration>): Avatar {
+  public createAvatar(user: User, params?: Partial<AvatarConfiguration>): Avatar {
     return new ToucheAvatar(this.getDefaultAvatarConfiguration(user, params));
   }
 
