@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "bot-administration-FE",
-    "public": "dist/bot-administration-fe/index.html",
+    "public": "dist/bot-administration-fe/browser",
     "ignore": [
       "**/.*"
     ],
