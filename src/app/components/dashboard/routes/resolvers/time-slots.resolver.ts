@@ -1,14 +1,14 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
+import { ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, filter, map, take, tap, EMPTY } from 'rxjs';
+import { Observable, combineLatest, filter, map, take } from 'rxjs';
 import { TimeSlotsState } from '../../components/time-slots/store/time-slots.reducer';
 import { TimeSlotsActions } from '../../components/time-slots/store/time-slots.actions';
 import { selectLocations, selectTeachers } from '../../components/time-slots/store/time-slots.selectors';
 import { Location } from 'src/app/core/model/entities/location';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
-export const timeSlotsResolver: ResolveFn<Observable<void>> = () => {
+export const timeSlotsResolver: ResolveFn<Observable<boolean>> = () => {
   const store = inject(Store<TimeSlotsState>);
   const localstorageService = inject(LocalStorageService);
 
@@ -25,7 +25,7 @@ export const timeSlotsResolver: ResolveFn<Observable<void>> = () => {
         TimeSlotsActions.setCurrentLocation({ location: locationsHaveStoredLocation ? storedLocation : locations![0] })
       );
 
-      return EMPTY;
+      return true;
     }),
     take(1)
   );
