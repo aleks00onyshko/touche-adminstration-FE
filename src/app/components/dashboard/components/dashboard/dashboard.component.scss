@@ -14,6 +14,10 @@
     width: 100%;
     position: relative;
 
+    .mat-drawer-content{
+      position: initial;
+    }
+
     .mat-drawer {
       display: flex;
       width: 20%;
