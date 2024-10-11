@@ -3,7 +3,6 @@ import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angula
 import { environment } from './environments/environment';
 import { Auth, getAuth, provideAuth, user } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/components/app/app.routes';
@@ -20,7 +19,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { LocalStorageService } from './app/core/services/local-storage.service';
-import { catchError, of, take, tap } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 import { FileExtractor, ToucheFileExtractor } from './app/core/model/file-extractor/file-extract.service';
 import { FileUpload, ToucheFileUpload } from './app/core/model/file-upload/file-upload.service';
 import {
@@ -38,7 +37,6 @@ export const applicationConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
     provideHttpClient(),
     importProvidersFrom(
