@@ -1,14 +1,10 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from '../components/dashboard/dashboard.component';
-import { TimeSlotsComponent } from '../components/time-slots/components/time-slots/time-slots.component';
 import { provideState } from '@ngrx/store';
 import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.reducer';
 import { provideEffects } from '@ngrx/effects';
 
-import { PaymentSlotsComponent } from '../components/payment-slots/components/payment-slots/payment-slots.component';
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
 import { paymentSlotsResolver } from './resolvers/payment-slots.resolver';
-import { TeachersSettingsComponent } from '../components/teacher-settings/teachers-settings.component';
 import { teachersSettingsResolver } from './resolvers/teachers-settings.resolver';
 
 import * as timeSlotsEffects from '../components/time-slots/store/time-slots.effects';
@@ -18,7 +14,7 @@ import * as paymentSlotsEffects from '../components/payment-slots/store/payment-
 export const DASHBOARD_ROUTES: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    loadComponent: () => import('./../components/dashboard/dashboard.component').then(m => m.DashboardComponent),
     providers: [
       provideState(DASHBOARD_FEATURE_KEY, dashboardReducers),
       provideEffects(timeSlotsEffects, teacherSettingsEffects, paymentSlotsEffects)
@@ -30,17 +26,26 @@ export const DASHBOARD_ROUTES: Routes = [
         redirectTo: 'time-slots'
       },
       {
-        component: PaymentSlotsComponent,
+        loadComponent: () =>
+          import('./../components/payment-slots/components/payment-slots/payment-slots.component').then(
+            m => m.PaymentSlotsComponent
+          ),
         path: 'payment-slots',
         resolve: [paymentSlotsResolver]
       },
       {
-        component: TimeSlotsComponent,
+        loadComponent: () =>
+          import('./../components/time-slots/components/time-slots/time-slots.component').then(
+            m => m.TimeSlotsComponent
+          ),
         path: 'time-slots',
         resolve: [timeSlotsResolver]
       },
       {
-        component: TeachersSettingsComponent,
+        loadComponent: () =>
+          import('./../components/teacher-settings/teacher-settings/teacher-settings.component').then(
+            m => m.TeacherSettingsComponent
+          ),
         path: 'teachers-settings',
         resolve: [teachersSettingsResolver]
       }

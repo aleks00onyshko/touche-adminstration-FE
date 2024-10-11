@@ -8,36 +8,18 @@
   box-sizing: border-box;
   width: 100%;
 
-  .dashboard-container {
+  .mat-drawer-container {
+    flex: 1 1 auto;
     height: 100%;
     width: 100%;
     position: relative;
 
-    .mat-drawer-content {
-      width: auto;
-      max-width: 100%;
-
-      .sidenav-content {
-        position: absolute;
-        margin-top: 10.2rem;
-        margin-left: 1rem;
-
-        margin-top: 10rem;
-        margin-left: 1.5rem;
-      }
-    }
-
-    .sidenav {
+    .mat-drawer {
+      display: flex;
       width: 20%;
       padding: 20px;
       max-width: 40%;
       min-width: 20%;
-
-      ::ng-deep .mat-drawer-inner-container {
-        display: flex;
-        flex-direction: column;
-        margin-top: 0.5rem;
-      }
 
       .cards {
         display: flex;
@@ -72,27 +54,16 @@
 
     .content {
       padding: 1rem;
+
+      button {
+        width: 36px;
+        height: 36px;
+        position: fixed;
+        top: 20px;
+        left: 0.45rem;
+        z-index: 1000;
+        border-radius: 50%;
+      }
     }
   }
-}
-
-
-
-
-app-sidenav {
-  display: flex;
-}
-
-mat-drawer-container {
-  flex: 1 1 auto;
-}
-
-button {
-  width: 36px;
-  height: 36px;
-  position: fixed;
-  top: 20px;
-  left: 0.45rem;
-  z-index: 1000;
-  border-radius: 50%;
 }
