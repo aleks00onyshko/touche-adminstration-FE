@@ -1,5 +1,6 @@
 :host {
   display: block;
+  box-sizing: border-box;
   height: 100vh;
   width: 100vw;
 
@@ -8,8 +9,13 @@
     width: 100%;
     display: flex;
 
+    app-systembar {
+      min-width: 4rem;
+    }
+
     .content {
-      min-width: 100% !important;
+      box-sizing: border-box;
+      min-width: calc(100% - 4rem);
     }
   }
 }
