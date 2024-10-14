@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -10,8 +10,7 @@ import {
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Actions, createEffect, ofType, OnInitEffects, ROOT_EFFECTS_INIT } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { catchError, EMPTY, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
 import { doc, Firestore, setDoc, getDoc } from '@angular/fire/firestore';
@@ -80,13 +79,13 @@ export const authenticated$ = createEffect(
   (actions$ = inject(Actions), router = inject(Router)) =>
     actions$.pipe(
       ofType(AuthenticationActions.authenticated),
-      tap(({ user }) => {
+      map(({ user }) => {
         void router.navigate(['dashboard']);
 
         return AuthenticationActions.onboardTeacher({ user });
       })
     ),
-  { dispatch: false, functional: true }
+  { functional: true }
 );
 
 export const onboardTeacher$ = createEffect(
@@ -138,7 +137,7 @@ export const init$ = createEffect(
   (actions$ = inject(Actions)) =>
     actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
-      map(action => AuthenticationActions.getUser())
+      map(() => AuthenticationActions.getUser())
     ),
   { functional: true }
 );
