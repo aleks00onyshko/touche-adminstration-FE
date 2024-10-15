@@ -18,10 +18,18 @@
     top: -0.5rem;
 
     .delete_button-container button {
+      mat-icon {
+        position: absolute;
+      }
+
       width: 2rem;
       height: 2rem;
       color: white;
       box-shadow: none;
+      
+      ::ng-deep span {
+        width: 25px !important;
+      }
     }
   }
 
@@ -30,6 +38,7 @@
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
+
     .teacherBlock {
       margin-top: 2rem;
       width: 100%;
@@ -38,6 +47,7 @@
       flex-direction: row;
       align-items: flex-end;
       flex-wrap: wrap;
+
       h3 {
         padding: 5px;
         border: 1px solid #bbb9b95c;

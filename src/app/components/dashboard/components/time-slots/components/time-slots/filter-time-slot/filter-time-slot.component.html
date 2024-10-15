@@ -1,8 +1,8 @@
 <button mat-icon-button [matMenuTriggerFor]="flterMenu"><mat-icon>filter_list</mat-icon></button>
 
-<mat-menu #flterMenu="matMenu">
+<mat-menu  #flterMenu="matMenu">
   <ng-container [formGroup]="filterTimeSlotForm">
-    <section class="example-section">
+    <section class="example-section" (click)="$event.stopPropagation()">
       <app-duration-select [formControl]="controls.duration"></app-duration-select>
 
       <app-avatar-multiple-select-dropdown
@@ -18,3 +18,4 @@
     </section>
   </ng-container>
 </mat-menu>
+  
