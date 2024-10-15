@@ -6,9 +6,9 @@
     ></app-avatar>
   }
 
-  <mat-menu #menu="matMenu" [hasBackdrop]="false">
+  <mat-menu  #menu="matMenu" [hasBackdrop]="false">
     <div class="systembar-popup-container">
-      <mat-form-field class="theme-select">
+      <mat-form-field  (click)="$event.stopPropagation()" class="theme-select">
         <mat-label>Choose a theme</mat-label>
         <mat-select [value]="theme$ | async" (selectionChange)="changeTheme($event)">
           <mat-option value="{{ Theme.DARK_THEME }}">{{ "SYSTEMBAR.THEME.DARK" | translate}}</mat-option>
@@ -16,7 +16,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="language-select" appearance="fill">
+      <mat-form-field  (click)="$event.stopPropagation()" class="language-select" appearance="fill">
         <mat-label>{{ 'SYSTEMBAR.LANGUAGE' | translate }}</mat-label>
         <mat-select [value]="language$ | async" (selectionChange)="changeLanguage($event.value)">
           <mat-option *ngFor="let language of translateService.getLangs()" [value]="language">

@@ -1,6 +1,7 @@
 @import "../../../../../../../styles/media-queries/media-queries.scss";
 
 .payment-slot-card-readonly {
+  width: 95%;
   .number_lesson-and_price {
     display: grid;
     grid-template-rows: 5rem 5rem;

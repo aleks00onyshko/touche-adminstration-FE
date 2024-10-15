@@ -43,8 +43,8 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       {
         loadComponent: () =>
-          import('./../components/teacher-settings/teacher-settings/teacher-settings.component').then(
-            m => m.TeacherSettingsComponent
+          import('./../components/teacher-settings/teachers-settings.component').then(
+            m => m.TeachersSettingsComponent
           ),
         path: 'teachers-settings',
         resolve: [teachersSettingsResolver]
