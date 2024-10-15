@@ -18,6 +18,7 @@
     top: -0.5rem;
 
     .delete_button-container button {
+      background-color: #02e676 !important;
       mat-icon {
         position: absolute;
       }
@@ -26,9 +27,9 @@
       height: 2rem;
       color: white;
       box-shadow: none;
-      
+
       ::ng-deep span {
-        width: 25px !important;
+        width: 1.5rem !important;
       }
     }
   }

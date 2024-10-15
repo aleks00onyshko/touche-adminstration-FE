@@ -1,6 +1,6 @@
 <form [formGroup]="teacherSettingsForm" class="teacher-settings_form">
   <div class="teacher-settings_form_avatar">
-    <app-upload-avatar *ngIf="teacher && (([teacher] | convertUsersToAvatars:{ size: avatarSize.xxl }:true)!.length > 0)"
+    <app-upload-avatar 
       [uploadAvatar]="$any(([teacher] | convertUsersToAvatars:{ size: avatarSize.xxl }:true)[0])"
       (onUploadNewImage)="updateTeacherWithNewImage($event)">
     </app-upload-avatar>
@@ -13,7 +13,7 @@
            <span matTextPrefix>+38 &nbsp;</span>
           <input type="tel" matInput placeholder="055-555-55-55" [formControl]="controls.number">
         </mat-form-field>
-    </div>
+    </div>  
 
     <div class="teacher-settings_form_info_name">
       <mat-form-field>
