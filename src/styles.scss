@@ -19,8 +19,9 @@ body {
   font-size: 12px;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: var(--mat-sidenav-content-background-color, var(--mat-app-background));
 }
 mat-card .mdc-card{
-border: 2px solid balck;
+border: 2px solid black;
 }
 
