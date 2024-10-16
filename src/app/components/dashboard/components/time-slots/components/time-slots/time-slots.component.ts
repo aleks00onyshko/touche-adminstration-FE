@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
 import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
 import { DashboardComponent } from '../../../dashboard/dashboard.component';
-import { FilterTimeSlotCardControlValue, FilterTimeSlotsComponent } from './filter-time-slot/filter-time-slot.component';
+import {
+  FilterTimeSlotCardControlValue,
+  FilterTimeSlotsComponent
+} from './filter-time-slot/filter-time-slot.component';
+import { PaymentSlotAction } from '../../../payment-slots/store/payment-slots.actions';
 
 @Component({
   selector: 'app-time-slots',
@@ -45,7 +49,7 @@ import { FilterTimeSlotCardControlValue, FilterTimeSlotsComponent } from './filt
     FilterTimeSlotsComponent
   ]
 })
-export class TimeSlotsComponent {
+export class TimeSlotsComponent implements OnInit {
   protected readonly timeSlots$ = this.store.select(selectSortedTimeSlots);
   protected readonly teachers$ = this.store.select(selectTeachers);
   protected readonly loading$ = this.store.select(selectLoading);
@@ -54,8 +58,12 @@ export class TimeSlotsComponent {
 
   constructor(private store: Store<TimeSlotsState>) {}
 
+  public ngOnInit() {
+    this.store.dispatch(PaymentSlotAction.getPaymentSlots());
+  }
+
   protected filterChange(filter: FilterTimeSlotCardControlValue): void {
-    this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter })); 
+    this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter }));
   }
   protected resetFilter(): void {
     this.store.dispatch(TimeSlotsActions.resetFilter());

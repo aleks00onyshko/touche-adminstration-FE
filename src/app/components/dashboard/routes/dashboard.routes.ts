@@ -4,7 +4,6 @@ import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.red
 import { provideEffects } from '@ngrx/effects';
 
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
-import { paymentSlotsResolver } from './resolvers/payment-slots.resolver';
 import { teachersSettingsResolver } from './resolvers/teachers-settings.resolver';
 
 import * as timeSlotsEffects from '../components/time-slots/store/time-slots.effects';
@@ -30,8 +29,7 @@ export const DASHBOARD_ROUTES: Routes = [
           import('./../components/payment-slots/components/payment-slots/payment-slots.component').then(
             m => m.PaymentSlotsComponent
           ),
-        path: 'payment-slots',
-        resolve: [paymentSlotsResolver]
+        path: 'payment-slots'
       },
       {
         loadComponent: () =>
@@ -43,9 +41,7 @@ export const DASHBOARD_ROUTES: Routes = [
       },
       {
         loadComponent: () =>
-          import('./../components/teacher-settings/teachers-settings.component').then(
-            m => m.TeachersSettingsComponent
-          ),
+          import('./../components/teacher-settings/teachers-settings.component').then(m => m.TeachersSettingsComponent),
         path: 'teachers-settings',
         resolve: [teachersSettingsResolver]
       }
