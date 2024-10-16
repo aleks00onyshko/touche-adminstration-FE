@@ -20,6 +20,17 @@
         }
     }
 }
+@media(min-width: $breakpoint_ssm) {
+    .teacher-setting-panel{
+        width: 82vw !important;
+    }
+}
+
+@media(min-width: $breakpoint_sm) {
+    .teacher-setting-panel{
+        width: 88vw !important;
+    }
+}
 
 @media (max-width: $breakpoint_md) {
     .cards {
@@ -40,17 +51,33 @@
 }
 
 @media (min-width: $breakpoint_md) {
+    .teacher-setting-panel{
+        width: 86vw !important;
+    }
+}
 
+@media (min-width: $breakpoint_md) {
     .sidenav {
         padding: 20px;
         max-width: 40%;
         min-width: 20%;
         box-sizing: border-box;
     }
+    .teacher-setting-panel{
+        width: 88vw !important;
+    }
 }
 
-@media (max-width: $breakpoint_lg) {}
+@media (min-width: $breakpoint_lg) {
+    .teacher-setting-panel{
+        width: 90vw !important;
+    }
+}
 
-@media (max-width: $breakpoint_xl) {}
+@media (min-width: $breakpoint_xl) {
+    .teacher-setting-panel{
+        width: 93vw !important;
+    }
+}
 
 @media (max-width: $breakpoint_xxl) {}
