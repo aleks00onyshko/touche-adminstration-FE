@@ -4,7 +4,6 @@ import { DASHBOARD_FEATURE_KEY, dashboardReducers } from '../store/dashboard.red
 import { provideEffects } from '@ngrx/effects';
 
 import { timeSlotsResolver } from './resolvers/time-slots.resolver';
-import { teachersSettingsResolver } from './resolvers/teachers-settings.resolver';
 
 import * as timeSlotsEffects from '../components/time-slots/store/time-slots.effects';
 import * as teacherSettingsEffects from '../components/teacher-settings/store/teacher-settings.effects';
@@ -42,8 +41,7 @@ export const DASHBOARD_ROUTES: Routes = [
       {
         loadComponent: () =>
           import('./../components/teacher-settings/teachers-settings.component').then(m => m.TeachersSettingsComponent),
-        path: 'teachers-settings',
-        resolve: [teachersSettingsResolver]
+        path: 'teachers-settings'
       }
     ]
   }

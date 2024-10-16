@@ -2,20 +2,20 @@
   <span class="title">{{ 'DASHBOARD.SIDENAV.TEACHER-SETTINGS' | translate }}</span>
 
   @if(loading$ | async) {
-  <p>Loading...</p>
+    <p>Loading...</p>
   } @else if((teachers$ | async)?.length === 0) {
-  <p>No teachers found.</p>
+    <p>No teachers found.</p>
   } @else {
-  <mat-expansion-panel class="teacher-setting-panel"
-    *ngFor="let teacher of teachers$ | async; trackBy: trackByTeacherId"
-    [expanded]="teacher.id === (selectedTeacherId$ | async)" (opened)="selectTeacher(teacher.id)">
-    <mat-expansion-panel-header>
-      <mat-panel-title class="teacher-setting_title">
-        <app-avatar [avatar]="([teacher] | convertUsersToAvatars)[0]" class="teacher-setting_title_avatar"></app-avatar>
-        <span class="teacher-setting_title_text">{{ teacher.displayName }}</span>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-teacher-settings [teacher]="teacher" (teacherUpdated)="updateTeacher($any($event))"></app-teacher-settings>
-  </mat-expansion-panel>
+    <mat-expansion-panel class="teacher-setting-panel"
+      *ngFor="let teacher of teachers$ | async; trackBy: trackByTeacherId"
+      [expanded]="teacher.id === (selectedTeacherId$ | async)" (opened)="selectTeacher(teacher.id)">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="teacher-setting_title">
+          <app-avatar [avatar]="([teacher] | convertUsersToAvatars)[0]" class="teacher-setting_title_avatar"></app-avatar>
+          <span class="teacher-setting_title_text">{{ teacher.displayName }}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-teacher-settings [teacher]="teacher" (teacherUpdated)="updateTeacher($any($event))"></app-teacher-settings>
+    </mat-expansion-panel>
   }
 </mat-accordion>

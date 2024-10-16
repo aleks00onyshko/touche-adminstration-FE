@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
@@ -31,12 +31,16 @@ import { TranslateModule } from '@ngx-translate/core';
     ConvertUsersToAvatarsPipe
   ]
 })
-export class TeachersSettingsComponent {
+export class TeachersSettingsComponent implements OnInit {
   protected readonly teachers$ = this.store.select(selectTeachers);
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly selectedTeacherId$ = this.store.select(selectSelectedTeacherId);
 
   constructor(private store: Store<TeacherSettingsState>) {}
+
+  public ngOnInit() {
+    this.store.dispatch(TeacherSettingsAction.getTeachers());
+  }
 
   public updateTeacher(teacher: Teacher): void {
     this.store.dispatch(TeacherSettingsAction.updateTeacher({ teacher }));
