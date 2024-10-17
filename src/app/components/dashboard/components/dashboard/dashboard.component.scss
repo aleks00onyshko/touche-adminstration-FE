@@ -12,10 +12,10 @@
     flex: 1 1 auto;
     height: 100%;
     width: 100%;
-    position: relative;
+    position: unset!important;
 
     .mat-drawer-content{
-      position: initial;
+      position: relative;
 
       button{
         background-color: #02e676 !important;
@@ -61,8 +61,8 @@
     }
 
     .content {
-      overlay: none;
       width: 100%;
+
       button {
         width: 36px;
         height: 36px;
