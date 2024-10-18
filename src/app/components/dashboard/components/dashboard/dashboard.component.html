@@ -12,10 +12,9 @@
   </mat-drawer>
 
   <mat-drawer-content class="mat-drawer-content content">
-    <router-outlet> </router-outlet>
-    <button type="button" mat-mini-fab (click)="drawer.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <app-sidenav-toggle-button [drawer]="drawer"></app-sidenav-toggle-button>
+    <router-outlet>
+     </router-outlet>
   </mat-drawer-content>
 
 </mat-drawer-container>
