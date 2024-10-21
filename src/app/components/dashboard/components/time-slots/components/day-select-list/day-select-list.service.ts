@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { DayLabel } from './day-label';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DaySelectListService {
   public splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
     const batches: DayLabel[][] = [];

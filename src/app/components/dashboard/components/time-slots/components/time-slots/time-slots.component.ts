@@ -26,6 +26,9 @@ import {
   FilterTimeSlotsComponent
 } from './filter-time-slot/filter-time-slot.component';
 import { PaymentSlotAction } from '../../../payment-slots/store/payment-slots.actions';
+import { DayLabel } from '../day-select-list/day-label';
+import { DaySelectListService } from '../day-select-list/day-select-list.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-time-slots',
@@ -56,10 +59,22 @@ export class TimeSlotsComponent implements OnInit {
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);
 
-  constructor(private store: Store<TimeSlotsState>) {}
+  public dayLabelBatches: DayLabel[][] = []; 
+  public selectedDay: DayLabel | null | undefined = null; 
+
+  constructor(private store: Store<TimeSlotsState>,
+    private daySelectListService: DaySelectListService
+  ) {}
 
   public ngOnInit() {
-    this.store.dispatch(PaymentSlotAction.getPaymentSlots());
+    const daysList = this.daySelectListService.generateDaysList();
+    this.selectedDay = daysList.find(label => label.isToday()); 
+    this.dayLabelBatches = this.daySelectListService.splitDayLabelsIntoBatches(daysList);
+
+    if (this.selectedDay) {
+      this.store.dispatch(TimeSlotsActions.selectDay({ dateId: this.selectedDay.id }));
+      this.store.dispatch(TimeSlotsActions.getTimeSlots({})); 
+    }
   }
 
   protected filterChange(filter: FilterTimeSlotCardControlValue): void {

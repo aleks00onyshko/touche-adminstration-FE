@@ -6,7 +6,8 @@ import {
   WritableSignal,
   signal,
   effect,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Input
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -25,24 +26,14 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DaySelectListComponent {
+  @Input() public dayLabelBatches: DayLabel[][] = []; // Вхідні дані для dayLabelBatches
+  @Input() public selectedDay: DayLabel | null | undefined = null; // Вхідні дані для selectedDay
   @Output() public daySelected = new EventEmitter<DateId>();
 
-  public readonly dayLabelBatches: WritableSignal<DayLabel[][]> = signal(
-    this.daySelectListService.splitDayLabelsIntoBatches(this.daySelectListService.generateDaysList())
-  );
+  constructor(private daySelectListService: DaySelectListService) {}
 
-  public readonly selectedDay: WritableSignal<undefined | null | DayLabel> = signal(
-    this.dayLabelBatches()
-      .flat()
-      .find(label => label.isToday())
-  );
-
-  constructor(@Self() private daySelectListService: DaySelectListService) {
-    effect(
-      () => {
-        this.daySelected.emit(this.selectedDay()!.id);
-      },
-      { allowSignalWrites: true }
-    );
+  public onDaySelect(dayLabel: DayLabel): void {
+    this.selectedDay = dayLabel;
+    this.daySelected.emit(this.selectedDay.id);
   }
 }

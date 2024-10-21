@@ -1,8 +1,8 @@
 <div class="day-select-list">
-  <div class="days-batch_container" *ngFor="let batch of dayLabelBatches()">
-    <section class="day" *ngFor="let dayLabel of batch" (click)="selectedDay.set(dayLabel)">
+  <div class="days-batch_container" *ngFor="let batch of dayLabelBatches">
+    <section class="day" *ngFor="let dayLabel of batch" (click)="onDaySelect(dayLabel)">
       <h3 class="dayName">{{ 'DASHBOARD.DAY_LIST.' + dayLabel.dayName.toLocaleUpperCase() | translate }}</h3>
-      <p class="dayNumber" [class.dayNumber--active]="selectedDay()?.id === dayLabel.id">
+      <p class="dayNumber" [class.dayNumber--active]="selectedDay?.id === dayLabel.id">
         {{ dayLabel.dayNumber }}
       </p>
     </section>

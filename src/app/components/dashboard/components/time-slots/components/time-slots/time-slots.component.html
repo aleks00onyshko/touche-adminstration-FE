@@ -1,4 +1,5 @@
-<app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
+<app-day-select-list [dayLabelBatches]="dayLabelBatches" [selectedDay]="selectedDay"
+  (daySelected)="daySelected($event)"></app-day-select-list>
 
 <div class="time-slots_content">
   <div class="time-slots_header-actions">
@@ -13,9 +14,9 @@
         [value]="currentLocation$ | async"
         [compareWith]="compareLocations">
         @for (location of locations$ | async; track location.id) {
-          <mat-option class="avatars-dropdown_option" [value]="location">
-            <span> {{ location.displayNames.uk }} </span>
-          </mat-option>
+        <mat-option class="avatars-dropdown_option" [value]="location">
+          <span> {{ location.displayNames.uk }} </span>
+        </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -28,19 +29,19 @@
   </div>
 
   @if((loading$ | async) === true) {
-    <app-spinner></app-spinner>
+  <app-spinner></app-spinner>
   } @else {
-    <div class="time-slots_list" *ngIf="timeSlots$ | async as timeSlots">
-      @for(timeSlot of timeSlots; track timeSlot.id) {
+  <div class="time-slots_list" *ngIf="timeSlots$ | async as timeSlots">
+    @for(timeSlot of timeSlots; track timeSlot.id) {
       <app-time-slot-card-readonly
         [timeSlot]="timeSlot"
         [teachers]="(teachers$ | async)!"
         (slotDeleted)="deleteTimeSlot($event)"
         (click)="openEditTimeSlotDialog(timeSlot)">
-      </app-time-slot-card-readonly>
-      }@empty {
-        <h2>No slots for this day</h2>
-      }
-    </div>
+    </app-time-slot-card-readonly>
+    }@empty {
+    <h2>No slots for this day</h2>
+    }
+  </div>
   }
 </div>
