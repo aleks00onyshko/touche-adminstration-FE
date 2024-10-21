@@ -34,13 +34,12 @@
 
 @media (max-width: $breakpoint_md) {
     .cards {
-        width: 97% !important;
+        width: 100% !important;
     }
 
     .sidenav {
         position: absolute;
-        min-width: 100% !important;
-        width: 100% !important;
+        min-width: calc(100% - 4rem) !important;
         padding: 0 !important;
         box-sizing: border-box;
     }
