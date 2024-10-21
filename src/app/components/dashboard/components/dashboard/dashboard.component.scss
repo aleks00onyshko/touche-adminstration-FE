@@ -2,16 +2,21 @@
 @import "../../../../../styles/media-queries/media-queries.scss";
 
 :host {
+  grid-template-columns: 4rem auto;
+  display: grid;
   position: relative;
   height: 100%;
-  display: block;
   box-sizing: border-box;
   width: 100%;
+
+  app-systembar {
+    min-width: 4rem;
+  }
 
   .mat-drawer-container {
     flex: 1 1 auto;
     height: 100%;
-    width: 100%;
+    min-width: calc(100% - 4rem);
     position: unset!important;
 
     .mat-drawer-content{

@@ -1,3 +1,6 @@
+@if(isAuthenticated$ | async) {
+  <app-systembar [theme]="theme$ | async" (themeChange)="changeTheme($event)"></app-systembar>
+}
 <mat-drawer-container class="dashboard-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
     <div class="cards">

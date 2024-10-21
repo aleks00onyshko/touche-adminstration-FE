@@ -1,7 +1,4 @@
 <div class="main-container">
-  @if(isAuthenticated$ | async) {
-    <app-systembar [theme]="theme$ | async" (themeChange)="changeTheme($event)"></app-systembar>
-  }
 
   <div class="content">
     <router-outlet></router-outlet>
