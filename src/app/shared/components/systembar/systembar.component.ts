@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../../core/model/entities/user';
 import { selectUser } from '../../../components/authentication/store/authentication.selectors';
 import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avatar-configs.pipe';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-systembar',
@@ -29,7 +30,7 @@ import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avat
     StoreModule,
     AvatarComponent,
     MatMenuModule,
-    MatSelectModule,
+    MatSelectModule,  
     ReactiveFormsModule,
     MatButtonModule,
     TranslateModule,
@@ -44,6 +45,7 @@ import { ConvertUsersToAvatarsPipe } from '../avatar/pipes/convert-users-to-avat
   providers: []
 })
 export class SystembarComponent {
+  @Input() public drawer!: MatDrawer;
   @Input() public theme: Theme | null = null;
   @Output() public themeChange: EventEmitter<Theme> = new EventEmitter<Theme>();
 
