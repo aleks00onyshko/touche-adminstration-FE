@@ -1,4 +1,7 @@
-<app-day-select-list (daySelected)="daySelected($event)"></app-day-select-list>
+<app-day-select-list
+  [currentDateId]="$any(currentDateId$ | async)"
+  (daySelected)="daySelected($event)">
+</app-day-select-list>
 
 <div class="time-slots_content">
   <div class="time-slots_header-actions">

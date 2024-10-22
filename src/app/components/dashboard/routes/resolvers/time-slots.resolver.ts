@@ -7,6 +7,8 @@ import { TimeSlotsActions } from '../../components/time-slots/store/time-slots.a
 import { selectLocations, selectTeachers } from '../../components/time-slots/store/time-slots.selectors';
 import { Location } from 'src/app/core/model/entities/location';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import moment from 'moment/moment';
+import { DateId } from '../../../../core/model/entities/time-slot';
 
 export const timeSlotsResolver: ResolveFn<Observable<boolean>> = () => {
   const store = inject(Store<TimeSlotsState>);
@@ -24,9 +26,20 @@ export const timeSlotsResolver: ResolveFn<Observable<boolean>> = () => {
       store.dispatch(
         TimeSlotsActions.setCurrentLocation({ location: locationsHaveStoredLocation ? storedLocation : locations![0] })
       );
+      store.dispatch(TimeSlotsActions.selectDay({ dateId: getTodayDateId() }));
+      store.dispatch(TimeSlotsActions.getTimeSlots({ constraints: undefined }));
 
       return true;
     }),
     take(1)
   );
 };
+
+function getTodayDateId(): DateId {
+  const currentDate = moment();
+  const currentDayName = currentDate.format('ddd');
+  const currentDayNumber = currentDate.date();
+  const year = currentDate.year();
+
+  return `${currentDayName}-${currentDayNumber}-${year}`;
+}
