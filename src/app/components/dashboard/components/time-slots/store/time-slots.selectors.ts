@@ -10,9 +10,15 @@ export const selectTimeSlotsState = createSelector(selectDashboardState, (state:
 export const selectCurrentDateId = createSelector(selectTimeSlotsState, state => state.currentDateId);
 export const selectLoading = createSelector(selectTimeSlotsState, state => state.loading);
 export const selectTimeSlots = createSelector(selectTimeSlotsState, state => state.timeSlots);
+export const selectCurrentLocation = createSelector(selectTimeSlotsState, state => state.currentLocation);
+
+export const selectCurrentLocationTimeSlots = createSelector(
+  selectCurrentLocation,
+  selectTimeSlots,
+  (location, timeSlots) => (timeSlots ?? []).filter(timeSlot => timeSlot.locationId === location?.id)
+);
 export const selectTeachers = createSelector(selectTimeSlotsState, state => state.teachers);
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
-export const selectCurrentLocation = createSelector(selectTimeSlotsState, state => state.currentLocation);
 
 export const timeSlotHasTimeTurnerSyndrome = (
   timeSlotCardValue: TimeSlotCardControlValue,
@@ -28,7 +34,7 @@ export const timeSlotHasTimeTurnerSyndrome = (
     });
   });
 
-export const selectSortedTimeSlots = createSelector(selectTimeSlots, timeSlots => {
+export const selectSortedTimeSlots = createSelector(selectCurrentLocationTimeSlots, timeSlots => {
   return (
     !!timeSlots &&
     timeSlots.slice().sort((a, b) => {

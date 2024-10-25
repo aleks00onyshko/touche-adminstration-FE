@@ -40,11 +40,11 @@ export const getTimeSlots$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.getTimeSlots),
-      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
-      switchMap(([{ constraints }, currentDateId, currentLocation]) => {
+      withLatestFrom(store.select(selectCurrentDateId)),
+      switchMap(([{ constraints }, currentDateId]) => {
         const timeSlotsCollectionReference: CollectionReference = collection(
           firestore,
-          `dateIds/${currentDateId}/${currentLocation!.id}-slots`
+          `dateIds/${currentDateId}/timeSlots`
         );
         const timeSlotsQuery: Query = !!constraints
           ? query(timeSlotsCollectionReference, ...constraints)

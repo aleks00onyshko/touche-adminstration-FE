@@ -22,12 +22,11 @@ export const timeSlotsResolver: ResolveFn<Observable<boolean>> = () => {
     map(([locations]) => {
       const storedLocation = (localstorageService.get('location') as Location) ?? locations![0];
       const locationsHaveStoredLocation = locations!.some(location => location.id === storedLocation.id);
+      const currentLocation: Location = locationsHaveStoredLocation ? storedLocation : locations![0];
 
-      store.dispatch(
-        TimeSlotsActions.setCurrentLocation({ location: locationsHaveStoredLocation ? storedLocation : locations![0] })
-      );
+      store.dispatch(TimeSlotsActions.setCurrentLocation({ location: currentLocation }));
       store.dispatch(TimeSlotsActions.selectDay({ dateId: getTodayDateId() }));
-      store.dispatch(TimeSlotsActions.getTimeSlots({ constraints: undefined }));
+      store.dispatch(TimeSlotsActions.getTimeSlots({}));
 
       return true;
     }),
@@ -37,9 +36,9 @@ export const timeSlotsResolver: ResolveFn<Observable<boolean>> = () => {
 
 function getTodayDateId(): DateId {
   const currentDate = moment();
-  const currentDayName = currentDate.format('ddd');
+  const currentMonthNumber = currentDate.format('MM');
   const currentDayNumber = currentDate.date();
   const year = currentDate.year();
 
-  return `${currentDayName}-${currentDayNumber}-${year}`;
+  return `${currentDayNumber}-${currentMonthNumber}-${year}`;
 }

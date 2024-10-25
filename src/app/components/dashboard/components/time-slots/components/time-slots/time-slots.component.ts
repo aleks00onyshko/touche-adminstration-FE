@@ -74,7 +74,6 @@ export class TimeSlotsComponent {
 
   protected locationSelected(location: Location): void {
     this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
-    this.store.dispatch(TimeSlotsActions.getTimeSlots({}));
   }
 
   protected openEditTimeSlotDialog(timeSlot: TimeSlot): void {
