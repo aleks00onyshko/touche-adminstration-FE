@@ -37,6 +37,7 @@
       "EDIT_SLOT": "Edit slot"
     },
     "CREATE_TIME_SLOT": {
+      "LESSON_NAME": "Lesson Name",
       "START_TIME": "Start Time",
       "DURATION": "Duration",
       "TEACHER": "Teacher",

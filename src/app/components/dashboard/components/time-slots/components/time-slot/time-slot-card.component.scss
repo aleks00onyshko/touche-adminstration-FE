@@ -5,20 +5,32 @@
   padding: 2rem 2rem 0 2rem;
 
   &_controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
 
-    &_duration {
-
-      margin-right: 1rem;
+    app-time-picker {
+      width: 100%;
     }
 
-    &_teachers {
-
-      margin-right: 1rem;
+    &_lessonName {
+      height: 6.4rem;
     }
   }
 
   &_errors {
     font-size: 1rem;
     min-height: 2rem;
+  }
+}
+
+@media(max-width: 650px) {
+  .time-slot {
+    &_controls {
+      display: flex !important;
+      flex-direction: column !important;
+    }
   }
 }

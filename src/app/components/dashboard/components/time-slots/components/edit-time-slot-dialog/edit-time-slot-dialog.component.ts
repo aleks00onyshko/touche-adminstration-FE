@@ -49,13 +49,14 @@ export class EditTimeSlotDialogComponent {
   }
 
   private generateTimeSlotControlData(dialogData: EditTimeSlotDialogData): TimeSlotCardControlValue {
+    const lessonName = dialogData.timeSlot.lessonName;
     const startTime = dialogData.timeSlot.startTime;
     const duration = dialogData.timeSlot.duration;
     const teachersAvatarConfigs = dialogData.teachers
       .filter(teacher => dialogData.timeSlot.teachersIds.includes(teacher.id))
       .map(teacher => this.avatarBuilder.createAvatar(teacher));
 
-    return { startTime, duration, teachers: teachersAvatarConfigs };
+    return {lessonName, startTime, duration, teachers: teachersAvatarConfigs };
   }
 }
 

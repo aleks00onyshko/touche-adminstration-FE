@@ -120,6 +120,7 @@ export const createTimeSlot$ = createEffect(
       switchMap(([{ timeSlotCardControlValue }, currentDateId, currentLocation]) => {
         const id = uuidGeneratorService.generateId();
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
+          lessonName: timeSlotCardControlValue.lessonName!,
           startTime: timeSlotCardControlValue.startTime,
           duration: timeSlotCardControlValue.duration,
           locationId: currentLocation!.id,
@@ -152,6 +153,7 @@ export const editTimeSlot$ = createEffect(
       withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
       switchMap(([{ initialTimeSlot, timeSlotCardControlValue }, currentDateId, currentLocation]) => {
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
+          lessonName: timeSlotCardControlValue.lessonName!,
           startTime: timeSlotCardControlValue.startTime,
           duration: timeSlotCardControlValue.duration,
           locationId: currentLocation!.id,

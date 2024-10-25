@@ -1,7 +1,7 @@
 <mat-card class="time-slot--readonly" [class.booked]="!!timeSlot.attendeeId">
   <div class="lesson_type-and_teacher">
     <div class="lesson-type_attendee">
-      <span class="lesson_type">{{ 'DASHBOARD.TIME_SLOT.TYPE' | translate }}</span>
+      <span class="lesson_type">{{ timeSlot.lessonName }}</span>
 
       @if(attendee) {
       <app-avatar [avatar]="([attendee] | convertUsersToAvatars)[0]"></app-avatar>

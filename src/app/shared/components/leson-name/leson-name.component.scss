@@ -1,0 +1,8 @@
+div{
+    display: flex;
+    flex-direction: column;
+ 
+    .time-slot_controls_lessonName{
+        margin-bottom: -2rem !important;
+    }
+}

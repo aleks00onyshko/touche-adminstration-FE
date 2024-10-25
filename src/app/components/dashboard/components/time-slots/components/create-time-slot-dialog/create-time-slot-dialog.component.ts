@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { TimeSlotCardControlValue, TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
 import moment from 'moment';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
 import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
@@ -34,6 +34,7 @@ export class CreateTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
     new FormControl<TimeSlotCardControlValue>(
       {
+        lessonName: "",
         startTime: [moment().hour(), moment().minute()],
         duration: 15,
         teachers: null
