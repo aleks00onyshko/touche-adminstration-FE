@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { DaySelectListComponent } from '../day-select-list/day-select-list.component';
 import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { TimeSlotsActions } from '../../store/time-slots.actions';
 import {
+  selectCurrentDateId,
   selectCurrentLocation,
   selectLoading,
   selectLocations,
@@ -25,7 +26,6 @@ import {
   FilterTimeSlotCardControlValue,
   FilterTimeSlotsComponent
 } from './filter-time-slot/filter-time-slot.component';
-import { PaymentSlotAction } from '../../../payment-slots/store/payment-slots.actions';
 
 @Component({
   selector: 'app-time-slots',
@@ -49,22 +49,20 @@ import { PaymentSlotAction } from '../../../payment-slots/store/payment-slots.ac
     FilterTimeSlotsComponent
   ]
 })
-export class TimeSlotsComponent implements OnInit {
+export class TimeSlotsComponent {
   protected readonly timeSlots$ = this.store.select(selectSortedTimeSlots);
   protected readonly teachers$ = this.store.select(selectTeachers);
   protected readonly loading$ = this.store.select(selectLoading);
   protected readonly locations$ = this.store.select(selectLocations);
   protected readonly currentLocation$ = this.store.select(selectCurrentLocation);
+  protected readonly currentDateId$ = this.store.select(selectCurrentDateId);
 
   constructor(private store: Store<TimeSlotsState>) {}
-
-  public ngOnInit() {
-    this.store.dispatch(PaymentSlotAction.getPaymentSlots());
-  }
 
   protected filterChange(filter: FilterTimeSlotCardControlValue): void {
     this.store.dispatch(TimeSlotsActions.filterTimeSlots({ filter }));
   }
+
   protected resetFilter(): void {
     this.store.dispatch(TimeSlotsActions.resetFilter());
   }
@@ -76,7 +74,6 @@ export class TimeSlotsComponent implements OnInit {
 
   protected locationSelected(location: Location): void {
     this.store.dispatch(TimeSlotsActions.setCurrentLocation({ location }));
-    this.store.dispatch(TimeSlotsActions.getTimeSlots({}));
   }
 
   protected openEditTimeSlotDialog(timeSlot: TimeSlot): void {

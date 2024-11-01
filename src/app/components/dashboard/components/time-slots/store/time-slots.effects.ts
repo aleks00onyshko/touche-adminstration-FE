@@ -40,11 +40,11 @@ export const getTimeSlots$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), firestore = inject(Firestore)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.getTimeSlots),
-      withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
-      switchMap(([{ constraints }, currentDateId, currentLocation]) => {
+      withLatestFrom(store.select(selectCurrentDateId)),
+      switchMap(([{ constraints }, currentDateId]) => {
         const timeSlotsCollectionReference: CollectionReference = collection(
           firestore,
-          `dateIds/${currentDateId}/${currentLocation!.id}-slots`
+          `dateIds/${currentDateId}/timeSlots`
         );
         const timeSlotsQuery: Query = !!constraints
           ? query(timeSlotsCollectionReference, ...constraints)
@@ -131,10 +131,7 @@ export const createTimeSlot$ = createEffect(
         };
 
         return from(
-          setDoc(
-            doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`),
-            optimisticallyGeneratedTimeSlot
-          )
+          setDoc(doc(firestore, `dateIds/${currentDateId}/timeSlots/${id}`), optimisticallyGeneratedTimeSlot)
         ).pipe(
           //! we are listening to firestore changes anyway, so no need to insert created slot into state
           switchMap(() => EMPTY),
@@ -164,7 +161,7 @@ export const editTimeSlot$ = createEffect(
 
         return from(
           setDoc(
-            doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${initialTimeSlot.id}`),
+            doc(firestore, `dateIds/${currentDateId}/timeSlots/${initialTimeSlot.id}`),
             optimisticallyGeneratedTimeSlot
           )
         ).pipe(
@@ -182,8 +179,8 @@ export const deleteTimeSlot$ = createEffect(
     actions$.pipe(
       ofType(TimeSlotsActions.deleteTimeSlot),
       withLatestFrom(store.select(selectCurrentDateId), store.select(selectCurrentLocation)),
-      switchMap(([{ id }, currentDateId, currentLocation]) =>
-        from(deleteDoc(doc(firestore, `dateIds/${currentDateId}/${currentLocation!.id}-slots/${id}`))).pipe(
+      switchMap(([{ id }, currentDateId]) =>
+        from(deleteDoc(doc(firestore, `dateIds/${currentDateId}/timeSlots/${id}`))).pipe(
           map(() => TimeSlotsActions.deleteTimeSlotSuccess({ id })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.deleteTimeSlotFailded({ error })))
         )

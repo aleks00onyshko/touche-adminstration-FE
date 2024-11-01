@@ -4,7 +4,8 @@ export function inRange(timeInMinutes: number, [startTime, endTime]: [number, nu
   return timeInMinutes >= startTime && timeInMinutes <= endTime;
 }
 
-// Converting [01: 15] to 75
+// TODO: put that to util
+// Converting [01:15] to 75
 export function timeToMinutes(time: [number, number], duration: number = 0): number {
   return time[0] * 60 + time[1] + duration;
 }

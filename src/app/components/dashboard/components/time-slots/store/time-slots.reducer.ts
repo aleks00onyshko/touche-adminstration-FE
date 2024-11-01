@@ -65,8 +65,7 @@ const reducer = createReducer(
   })),
   on(TimeSlotsActions.setCurrentLocation, (state, { location }) => ({
     ...state,
-    currentLocation: location,
-    timeSlots: []
+    currentLocation: location
   }))
 );
 

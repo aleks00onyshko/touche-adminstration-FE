@@ -1,13 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Output,
-  Self,
-  WritableSignal,
-  signal,
-  effect,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, EventEmitter, Output, Self, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DayLabel } from './day-label';
@@ -25,24 +16,13 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DaySelectListComponent {
+  @Input({ required: true }) public currentDateId!: DateId;
+
   @Output() public daySelected = new EventEmitter<DateId>();
 
-  public readonly dayLabelBatches: WritableSignal<DayLabel[][]> = signal(
-    this.daySelectListService.splitDayLabelsIntoBatches(this.daySelectListService.generateDaysList())
+  public readonly dayLabelBatches: DayLabel[][] = this.daySelectListService.splitDayLabelsIntoBatches(
+    this.daySelectListService.generateDaysList()
   );
 
-  public readonly selectedDay: WritableSignal<undefined | null | DayLabel> = signal(
-    this.dayLabelBatches()
-      .flat()
-      .find(label => label.isToday())
-  );
-
-  constructor(@Self() private daySelectListService: DaySelectListService) {
-    effect(
-      () => {
-        this.daySelected.emit(this.selectedDay()!.id);
-      },
-      { allowSignalWrites: true }
-    );
-  }
+  constructor(@Self() private daySelectListService: DaySelectListService) {}
 }
