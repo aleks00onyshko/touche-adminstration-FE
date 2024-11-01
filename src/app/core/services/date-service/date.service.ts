@@ -1,66 +1,40 @@
 import { Injectable } from '@angular/core';
 import { DateId } from '../../model/entities/time-slot';
 import moment from 'moment';
+import { DateManager } from './date-manager';
 
-@Injectable({ providedIn: 'root' })
-export class DateService {
-
-  getCurrentMoment(): moment.Moment {
-    return moment(); 
+@Injectable()
+export class DateService implements DateManager {
+  public getCurrentDate(): Date {
+    return moment().toDate();
   }
 
-  getCurrentDateId(): DateId {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear().toString();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = currentDate.getDate().toString().padStart(2, '0');
+  public getCurrentDateId(): DateId {
+    const today = this.getCurrentDate();
+    const dayNumber = this.getDayNumber(today);
+    const monthNumber = this.getMonthNumber(today); // already returns padded month like '01'
+    const year = this.getYear(today);
 
-    return `${year}-${month}-${day}` as DateId;
+    return `${dayNumber}-${monthNumber}-${year}` as DateId;
   }
 
-  getCurrentTime(): [number, number] {
-    const currentDate = new Date();
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    
-    return [hours, minutes];
+  public addDaysToDate(date: Date, days: number): Date {
+    return moment(date).add(days, 'days').toDate();
   }
 
-  getCurrentDate(): DateId {
-    const currentDate = moment();
-    const year = currentDate.format('YYYY');
-    const month = currentDate.format('MM');
-    const day = currentDate.format('DD');
-
-    return `${year}-${month}-${day}` as DateId;
+  public getDayName(date: Date): string {
+    return moment(date).format('ddd');
   }
 
-  addDaysToDate(date: moment.Moment, daysToAdd: number): moment.Moment {
-    return date.clone().add(daysToAdd, 'days');
+  public getMonthNumber(date: Date): string {
+    return moment(date).format('MM');
   }
 
-  createDateId(dayName: string, dayNumber: number, year: number): DateId {
-    return `${dayName}-${dayNumber}-${year}` as DateId;
+  public getDayNumber(date: Date): number {
+    return moment(date).date();
   }
 
-  formatDate(date: moment.Moment, format: string): string {
-    return date.format(format);
+  public getYear(date: Date): number {
+    return moment(date).year();
   }
-
-
-  getDayNumber(date: moment.Moment): number {
-    return date.date();
-  }
-
-
-  getYear(date: moment.Moment): number {
-    return date.year();
-  }
-
-
-  isToday(date: moment.Moment): boolean {
-    const currentDate = this.getCurrentMoment();
-    return currentDate.isSame(date, 'day'); 
-  }
-
 }
