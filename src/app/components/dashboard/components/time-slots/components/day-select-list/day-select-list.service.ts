@@ -4,7 +4,6 @@ import { DateService } from 'src/app/core/services/date-service/date.service';
 
 @Injectable()
 export class DaySelectListService {
-
   constructor(private dateService: DateService) {}
 
   public splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
@@ -23,7 +22,7 @@ export class DaySelectListService {
 
     const addDays = (numberOfDays: number, currentDate: moment.Moment, days: DayLabel[]) => {
       for (let i = 0; i < numberOfDays; i++) {
-        days.push(new DayLabel(currentDate, this.dateService));
+        days.push(new DayLabel(currentDate));
         currentDate.add(1, 'day');
       }
     };
