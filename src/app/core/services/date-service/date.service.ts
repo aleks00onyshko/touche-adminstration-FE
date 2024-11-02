@@ -37,4 +37,8 @@ export class DateService implements DateManager {
   public getYear(date: Date): number {
     return moment(date).year();
   }
+
+  public getCurrentStartTimeTuple(): [number, number] {
+    return [moment().hour(), moment().minute()];
+  }
 }
