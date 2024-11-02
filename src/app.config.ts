@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, Provider } from '@angular/core';
 
 import { environment } from './environments/environment';
 import { Auth, getAuth, provideAuth, user } from '@angular/fire/auth';
@@ -31,6 +31,31 @@ import * as authEffects from './app/components/authentication/store/authenticati
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { DateManager } from './app/core/services/date-service/date-manager';
+import { DateService } from './app/core/services/date-service/date.service';
+
+const ABSTRACTIONS: Provider[] = [
+  {
+    provide: FileExtractor,
+    useClass: ToucheFileExtractor
+  },
+  {
+    provide: FileUpload,
+    useClass: ToucheFileUpload
+  },
+  {
+    provide: AvatarConfigurationBuilderFactory,
+    useClass: ToucheAvatarConfigurationBuilderFactory
+  },
+  {
+    provide: AvatarBuilder,
+    useClass: ToucheAvatarBuilder
+  },
+  {
+    provide: DateManager,
+    useClass: DateService
+  }
+];
 
 export const applicationConfig: ApplicationConfig = {
   providers: [
@@ -98,21 +123,6 @@ export const applicationConfig: ApplicationConfig = {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { verticalPosition: 'bottom', horizontalPosition: 'left', duration: 2000 }
     },
-    {
-      provide: FileExtractor,
-      useClass: ToucheFileExtractor
-    },
-    {
-      provide: FileUpload,
-      useClass: ToucheFileUpload
-    },
-    {
-      provide: AvatarConfigurationBuilderFactory,
-      useClass: ToucheAvatarConfigurationBuilderFactory
-    },
-    {
-      provide: AvatarBuilder,
-      useClass: ToucheAvatarBuilder
-    }
+    ...ABSTRACTIONS
   ]
 };
