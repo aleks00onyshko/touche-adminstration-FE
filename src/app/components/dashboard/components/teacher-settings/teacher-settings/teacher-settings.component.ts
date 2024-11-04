@@ -17,7 +17,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { debounceTime, takeUntil } from 'rxjs';
 import { SimpleChangesGeneric } from 'src/app/core/model/simple-changes-generic.model';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ConvertUsersToAvatarsPipe } from '../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { AVATAR_SIZE } from '../../../../../shared/components/avatar/models/avatar-configuration';
 import { UploadAvatarComponent } from '../../../../../shared/components/avatar/components/upload-avatar/upload-avatar.component';
@@ -40,7 +39,6 @@ export type TeacherSettingsControlStructure = {
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
-    ImageUploadComponent,
     UploadAvatarComponent,
     ConvertUsersToAvatarsPipe
   ],

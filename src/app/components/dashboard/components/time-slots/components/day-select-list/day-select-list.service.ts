@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import moment from 'moment';
 import { DayLabel } from './day-label';
+import { DateManager } from '../../../../../../core/services/date-service/date-manager';
 
 @Injectable()
 export class DaySelectListService {
+  constructor(private dateManager: DateManager) {}
+
   public splitDayLabelsIntoBatches(array: DayLabel[], batchSize: number = 7): DayLabel[][] {
     const batches: DayLabel[][] = [];
 
@@ -14,15 +16,14 @@ export class DaySelectListService {
     return batches;
   }
 
-  // generating next 30days
   public generateDaysList(): DayLabel[] {
-    const currentDate = moment();
+    const currentDate = this.dateManager.getCurrentDate();
     const days: DayLabel[] = [];
 
-    const addDays = (numberOfDays: number, currentDate: moment.Moment, days: DayLabel[]) => {
+    const addDays = (numberOfDays: number, startDate: Date, days: DayLabel[]) => {
       for (let i = 0; i < numberOfDays; i++) {
-        days.push(new DayLabel(currentDate));
-        currentDate.add(1, 'day');
+        const date = this.dateManager.addDaysToDate(startDate, i);
+        days.push(new DayLabel(this.dateManager, date));
       }
     };
 
