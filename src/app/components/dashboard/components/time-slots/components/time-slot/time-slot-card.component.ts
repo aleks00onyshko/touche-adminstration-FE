@@ -41,15 +41,13 @@ import { AvatarMultipleSelectDropdown } from '../../../../../../shared/component
 import { DurationSelectComponent } from '../../../../../../shared/components/duration-select/duration-select.component';
 import { Avatar } from '../../../../../../shared/components/avatar/models/avatar';
 import { ConvertUsersToAvatarsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
-import { LesonNameComponent } from 'src/app/shared/components/leson-name/leson-name.component';
 
-// TOOD: naming
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teachers: Avatar[] | null;
-  lessonName: string | null;  // Add this line
+  lessonName: string | null;
 }
 export type TimeSlotCardControlStructure = {
-  lessonName: FormControl<string | null>
+  lessonName: FormControl<string | null>;
   startTime: FormControl<[number, number] | null>;
   duration: FormControl<number | null>;
   teachers: FormControl<Avatar[] | null>;
@@ -71,7 +69,6 @@ export type TimeSlotCardControlStructure = {
     MatSelectModule,
     MatFormFieldModule,
     AvatarsDropdownComponent,
-    LesonNameComponent,
     ConvertUsersToAvatarsPipe,
     TranslateModule,
     AvatarMultipleSelectDropdown,
@@ -124,7 +121,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   public ngOnInit(): void {
     this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
       this.onChangeFn({
-        lessonName: value.lessonName ?? "",
+        lessonName: value.lessonName ?? '',
         startTime: value.startTime ?? [0, 0],
         duration: value.duration ?? 15,
         teachers: value.teachers ?? []

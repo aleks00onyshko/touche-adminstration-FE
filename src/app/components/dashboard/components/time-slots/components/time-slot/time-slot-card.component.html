@@ -1,17 +1,23 @@
 <mat-card class="time-slot" [formGroup]="timeSlotForm">
   <div class="time-slot_controls">
 
-    <app-leson-name [formControl]="controls.lessonName"></app-leson-name>
+    <mat-form-field class="time-slot_controls_lessonName">
+      <mat-label>{{ 'DASHBOARD.CREATE_TIME_SLOT.LESSON_NAME' | translate }}</mat-label>
+      <input [formControl]="controls.lessonName" matInput placeholder="Piano" value="Piano">
+    </mat-form-field>
 
-    <app-time-picker class="time-picker" [formControl]="controls.startTime"
-      [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate"></app-time-picker>
-
+    <app-time-picker
+      class="time-picker"
+      [formControl]="controls.startTime"
+      [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate">
+    </app-time-picker>
 
     <app-duration-select class="time-slot_controls_duration" [formControl]="controls.duration"></app-duration-select>
 
     <app-avatar-multiple-select-dropdown class="time-slot_controls_teachers"
       [avatars]="teachers | convertUsersToAvatars" [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate"
-      [formControl]="controls.teachers"></app-avatar-multiple-select-dropdown>
+      [formControl]="controls.teachers">
+    </app-avatar-multiple-select-dropdown>
   </div>
 
   <div class="time-slot_errors" [style.visibility]="timeSlotForm.invalid ? 'visible' : 'hidden'">
