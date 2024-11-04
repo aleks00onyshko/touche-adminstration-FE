@@ -42,11 +42,12 @@ import { DurationSelectComponent } from '../../../../../../shared/components/dur
 import { Avatar } from '../../../../../../shared/components/avatar/models/avatar';
 import { ConvertUsersToAvatarsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
-// TOOD: naming
 export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
   teachers: Avatar[] | null;
+  lessonName: string | null;
 }
 export type TimeSlotCardControlStructure = {
+  lessonName: FormControl<string | null>;
   startTime: FormControl<[number, number] | null>;
   duration: FormControl<number | null>;
   teachers: FormControl<Avatar[] | null>;
@@ -95,6 +96,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
 
   public readonly timeSlotForm = new FormGroup<TimeSlotCardControlStructure>(
     {
+      lessonName: new FormControl(null, [Validators.required]),
       startTime: new FormControl(null, [Validators.required]),
       duration: new FormControl(null, [Validators.required]),
       teachers: new FormControl(null, [Validators.required])
@@ -102,6 +104,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
     { validators: timeSlotCardValidator() }
   );
   public readonly controls: TimeSlotCardControlStructure = {
+    lessonName: this.timeSlotForm.controls.lessonName,
     startTime: this.timeSlotForm.controls.startTime,
     duration: this.timeSlotForm.controls.duration,
     teachers: this.timeSlotForm.controls.teachers
@@ -118,6 +121,7 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
   public ngOnInit(): void {
     this.timeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
       this.onChangeFn({
+        lessonName: value.lessonName ?? '',
         startTime: value.startTime ?? [0, 0],
         duration: value.duration ?? 15,
         teachers: value.teachers ?? []

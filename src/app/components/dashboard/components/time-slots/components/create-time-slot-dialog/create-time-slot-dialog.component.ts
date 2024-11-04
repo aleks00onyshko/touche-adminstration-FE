@@ -34,6 +34,7 @@ export class CreateTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
     new FormControl<TimeSlotCardControlValue>(
       {
+        lessonName: "",
         startTime: this.dateManager.getCurrentStartTimeTuple(),
         duration: 15,
         teachers: null

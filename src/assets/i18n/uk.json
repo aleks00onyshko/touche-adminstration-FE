@@ -37,6 +37,7 @@
       "EDIT_SLOT": "Редагувати слоту"
     },
     "CREATE_TIME_SLOT": {
+      "LESSON_NAME": "Назва Уроку",
       "START_TIME": "Початковий час",
       "DURATION": "Тривалість",
       "TEACHER": "Вчитель",
