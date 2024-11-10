@@ -12,6 +12,10 @@
     grid-template-columns: 4rem 1fr 4rem;
     align-items: center;
 
+    app-filter-time-slot{
+      margin-left: 1rem;
+    }
+
     .locations-dropdown {
       margin-left: 1rem;
 
