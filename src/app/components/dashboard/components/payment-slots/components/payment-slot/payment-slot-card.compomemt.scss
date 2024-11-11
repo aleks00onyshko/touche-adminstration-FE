@@ -2,10 +2,13 @@
 
 
   
-    &_controls  mat-form-field{
-      margin: 1rem;
+    &_controls{
+      display: flex;
+      flex-direction: column;
+      mat-form-field{
+        margin: 1rem 1rem 0rem 1rem;
+    } 
      
- 
     }
   
     &_errors {
