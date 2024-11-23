@@ -7,13 +7,13 @@ import { Injectable } from '@angular/core';
 import { FileUpload } from '../../../../core/model/file-upload/file-upload.service';
 import { FileExtractor } from '../../../../core/model/file-extractor/file-extract.service';
 
-export abstract class AvatarBuilder {
+export abstract class AvatarFactory {
   abstract createAvatar(user: User, params?: Partial<AvatarConfiguration>): Avatar;
   abstract createAvatarWithUpload(user: User, params?: Partial<AvatarConfiguration>): AvatarWithFileUpload;
 }
 
 @Injectable()
-export class ToucheAvatarBuilder extends AvatarBuilder {
+export class ToucheAvatarFactory extends AvatarFactory {
   constructor(
     private avatarConfigurationBuilderFactory: AvatarConfigurationBuilderFactory,
     private fileUpload: FileUpload,

@@ -26,13 +26,13 @@ import {
   AvatarConfigurationBuilderFactory,
   ToucheAvatarConfigurationBuilderFactory
 } from './app/shared/components/avatar/models/avatar-configuration-builder';
-import { AvatarBuilder, ToucheAvatarBuilder } from './app/shared/components/avatar/models/avatar-builder';
 import * as authEffects from './app/components/authentication/store/authentication.effects';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { DateManager } from './app/core/services/date-service/date-manager';
 import { DateService } from './app/core/services/date-service/date.service';
+import { AvatarFactory, ToucheAvatarFactory } from './app/shared/components/avatar/models/avatar-factory';
 
 const ABSTRACTIONS: Provider[] = [
   {
@@ -48,8 +48,8 @@ const ABSTRACTIONS: Provider[] = [
     useClass: ToucheAvatarConfigurationBuilderFactory
   },
   {
-    provide: AvatarBuilder,
-    useClass: ToucheAvatarBuilder
+    provide: AvatarFactory,
+    useClass: ToucheAvatarFactory
   },
   {
     provide: DateManager,

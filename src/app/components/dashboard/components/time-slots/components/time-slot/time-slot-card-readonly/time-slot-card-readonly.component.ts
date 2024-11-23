@@ -10,7 +10,6 @@ import { User } from 'src/app/core/model/entities/user';
 
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
-import { AvatarBuilder } from '../../../../../../../shared/components/avatar/models/avatar-builder';
 import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 
 @Component({
@@ -37,8 +36,6 @@ export class TimeSlotCardReadonlyComponent {
   @Input() public attendee?: User | undefined;
 
   @Output() public slotDeleted = new EventEmitter<string>();
-
-  constructor(protected avatarBuilder: AvatarBuilder) {}
 
   public deleteTimeSlot(id: string): void {
     this.slotDeleted.emit(id);

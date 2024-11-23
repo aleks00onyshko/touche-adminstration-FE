@@ -1,6 +1,7 @@
 import { AVATAR_SIZE, AvatarConfiguration } from './avatar-configuration';
 import { Injectable } from '@angular/core';
 
+// INFO: needed for getting new instance of ToucheAvatarConfigurationBuilder every time
 export abstract class AvatarConfigurationBuilderFactory {
   abstract getBuilder(): AvatarConfigurationBuilder;
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AvatarSizeModifiersPipe } from '../../pipes/avatar-size-modifiers.pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { Avatar } from '../../models/avatar';
-import { AVATAR_SIZE } from '../../models/avatar-configuration';
 
 @Component({
   selector: 'app-avatar',

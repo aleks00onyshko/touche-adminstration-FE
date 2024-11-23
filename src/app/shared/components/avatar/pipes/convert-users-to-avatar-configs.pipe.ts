@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { User } from '../../../../core/model/entities/user';
 import { AvatarConfiguration } from '../models/avatar-configuration';
-import { AvatarBuilder } from '../models/avatar-builder';
+import { AvatarFactory } from '../models/avatar-factory';
 import { Avatar } from '../models/avatar';
 import { AvatarWithFileUpload } from '../models/avatar-with-upload';
 
@@ -10,7 +10,7 @@ import { AvatarWithFileUpload } from '../models/avatar-with-upload';
   standalone: true
 })
 export class ConvertUsersToAvatarsPipe implements PipeTransform {
-  constructor(private avatarBuilder: AvatarBuilder) {}
+  constructor(private avatarBuilder: AvatarFactory) {}
 
   public transform(
     users: User[],
