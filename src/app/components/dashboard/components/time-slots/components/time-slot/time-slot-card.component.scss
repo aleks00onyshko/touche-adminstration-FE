@@ -6,17 +6,30 @@
 
   &_controls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     gap: 1rem;
+    width: 100%;
 
     app-time-picker {
       width: 100%;
     }
 
     &_lessonName {
+      margin-bottom: -3rem;
+      width: 100%;
       height: 6.4rem;
+    }
+
+    &_time {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    &_teachers {
+      width: 100%;
     }
   }
 
@@ -31,6 +44,10 @@
     &_controls {
       display: flex !important;
       flex-direction: column !important;
+
+      &_time{
+        flex-wrap: wrap !important
+      }
     }
   }
 }
