@@ -3,7 +3,6 @@ import { DaySelectListComponent } from '../day-select-list/day-select-list.compo
 import { DateId, TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
 import { CommonModule } from '@angular/common';
 import { TimeSlotCardReadonlyComponent } from '../time-slot/time-slot-card-readonly/time-slot-card-readonly.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
@@ -21,7 +20,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Location } from 'src/app/core/model/entities/location';
-import { DashboardComponent } from '../../../dashboard/dashboard.component';
 import {
   FilterTimeSlotCardControlValue,
   FilterTimeSlotsComponent
@@ -39,12 +37,10 @@ import {
     DaySelectListComponent,
     MatIconModule,
     MatButtonModule,
-    TimeSlotCardComponent,
     TimeSlotCardReadonlyComponent,
     SpinnerComponent,
     MatSelectModule,
     MatSelectModule,
-    DashboardComponent,
     TranslateModule,
     FilterTimeSlotsComponent
   ]

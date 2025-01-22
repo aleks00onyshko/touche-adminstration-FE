@@ -34,7 +34,6 @@ import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { timeSlotCardValidator } from './config/validators/time-slot.validator';
 import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from './config/validation.errors';
-import { AvatarsDropdownComponent } from 'src/app/shared/components/avatars-dropddown/avatars-dropdown.component';
 import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
 import { AvatarMultipleSelectDropdown } from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
@@ -68,7 +67,6 @@ export type TimeSlotCardControlStructure = {
     TimePickerComponent,
     MatSelectModule,
     MatFormFieldModule,
-    AvatarsDropdownComponent,
     ConvertUsersToAvatarsPipe,
     TranslateModule,
     AvatarMultipleSelectDropdown,

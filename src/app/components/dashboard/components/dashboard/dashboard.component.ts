@@ -7,8 +7,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
-import { DaySelectListComponent } from '../time-slots/components/day-select-list/day-select-list.component';
-import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SystembarComponent } from "../../../../shared/components/systembar/systembar.component";
@@ -32,10 +30,8 @@ import { selectTheme } from 'src/styles/store/projectSettings.selectors';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    SpinnerComponent,
     RouterModule,
     TranslateModule,
-    DaySelectListComponent,
     MatIconModule,
     SystembarComponent
 ],
