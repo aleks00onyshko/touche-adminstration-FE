@@ -15,7 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Teacher } from 'src/app/core/model/entities/teacher';
-import { InteractiveAvatarsComponent } from '../../../../../../../shared/components/interective-avatars/interactive-avatars.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
@@ -51,7 +50,6 @@ export type FilterTimeSlotCardControlStructure = {
     MatIconModule,
     FormsModule,
     MatCheckboxModule,
-    InteractiveAvatarsComponent,
     AvatarMultipleSelectDropdown,
     ConvertUsersToAvatarsPipe,
     DurationSelectComponent

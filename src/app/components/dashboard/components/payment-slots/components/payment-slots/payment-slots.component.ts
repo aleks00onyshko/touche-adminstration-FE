@@ -7,7 +7,6 @@ import { PaymentSlotsState } from '../../store/payment-slots.reducer';
 import { selectLoading, selectPaymentSlots } from '../../store/payment-slots.selector';
 import { CommonModule } from '@angular/common';
 import { PaymentSlotCardReadonlyComponent } from '../payment-slot-card-readonly/payment-slot-card-readonly';
-import { DaySelectListComponent } from '../../../time-slots/components/day-select-list/day-select-list.component';
 import { SpinnerComponent } from '../../../../../../shared/components/spinner/spinner.component';
 import { PaymentSlot } from 'src/app/core/model/entities/payment-slot';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,7 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
     MatIconModule,
     PaymentSlotCardReadonlyComponent,
     CommonModule,
-    DaySelectListComponent,
     SpinnerComponent,
     TranslateModule,
   ]

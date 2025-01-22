@@ -27,7 +27,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { TimePickerComponent } from 'src/app/shared/components/time-picker/time-picker.component';
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
@@ -56,7 +55,6 @@ export type PaymentSlotCardControlStructure = {
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
-    TimePickerComponent,
     MatSelectModule,
     MatFormFieldModule,
     TranslateModule

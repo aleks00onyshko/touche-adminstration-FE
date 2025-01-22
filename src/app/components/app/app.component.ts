@@ -26,10 +26,9 @@ import { Theme } from 'src/styles/store/projectSettings.reducer';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    SystembarComponent,
     StoreModule,
     MatSelectModule
-  ],
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
