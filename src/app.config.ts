@@ -1,4 +1,9 @@
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, Provider } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom, inject,
+  provideAppInitializer,
+  Provider
+} from '@angular/core';
 
 import { environment } from './environments/environment';
 import { Auth, getAuth, provideAuth, user } from '@angular/fire/auth';
@@ -94,31 +99,24 @@ export const applicationConfig: ApplicationConfig = {
     provideEffects(authEffects),
     provideRouter(appRoutes),
     MatSnackBarModule,
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [Auth, MatSnackBar, TranslateService, LocalStorageService],
-      useFactory:
-        (
-          auth: Auth,
-          matSnackBar: MatSnackBar,
-          translateService: TranslateService,
-          localStorageService: LocalStorageService
-        ) =>
-        () => {
-          translateService.addLangs(['en', 'uk']);
-          translateService.setDefaultLang('uk');
-          translateService.use(localStorageService.get('language') ?? 'uk');
+    provideAppInitializer(() => {
+      const auth = inject(Auth);
+      const matSnackBar = inject(MatSnackBar);
+      const translateService = inject(TranslateService);
+      const localStorageService = inject(LocalStorageService);
 
-          return user(auth).pipe(
-            take(1),
-            catchError((err: Error) => {
-              matSnackBar.open(err.message);
-              return of(null);
-            })
-          );
-        }
-    },
+      translateService.addLangs(['en', 'uk']);
+      translateService.setDefaultLang('en');
+      translateService.use(localStorageService.get('language') ?? 'en');
+
+      return user(auth).pipe(
+        take(1),
+        catchError((err: Error) => {
+          matSnackBar.open(err.message);
+          return of(null);
+        })
+      );
+    }),
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { verticalPosition: 'bottom', horizontalPosition: 'left', duration: 2000 }

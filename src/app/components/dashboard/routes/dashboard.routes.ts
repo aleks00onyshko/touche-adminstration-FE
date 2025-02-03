@@ -7,7 +7,6 @@ import { timeSlotsResolver } from './resolvers/time-slots.resolver';
 
 import * as timeSlotsEffects from '../components/time-slots/store/time-slots.effects';
 import * as teacherSettingsEffects from '../components/teacher-settings/store/teacher-settings.effects';
-import * as paymentSlotsEffects from '../components/payment-slots/store/payment-slots.effects';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
@@ -15,20 +14,13 @@ export const DASHBOARD_ROUTES: Routes = [
     loadComponent: () => import('./../components/dashboard/dashboard.component').then(m => m.DashboardComponent),
     providers: [
       provideState(DASHBOARD_FEATURE_KEY, dashboardReducers),
-      provideEffects(timeSlotsEffects, teacherSettingsEffects, paymentSlotsEffects)
+      provideEffects(timeSlotsEffects, teacherSettingsEffects)
     ],
     children: [
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'time-slots'
-      },
-      {
-        loadComponent: () =>
-          import('./../components/payment-slots/components/payment-slots/payment-slots.component').then(
-            m => m.PaymentSlotsComponent
-          ),
-        path: 'payment-slots'
       },
       {
         loadComponent: () =>

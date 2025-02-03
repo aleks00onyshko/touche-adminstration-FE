@@ -1,5 +1,5 @@
-import { User } from '@angular/fire/auth';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { User } from '../../../core/model/entities/user';
 
 export const AuthenticationActions = createActionGroup({
   source: 'Authentication',

@@ -3,7 +3,7 @@
   <button type="button" mat-mini-fab (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  
+
   @if(currentUser$ | async; as user) {
     <app-avatar
       [matMenuTriggerFor]="menu"
@@ -11,7 +11,7 @@
     ></app-avatar>
   }
 
-  <mat-menu  #menu="matMenu" [hasBackdrop]="false">
+  <mat-menu #menu="matMenu">
     <div class="systembar-popup-container">
       <mat-form-field  (click)="$event.stopPropagation()" class="theme-select">
         <mat-label>Choose a theme</mat-label>

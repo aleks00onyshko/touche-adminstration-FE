@@ -40,8 +40,6 @@ import { selectTheme } from 'src/styles/store/projectSettings.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
-
-
   private readonly themeAnchor = this.document.getElementById('app-theme');
 
   public isAuthenticated$!: Observable<boolean>;

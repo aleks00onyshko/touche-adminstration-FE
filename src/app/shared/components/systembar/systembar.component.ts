@@ -30,7 +30,7 @@ import { MatDrawer } from '@angular/material/sidenav';
     StoreModule,
     AvatarComponent,
     MatMenuModule,
-    MatSelectModule,  
+    MatSelectModule,
     ReactiveFormsModule,
     MatButtonModule,
     TranslateModule,
@@ -52,8 +52,7 @@ export class SystembarComponent {
   public Theme: typeof Theme = Theme;
   public theme$: Observable<Theme | null> = this.store.select(selectTheme);
   public language$: Observable<Language | null> = this.store.select(selectLanguage);
-  // TODO: fix
-  public currentUser$: Observable<User> = this.store.select(selectUser) as any as Observable<User>;
+  public currentUser$: Observable<User | null> = this.store.select(selectUser);
 
   constructor(
     protected translateService: TranslateService,

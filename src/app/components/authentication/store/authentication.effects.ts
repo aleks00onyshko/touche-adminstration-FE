@@ -5,8 +5,8 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
-  User,
-  user
+  user,
+  User as FirestoreUser
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,15 +15,16 @@ import { catchError, EMPTY, from, map, of, switchMap, tap } from 'rxjs';
 import { AuthenticationActions } from './authentication.action';
 import { doc, Firestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { Teacher } from 'src/app/core/model/entities/teacher';
+import { User } from '../../../core/model/entities/user';
 
 export const getUser$ = createEffect(
   (actions$ = inject(Actions), auth = inject(Auth)) =>
     actions$.pipe(
       ofType(AuthenticationActions.getUser),
       switchMap(() => user(auth)),
-      map((user: User | null) =>
+      map((user: FirestoreUser | null) =>
         user
-          ? AuthenticationActions.authenticated({ user: user.toJSON() as User })
+          ? AuthenticationActions.authenticated({ user: { ...(user.toJSON())} as User })
           : AuthenticationActions.notAuthenticated()
       ),
       catchError((error: Error) => of(AuthenticationActions.error({ error: error.message })))

@@ -25,16 +25,7 @@
     "ANALYTICS_FALLBACK": "Якась аналітика тут в майбутньому",
     "SIDENAV": {
       "SLOTS": "Часові Слоти",
-      "PAYMENT-SLOTS": "Налаштування оплати",
       "TEACHER-SETTINGS": "Налаштування вчителів"
-    },
-    "PAYMENT_SLOT": {
-      "TYPE": "заняття",
-      "NUMBER_OF_CLASSES": "кількість занять",
-      "PRICE": "ціна",
-      "CURRENCY": "грн",
-      "CHOOSE_PACKAGE": "СТВОРЕННЯ ПАКЕТІВ",
-      "EDIT_SLOT": "Редагувати слоту"
     },
     "CREATE_TIME_SLOT": {
       "LESSON_NAME": "Назва Уроку",
@@ -54,9 +45,6 @@
     },
     "CREATE_TIME_SLOT_DIALOG": {
       "TITLE": "Створіть новий урок"
-    },
-    "CREATE_PAYMENT_SLOT_DIALOG": {
-      "TITLE": "Створіть новий пакет"
     },
     "DAY_LIST": {
       "MON": "ПН",

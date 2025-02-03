@@ -1,6 +1,6 @@
-import { User } from '@angular/fire/auth';
 import { createReducer, on } from '@ngrx/store';
 import { AuthenticationActions } from './authentication.action';
+import { User } from '../../../core/model/entities/user';
 
 export const AUTHENTICATION_FEATURE_NAME = 'authentication';
 
