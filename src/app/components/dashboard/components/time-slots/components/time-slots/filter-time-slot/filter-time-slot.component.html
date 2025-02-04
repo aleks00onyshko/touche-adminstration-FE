@@ -5,11 +5,11 @@
     <section class="example-section" (click)="$event.stopPropagation()">
       <app-duration-select [formControl]="controls.duration"></app-duration-select>
 
-      <app-avatar-multiple-select-dropdown
-        [formControl]="controls.avatars"
-        [avatars]="teachers | convertUsersToAvatars"
-        [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate">
-      </app-avatar-multiple-select-dropdown>
+      <app-table-multiple-select-dropdown
+        [formControl]="controls.tables"
+        [tables]="tables"
+        [label]="'Tables'">
+      </app-table-multiple-select-dropdown>
 
       <div class="footer-example-section">
         <mat-checkbox [formControl]="controls.booked" class="example-margin">booked</mat-checkbox>
@@ -18,4 +18,3 @@
     </section>
   </ng-container>
 </mat-menu>
-  

@@ -23,16 +23,18 @@ import { DurationSelectComponent } from '../../../../../../../shared/components/
 import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
 import { Avatar } from '../../../../../../../shared/components/avatar/models/avatar';
 import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
+import { Table } from '../../../../../../../core/model/entities/table';
+import { TableMultipleSelectDropdown } from '../../../../../../../shared/components/table-multiple-select-dropdown/table-multiple-select-dropdown';
 
 export interface FilterTimeSlotCardControlValue {
   duration: number | null;
   booked: boolean | null;
-  avatars: Avatar[] | null;
+  tables: Table[] | null;
 }
 export type FilterTimeSlotCardControlStructure = {
   booked: FormControl<boolean | null>;
   duration: FormControl<number | null>;
-  avatars: FormControl<Avatar[] | null>;
+  tables: FormControl<Table[] | null>;
 };
 @Component({
   selector: 'app-filter-time-slot',
@@ -50,15 +52,14 @@ export type FilterTimeSlotCardControlStructure = {
     MatIconModule,
     FormsModule,
     MatCheckboxModule,
-    AvatarMultipleSelectDropdown,
-    ConvertUsersToAvatarsPipe,
-    DurationSelectComponent
+    DurationSelectComponent,
+    TableMultipleSelectDropdown
   ],
   providers: [],
   encapsulation: ViewEncapsulation.None
 })
 export class FilterTimeSlotsComponent extends ReactiveComponent implements OnInit {
-  @Input({ required: true }) public teachers!: Teacher[];
+  @Input({ required: true }) public tables!: Table[];
 
   @Output() public filterChange = new EventEmitter<FilterTimeSlotCardControlValue>();
   @Output() public resetFilter = new EventEmitter<void>();
@@ -66,12 +67,12 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
   public readonly filterTimeSlotForm = new FormGroup<FilterTimeSlotCardControlStructure>({
     booked: new FormControl(null),
     duration: new FormControl(null),
-    avatars: new FormControl(null)
+    tables: new FormControl(null)
   });
   public readonly controls: FilterTimeSlotCardControlStructure = {
     booked: this.filterTimeSlotForm.controls.booked,
     duration: this.filterTimeSlotForm.controls.duration,
-    avatars: this.filterTimeSlotForm.controls.avatars
+    tables: this.filterTimeSlotForm.controls.tables
   };
 
   constructor() {
@@ -83,7 +84,7 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
       const filter: FilterTimeSlotCardControlValue = {
         booked: value.booked ?? null,
         duration: value.duration ?? null,
-        avatars: value.avatars ?? null
+        tables: value.tables ?? null
       };
 
       this.filterChange.emit(filter);

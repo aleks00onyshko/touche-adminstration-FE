@@ -266,12 +266,12 @@ function generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlVa
     constrainsts.push(where('duration', '==', filter.duration));
   }
 
-  if ((filter.avatars ?? []).length > 0) {
+  if ((filter.tables ?? []).length > 0) {
     constrainsts.push(
       where(
-        'teachersIds',
+        'tableIds',
         'array-contains-any',
-        filter.avatars!.map(avatar => avatar.configuration.id)
+        filter.tables!.map(table => table.id)
       )
     );
   }

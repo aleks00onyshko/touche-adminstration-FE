@@ -23,9 +23,8 @@
       </mat-select>
     </mat-form-field>
 
-<!--    TODO: adapt for teachers later-->
     <app-filter-time-slot
-      [teachers]="[]"
+      [tables]="$any(tables$ | async)"
       (filterChange)="filterChange($event)"
       (resetFilter)="resetFilter()">
     </app-filter-time-slot>
