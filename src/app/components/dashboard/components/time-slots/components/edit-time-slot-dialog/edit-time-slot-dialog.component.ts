@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation.errors';
 import { AvatarFactory } from '../../../../../../shared/components/avatar/models/avatar-factory';
+import { Table } from '../../../../../../core/model/entities/table';
 
 @Component({
   selector: 'app-edit-time-slot-dialog',
@@ -52,17 +53,15 @@ export class EditTimeSlotDialogComponent {
     const lessonName = dialogData.timeSlot.lessonName;
     const startTime = dialogData.timeSlot.startTime;
     const duration = dialogData.timeSlot.duration;
-    const teachersAvatarConfigs = dialogData.teachers
-      .filter(teacher => dialogData.timeSlot.teachersIds.includes(teacher.id))
-      .map(teacher => this.avatarFactory.createAvatar(teacher));
+    const tables = this.dialogData.tables.filter(table => this.dialogData.timeSlot.tableIds.includes(table.id));
 
-    return { lessonName, startTime, duration, teachers: teachersAvatarConfigs };
+    return { lessonName, startTime, duration, tables };
   }
 }
 
 export interface EditTimeSlotDialogData {
   timeSlot: TimeSlot;
-  teachers: Teacher[];
+  tables: Table[];
 }
 
 export interface EditTimeSlotDialogResponse {

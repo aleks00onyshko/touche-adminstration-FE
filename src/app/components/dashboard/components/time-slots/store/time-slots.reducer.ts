@@ -5,12 +5,13 @@ import { TimeSlotsActions } from './time-slots.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from 'src/app/core/model/entities/location';
 import { FilterTimeSlotCardControlValue } from '../components/time-slots/filter-time-slot/filter-time-slot.component';
+import { Table } from '../../../../../core/model/entities/table';
 
 export interface TimeSlotsState {
   currentDateId: DateId | null;
   loading: boolean;
   timeSlots: TimeSlot[] | null;
-  teachers: Teacher[] | null;
+  tables: Table[] | null;
   locations: Location[] | null;
   currentLocation: Location | null;
   error: HttpErrorResponse | null;
@@ -21,7 +22,7 @@ export const initialState: TimeSlotsState = {
   currentDateId: null,
   loading: false,
   timeSlots: null,
-  teachers: null,
+  tables: null,
   locations: null,
   currentLocation: null,
   error: null,
@@ -34,7 +35,7 @@ const reducer = createReducer(
   on(
     TimeSlotsActions.getTimeSlots,
     TimeSlotsActions.createTimeSlot,
-    TimeSlotsActions.getTeachers,
+    TimeSlotsActions.getTables,
     TimeSlotsActions.getLocations,
     TimeSlotsActions.deleteTimeSlot,
     TimeSlotsActions.editTimeSlot,
@@ -48,7 +49,7 @@ const reducer = createReducer(
     TimeSlotsActions.getTimeSlotsFailed,
     TimeSlotsActions.createTimeSlotFailed,
     TimeSlotsActions.editTimeSlotFailed,
-    TimeSlotsActions.getTeachersFailed,
+    TimeSlotsActions.getTablesFailed,
     TimeSlotsActions.getLocationsFailed,
     TimeSlotsActions.deleteTimeSlotFailded,
     (state, { error }) => ({
@@ -57,7 +58,7 @@ const reducer = createReducer(
       loading: false
     })
   ),
-  on(TimeSlotsActions.getTeachersSuccess, (state, { teachers }) => ({ ...state, teachers })),
+  on(TimeSlotsActions.getTablesSuccess, (state, { tables }) => ({ ...state, tables })),
   on(TimeSlotsActions.getLocationsSuccess, (state, { locations }) => ({ ...state, locations })),
   on(TimeSlotsActions.deleteTimeSlotSuccess, (state, { id }) => ({
     ...state,

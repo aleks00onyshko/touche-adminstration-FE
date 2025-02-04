@@ -17,7 +17,7 @@ export const selectCurrentLocationTimeSlots = createSelector(
   selectTimeSlots,
   (location, timeSlots) => (timeSlots ?? []).filter(timeSlot => timeSlot.locationId === location?.id)
 );
-export const selectTeachers = createSelector(selectTimeSlotsState, state => state.teachers);
+export const selectTables = createSelector(selectTimeSlotsState, state => state.tables);
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
 
 export const timeSlotHasTimeTurnerSyndrome = (
@@ -27,7 +27,7 @@ export const timeSlotHasTimeTurnerSyndrome = (
   createSelector(selectTimeSlots, timeSlotsItems => {
     const timeSlots = editedTimeSlotId
       ? (timeSlotsItems ?? []).filter(timeSlot => timeSlot.id !== editedTimeSlotId)
-      : timeSlotsItems ?? [];
+      : (timeSlotsItems ?? []);
 
     return timeSlots.some(timeSLot => {
       return timeSlotsOverlap(timeSLot, timeSlotCardValue as any as TimeSlot);

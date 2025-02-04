@@ -1,0 +1,10 @@
+<mat-form-field>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [formControl]="control" [compareWith]="compareWith" multiple>
+    @for (table of tables; track table?.id) {
+    <mat-option class="avatars-dropdown_option" [value]="table">
+      <span> {{ table.name }} </span>
+    </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

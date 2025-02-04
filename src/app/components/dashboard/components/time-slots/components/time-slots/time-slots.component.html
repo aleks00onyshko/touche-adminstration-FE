@@ -23,8 +23,9 @@
       </mat-select>
     </mat-form-field>
 
+<!--    TODO: adapt for teachers later-->
     <app-filter-time-slot
-      [teachers]="(teachers$ | async)!"
+      [teachers]="[]"
       (filterChange)="filterChange($event)"
       (resetFilter)="resetFilter()">
     </app-filter-time-slot>
@@ -37,7 +38,7 @@
       @for(timeSlot of timeSlots; track timeSlot.id) {
       <app-time-slot-card-readonly
         [timeSlot]="timeSlot"
-        [teachers]="(teachers$ | async)!"
+        [tables]="$any(tables$ | async)"
         (slotDeleted)="deleteTimeSlot($event)"
         (click)="openEditTimeSlotDialog(timeSlot)">
       </app-time-slot-card-readonly>

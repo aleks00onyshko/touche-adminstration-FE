@@ -24,7 +24,7 @@ import { takeUntil } from 'rxjs';
   ]
 })
 export class DurationSelectComponent extends ReactiveComponent implements ControlValueAccessor, OnInit {
-  public readonly durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120];
+  public readonly durationOptions: number[] = [15, 30, 45, 60, 75, 90, 105, 120, 150, 180, 210, 240, 270, 300];
 
   public durationControl = new FormControl<number>(this.durationOptions[0]);
 

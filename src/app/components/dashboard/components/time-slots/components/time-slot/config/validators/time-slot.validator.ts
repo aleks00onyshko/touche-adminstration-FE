@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 export function timeSlotCardValidator(): ValidatorFn {
   return (timeSlotFormGroup: AbstractControl<any>): TimeSlotCardValidationErrors | null => {
     const {
-      controls: {lessonName, startTime, duration, teachers }
+      controls: { lessonName, startTime, duration, tables }
     } = timeSlotFormGroup as FormGroup<TimeSlotCardControlStructure>;
     const errors: TimeSlotCardValidationErrors = {};
 
@@ -17,18 +17,18 @@ export function timeSlotCardValidator(): ValidatorFn {
     }
 
     if (slotDurationLeaksToNextDay(startTime.value, duration.value)) {
-      errors.DURATION_IS_INVALID = true;  
+      errors.DURATION_IS_INVALID = true;
     }
 
-    if (teachers.hasError('required')) {
-      errors.TEACHER_IS_REQUIRED = true;
+    if (tables.hasError('required')) {
+      errors.TABLE_IS_REQUIRED = true;
     }
 
     return isEmpty(errors) ? null : errors;
   };
 }
 
-function slotDurationLeaksToNextDay( startTime: [number, number], duration: number): boolean {
+function slotDurationLeaksToNextDay(startTime: [number, number], duration: number): boolean {
   const dayInMinutes = 1440;
   const minutes: number = startTime[0] * 60 + startTime[1] + duration;
 

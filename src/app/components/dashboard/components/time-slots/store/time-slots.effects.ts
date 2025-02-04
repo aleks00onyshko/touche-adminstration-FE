@@ -15,7 +15,7 @@ import {
 } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
 import { EMPTY, Observable, catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { selectCurrentDateId, selectCurrentLocation, selectTeachers } from './time-slots.selectors';
+import { selectCurrentDateId, selectCurrentLocation, selectTables } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UUIDGeneratorService } from '../../../../../core/services/id-generator.service';
@@ -24,7 +24,6 @@ import {
   CreateTimeSlotDialogComponent,
   CreateTimeSlotDialogResponse
 } from '../components/create-time-slot-dialog/create-time-slot-dialog.component';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { Location } from 'src/app/core/model/entities/location';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import {
@@ -34,6 +33,7 @@ import {
 import { FilterTimeSlotCardControlValue } from 'src/app/components/dashboard/components/time-slots/components/time-slots/filter-time-slot/filter-time-slot.component';
 import { QueryFieldFilterConstraint } from '@firebase/firestore';
 import { concatLatestFrom } from '@ngrx/operators';
+import { Table } from '../../../../../core/model/entities/table';
 
 //!important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
 export const getTimeSlots$ = createEffect(
@@ -78,14 +78,14 @@ export const resetTimeSlotsFilter$ = createEffect(
 );
 
 // !important: Don't forget that this is a kind of a WS channel, listens to firestore's respective collection
-export const getTeachers$ = createEffect(
+export const getTables$ = createEffect(
   (actions$ = inject(Actions), firestore = inject(Firestore)) =>
     actions$.pipe(
-      ofType(TimeSlotsActions.getTeachers),
+      ofType(TimeSlotsActions.getTables),
       switchMap(() =>
-        (collectionData(collection(firestore, `teachers`)) as Observable<Teacher[]>).pipe(
-          map(teachers => TimeSlotsActions.getTeachersSuccess({ teachers })),
-          catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTeachersFailed({ error })))
+        (collectionData(collection(firestore, `tables`)) as Observable<Table[]>).pipe(
+          map(tables => TimeSlotsActions.getTablesSuccess({ tables })),
+          catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTablesFailed({ error })))
         )
       )
     ),
@@ -126,9 +126,10 @@ export const createTimeSlot$ = createEffect(
           locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
+          teachersIds: [],
           booked: false,
-          attendeeId: ''
+          attendeeId: '',
+          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id)
         };
 
         return from(
@@ -156,9 +157,10 @@ export const editTimeSlot$ = createEffect(
           locationId: currentLocation!.id,
           id: initialTimeSlot.id,
           dateId: currentDateId!,
-          teachersIds: (timeSlotCardControlValue.teachers ?? []).map(teacher => teacher.configuration.id),
+          teachersIds: [],
           booked: initialTimeSlot.booked,
-          attendeeId: initialTimeSlot.attendeeId
+          attendeeId: initialTimeSlot.attendeeId,
+          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id)
         };
 
         return from(
@@ -195,11 +197,11 @@ export const openCreateTimeSlotDialog$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.openCreateTimeSlotDialog),
-      withLatestFrom(store.select(selectTeachers)),
-      switchMap(([_, teachers]) => {
+      withLatestFrom(store.select(selectTables)),
+      switchMap(([_, tables]) => {
         const dialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse> = dialog.open(
           CreateTimeSlotDialogComponent,
-          { data: { teachers }, width: '100% - 4rem' }
+          { data: { tables }, width: '100% - 4rem' }
         );
 
         return dialogRef.afterClosed().pipe(
@@ -220,11 +222,11 @@ export const openEditTimeSlotDialog$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.openEditTimeSlotDialog),
-      concatLatestFrom(() => store.select(selectTeachers)),
-      switchMap(([{ timeSlot }, teachers]) => {
+      concatLatestFrom(() => store.select(selectTables)),
+      switchMap(([{ timeSlot }, tables]) => {
         const dialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse> = dialog.open(
           EditTimeSlotDialogComponent,
-          { data: { timeSlot, teachers }, width: '100% - 4rem' }
+          { data: { timeSlot, tables }, width: '100% - 4rem' }
         );
 
         return dialogRef.afterClosed().pipe(

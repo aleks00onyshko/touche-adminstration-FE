@@ -28,7 +28,7 @@
       "TEACHER-SETTINGS": "TEACHER SETTINGS"
     },
     "CREATE_TIME_SLOT": {
-      "LESSON_NAME": "Lesson Name",
+      "SLOT_NAME": "Slot Name",
       "START_TIME": "Start Time",
       "DURATION": "Duration",
       "TEACHER": "Teacher",

@@ -12,4 +12,5 @@ export interface TimeSlot extends Entity<string> {
   dateId: DateId;
   booked: boolean;
   attendeeId: string;
+  tableIds: string[];
 }

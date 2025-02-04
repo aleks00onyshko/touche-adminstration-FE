@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation.errors';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateManager } from 'src/app/core/services/date-service/date-manager';
+import { Table } from '../../../../../../core/model/entities/table';
 
 @Component({
   selector: 'app-create-time-slot-dialog',
@@ -34,10 +35,10 @@ export class CreateTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
     new FormControl<TimeSlotCardControlValue>(
       {
-        lessonName: "",
+        lessonName: '',
         startTime: this.dateManager.getCurrentStartTimeTuple(),
         duration: 15,
-        teachers: null
+        tables: null
       },
       { asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
     );
@@ -48,7 +49,7 @@ export class CreateTimeSlotDialogComponent {
     private dateManager: DateManager,
     private readonly matDialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse>,
     @Inject(MAT_DIALOG_DATA) public dialogData: CreateTimeSlotDialogData
-  ) { }
+  ) {}
 
   public saveTimeSlot(value: TimeSlotCardControlValue): void {
     this.matDialogRef.close({ timeSlotCardControlValue: value });
@@ -56,7 +57,7 @@ export class CreateTimeSlotDialogComponent {
 }
 
 export interface CreateTimeSlotDialogData {
-  teachers: Teacher[];
+  tables: Table[];
 }
 
 export interface CreateTimeSlotDialogResponse {

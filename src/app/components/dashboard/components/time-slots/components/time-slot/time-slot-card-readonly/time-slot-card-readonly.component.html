@@ -2,18 +2,11 @@
   <div class="lesson_type-and_teacher">
     <div class="lesson-type_attendee">
       <span class="lesson_type">{{ timeSlot.lessonName }}</span>
-
-      @if(attendee) {
-      <app-avatar [avatar]="([attendee] | convertUsersToAvatars)[0]"></app-avatar>
-      }
     </div>
     <div class="teacherBlock">
-      <span class="teacher">
-        <app-interective-avatars
-          [teachers]="getTeachersAssignedToSlot()"
-          [label]="'DASHBOARD.CREATE_TIME_SLOT.TEACHER' | translate">
-        </app-interective-avatars>
-      </span>
+      @for (table of getTablesAssignedToSlot(); track table.id) {
+        <span>{{ table.name }} </span>
+      }
     </div>
   </div>
   <div class="lesson_time">
