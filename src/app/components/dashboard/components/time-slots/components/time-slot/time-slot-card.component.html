@@ -6,12 +6,15 @@
       <input [formControl]="controls.lessonName" matInput placeholder="Slot name" value="Slot name">
     </mat-form-field>
 
+    <mat-form-field class="time-slot_controls_peopleAmount">
+      <mat-label>People Amount</mat-label>
+      <input type="number" [formControl]="controls.peopleAmount" matInput placeholder="0" value="0">
+    </mat-form-field>
+
     <div class="time-slot_controls_time">
       <app-time-picker class="time-picker" [formControl]="controls.startTime"
         [label]="'DASHBOARD.CREATE_TIME_SLOT.START_TIME' | translate">
       </app-time-picker>
-
-      <app-duration-select class="time-slot_controls_duration" [formControl]="controls.duration"></app-duration-select>
     </div>
 
     <app-table-multiple-select-dropdown class="time-slot_controls_teachers"

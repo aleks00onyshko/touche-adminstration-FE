@@ -14,26 +14,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
-import { DurationSelectComponent } from '../../../../../../../shared/components/duration-select/duration-select.component';
-import { AvatarMultipleSelectDropdown } from 'src/app/shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
-import { Avatar } from '../../../../../../../shared/components/avatar/models/avatar';
-import { ConvertUsersToAvatarsPipe } from '../../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { Table } from '../../../../../../../core/model/entities/table';
 import { TableMultipleSelectDropdown } from '../../../../../../../shared/components/table-multiple-select-dropdown/table-multiple-select-dropdown';
 
 export interface FilterTimeSlotCardControlValue {
-  duration: number | null;
   booked: boolean | null;
   tables: Table[] | null;
 }
 export type FilterTimeSlotCardControlStructure = {
   booked: FormControl<boolean | null>;
-  duration: FormControl<number | null>;
   tables: FormControl<Table[] | null>;
 };
 @Component({
@@ -52,10 +45,8 @@ export type FilterTimeSlotCardControlStructure = {
     MatIconModule,
     FormsModule,
     MatCheckboxModule,
-    DurationSelectComponent,
     TableMultipleSelectDropdown
   ],
-  providers: [],
   encapsulation: ViewEncapsulation.None
 })
 export class FilterTimeSlotsComponent extends ReactiveComponent implements OnInit {
@@ -66,12 +57,10 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
 
   public readonly filterTimeSlotForm = new FormGroup<FilterTimeSlotCardControlStructure>({
     booked: new FormControl(null),
-    duration: new FormControl(null),
     tables: new FormControl(null)
   });
   public readonly controls: FilterTimeSlotCardControlStructure = {
     booked: this.filterTimeSlotForm.controls.booked,
-    duration: this.filterTimeSlotForm.controls.duration,
     tables: this.filterTimeSlotForm.controls.tables
   };
 
@@ -83,7 +72,6 @@ export class FilterTimeSlotsComponent extends ReactiveComponent implements OnIni
     this.filterTimeSlotForm.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
       const filter: FilterTimeSlotCardControlValue = {
         booked: value.booked ?? null,
-        duration: value.duration ?? null,
         tables: value.tables ?? null
       };
 

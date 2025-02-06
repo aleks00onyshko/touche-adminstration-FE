@@ -3,8 +3,6 @@
 <mat-menu  #flterMenu="matMenu">
   <ng-container [formGroup]="filterTimeSlotForm">
     <section class="example-section" (click)="$event.stopPropagation()">
-      <app-duration-select [formControl]="controls.duration"></app-duration-select>
-
       <app-table-multiple-select-dropdown
         [formControl]="controls.tables"
         [tables]="tables"

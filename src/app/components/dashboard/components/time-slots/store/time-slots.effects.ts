@@ -122,14 +122,14 @@ export const createTimeSlot$ = createEffect(
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           lessonName: timeSlotCardControlValue.lessonName!,
           startTime: timeSlotCardControlValue.startTime,
-          duration: timeSlotCardControlValue.duration,
           locationId: currentLocation!.id,
           id,
           dateId: currentDateId!,
           teachersIds: [],
           booked: false,
           attendeeId: '',
-          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id)
+          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id),
+          peopleAmount: timeSlotCardControlValue.peopleAmount!
         };
 
         return from(
@@ -153,14 +153,14 @@ export const editTimeSlot$ = createEffect(
         const optimisticallyGeneratedTimeSlot: TimeSlot = {
           lessonName: timeSlotCardControlValue.lessonName!,
           startTime: timeSlotCardControlValue.startTime,
-          duration: timeSlotCardControlValue.duration,
           locationId: currentLocation!.id,
           id: initialTimeSlot.id,
           dateId: currentDateId!,
           teachersIds: [],
           booked: initialTimeSlot.booked,
           attendeeId: initialTimeSlot.attendeeId,
-          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id)
+          tableIds: (timeSlotCardControlValue.tables ?? []).map(table => table.id),
+          peopleAmount: timeSlotCardControlValue.peopleAmount!
         };
 
         return from(
@@ -260,10 +260,6 @@ function generateQueryFieldFilterConstraints(filter: FilterTimeSlotCardControlVa
 
   if (filter.booked !== null) {
     constrainsts.push(where('booked', '==', filter.booked));
-  }
-
-  if (filter.duration !== null) {
-    constrainsts.push(where('duration', '==', filter.duration));
   }
 
   if ((filter.tables ?? []).length > 0) {

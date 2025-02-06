@@ -1,9 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { selectDashboardState } from '../../../store/dashboard.selectors';
 import { DashboardState } from '../../../store/dashboard.reducer';
-import { TimeSlotCardControlValue } from '../components/time-slot/time-slot-card.component';
-import { timeSlotsOverlap } from '../utils/time-slots-sort';
-import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 
 export const selectTimeSlotsState = createSelector(selectDashboardState, (state: DashboardState) => state.timeSlots);
 
@@ -19,20 +16,6 @@ export const selectCurrentLocationTimeSlots = createSelector(
 );
 export const selectTables = createSelector(selectTimeSlotsState, state => state.tables);
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
-
-export const timeSlotHasTimeTurnerSyndrome = (
-  timeSlotCardValue: TimeSlotCardControlValue,
-  editedTimeSlotId: string = ''
-) =>
-  createSelector(selectTimeSlots, timeSlotsItems => {
-    const timeSlots = editedTimeSlotId
-      ? (timeSlotsItems ?? []).filter(timeSlot => timeSlot.id !== editedTimeSlotId)
-      : (timeSlotsItems ?? []);
-
-    return timeSlots.some(timeSLot => {
-      return timeSlotsOverlap(timeSLot, timeSlotCardValue as any as TimeSlot);
-    });
-  });
 
 export const selectSortedTimeSlots = createSelector(selectCurrentLocationTimeSlots, timeSlots => {
   return (

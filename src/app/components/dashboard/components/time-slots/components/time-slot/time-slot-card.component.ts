@@ -34,24 +34,20 @@ import { ReactiveComponent } from 'src/app/core/classes/reactive';
 import { takeUntil } from 'rxjs';
 import { timeSlotCardValidator } from './config/validators/time-slot.validator';
 import { TimeSlotCardValidationErrors, TimeSlotCardValidationErrorsEnum } from './config/validation.errors';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
-import { AvatarMultipleSelectDropdown } from '../../../../../../shared/components/avatar-multiple-select-dropdown/avatar-multiple-select-dropdown';
-import { DurationSelectComponent } from '../../../../../../shared/components/duration-select/duration-select.component';
-import { Avatar } from '../../../../../../shared/components/avatar/models/avatar';
-import { ConvertUsersToAvatarsPipe } from '../../../../../../shared/components/avatar/pipes/convert-users-to-avatar-configs.pipe';
 import { TableMultipleSelectDropdown } from '../../../../../../shared/components/table-multiple-select-dropdown/table-multiple-select-dropdown';
 import { Table } from '../../../../../../core/model/entities/table';
 
-export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime' | 'duration'> {
+export interface TimeSlotCardControlValue extends Pick<TimeSlot, 'startTime'> {
   tables: Table[] | null;
   lessonName: string | null;
+  peopleAmount: number | null;
 }
 export type TimeSlotCardControlStructure = {
   lessonName: FormControl<string | null>;
   startTime: FormControl<[number, number] | null>;
-  duration: FormControl<number | null>;
   tables: FormControl<Table[] | null>;
+  peopleAmount: FormControl<number | null>;
 };
 @Component({
   selector: 'app-time-slot-card',
@@ -70,8 +66,7 @@ export type TimeSlotCardControlStructure = {
     MatSelectModule,
     MatFormFieldModule,
     TranslateModule,
-    TableMultipleSelectDropdown,
-    DurationSelectComponent
+    TableMultipleSelectDropdown
   ],
   templateUrl: './time-slot-card.component.html',
   styleUrls: ['./time-slot-card.component.scss'],
@@ -97,16 +92,16 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
     {
       lessonName: new FormControl(null, [Validators.required]),
       startTime: new FormControl(null, [Validators.required]),
-      duration: new FormControl(null, [Validators.required]),
-      tables: new FormControl(null, [Validators.required])
+      tables: new FormControl(null, [Validators.required]),
+      peopleAmount: new FormControl(null, [Validators.required])
     },
     { validators: timeSlotCardValidator() }
   );
   public readonly controls: TimeSlotCardControlStructure = {
     lessonName: this.timeSlotForm.controls.lessonName,
     startTime: this.timeSlotForm.controls.startTime,
-    duration: this.timeSlotForm.controls.duration,
-    tables: this.timeSlotForm.controls.tables
+    tables: this.timeSlotForm.controls.tables,
+    peopleAmount: this.timeSlotForm.controls.peopleAmount
   };
   public errorsEnum: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
@@ -122,8 +117,8 @@ export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, 
       this.onChangeFn({
         lessonName: value.lessonName ?? '',
         startTime: value.startTime ?? [0, 0],
-        duration: value.duration ?? 15,
-        tables: value.tables ?? []
+        tables: value.tables ?? [],
+        peopleAmount: value.peopleAmount ?? 0
       });
     });
   }

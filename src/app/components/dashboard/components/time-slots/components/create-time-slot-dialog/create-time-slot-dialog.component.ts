@@ -4,9 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { TimeSlotCardControlValue, TimeSlotCardComponent } from '../time-slot/time-slot-card.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TranslateModule } from '@ngx-translate/core';
-import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { Store } from '@ngrx/store';
 import { TimeSlotCardValidationErrorsEnum } from '../time-slot/config/validation.errors';
@@ -33,15 +31,12 @@ import { Table } from '../../../../../../core/model/entities/table';
 })
 export class CreateTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
-    new FormControl<TimeSlotCardControlValue>(
-      {
-        lessonName: '',
-        startTime: this.dateManager.getCurrentStartTimeTuple(),
-        duration: 15,
-        tables: null
-      },
-      { asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store)] }
-    );
+    new FormControl<TimeSlotCardControlValue>({
+      lessonName: '',
+      startTime: this.dateManager.getCurrentStartTimeTuple(),
+      tables: null,
+      peopleAmount: null
+    });
   protected timeSlotCardErrors: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
   constructor(

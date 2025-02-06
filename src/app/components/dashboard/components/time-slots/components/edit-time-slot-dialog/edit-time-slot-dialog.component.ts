@@ -5,9 +5,7 @@ import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { Teacher } from 'src/app/core/model/entities/teacher';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
-import { timeSlotHasTimeTurnerSyndromeValidator } from '../time-slot/config/validators/time-turner-syndrome-async.validator';
 import { TimeSlotsState } from '../../store/time-slots.reducer';
 import { Store } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,9 +31,7 @@ import { Table } from '../../../../../../core/model/entities/table';
 })
 export class EditTimeSlotDialogComponent {
   public readonly timeSlotControl: FormControl<TimeSlotCardControlValue | null> =
-    new FormControl<TimeSlotCardControlValue>(this.generateTimeSlotControlData(this.dialogData), {
-      asyncValidators: [timeSlotHasTimeTurnerSyndromeValidator(this.store, this.dialogData.timeSlot.id)]
-    });
+    new FormControl<TimeSlotCardControlValue>(this.generateTimeSlotControlData(this.dialogData));
   protected timeSlotCardErrors: typeof TimeSlotCardValidationErrorsEnum = TimeSlotCardValidationErrorsEnum;
 
   constructor(
@@ -52,10 +48,10 @@ export class EditTimeSlotDialogComponent {
   private generateTimeSlotControlData(dialogData: EditTimeSlotDialogData): TimeSlotCardControlValue {
     const lessonName = dialogData.timeSlot.lessonName;
     const startTime = dialogData.timeSlot.startTime;
-    const duration = dialogData.timeSlot.duration;
     const tables = this.dialogData.tables.filter(table => this.dialogData.timeSlot.tableIds.includes(table.id));
+    const peopleAmount = dialogData.timeSlot.peopleAmount;
 
-    return { lessonName, startTime, duration, tables };
+    return { lessonName, startTime, tables, peopleAmount };
   }
 }
 
