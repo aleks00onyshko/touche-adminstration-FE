@@ -12,6 +12,7 @@
     <mat-form-field class="locations-dropdown">
       <mat-label>{{ 'DASHBOARD.TIME_SLOT.LOCATION' | translate }}</mat-label>
       <mat-select
+        [disabled]="true"
         (selectionChange)="locationSelected($event.value)"
         [value]="currentLocation$ | async"
         [compareWith]="compareLocations">

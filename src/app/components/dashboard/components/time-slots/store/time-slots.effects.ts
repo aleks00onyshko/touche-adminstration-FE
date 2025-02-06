@@ -84,6 +84,14 @@ export const getTables$ = createEffect(
       ofType(TimeSlotsActions.getTables),
       switchMap(() =>
         (collectionData(collection(firestore, `tables`)) as Observable<Table[]>).pipe(
+          map(tables => {
+            return tables.sort((a, b) => {
+              // Extract the numeric portion from labels like "Table 10"
+              const numA = parseInt(a.name.replace(/\D/g, ''), 10);
+              const numB = parseInt(b.name.replace(/\D/g, ''), 10);
+              return numA - numB; // ascending order
+            });
+          }),
           map(tables => TimeSlotsActions.getTablesSuccess({ tables })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTablesFailed({ error })))
         )
