@@ -15,6 +15,9 @@ export const selectCurrentLocationTimeSlots = createSelector(
   (location, timeSlots) => (timeSlots ?? []).filter(timeSlot => timeSlot.locationId === location?.id)
 );
 export const selectTables = createSelector(selectTimeSlotsState, state => state.tables);
+export const selectBookedTableIds = createSelector(selectTimeSlotsState, state =>
+  (state.timeSlots ?? []).map(timeSlot => timeSlot.tableIds).flat()
+);
 export const selectLocations = createSelector(selectTimeSlotsState, state => state.locations);
 
 export const selectSortedTimeSlots = createSelector(selectCurrentLocationTimeSlots, timeSlots => {
@@ -24,11 +27,7 @@ export const selectSortedTimeSlots = createSelector(selectCurrentLocationTimeSlo
       const [aHour, aMinute] = a.startTime;
       const [bHour, bMinute] = b.startTime;
 
-      if (aHour !== bHour) {
-        return aHour - bHour;
-      }
-
-      return aMinute - bMinute;
+      return aHour !== bHour ? aHour - bHour : aMinute - bMinute;
     })
   );
 });

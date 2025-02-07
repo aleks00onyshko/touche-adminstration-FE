@@ -38,6 +38,7 @@ import { Table } from '../../../core/model/entities/table';
 export class TableMultipleSelectDropdown extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
   @Input({ required: true }) public tables!: Table[];
   @Input({ required: true }) public label!: string;
+  @Input() public bookedTableIds: string[] = [];
 
   public control = new FormControl<Table[] | null>(null, [Validators.required]);
   public onTouchFn!: () => void;

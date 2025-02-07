@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Edit booking</h2>
 <mat-dialog-content class="mat-typography">
-  <app-time-slot-card [tables]="dialogData.tables" [formControl]="timeSlotControl"></app-time-slot-card>
+  <app-time-slot-card [tables]="dialogData.tables" [bookedTableIds]="dialogData.bookedTableIds" [formControl]="timeSlotControl"></app-time-slot-card>
   @if(timeSlotControl.hasError(timeSlotCardErrors.HAS_TIME_TURNER_SYNDROME)) {
   <mat-error class="time-slot_error">
     {{ 'DASHBOARD.CREATE_TIME_SLOT.TIME_SLOT_OVERLAPS_ERROR' | translate }}

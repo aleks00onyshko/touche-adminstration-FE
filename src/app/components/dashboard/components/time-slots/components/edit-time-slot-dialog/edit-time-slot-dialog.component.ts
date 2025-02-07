@@ -58,6 +58,7 @@ export class EditTimeSlotDialogComponent {
 export interface EditTimeSlotDialogData {
   timeSlot: TimeSlot;
   tables: Table[];
+  bookedTableIds: string[];
 }
 
 export interface EditTimeSlotDialogResponse {

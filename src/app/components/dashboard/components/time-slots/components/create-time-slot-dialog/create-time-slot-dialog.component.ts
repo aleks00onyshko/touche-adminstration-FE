@@ -53,6 +53,7 @@ export class CreateTimeSlotDialogComponent {
 
 export interface CreateTimeSlotDialogData {
   tables: Table[];
+  bookedTableIds: string[];
 }
 
 export interface CreateTimeSlotDialogResponse {

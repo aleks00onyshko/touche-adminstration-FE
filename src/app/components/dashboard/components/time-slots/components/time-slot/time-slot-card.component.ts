@@ -87,6 +87,7 @@ export type TimeSlotCardControlStructure = {
 })
 export class TimeSlotCardComponent extends ReactiveComponent implements OnInit, ControlValueAccessor, Validator {
   @Input({ required: true }) public tables!: Table[];
+  @Input() public bookedTableIds: string[] = [];
 
   public readonly timeSlotForm = new FormGroup<TimeSlotCardControlStructure>(
     {

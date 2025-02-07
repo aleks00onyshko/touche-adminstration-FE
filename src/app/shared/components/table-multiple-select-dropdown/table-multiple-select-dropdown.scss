@@ -1,3 +1,24 @@
-mat-form-field{
+.table-select {
+  mat-form-field{
     width: 100%;
-}       
+  }
+}
+
+.table_select_panel {
+  mat-option {
+    .mdc-list-item__primary-text {
+      width: 100% !important;
+
+      .table-select-table-item-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &_capacity {
+          font-size: 1rem;
+          color: orange;
+        }
+      }
+    }
+  }
+}

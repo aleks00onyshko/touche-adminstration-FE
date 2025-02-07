@@ -11,11 +11,12 @@ import {
   doc,
   query,
   setDoc,
-  where
+  where,
+  orderBy
 } from '@angular/fire/firestore';
 import { TimeSlotsActions } from './time-slots.actions';
 import { EMPTY, Observable, catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { selectCurrentDateId, selectCurrentLocation, selectTables } from './time-slots.selectors';
+import { selectBookedTableIds, selectCurrentDateId, selectCurrentLocation, selectTables } from './time-slots.selectors';
 import { TimeSlot } from 'src/app/core/model/entities/time-slot';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UUIDGeneratorService } from '../../../../../core/services/id-generator.service';
@@ -83,15 +84,9 @@ export const getTables$ = createEffect(
     actions$.pipe(
       ofType(TimeSlotsActions.getTables),
       switchMap(() =>
-        (collectionData(collection(firestore, `tables`)) as Observable<Table[]>).pipe(
-          map(tables => {
-            return tables.sort((a, b) => {
-              // Extract the numeric portion from labels like "Table 10"
-              const numA = parseInt(a.name.replace(/\D/g, ''), 10);
-              const numB = parseInt(b.name.replace(/\D/g, ''), 10);
-              return numA - numB; // ascending order
-            });
-          }),
+        (
+          collectionData(query(collection(firestore, `tables`), orderBy('capacity', 'desc'))) as Observable<Table[]>
+        ).pipe(
           map(tables => TimeSlotsActions.getTablesSuccess({ tables })),
           catchError((error: HttpErrorResponse) => of(TimeSlotsActions.getTablesFailed({ error })))
         )
@@ -205,11 +200,11 @@ export const openCreateTimeSlotDialog$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.openCreateTimeSlotDialog),
-      withLatestFrom(store.select(selectTables)),
-      switchMap(([_, tables]) => {
+      concatLatestFrom(() => [store.select(selectTables), store.select(selectBookedTableIds)]),
+      switchMap(([_, tables, bookedTableIds]) => {
         const dialogRef: MatDialogRef<CreateTimeSlotDialogComponent, CreateTimeSlotDialogResponse> = dialog.open(
           CreateTimeSlotDialogComponent,
-          { data: { tables }, width: '100% - 4rem' }
+          { data: { tables, bookedTableIds }, width: '100% - 4rem' }
         );
 
         return dialogRef.afterClosed().pipe(
@@ -230,11 +225,14 @@ export const openEditTimeSlotDialog$ = createEffect(
   (actions$ = inject(Actions), store = inject(Store), dialog = inject(MatDialog)) =>
     actions$.pipe(
       ofType(TimeSlotsActions.openEditTimeSlotDialog),
-      concatLatestFrom(() => store.select(selectTables)),
-      switchMap(([{ timeSlot }, tables]) => {
+      concatLatestFrom(() => [store.select(selectTables), store.select(selectBookedTableIds)]),
+      switchMap(([{ timeSlot }, tables, bookedTableIds]) => {
         const dialogRef: MatDialogRef<EditTimeSlotDialogComponent, EditTimeSlotDialogResponse> = dialog.open(
           EditTimeSlotDialogComponent,
-          { data: { timeSlot, tables }, width: '100% - 4rem' }
+          {
+            data: { timeSlot, tables, bookedTableIds: bookedTableIds.filter(id => !timeSlot.tableIds.includes(id)) },
+            width: '100% - 4rem'
+          }
         );
 
         return dialogRef.afterClosed().pipe(
